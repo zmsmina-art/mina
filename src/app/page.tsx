@@ -41,17 +41,17 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="w-72 h-72 mx-auto mb-4"
+            className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-[#8b5cf6]/20"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <Image
-              src="/crest.png"
+              src="/headshot.png"
               alt="Mina Mankarious"
-              width={288}
-              height={288}
-              className="w-full h-full object-contain"
+              width={192}
+              height={192}
+              className="w-full h-full object-cover scale-110"
               priority
             />
           </motion.div>
@@ -80,7 +80,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Engineering & Consulting
+            Marketing & Consulting
           </motion.p>
 
           <motion.div
@@ -142,7 +142,7 @@ export default function Home() {
             </motion.h2>
             <motion.div variants={fade} transition={{ duration: 0.5 }} className="space-y-5 text-[#b0b0c0] leading-relaxed">
               <p>
-                I&apos;m the <span className="text-white">Founder and CEO of Olunix</span>, an engineering and consulting firm
+                I&apos;m the <span className="text-white">Founder and CEO of Olunix</span>, a marketing and consulting firm
                 where I help businesses solve complex technical challenges and build practical, innovative solutions.
                 My approach is rooted in understanding client needs deeply, a skill I&apos;ve developed through experience
                 across sales, partnerships, and engineering.
@@ -203,7 +203,7 @@ export default function Home() {
                       <span className="text-[#6a6a7a] text-xs">Sep 2024 - Present</span>
                     </div>
                     <p className="text-[#8a8a9a] text-sm">
-                      Engineering & Consulting
+                      Marketing & Consulting
                     </p>
                   </div>
                 </div>
@@ -232,6 +232,30 @@ export default function Home() {
                     <p className="text-[#8a8a9a] text-sm">
                       Boardy Fellowship Fall 2025 · Expanding network and opportunities for Olunix
                     </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Hope Bible Church */}
+              <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a2e] p-2">
+                    <Image
+                      src="/hope-logo.webp"
+                      alt="Hope Bible Church"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="font-semibold text-lg">Intern</h3>
+                        <p className="text-[#8b5cf6] text-sm">Hope Bible Church</p>
+                      </div>
+                      <span className="text-[#6a6a7a] text-xs">Sep 2024 - Present</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
