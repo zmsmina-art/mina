@@ -37,4 +37,5 @@ next-env.d.ts
 # Source images (processed versions are in /public)
 *.png
 !public/*.png
+!src/app/apple-icon.png
 

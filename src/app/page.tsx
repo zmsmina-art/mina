@@ -34,7 +34,7 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="min-h-screen flex flex-col items-center justify-center px-6">
+      <section className="min-h-screen flex flex-col items-center justify-start pt-32 md:justify-center md:pt-0 px-6">
         <motion.div
           className="text-center"
           initial={{ opacity: 0 }}
