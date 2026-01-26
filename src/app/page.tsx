@@ -209,30 +209,93 @@ export default function Home() {
 
               {/* Boardy */}
               <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="font-semibold text-lg">Deal Partner</h3>
-                    <p className="text-[#8b5cf6] text-sm">Boardy</p>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                    <Image
+                      src="/boardy-logo.png"
+                      alt="Boardy"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <span className="text-[#6a6a7a] text-xs">Jan 2026 - Present</span>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="font-semibold text-lg">Deal Partner</h3>
+                        <p className="text-[#8b5cf6] text-sm">Boardy</p>
+                      </div>
+                      <span className="text-[#6a6a7a] text-xs">Jan 2026 - Present</span>
+                    </div>
+                    <p className="text-[#8a8a9a] text-sm">
+                      Boardy Fellowship Fall 2025 · Expanding network and opportunities for Olunix
+                    </p>
+                  </div>
                 </div>
-                <p className="text-[#8a8a9a] text-sm">
-                  Boardy Fellowship Fall 2025 · Expanding network and opportunities for Olunix
-                </p>
               </motion.div>
+
+              {/* Habits Together */}
+              <motion.a
+                href="https://habitstogether.app/"
+                target="_blank"
+                variants={fade}
+                transition={{ duration: 0.5 }}
+                className="glass rounded-xl p-5 block group"
+              >
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a1a]">
+                    <Image
+                      src="/habits-together-logo.png"
+                      alt="Habits Together"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Habits Together</h3>
+                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors" />
+                      </div>
+                      <span className="text-[#6a6a7a] text-xs">Summer 2024</span>
+                    </div>
+                    <p className="text-[#8a8a9a] text-sm leading-relaxed">
+                      A habit tracking app that helps you and your friends stay accountable and motivated to reach your goals. Built with a team of developers as an open-source project.
+                    </p>
+                    <div className="flex gap-2 mt-3">
+                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Mobile App</span>
+                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Open Source</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.a>
 
               {/* Milton Toyota */}
               <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="font-semibold text-lg">Customer Service Attendant</h3>
-                    <p className="text-[#8b5cf6] text-sm">Milton Toyota</p>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white p-1.5">
+                    <Image
+                      src="/toyota-logo.png"
+                      alt="Toyota"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
-                  <span className="text-[#6a6a7a] text-xs">Aug 2022 - Aug 2024</span>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="font-semibold text-lg">Customer Service Attendant</h3>
+                        <p className="text-[#8b5cf6] text-sm">Milton Toyota</p>
+                      </div>
+                      <span className="text-[#6a6a7a] text-xs">Aug 2022 - Aug 2024</span>
+                    </div>
+                    <p className="text-[#8a8a9a] text-sm">
+                      2+ years in automotive customer service
+                    </p>
+                  </div>
                 </div>
-                <p className="text-[#8a8a9a] text-sm">
-                  2+ years in automotive customer service
-                </p>
               </motion.div>
             </div>
           </motion.div>
@@ -256,8 +319,14 @@ export default function Home() {
 
             <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-6">
               <div className="flex items-start gap-5">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#8b0000] to-[#5c0000] rounded-lg flex items-center justify-center text-lg font-bold flex-shrink-0">
-                  M
+                <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                  <Image
+                    src="/mcmaster-logo.png"
+                    alt="McMaster University"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">McMaster University</h3>
