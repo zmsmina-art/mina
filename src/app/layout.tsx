@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/headshot.png",
-        width: 400,
-        height: 400,
+        width: 799,
+        height: 799,
         alt: "Mina Mankarious",
       },
     ],
