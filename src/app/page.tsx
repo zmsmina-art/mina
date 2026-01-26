@@ -21,7 +21,9 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050507]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="text-lg font-semibold tracking-tight">MM</span>
+          <span className="text-2xl italic font-light tracking-wide cursor-pointer logo-glow">
+            <span className="text-[#8b5cf6]">m</span><span className="text-white">m</span><span className="text-[#8b5cf6] text-sm ml-0.5">.</span>
+          </span>
           <div className="flex gap-8 text-sm">
             <a href="#about" className="text-[#8a8a9a] hover:text-white">About</a>
             <a href="#experience" className="text-[#8a8a9a] hover:text-white">Experience</a>
