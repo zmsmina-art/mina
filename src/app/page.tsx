@@ -28,6 +28,7 @@ export default function Home() {
             <a href="#about" className="text-[#8a8a9a] hover:text-white">About</a>
             <a href="#experience" className="text-[#8a8a9a] hover:text-white">Experience</a>
             <a href="#education" className="text-[#8a8a9a] hover:text-white">Education</a>
+            <a href="#contact" className="text-[#8a8a9a] hover:text-white">Contact</a>
           </div>
         </div>
       </nav>
@@ -364,6 +365,35 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="divider max-w-3xl mx-auto" />
+
+      {/* Contact */}
+      <section id="contact" className="py-28 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ staggerChildren: 0.1 }}
+          >
+            <motion.h2 variants={fade} transition={{ duration: 0.5 }} className="text-2xl font-bold mb-10">
+              Contact
+            </motion.h2>
+            <motion.a
+              href="mailto:mina@olunix.com"
+              variants={fade}
+              transition={{ duration: 0.5 }}
+              className="glass rounded-xl p-6 block group"
+            >
+              <p className="text-[#6a6a7a] text-sm mb-2">Email</p>
+              <p className="text-lg text-white group-hover:text-[#8b5cf6] transition-colors">
+                mina@olunix.com
+              </p>
+            </motion.a>
           </motion.div>
         </div>
       </section>
