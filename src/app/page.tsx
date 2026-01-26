@@ -195,12 +195,12 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex justify-between items-start mb-3">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
                       <div>
                         <h3 className="font-semibold text-lg">Founder & CEO</h3>
                         <p className="text-[#8b5cf6] text-sm">Olunix</p>
                       </div>
-                      <span className="text-[#6a6a7a] text-xs">Sep 2024 - Present</span>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Sep 2024 - Present</span>
                     </div>
                     <p className="text-[#8a8a9a] text-sm">
                       Marketing & Consulting
@@ -222,12 +222,12 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex justify-between items-start mb-3">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
                       <div>
                         <h3 className="font-semibold text-lg">Deal Partner</h3>
                         <p className="text-[#8b5cf6] text-sm">Boardy</p>
                       </div>
-                      <span className="text-[#6a6a7a] text-xs">Jan 2026 - Present</span>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Jan 2026 - Present</span>
                     </div>
                     <p className="text-[#8a8a9a] text-sm">
                       Boardy Fellowship Fall 2025 · Expanding network and opportunities for Olunix
@@ -249,12 +249,12 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex justify-between items-start mb-3">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
                       <div>
                         <h3 className="font-semibold text-lg">Intern</h3>
                         <p className="text-[#8b5cf6] text-sm">Hope Bible Church</p>
                       </div>
-                      <span className="text-[#6a6a7a] text-xs">Sep 2024 - Present</span>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Sep 2024 - Present</span>
                     </div>
                   </div>
                 </div>
@@ -279,12 +279,12 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex justify-between items-start mb-3">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
                       <div className="flex items-center gap-2">
                         <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Habits Together</h3>
-                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors" />
+                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
                       </div>
-                      <span className="text-[#6a6a7a] text-xs">Summer 2024</span>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Summer 2024</span>
                     </div>
                     <p className="text-[#8a8a9a] text-sm leading-relaxed">
                       A habit tracking app that helps you and your friends stay accountable and motivated to reach your goals. Built with a team of developers as an open-source project.
@@ -310,12 +310,12 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex justify-between items-start mb-3">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
                       <div>
                         <h3 className="font-semibold text-lg">Customer Service Attendant</h3>
                         <p className="text-[#8b5cf6] text-sm">Milton Toyota</p>
                       </div>
-                      <span className="text-[#6a6a7a] text-xs">Aug 2022 - Aug 2024</span>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Aug 2022 - Aug 2024</span>
                     </div>
                     <p className="text-[#8a8a9a] text-sm">
                       2+ years in automotive customer service
