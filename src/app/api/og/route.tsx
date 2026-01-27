@@ -70,14 +70,33 @@ export async function GET() {
           <div
             style={{
               marginTop: 40,
-              fontSize: 20,
-              color: '#8b5cf6',
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
+              gap: 20,
             }}
           >
-            minamankarious.com
+            <div
+              style={{
+                display: 'flex',
+                backgroundColor: '#8b5cf6',
+                color: '#fff',
+                padding: '12px 24px',
+                borderRadius: 8,
+                fontSize: 20,
+                fontWeight: 600,
+              }}
+            >
+              Let's Connect
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                fontSize: 18,
+                color: '#6a6a7a',
+              }}
+            >
+              minamankarious.com
+            </div>
           </div>
         </div>
 
