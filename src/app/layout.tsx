@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/headshot.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 1200,
         alt: "Mina Mankarious",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Mina Mankarious | Founder & CEO of Olunix",
     description: "Founder & CEO of Olunix - Marketing & Consulting. McMaster University.",
-    images: ["/headshot.png"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -62,7 +62,7 @@ export default function RootLayout({
     "@type": "Person",
     name: "Mina Mankarious",
     url: "https://minamankarious.com",
-    image: "https://minamankarious.com/headshot.png",
+    image: "https://minamankarious.com/og-image.jpg",
     jobTitle: "Founder & CEO",
     worksFor: {
       "@type": "Organization",
