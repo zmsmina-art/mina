@@ -117,58 +117,132 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  // Main Person schema for Google People Card
+  const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": "https://minamankarious.com/#person",
     name: "Mina Mankarious",
     givenName: "Mina",
     familyName: "Mankarious",
+    alternateName: ["Mina M.", "Mina Mankarious"],
     url: "https://minamankarious.com",
+    mainEntityOfPage: "https://minamankarious.com",
     image: {
       "@type": "ImageObject",
+      "@id": "https://minamankarious.com/#primaryimage",
       url: "https://minamankarious.com/headshot.jpg",
+      contentUrl: "https://minamankarious.com/headshot.jpg",
       width: 799,
       height: 799,
       caption: "Mina Mankarious - Founder & CEO of Olunix",
     },
     jobTitle: "Founder & CEO",
-    description: "Founder & CEO of Olunix, a marketing and consulting firm. Final year Automotive Engineering Technology student at McMaster University.",
+    description: "Mina Mankarious is the Founder and CEO of Olunix, a marketing and consulting firm based in Toronto, Canada. He is a final year Automotive Engineering Technology student at McMaster University with expertise in business development, marketing strategy, and entrepreneurship.",
     worksFor: {
       "@type": "Organization",
       "@id": "https://olunix.com/#organization",
       name: "Olunix",
+      legalName: "Olunix",
       url: "https://olunix.com",
-      description: "Marketing & Consulting",
-    },
-    alumniOf: {
-      "@type": "EducationalOrganization",
-      name: "McMaster University",
-      url: "https://www.mcmaster.ca",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Hamilton",
-        addressRegion: "Ontario",
-        addressCountry: "CA",
+      description: "Marketing & Consulting Firm",
+      foundingDate: "2024-09",
+      founder: {
+        "@id": "https://minamankarious.com/#person",
       },
     },
+    alumniOf: [
+      {
+        "@type": "EducationalOrganization",
+        name: "McMaster University",
+        url: "https://www.mcmaster.ca",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Hamilton",
+          addressRegion: "Ontario",
+          addressCountry: "CA",
+        },
+      },
+    ],
+    memberOf: [
+      {
+        "@type": "Organization",
+        name: "Boardy",
+        description: "Professional networking platform",
+      },
+    ],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Toronto",
       addressRegion: "Ontario",
       addressCountry: "CA",
     },
+    nationality: {
+      "@type": "Country",
+      name: "Canada",
+    },
     email: "mina@olunix.com",
     knowsAbout: [
-      "Marketing",
+      "Marketing Strategy",
       "Business Consulting",
       "Automotive Engineering",
       "Entrepreneurship",
+      "Sales",
+      "Business Development",
+      "Customer Relations",
     ],
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Entrepreneur",
+      occupationLocation: {
+        "@type": "City",
+        name: "Toronto",
+      },
+      description: "Founder and CEO of marketing and consulting firm",
+    },
     sameAs: [
       "https://linkedin.com/in/mina-mankarious",
       "https://olunix.com",
+      "https://www.linkedin.com/in/mina-mankarious",
     ],
+  };
+
+  // WebSite schema for site identity
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://minamankarious.com/#website",
+    url: "https://minamankarious.com",
+    name: "Mina Mankarious",
+    description: "Official website of Mina Mankarious - Founder & CEO of Olunix",
+    publisher: {
+      "@id": "https://minamankarious.com/#person",
+    },
+    inLanguage: "en-US",
+  };
+
+  // ProfilePage schema for the main page
+  const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://minamankarious.com/#profilepage",
+    url: "https://minamankarious.com",
+    name: "Mina Mankarious - Portfolio",
+    description: "Professional portfolio and about page for Mina Mankarious",
+    mainEntity: {
+      "@id": "https://minamankarious.com/#person",
+    },
+    dateCreated: "2024-09-01",
+    dateModified: new Date().toISOString().split('T')[0],
+    isPartOf: {
+      "@id": "https://minamankarious.com/#website",
+    },
+  };
+
+  // Combined schema graph
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [personSchema, websiteSchema, profilePageSchema],
   };
 
   return (
