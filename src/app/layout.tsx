@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://minamankarious.com",
   },
+  manifest: "/manifest.json",
   title: "Mina Mankarious | Founder & CEO of Olunix",
+  applicationName: "Mina Mankarious",
   description: "Founder & CEO of Olunix - Marketing & Consulting. Final year Automotive Engineering Technology student at McMaster University. Toronto, Canada.",
   keywords: ["Mina Mankarious", "Olunix", "Marketing", "Consulting", "McMaster University", "Toronto", "Boardy", "Hope Bible Church"],
   authors: [{ name: "Mina Mankarious" }],

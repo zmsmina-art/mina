@@ -1,0 +1,21 @@
+{
+  "name": "Mina Mankarious | Founder & CEO of Olunix",
+  "short_name": "Mina Mankarious",
+  "description": "Founder & CEO of Olunix - Marketing & Consulting",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    {
+      "src": "/headshot.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/headshot.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
