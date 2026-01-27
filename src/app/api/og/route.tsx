@@ -86,7 +86,7 @@ export async function GET() {
                 fontWeight: 600,
               }}
             >
-              Let's Connect
+              Let&apos;s Connect
             </div>
             <div
               style={{
@@ -108,8 +108,10 @@ export async function GET() {
             justifyContent: 'center',
           }}
         >
+{/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={headshotUrl}
+            alt="Mina Mankarious"
             width={380}
             height={380}
             style={{
