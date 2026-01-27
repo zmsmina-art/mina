@@ -91,11 +91,12 @@ export async function GET() {
         >
           <img
             src={headshotUrl}
-            width={400}
-            height={400}
+            width={380}
+            height={380}
             style={{
               borderRadius: '50%',
               border: '4px solid rgba(139, 92, 246, 0.3)',
+              objectFit: 'cover',
             }}
           />
         </div>
