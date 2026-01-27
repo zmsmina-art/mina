@@ -324,6 +324,33 @@ export default function Home() {
                   </div>
                 </div>
               </motion.div>
+
+              {/* ZMS Media */}
+              <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                    <Image
+                      src="/zms-logo.svg"
+                      alt="ZMS Media"
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
+                      <div>
+                        <h3 className="font-semibold text-lg">Founder & CEO</h3>
+                        <p className="text-[#8b5cf6] text-sm">ZMS Media</p>
+                      </div>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">2018 - 2021</span>
+                    </div>
+                    <p className="text-[#8a8a9a] text-sm">
+                      Marketing
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
