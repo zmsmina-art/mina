@@ -211,7 +211,13 @@ export default function Home() {
               </motion.div>
 
               {/* Boardy */}
-              <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
+              <motion.a
+                href="https://boardy.ai"
+                target="_blank"
+                variants={fade}
+                transition={{ duration: 0.5 }}
+                className="glass rounded-xl p-5 block group"
+              >
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                     <Image
@@ -224,18 +230,21 @@ export default function Home() {
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div>
-                        <h3 className="font-semibold text-lg">Deal Partner</h3>
-                        <p className="text-[#8b5cf6] text-sm">Boardy</p>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Deal Partner</h3>
+                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
                       </div>
                       <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Jan 2026 - Present</span>
                     </div>
-                    <p className="text-[#8a8a9a] text-sm">
+                    <div>
+                      <p className="text-[#8b5cf6] text-sm">Boardy</p>
+                    </div>
+                    <p className="text-[#8a8a9a] text-sm mt-2">
                       Boardy Fellowship Fall 2025 · Expanding network and opportunities for Olunix
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
 
               {/* Hope Bible Church */}
               <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
