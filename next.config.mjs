@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/tasks/:path*",
-        destination: "https://mina-tasks.vercel.app/:path*",
+        destination: "https://mina-tasks.vercel.app/tasks/:path*",
       },
     ];
   },
