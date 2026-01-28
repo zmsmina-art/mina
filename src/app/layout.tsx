@@ -55,18 +55,11 @@ export const metadata: Metadata = {
     type: "profile",
     images: [
       {
-        url: "/api/og",
+        url: "/og.png",
         width: 1200,
         height: 630,
         alt: "Mina Mankarious - Founder & CEO of Olunix | Marketing & Consulting",
         type: "image/png",
-      },
-      {
-        url: "/headshot.jpg",
-        width: 799,
-        height: 799,
-        alt: "Mina Mankarious headshot",
-        type: "image/jpeg",
       },
     ],
   },
@@ -76,7 +69,7 @@ export const metadata: Metadata = {
     description: "Founder & CEO of Olunix - Marketing & Consulting. Let's connect!",
     images: [
       {
-        url: "/api/og",
+        url: "/og.png",
         alt: "Mina Mankarious - Founder & CEO of Olunix",
       },
     ],
