@@ -88,13 +88,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "192x192", type: "image/png" },
-    ],
+    icon: "/apple-icon.png",
+    apple: "/apple-icon.png",
   },
   verification: {
     google: "google-site-verification-code",
