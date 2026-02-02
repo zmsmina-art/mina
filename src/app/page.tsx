@@ -394,7 +394,13 @@ export default function Home() {
               Education
             </motion.h2>
 
-            <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-6">
+            <motion.a
+              href="https://mcmaster.ca"
+              target="_blank"
+              variants={fade}
+              transition={{ duration: 0.5 }}
+              className="glass rounded-xl p-6 block group"
+            >
               <div className="flex items-start gap-5">
                 <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                   <Image
@@ -406,7 +412,10 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-1">McMaster University</h3>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">McMaster University</h3>
+                    <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
+                  </div>
                   <p className="text-[#8b5cf6] text-sm mb-3">Automotive Engineering Technology</p>
                   <p className="text-[#8a8a9a] text-sm">
                     Final year · Combining mechanical engineering principles with automotive systems
@@ -414,7 +423,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           </motion.div>
         </div>
       </section>
