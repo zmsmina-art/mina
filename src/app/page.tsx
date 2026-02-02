@@ -247,7 +247,13 @@ export default function Home() {
               </motion.a>
 
               {/* Hope Bible Church */}
-              <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
+              <motion.a
+                href="https://hopeoakville.ca"
+                target="_blank"
+                variants={fade}
+                transition={{ duration: 0.5 }}
+                className="glass rounded-xl p-5 block group"
+              >
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a2e] p-2">
                     <Image
@@ -260,15 +266,16 @@ export default function Home() {
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div>
-                        <h3 className="font-semibold text-lg">Intern</h3>
-                        <p className="text-[#8b5cf6] text-sm">Hope Bible Church</p>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Intern</h3>
+                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
                       </div>
                       <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Sep 2024 - Present</span>
                     </div>
+                    <p className="text-[#8b5cf6] text-sm">Hope Bible Church</p>
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
 
               {/* Habits Together */}
               <motion.a
@@ -308,7 +315,13 @@ export default function Home() {
               </motion.a>
 
               {/* Milton Toyota */}
-              <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
+              <motion.a
+                href="https://miltontoyota.com"
+                target="_blank"
+                variants={fade}
+                transition={{ duration: 0.5 }}
+                className="glass rounded-xl p-5 block group"
+              >
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white p-1.5">
                     <Image
@@ -321,18 +334,19 @@ export default function Home() {
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div>
-                        <h3 className="font-semibold text-lg">Customer Service Attendant</h3>
-                        <p className="text-[#8b5cf6] text-sm">Milton Toyota</p>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Customer Service Attendant</h3>
+                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
                       </div>
                       <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Aug 2022 - Aug 2024</span>
                     </div>
-                    <p className="text-[#8a8a9a] text-sm">
+                    <p className="text-[#8b5cf6] text-sm">Milton Toyota</p>
+                    <p className="text-[#8a8a9a] text-sm mt-2">
                       2+ years in automotive customer service
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
 
               {/* ZMS Media */}
               <motion.div variants={fade} transition={{ duration: 0.5 }} className="glass rounded-xl p-5">
