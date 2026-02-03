@@ -92,7 +92,7 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   verification: {
-    google: "google-site-verification-code",
+    google: "rZIuYERXXV18304PIGZJZUQ1C9Re4szYlDOskfurCxY",
   },
   other: {
     "msapplication-TileColor": "#8b5cf6",
