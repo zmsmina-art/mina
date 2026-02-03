@@ -195,6 +195,7 @@ export default function RootLayout({
       "https://twitter.com/minamankrious",
       "https://x.com/minamankrious",
       "https://olunix.com",
+      "https://www.wikidata.org/wiki/Q138001904",
     ],
   };
 
