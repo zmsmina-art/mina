@@ -73,7 +73,7 @@ export const metadata: Metadata = {
         alt: "Mina Mankarious - Founder & CEO of Olunix",
       },
     ],
-    creator: "@minamankarious",
+    creator: "@minamankrious",
   },
   robots: {
     index: true,
@@ -172,6 +172,7 @@ export default function RootLayout({
     email: "mina@olunix.com",
     knowsAbout: [
       "Marketing Strategy",
+      "UI/UX Design",
       "Business Consulting",
       "Automotive Engineering",
       "Entrepreneurship",
@@ -190,8 +191,10 @@ export default function RootLayout({
     },
     sameAs: [
       "https://linkedin.com/in/mina-mankarious",
-      "https://olunix.com",
       "https://www.linkedin.com/in/mina-mankarious",
+      "https://twitter.com/minamankrious",
+      "https://x.com/minamankrious",
+      "https://olunix.com",
     ],
   };
 
@@ -220,8 +223,8 @@ export default function RootLayout({
     mainEntity: {
       "@id": "https://minamankarious.com/#person",
     },
-    dateCreated: "2024-09-01",
-    dateModified: new Date().toISOString().split('T')[0],
+    dateCreated: "2024-09-01T00:00:00+00:00",
+    dateModified: new Date().toISOString(),
     isPartOf: {
       "@id": "https://minamankarious.com/#website",
     },
