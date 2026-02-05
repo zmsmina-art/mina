@@ -122,14 +122,6 @@ export default function Home() {
               <LinkedInIcon size={16} />
               LinkedIn
             </a>
-            <a
-              href="https://x.com/minamankrious"
-              target="_blank"
-              className="btn-secondary px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2"
-            >
-              <XIcon size={16} />
-              X
-            </a>
           </motion.div>
         </motion.div>
 
@@ -481,7 +473,7 @@ export default function Home() {
             <a href="https://linkedin.com/in/mina-mankarious" target="_blank" className="text-[#5a5a6a] hover:text-[#8b5cf6]">
               <LinkedInIcon size={18} />
             </a>
-            <a href="https://x.com/minamankrious" target="_blank" className="text-[#5a5a6a] hover:text-[#8b5cf6]">
+            <a href="https://x.com/minamnkarious" target="_blank" className="text-[#5a5a6a] hover:text-[#8b5cf6]">
               <XIcon size={18} />
             </a>
             <a href="https://olunix.com" target="_blank" className="text-[#5a5a6a] hover:text-[#8b5cf6]">
