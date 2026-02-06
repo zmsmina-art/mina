@@ -152,8 +152,10 @@ export default function RootLayout({
         url: "https://www.mcmaster.ca",
         address: {
           "@type": "PostalAddress",
+          streetAddress: "1280 Main Street West",
           addressLocality: "Hamilton",
           addressRegion: "Ontario",
+          postalCode: "L8S 4L8",
           addressCountry: "CA",
         },
       },
