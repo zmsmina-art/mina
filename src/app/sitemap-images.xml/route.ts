@@ -28,11 +28,27 @@ ${homepageImages
   .join("\n")}
   </url>`;
 
+  // Map article slugs to their inline images for the image sitemap
+  const articleImages: Record<string, string[]> = {
+    "hi-im-mina": [
+      "/mina-mankarious-headshot.png",
+      "/mcmaster-university-crest.png",
+      "/growbyte-media-logo.png",
+      "/olunix-logo-full.png",
+    ],
+  };
+
   const articleEntries = articles
     .map(
       (article) => `  <url>
     <loc>${baseUrl}/articles/${article.slug}</loc>
     <image:image><image:loc>${baseUrl}/api/og?title=${encodeURIComponent(article.title)}&amp;excerpt=${encodeURIComponent(article.excerpt)}</image:loc></image:image>
+${(articleImages[article.slug] || [])
+  .map(
+    (p) =>
+      `    <image:image><image:loc>${baseUrl}${p}</image:loc></image:image>`
+  )
+  .join("\n")}
   </url>`
     )
     .join("\n");

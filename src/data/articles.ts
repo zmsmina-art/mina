@@ -16,6 +16,8 @@ export const articles: Article[] = [
     excerpt:
       "From Egypt to Canada, from engineering to marketing, and everything in between \u2014 the story of how curiosity, hustle, and a refusal to cut corners led to building Olunix.",
     content: `
+<img src="/mina-mankarious-headshot.png" alt="Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student" width="280" style="border-radius:12px;float:right;margin:0 0 20px 24px;" />
+
 It's great to have you here, and I'm genuinely grateful you took a second to look around my website. I'm not entirely sure what this article section will look like down the line. Maybe it becomes a place where I share what I'm learning, maybe it turns into something completely different. But for now, I figured the best place to start is with a bit about who I am, how I got here, and why I'm writing any of this in the first place.
 
 ## Born in Egypt. Raised in Canada. Built by Curiosity.
@@ -38,6 +40,8 @@ That period taught me more than any textbook ever could.
 
 ## Engineering Meets Marketing
 
+<img src="/mcmaster-university-crest.png" alt="McMaster University crest - where Mina Mankarious studied Automotive Engineering Technology" width="120" style="border-radius:8px;float:left;margin:0 20px 16px 0;" />
+
 I went on to study Automotive Engineering Technology at McMaster University, and I know that might seem like a left turn from marketing. But to me, it was always part of the same thread. Engineering taught me how to think in systems. How to be precise. How to solve problems methodically. Marketing, on the other hand, taught me how to think about people. How to communicate. How to create value that someone actually *feels*.
 
 The intersection of those two things is where I do my best work.
@@ -52,7 +56,13 @@ It took us a while to figure out what that actually meant. It meant saying no to
 
 But it has been worth it.
 
-We started as GrowByte Media, working with automotive dealerships and dental offices, learning the ins and outs of industries that most marketers overlook. Over time, as our approach matured and our clients evolved, we rebranded to **Olunix** \u2014 a name that better reflects who we are today: not just a marketing agency, but a consulting and growth partner.
+We started as GrowByte Media, working with automotive dealerships and dental offices, learning the ins and outs of industries that most marketers overlook.
+
+<img src="/growbyte-media-logo.png" alt="GrowByte Media logo - the original name of Olunix, Mina Mankarious's marketing agency" style="max-width:320px;margin:20px auto;display:block;border-radius:8px;" />
+
+Over time, as our approach matured and our clients evolved, we rebranded to **Olunix** \u2014 a name that better reflects who we are today: not just a marketing agency, but a consulting and growth partner.
+
+<img src="/olunix-logo-full.png" alt="Olunix logo - marketing and consulting firm founded by Mina Mankarious in Toronto" style="max-width:280px;margin:20px auto;display:block;" />
 
 Today, we work predominantly with AI startups. The companies we partner with are building the future, and our job is to help them get the right message in front of the right people at the right time. It's strategic. It's technical. And it's deeply human.
 
@@ -67,7 +77,7 @@ If you've made it this far, thank you. Stick around \u2014 there's more to come.
 *\u2014 MM*
     `,
     publishedAt: "2026-02-05",
-    updatedAt: "2026-02-05",
+    updatedAt: "2026-02-06",
     readingTime: "5 min read",
     tags: ["Personal", "Entrepreneurship", "Marketing"],
   },
