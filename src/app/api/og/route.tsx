@@ -1,8 +1,99 @@
 import { ImageResponse } from '@vercel/og';
+import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const title = searchParams.get('title');
+  const excerpt = searchParams.get('excerpt');
+
+  // If title is provided, render an article-specific OG image
+  if (title) {
+    return new ImageResponse(
+      (
+        <div
+          style={{
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            backgroundColor: '#050507',
+            padding: '60px 80px',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div
+              style={{
+                fontSize: 56,
+                fontWeight: 700,
+                color: '#f0f0f5',
+                lineHeight: 1.2,
+                display: 'flex',
+              }}
+            >
+              {title}
+            </div>
+            {excerpt && (
+              <div
+                style={{
+                  fontSize: 24,
+                  color: '#6a6a7a',
+                  marginTop: 24,
+                  lineHeight: 1.5,
+                  display: 'flex',
+                  maxWidth: '900px',
+                }}
+              >
+                {excerpt.length > 140 ? excerpt.slice(0, 140) + '...' : excerpt}
+              </div>
+            )}
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '50%',
+                  backgroundColor: '#8b5cf6',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: '#fff',
+                }}
+              >
+                M
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ fontSize: 20, fontWeight: 600, color: '#f0f0f5', display: 'flex' }}>
+                  Mina Mankarious
+                </div>
+                <div style={{ fontSize: 16, color: '#8b5cf6', display: 'flex' }}>
+                  minamankarious.com
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      {
+        width: 1200,
+        height: 630,
+      }
+    );
+  }
+
+  // Default: generic portfolio OG image
   const headshotUrl = 'https://minamankarious.com/headshot.png';
 
   return new ImageResponse(

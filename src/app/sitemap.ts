@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `https://minamankarious.com/articles/${article.slug}`,
-    lastModified: new Date(article.publishedAt),
+    lastModified: new Date(article.updatedAt),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

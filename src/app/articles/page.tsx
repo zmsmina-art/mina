@@ -26,5 +26,45 @@ export const metadata: Metadata = {
 
 export default function ArticlesPage() {
   const articles = getAllArticlesSorted();
-  return <ArticlesPageClient articles={articles} />;
+
+  const blogJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': 'https://minamankarious.com/articles/#blog',
+    name: 'Articles | Mina Mankarious',
+    description:
+      'Thoughts on entrepreneurship, marketing, consulting, and building businesses.',
+    url: 'https://minamankarious.com/articles',
+    publisher: {
+      '@type': 'Person',
+      '@id': 'https://minamankarious.com/#person',
+      name: 'Mina Mankarious',
+    },
+    isPartOf: {
+      '@id': 'https://minamankarious.com/#website',
+    },
+    blogPost: articles.map((article) => ({
+      '@type': 'BlogPosting',
+      headline: article.title,
+      description: article.excerpt,
+      url: `https://minamankarious.com/articles/${article.slug}`,
+      datePublished: article.publishedAt,
+      dateModified: article.updatedAt,
+      author: {
+        '@type': 'Person',
+        '@id': 'https://minamankarious.com/#person',
+        name: 'Mina Mankarious',
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
+      <ArticlesPageClient articles={articles} />
+    </>
+  );
 }

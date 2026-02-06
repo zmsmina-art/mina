@@ -4,6 +4,7 @@ export interface Article {
   excerpt: string;
   content: string;
   publishedAt: string;
+  updatedAt: string;
   readingTime: string;
   tags: string[];
 }
@@ -66,6 +67,7 @@ If you've made it this far, thank you. Stick around \u2014 there's more to come.
 *\u2014 MM*
     `,
     publishedAt: "2026-02-05",
+    updatedAt: "2026-02-05",
     readingTime: "5 min read",
     tags: ["Personal", "Entrepreneurship", "Marketing"],
   },

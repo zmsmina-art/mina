@@ -1,6 +1,8 @@
+import { getAllArticlesSorted } from "@/data/articles";
+
 const baseUrl = "https://minamankarious.com";
 
-const images = [
+const homepageImages = [
   "/headshot.png",
   "/headshot.jpg",
   "/og-image.jpg",
@@ -14,20 +16,32 @@ const images = [
 ];
 
 export async function GET() {
-  const url = `${baseUrl}/`;
+  const articles = getAllArticlesSorted();
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url>
-    <loc>${url}</loc>
-${images
+  const homepageEntry = `  <url>
+    <loc>${baseUrl}/</loc>
+${homepageImages
   .map(
     (p) =>
       `    <image:image><image:loc>${baseUrl}${p}</image:loc></image:image>`
   )
   .join("\n")}
-  </url>
+  </url>`;
+
+  const articleEntries = articles
+    .map(
+      (article) => `  <url>
+    <loc>${baseUrl}/articles/${article.slug}</loc>
+    <image:image><image:loc>${baseUrl}/api/og?title=${encodeURIComponent(article.title)}&amp;excerpt=${encodeURIComponent(article.excerpt)}</image:loc></image:image>
+  </url>`
+    )
+    .join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${homepageEntry}
+${articleEntries}
 </urlset>
 `;
 

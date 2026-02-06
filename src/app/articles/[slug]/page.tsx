@@ -19,6 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Article Not Found' };
   }
 
+  const ogImageUrl = `https://minamankarious.com/api/og?title=${encodeURIComponent(article.title)}&excerpt=${encodeURIComponent(article.excerpt)}`;
+
   return {
     title: article.title,
     description: article.excerpt,
@@ -31,14 +33,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://minamankarious.com/articles/${article.slug}`,
       type: 'article',
       publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt,
+      section: article.tags[0],
       authors: ['Mina Mankarious'],
       tags: article.tags,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+          type: 'image/png',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.excerpt,
       creator: '@minamankrious',
+      images: [
+        {
+          url: ogImageUrl,
+          alt: article.title,
+        },
+      ],
     },
   };
 }
@@ -50,13 +69,21 @@ export default function ArticlePage({ params }: Props) {
     notFound();
   }
 
-  const jsonLd = {
+  const ogImageUrl = `https://minamankarious.com/api/og?title=${encodeURIComponent(article.title)}&excerpt=${encodeURIComponent(article.excerpt)}`;
+
+  const articleJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: article.title,
     description: article.excerpt,
+    image: {
+      '@type': 'ImageObject',
+      url: ogImageUrl,
+      width: 1200,
+      height: 630,
+    },
     datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
+    dateModified: article.updatedAt,
     author: {
       '@type': 'Person',
       '@id': 'https://minamankarious.com/#person',
@@ -74,17 +101,48 @@ export default function ArticlePage({ params }: Props) {
     },
     url: `https://minamankarious.com/articles/${article.slug}`,
     keywords: article.tags.join(', '),
+    inLanguage: 'en-US',
     wordCount: article.content.split(/\s+/).length,
+    timeRequired: `PT${parseInt(article.readingTime)}M`,
     isPartOf: {
       '@id': 'https://minamankarious.com/#website',
     },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://minamankarious.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Articles',
+        item: 'https://minamankarious.com/articles',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: `https://minamankarious.com/articles/${article.slug}`,
+      },
+    ],
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ArticlePageClient article={article} />
     </>
