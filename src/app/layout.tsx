@@ -232,8 +232,8 @@ export default function RootLayout({
     mainEntity: {
       "@id": "https://minamankarious.com/#person",
     },
-    dateCreated: "2024-09-01T00:00:00+00:00",
-    dateModified: new Date().toISOString(),
+    dateCreated: "2024-09-01T00:00:00Z",
+    dateModified: "2026-02-06T00:00:00Z",
     isPartOf: {
       "@id": "https://minamankarious.com/#website",
     },
