@@ -33,8 +33,6 @@ ${homepageImages
     "hi-im-mina": [
       "/mina-mankarious-headshot.png",
       "/mcmaster-university-crest.png",
-      "/growbyte-media-logo.png",
-      "/olunix-logo-full.png",
     ],
   };
 

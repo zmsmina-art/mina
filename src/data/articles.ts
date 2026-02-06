@@ -14,7 +14,7 @@ export const articles: Article[] = [
     slug: "hi-im-mina",
     title: "Hi, I\u2019m Mina.",
     excerpt:
-      "From Egypt to Canada, from engineering to marketing, and everything in between \u2014 the story of how curiosity, hustle, and a refusal to cut corners led to building Olunix.",
+      "From Egypt to Canada, from engineering to marketing, and everything in between. The story of how curiosity, hustle, and a refusal to cut corners led to building Olunix.",
     content: `
 <img src="/mina-mankarious-headshot.png" alt="Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student" width="280" style="border-radius:12px;float:right;margin:0 0 20px 24px;" />
 
@@ -30,7 +30,7 @@ Not the "post a flyer and hope for the best" kind. I'm talking about the real st
 
 ## Starting Small, Learning Fast
 
-Like most people, I started with what was right in front of me. I helped friends with their projects. Then people in my close circle. Then small clients who needed someone scrappy and hungry to figure things out.
+Like most people, I started with what was right in front of me. I helped friends with their projects. Then people in my close circle. Then small clients who needed someone hungry to figure things out.
 
 Then COVID hit.
 
@@ -39,8 +39,6 @@ And look, I'm not going to romanticize a global pandemic. But what I will say is
 That period taught me more than any textbook ever could.
 
 ## Engineering Meets Marketing
-
-<img src="/mcmaster-university-crest.png" alt="McMaster University crest - where Mina Mankarious studied Automotive Engineering Technology" width="120" style="border-radius:8px;float:left;margin:0 20px 16px 0;" />
 
 I went on to study Automotive Engineering Technology at McMaster University, and I know that might seem like a left turn from marketing. But to me, it was always part of the same thread. Engineering taught me how to think in systems. How to be precise. How to solve problems methodically. Marketing, on the other hand, taught me how to think about people. How to communicate. How to create value that someone actually *feels*.
 
@@ -56,25 +54,19 @@ It took us a while to figure out what that actually meant. It meant saying no to
 
 But it has been worth it.
 
-We started as GrowByte Media, working with automotive dealerships and dental offices, learning the ins and outs of industries that most marketers overlook.
-
-<img src="/growbyte-media-logo.png" alt="GrowByte Media logo - the original name of Olunix, Mina Mankarious's marketing agency" style="max-width:320px;margin:20px auto;display:block;border-radius:8px;" />
-
-Over time, as our approach matured and our clients evolved, we rebranded to **Olunix** \u2014 a name that better reflects who we are today: not just a marketing agency, but a consulting and growth partner.
-
-<img src="/olunix-logo-full.png" alt="Olunix logo - marketing and consulting firm founded by Mina Mankarious in Toronto" style="max-width:280px;margin:20px auto;display:block;" />
+We started as GrowByte Media, working with automotive dealerships and dental offices, learning the ins and outs of industries that most marketers overlook. Over time, as our approach matured and our clients evolved, we rebranded to **Olunix**, a name that better reflects who we are today: not just a marketing agency, but a consulting and growth partner.
 
 Today, we work predominantly with AI startups. The companies we partner with are building the future, and our job is to help them get the right message in front of the right people at the right time. It's strategic. It's technical. And it's deeply human.
 
 ## Why I\u2019m Writing This
 
-I started this article section because I believe that the best marketers aren't just practitioners. They're thinkers. They share what they know. They contribute to the conversation. And they're honest about the journey \u2014 not just the highlight reel.
+I started this article section because I believe that the best marketers aren't just practitioners. They're thinkers. They share what they know. They contribute to the conversation. And they're honest about the journey, not just the highlight reel.
 
 So that's what I plan to do here. Share what I'm learning, what I'm building, and what I think matters in a world where marketing is evolving faster than most people can keep up with.
 
-If you've made it this far, thank you. Stick around \u2014 there's more to come.
+If you've made it this far, thank you. Stick around, there's more to come.
 
-*\u2014 MM*
+*- MM*
     `,
     publishedAt: "2026-02-05",
     updatedAt: "2026-02-06",
