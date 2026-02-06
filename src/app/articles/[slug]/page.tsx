@@ -4,7 +4,7 @@ import { getArticleBySlug, getAllArticlesSorted } from '@/data/articles';
 import ArticlePageClient from '@/components/ArticlePageClient';
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export async function generateStaticParams() {
@@ -13,8 +13,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = getArticleBySlug(params.slug);
 
   if (!article) {
     return { title: 'Article Not Found' };
@@ -44,9 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ArticlePage({ params }: Props) {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
+export default function ArticlePage({ params }: Props) {
+  const article = getArticleBySlug(params.slug);
 
   if (!article) {
     notFound();
