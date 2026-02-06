@@ -1,6 +1,16 @@
 import { MetadataRoute } from "next";
+import { getAllArticlesSorted } from "@/data/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const articles = getAllArticlesSorted();
+
+  const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `https://minamankarious.com/articles/${article.slug}`,
+    lastModified: new Date(article.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
     {
       url: "https://minamankarious.com",
@@ -8,6 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: "https://minamankarious.com/articles",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    ...articleEntries,
   ];
 }
 

@@ -2,7 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ExternalLink, MapPin, ArrowDown } from 'lucide-react';
+import Link from 'next/link';
+import { ExternalLink, MapPin, ArrowDown, ArrowUpRight } from 'lucide-react';
+import ArticleCard from '@/components/ArticleCard';
+import { getLatestArticles, articles } from '@/data/articles';
 
 const LinkedInIcon = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -22,6 +25,8 @@ const fade = {
 };
 
 export default function Home() {
+  const latestArticles = getLatestArticles(3);
+
   return (
     <div className="min-h-screen bg-[#050507] text-[#f0f0f5]">
       {/* Navigation */}
@@ -34,6 +39,7 @@ export default function Home() {
             <a href="#about" className="text-[#8a8a9a] hover:text-white">About</a>
             <a href="#experience" className="text-[#8a8a9a] hover:text-white">Experience</a>
             <a href="#education" className="text-[#8a8a9a] hover:text-white">Education</a>
+            <a href="#articles" className="text-[#8a8a9a] hover:text-white">Articles</a>
             <a href="#contact" className="text-[#8a8a9a] hover:text-white">Contact</a>
           </div>
         </div>
@@ -430,6 +436,42 @@ export default function Home() {
                 </div>
               </div>
             </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="divider max-w-3xl mx-auto" />
+
+      {/* Articles */}
+      <section id="articles" className="py-28 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ staggerChildren: 0.1 }}
+          >
+            <motion.h2 variants={fade} transition={{ duration: 0.5 }} className="text-2xl font-bold mb-10">
+              Articles
+            </motion.h2>
+
+            <div className="space-y-6">
+              {latestArticles.map((article, i) => (
+                <ArticleCard key={article.slug} article={article} index={i} />
+              ))}
+            </div>
+
+            {articles.length > 3 && (
+              <motion.div variants={fade} transition={{ duration: 0.5 }} className="mt-8 text-center">
+                <Link
+                  href="/articles"
+                  className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm"
+                >
+                  View all articles
+                  <ArrowUpRight size={16} />
+                </Link>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </section>
