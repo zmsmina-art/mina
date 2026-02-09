@@ -16,7 +16,7 @@ export const articles: Article[] = [
     excerpt:
       "From Egypt to Canada, from engineering to marketing, and everything in between. The story of how curiosity, hustle, and a refusal to cut corners led to building Olunix.",
     content: `
-<img src="/mina-mankarious-headshot.png" alt="Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student" width="280" style="border-radius:12px;float:right;margin:0 0 20px 24px;" />
+<img src="/mina-mankarious-headshot.png" alt="Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student" class="article-float-img" />
 
 It's great to have you here, and I'm genuinely grateful you took a second to look around my website. I'm not entirely sure what this article section will look like down the line. Maybe it becomes a place where I share what I'm learning, maybe it turns into something completely different. But for now, I figured the best place to start is with a bit about who I am, how I got here, and why I'm writing any of this in the first place.
 

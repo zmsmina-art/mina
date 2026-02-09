@@ -352,6 +352,20 @@ a {
   margin: 1.5rem 0;
 }
 
+.article-prose img.article-float-img {
+  width: 280px;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+}
+
+@media (min-width: 640px) {
+  .article-prose img.article-float-img {
+    float: right;
+    margin: 0 0 20px 24px;
+  }
+}
+
 .article-prose hr {
   border: none;
   height: 1px;
