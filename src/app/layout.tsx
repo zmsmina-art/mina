@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     languages: {
       "en-US": "https://minamankarious.com",
     },
+    types: {
+      "application/rss+xml": "https://minamankarious.com/feed.xml",
+    },
   },
   manifest: "/manifest.json",
   title: {

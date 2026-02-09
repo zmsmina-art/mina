@@ -58,10 +58,10 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
           </p>
 
           <div className="flex items-center gap-4 text-xs text-[#6a6a7a]">
-            <span className="flex items-center gap-1.5">
+            <time dateTime={article.publishedAt} className="flex items-center gap-1.5">
               <Calendar size={12} />
               {formattedDate}
-            </span>
+            </time>
             <span className="flex items-center gap-1.5">
               <Clock size={12} />
               {article.readingTime}

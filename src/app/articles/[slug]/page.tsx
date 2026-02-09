@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getArticleBySlug, getAllArticlesSorted } from '@/data/articles';
+import { getArticleBySlug, getAllArticlesSorted, getRelatedArticles } from '@/data/articles';
 import ArticlePageClient from '@/components/ArticlePageClient';
 
 interface Props {
@@ -144,7 +144,7 @@ export default function ArticlePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <ArticlePageClient article={article} />
+      <ArticlePageClient article={article} relatedArticles={getRelatedArticles(article.slug, 3)} />
     </>
   );
 }

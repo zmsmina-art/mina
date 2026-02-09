@@ -40,7 +40,7 @@ That period taught me more than any textbook ever could.
 
 ## Engineering Meets Marketing
 
-I went on to study Automotive Engineering Technology at McMaster University, and I know that might seem like a left turn from marketing. But to me, it works. The heart of Engineering taught me how to think in systems. How to be precise. How to solve problems methodically. Marketing, on the other hand, taught me how to think about people. How to communicate. How to create value that someone actually *feels*. Together, they've become the foundation of how I build systems that serve people.
+I went on to study Automotive Engineering Technology at McMaster University, and I know that might seem like a left turn from marketing. But to me, it works. The heart of Engineering taught me how to think in systems. How to be precise. How to solve problems methodically. Marketing, on the other hand, taught me how to think about people. How to communicate. How to create value that someone actually *feels*. Together, they've become [the foundation of how I build systems](/articles/from-engineering-to-marketing-why-systems-thinking-matters) that serve people.
 
 ## Building Olunix
 
@@ -52,7 +52,7 @@ It took us a while to figure out what that actually meant. It meant saying no to
 
 But it has been worth it.
 
-We started as GrowByte Media, working with automotive dealerships and dental offices, learning the ins and outs of industries that most marketers overlook. Over time, as our approach matured and our clients evolved, we rebranded to **Olunix**, a name that better reflects who we are today: not just a marketing agency, but a consulting and growth partner.
+We started as GrowByte Media, working with automotive dealerships and dental offices, learning the ins and outs of industries that most marketers overlook. Over time, as our approach matured and our clients evolved, we [rebranded to **Olunix**](/articles/how-we-rebranded-from-growbyte-to-olunix), a name that better reflects who we are today: not just a marketing agency, but a consulting and growth partner.
 
 Today, we work predominantly with AI startups. The companies we partner with are building the future, and our job is to help them get the right message in front of the right people at the right time. It's strategic. It's technical. And it's deeply human.
 
@@ -107,7 +107,7 @@ Based on what I'm seeing across our clients and the broader market, here's what'
 
 **2. Product-led growth.** Let people try the product. Let them experience the value. Then make upgrading effortless. Cursor's entire growth engine runs on this: developers start free, fall in love, and advocate for team-wide adoption. No cold outreach. No aggressive sales tactics. Just a product so good it sells itself.
 
-**3. Thought leadership that's actually thoughtful.** In a world drowning in AI-generated content, genuine human perspective is the differentiator. The startups that are building trust aren't the ones publishing 50 blog posts a month. They're the ones where the CEO writes one honest piece about a real challenge they faced, and it resonates because it's *real*.
+**3. Thought leadership that's actually thoughtful.** In a world drowning in AI-generated content, genuine human perspective is the differentiator. The startups that are building trust aren't the ones publishing 50 blog posts a month. They're the ones where the CEO writes one honest piece about a real challenge they faced, and it resonates because it's *real*. This is something I've [seen firsthand working with early clients](/articles/what-i-learned-from-my-first-10-clients).
 
 **4. Community, not campaigns.** The old model of "run ads, capture leads, send emails" is losing effectiveness fast. The AI startups building real competitive moats are the ones building communities. Developer communities. User communities. Ecosystems where people share, learn, and become advocates.
 
@@ -188,7 +188,7 @@ The clients I've kept the longest aren't the ones I delivered the flashiest resu
 
 Looking back, the first 10 clients didn't just pay the bills. They shaped the direction of the company.
 
-Working with automotive dealerships taught me how to market in traditional industries that resist change. Working with dental offices taught me the importance of local SEO and reputation management. Working with e-commerce clients during COVID taught me scalable systems.
+Working with automotive dealerships taught me how to market in traditional industries that resist change. Working with dental offices taught me the importance of local SEO and reputation management. Working with e-commerce clients during COVID taught me scalable systems. These experiences also shaped [how I think about startup marketing spend](/articles/why-most-startups-waste-money-on-marketing) today.
 
 Every one of those experiences became part of the foundation we built Olunix on. The industries have changed, we predominantly work with AI startups now, but the principles haven't.
 
@@ -257,7 +257,7 @@ Vanity metrics make you feel good. Business metrics keep you alive.
 
 A lot of founders rush to hire a head of marketing or a growth hacker before they even understand their own positioning. Without clear messaging, defined ideal customers, and a strategy, even a talented marketer will struggle.
 
-Most startups pre-Series A should be doing **founder-led marketing**. Nobody knows your product and customers better than you do. Once you've identified what works, *then* hire someone to scale it.
+Most startups pre-Series A should be doing **founder-led marketing**. Nobody knows your product and customers better than you do. Once you've identified what works, *then* hire someone to scale it. I wrote more about [when to hire externally vs. build in-house](/articles/marketing-vs-consulting-what-startups-need).
 
 ### 5. Confusing Activity With Progress
 
@@ -356,7 +356,7 @@ If you're a student in Ontario thinking about starting something, here are resou
 
 **Start as a sole proprietorship.** When you're just getting going and your revenue is under $30,000, you probably don't need to incorporate right away. A sole proprietorship is simpler, cheaper, and gets you moving faster. You can always incorporate later as you grow.
 
-**Build in public.** Share what you're doing, even when it feels premature. The people who follow your journey early become your biggest supporters, and often your first clients.
+**Build in public.** Share what you're doing, even when it feels premature. The people who follow your journey early become your biggest supporters, and often your first clients. That's exactly [what we did when building Olunix](/articles/how-we-rebranded-from-growbyte-to-olunix).
 
 **Find your people.** Entrepreneurship is lonely enough without trying to do it in isolation. Whether it's other student founders, a local meetup, or an online community, surround yourself with people who understand what you're going through.
 
@@ -453,7 +453,7 @@ Here's something worth understanding about the broader landscape. Forrester pred
 
 The old model of "you brief us, we make the thing" is dying. The agencies that survive will be the ones that evolve into true growth partners, ones that own strategy *and* execution, measure by business outcomes, and embed themselves into their clients' operations.
 
-That shift is exactly why we built Olunix the way we did. We're not just an agency. We're not just consultants. We're a growth partner for companies building the future. That means we think strategically, execute tactically, and measure by the only metric that matters: did we create real value?
+That shift is exactly why we built Olunix the way we did. We're not just an agency. We're not just consultants. We're a growth partner for companies building the future. That means we [think in systems](/articles/from-engineering-to-marketing-why-systems-thinking-matters), execute tactically, and measure by the only metric that matters: did we create real value?
 
 ## The Bottom Line
 
@@ -540,7 +540,7 @@ Every engagement at Olunix starts with systems thinking. Before we touch creativ
 
 Then we build. Test. Measure. Iterate. It's not glamorous. But it works.
 
-The companies we partner with, mostly AI startups, appreciate this approach because they think the same way. They're building technical products. They expect their marketing partner to be equally rigorous.
+The companies we partner with, mostly [AI startups](/articles/how-ai-startups-should-think-about-marketing), appreciate this approach because they think the same way. They're building technical products. They expect their marketing partner to be equally rigorous.
 
 ## Why This Matters for the Future of Marketing
 
@@ -577,7 +577,7 @@ GrowByte Media was the name we launched with. It served us well in the beginning
 
 But as we evolved, the name started to hold us back.
 
-**We outgrew the name.** GrowByte sounded like a marketing agency that runs Facebook ads. We were becoming something bigger: a consulting and growth partner for companies building the future. The name didn't reflect the scope of what we were doing.
+**We outgrew the name.** GrowByte sounded like a marketing agency that runs Facebook ads. We were becoming something bigger: a consulting and growth partner for companies building the future. The name didn't reflect the scope of [what we were doing](/articles/what-i-learned-from-my-first-10-clients).
 
 **It limited perception.** When we'd get on calls with AI startup founders, they'd assume we were a traditional digital marketing shop. We'd spend the first 15 minutes of every call explaining that we were more than that. Your name is supposed to open doors, not create additional hurdles.
 
@@ -660,4 +660,22 @@ export function getAllArticlesSorted(): Article[] {
     (a, b) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
+}
+
+export function getRelatedArticles(slug: string, count: number = 3): Article[] {
+  const current = articles.find((a) => a.slug === slug);
+  if (!current) return [];
+
+  return articles
+    .filter((a) => a.slug !== slug)
+    .map((a) => ({
+      article: a,
+      score: a.tags.filter((tag) => current.tags.includes(tag)).length,
+    }))
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return new Date(b.article.publishedAt).getTime() - new Date(a.article.publishedAt).getTime();
+    })
+    .slice(0, count)
+    .map((a) => a.article);
 }
