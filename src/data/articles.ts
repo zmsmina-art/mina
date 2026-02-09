@@ -40,9 +40,7 @@ That period taught me more than any textbook ever could.
 
 ## Engineering Meets Marketing
 
-I went on to study Automotive Engineering Technology at McMaster University, and I know that might seem like a left turn from marketing. But to me, it was always part of the same thread. Engineering taught me how to think in systems. How to be precise. How to solve problems methodically. Marketing, on the other hand, taught me how to think about people. How to communicate. How to create value that someone actually *feels*.
-
-The intersection of those two things is where I do my best work.
+I went on to study Automotive Engineering Technology at McMaster University, and I know that might seem like a left turn from marketing. But to me, it works. The heart of Engineering taught me how to think in systems. How to be precise. How to solve problems methodically. Marketing, on the other hand, taught me how to think about people. How to communicate. How to create value that someone actually *feels*. Together, they've become the foundation of how I build systems that serve people.
 
 ## Building Olunix
 
@@ -60,11 +58,11 @@ Today, we work predominantly with AI startups. The companies we partner with are
 
 ## Why I\u2019m Writing This
 
-I started this article section because I believe that the best marketers aren't just practitioners. They're thinkers. They share what they know. They contribute to the conversation. And they're honest about the journey, not just the highlight reel.
+I've always wanted a place to share my two cents on certain topics, but whether because I didn't have the time or couldn't find the right medium, I never got around to it. I'm not going to sit here and pretend like I have something revolutionary, or even insightful to say, but I hope this gives you a glimpse at who I am beyond a simple website showcasing the surface stuff. The blessing and curse of a marketing mind is the constant pull to leverage output, which often leaves less room for genuine thought. Having this platform removes that inclination to appeal to the algorithm entirely.
 
-So that's what I plan to do here. Share what I'm learning, what I'm building, and what I think matters in a world where marketing is evolving faster than most people can keep up with.
+I started this because I believe the best marketers aren't just practitioners. They're thinkers. They share what they know, they contribute to the conversation, and they're honest about the journey, not just the highlight reel. So that's what I plan to do here. Share what I'm learning, what I'm building, and what I think matters in a world where marketing is evolving faster than most people can keep up with.
 
-If you've made it this far, thank you. Stick around, there's more to come.
+If you've made it this far, thank you. I genuinely appreciate your time. I hope this is just the start.
 
 *- MM*
     `,
