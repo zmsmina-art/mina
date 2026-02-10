@@ -269,6 +269,58 @@ export default function Home() {
                 </div>
               </motion.a>
 
+              {/* Fan Controller Simulator */}
+              <motion.a
+                href="/fan-controller/"
+                variants={fade}
+                transition={{ duration: 0.5 }}
+                className="glass rounded-xl p-5 block group"
+              >
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f] flex items-center justify-center">
+                    <svg width="28" height="28" viewBox="0 0 200 200" className="text-[#8b5cf6]">
+                      <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="4" opacity="0.3"/>
+                      <circle cx="100" cy="100" r="12" fill="none" stroke="currentColor" strokeWidth="3"/>
+                      {[0, 72, 144, 216, 288].map((angle) => {
+                        const rad = (angle * Math.PI) / 180;
+                        const tipX = 100 + 75 * Math.cos(rad);
+                        const tipY = 100 + 75 * Math.sin(rad);
+                        const startX = 100 + 15 * Math.cos(rad);
+                        const startY = 100 + 15 * Math.sin(rad);
+                        const cpL = rad - 0.4;
+                        const cpR = rad + 0.4;
+                        return (
+                          <path
+                            key={angle}
+                            d={`M ${startX},${startY} Q ${100 + 55 * Math.cos(cpL)},${100 + 55 * Math.sin(cpL)} ${tipX},${tipY} Q ${100 + 55 * Math.cos(cpR)},${100 + 55 * Math.sin(cpR)} ${startX},${startY}`}
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                          />
+                        );
+                      })}
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Engine Cooling Fan Controller</h3>
+                        <ArrowUpRight size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
+                      </div>
+                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Feb 2026</span>
+                    </div>
+                    <p className="text-[#8a8a9a] text-sm leading-relaxed">
+                      Interactive web simulator of an HCS12 microcontroller-based automotive cooling fan controller. Features CAN bus communication, PWM motor control, ADC temperature sensing, and safety-critical overheat protection.
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Embedded Systems</span>
+                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">CAN Bus</span>
+                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Interactive Simulator</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.a>
+
               {/* Hope Bible Church */}
               <motion.a
                 href="https://hopeoakville.ca"
