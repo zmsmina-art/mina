@@ -88,12 +88,21 @@ export default function Home() {
           </motion.p>
 
           <motion.p
-            className="text-[#6a6a7a] mb-6"
+            className="text-[#6a6a7a] mb-1"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             Marketing & Consulting
+          </motion.p>
+
+          <motion.p
+            className="text-[#5a5a6a] text-sm mb-6"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+          >
+            He/Him
           </motion.p>
 
           <motion.div
@@ -157,8 +166,8 @@ export default function Home() {
               <p>
                 I&apos;m the <span className="text-white">Founder and CEO of Olunix</span>, a marketing and consulting firm
                 where I help businesses solve complex technical challenges and build practical, innovative solutions.
-                My approach is rooted in understanding client needs deeply, a skill I&apos;ve developed through experience
-                across sales, partnerships, and engineering.
+                As a <span className="text-white">businessman and engineer</span>, my approach is rooted in understanding
+                client needs deeply, a skill I&apos;ve developed through experience across sales, partnerships, and engineering.
               </p>
               <p>
                 As a <span className="text-white">Deal Partner at Boardy</span>, I&apos;ve built a strong network focused on
