@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Automotive Engine Cooling Fan Controller - Interactive Simulator | Mina Mankarious</title>
+  <meta name="description" content="Interactive web simulator of an HCS12 microcontroller-based automotive engine cooling fan controller. Demonstrates CAN bus communication, PWM motor control, ADC temperature sensing, and safety-critical system design. Built for McMaster University AUTOTECH 4EC3.">
+  <meta name="keywords" content="automotive engineering, engine cooling fan, HCS12 microcontroller, CAN bus, PWM motor control, ADC, embedded systems, McMaster University, AUTOTECH 4EC3, Mina Mankarious, interactive simulator">
+  <meta name="author" content="Mina Mankarious">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://minamankarious.com/fan-controller/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Automotive Engine Cooling Fan Controller - Interactive Simulator">
+  <meta property="og:description" content="Interactive web simulator demonstrating CAN bus, PWM motor control, ADC sensing, and safety-critical automotive system design on an HCS12 microcontroller.">
+  <meta property="og:url" content="https://minamankarious.com/fan-controller/">
+  <meta property="og:site_name" content="Mina Mankarious">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://minamankarious.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Automotive Engine Cooling Fan Controller - Interactive Simulator by Mina Mankarious">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automotive Engine Cooling Fan Controller - Interactive Simulator">
+  <meta name="twitter:description" content="Interactive web simulator demonstrating CAN bus, PWM, ADC, and safety-critical automotive system design.">
+  <meta name="twitter:image" content="https://minamankarious.com/og.png">
+  <meta name="twitter:creator" content="@minamankrious">
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#0a1929">
+  <meta name="msapplication-TileColor" content="#0a1929">
+  <link rel="icon" href="/favicon.svg">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Automotive Engine Cooling Fan Controller - Interactive Simulator",
+    "description": "An interactive web-based simulator that demonstrates the functionality of an HCS12 microcontroller-based automotive engine cooling fan controller, including CAN bus communication, PWM motor control, ADC temperature sensing, and safety-critical overheat protection.",
+    "url": "https://minamankarious.com/fan-controller/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "author": {
+      "@type": "Person",
+      "@id": "https://minamankarious.com/#person",
+      "name": "Mina Mankarious",
+      "url": "https://minamankarious.com"
+    },
+    "sourceOrganization": {
+      "@type": "EducationalOrganization",
+      "name": "McMaster University",
+      "url": "https://www.mcmaster.ca"
+    },
+    "educationalUse": "demonstration",
+    "learningResourceType": "simulation",
+    "keywords": ["automotive engineering", "embedded systems", "CAN bus", "PWM", "ADC", "HCS12 microcontroller", "engine cooling", "safety-critical systems"],
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://minamankarious.com/#website"
+    }
+  }
+  </script>
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/blueprint.css">
+  <link rel="stylesheet" href="css/tabs.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/simulator.css">
+  <link rel="stylesheet" href="css/lcd.css">
+  <link rel="stylesheet" href="css/keypad.css">
+  <link rel="stylesheet" href="css/fan.css">
+  <link rel="stylesheet" href="css/architecture.css">
+  <link rel="stylesheet" href="css/signals.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="title-block">
+      <a href="https://minamankarious.com" class="title-block__back" aria-label="Back to portfolio">&larr; minamankarious.com</a>
+      <h1 class="title-block__title">Automotive Engine Cooling Fan Controller</h1>
+      <p class="title-block__subtitle">HCS12 Microcontroller-Based Temperature Regulation System</p>
+    </div>
+  </header>
+
+  <main id="app" role="main"></main>
+
+  <noscript>
+    <div style="color:#e0f0ff;text-align:center;padding:2rem;font-family:monospace;max-width:600px;margin:0 auto;">
+      <h2>Interactive Simulator</h2>
+      <p>This application requires JavaScript to run the real-time simulation of the automotive engine cooling fan controller.</p>
+      <p>The simulator demonstrates:</p>
+      <ul style="text-align:left;display:inline-block;">
+        <li>CAN bus communication between ECU and fan controller</li>
+        <li>PWM-based variable speed motor control</li>
+        <li>10-bit ADC temperature sensor reading</li>
+        <li>3 operating modes: AUTO, MANUAL, and SAFETY</li>
+        <li>Overheat protection with hysteresis</li>
+      </ul>
+      <p>Please enable JavaScript to use the interactive simulator.</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

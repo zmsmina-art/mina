@@ -1,0 +1,35 @@
+.fan-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap-md);
+}
+
+.fan-container svg {
+  width: 180px;
+  height: 180px;
+}
+
+.fan-blades {
+  transform-origin: 100px 100px;
+  animation: fan-spin linear infinite;
+  animation-duration: 2s;
+  animation-play-state: paused;
+}
+
+@keyframes fan-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fan-speed-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--bp-text-secondary);
+  margin-top: var(--gap-sm);
+}
+
+.fan-speed-label span {
+  color: var(--bp-text-accent);
+  font-weight: 600;
+}

@@ -1,0 +1,110 @@
+.signals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.signals__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.signals__section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bp-text-accent);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--bp-border);
+}
+
+.signals__canvas-wrap {
+  background: var(--bp-bg-surface);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md);
+  display: flex;
+  justify-content: center;
+}
+
+.signals__canvas-wrap canvas {
+  display: block;
+}
+
+.signals__pwm-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--gap-sm);
+}
+
+.signals__pwm-cell {
+  background: var(--bp-bg-surface);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-md);
+  padding: var(--gap-sm);
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.signals__pwm-cell--active {
+  border-color: var(--bp-purple);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.15);
+}
+
+.signals__pwm-cell canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.signals__pwm-label {
+  font-size: 11px;
+  color: var(--bp-text-secondary);
+  margin-top: 6px;
+}
+
+.signals__pwm-label strong {
+  color: var(--bp-text-accent);
+  font-weight: 600;
+}
+
+.signals__pwm-temp {
+  font-size: 10px;
+  color: var(--bp-text-secondary);
+  opacity: 0.7;
+}
+
+.signals__annotation {
+  font-size: 11px;
+  color: var(--bp-text-secondary);
+  line-height: 1.7;
+  padding: var(--gap-md);
+  background: var(--bp-bg-surface);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-md);
+}
+
+.signals__formula {
+  font-family: var(--font-mono);
+  color: var(--bp-text-accent);
+  font-size: 12px;
+  padding: 2px 6px;
+  background: rgba(139, 92, 246, 0.06);
+  border-radius: 2px;
+}
+
+.signals__slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+.signals__slider-row input[type="range"] {
+  flex: 1;
+}
+
+.signals__slider-value {
+  font-size: 12px;
+  color: var(--bp-text-accent);
+  min-width: 60px;
+  text-align: right;
+}

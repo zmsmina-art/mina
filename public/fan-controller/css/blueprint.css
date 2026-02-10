@@ -1,0 +1,132 @@
+:root {
+  /* Matching minamankarious.com palette */
+  --bp-bg-primary: #050507;
+  --bp-bg-secondary: #0a0a0f;
+  --bp-bg-surface: rgba(139, 92, 246, 0.03);
+  --bp-border: rgba(139, 92, 246, 0.12);
+  --bp-grid: rgba(139, 92, 246, 0.04);
+
+  --bp-text-primary: #f0f0f5;
+  --bp-text-secondary: #8a8a9a;
+  --bp-text-accent: #a78bfa;
+
+  --bp-purple: #8b5cf6;
+  --bp-purple-light: #a78bfa;
+  --bp-purple-dark: #6d28d9;
+  --bp-purple-glow: rgba(139, 92, 246, 0.12);
+  --bp-green: #4ade80;
+  --bp-red: #f87171;
+  --bp-amber: #fbbf24;
+  --bp-blue: #60a5fa;
+
+  --lcd-bg: #080810;
+  --lcd-text: #a78bfa;
+  --lcd-glow: rgba(139, 92, 246, 0.5);
+
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bp-bg-primary);
+  background-image:
+    linear-gradient(var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--bp-text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bp-purple-dark);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bp-purple);
+}
+
+.app-header {
+  border-bottom: 1px solid var(--bp-border);
+  padding: var(--gap-lg) var(--gap-xl);
+  background: var(--bp-bg-secondary);
+  position: relative;
+}
+
+.app-header::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bp-purple), transparent);
+  opacity: 0.4;
+}
+
+.title-block__back {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--bp-text-secondary);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.title-block__back:hover {
+  color: var(--bp-purple-light);
+}
+
+.title-block__title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--bp-text-primary);
+  letter-spacing: 0.5px;
+}
+
+.title-block__subtitle {
+  font-size: 13px;
+  color: var(--bp-text-secondary);
+  margin-top: 4px;
+}
+
+.title-block__meta {
+  font-size: 11px;
+  color: var(--bp-text-secondary);
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+#app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-md) var(--gap-lg);
+}

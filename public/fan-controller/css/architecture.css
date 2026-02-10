@@ -1,0 +1,146 @@
+.architecture {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.architecture__diagram {
+  position: relative;
+  background: var(--bp-bg-surface);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md);
+}
+
+.arch-diagram {
+  width: 100%;
+  height: auto;
+}
+
+.arch-block {
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.arch-block:hover rect,
+.arch-block:hover .arch-block__border {
+  stroke: var(--bp-purple);
+  filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.3));
+}
+
+.arch-block rect,
+.arch-block__border {
+  fill: none;
+  stroke: var(--bp-border);
+  stroke-width: 1.5;
+  rx: 6;
+  transition: stroke 0.2s;
+}
+
+.arch-block text {
+  fill: var(--bp-text-primary);
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+}
+
+.arch-block__title {
+  fill: var(--bp-text-accent) !important;
+  font-weight: 600;
+  font-size: 12px !important;
+}
+
+.arch-connection {
+  stroke: var(--bp-border);
+  stroke-width: 1;
+  fill: none;
+}
+
+.arch-connection-label {
+  fill: var(--bp-text-secondary);
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+}
+
+.arch-flow-dot {
+  r: 3;
+  opacity: 0.8;
+}
+
+@keyframes flow-forward {
+  0% { offset-distance: 0%; opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+.arch-info-panel {
+  position: absolute;
+  top: var(--gap-md);
+  right: var(--gap-md);
+  width: 280px;
+  background: var(--bp-bg-secondary);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md);
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.arch-info-panel--visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.arch-info-panel__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bp-text-accent);
+  margin-bottom: var(--gap-sm);
+}
+
+.arch-info-panel__body {
+  font-size: 11px;
+  color: var(--bp-text-secondary);
+  line-height: 1.6;
+}
+
+.arch-info-panel__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--bp-text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+}
+
+.arch-info-panel__close:hover {
+  color: var(--bp-text-accent);
+}
+
+.arch-legend {
+  display: flex;
+  gap: var(--gap-lg);
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--bp-text-secondary);
+}
+
+.arch-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arch-legend__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}

@@ -1,0 +1,66 @@
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.keypad__key {
+  background: var(--bp-bg-secondary);
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-sm);
+  color: var(--bp-text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+  position: relative;
+  line-height: 1.2;
+}
+
+.keypad__key:hover:not(.keypad__key--disabled) {
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.15);
+}
+
+.keypad__key:active:not(.keypad__key--disabled) {
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.keypad__key--flash {
+  background: rgba(139, 92, 246, 0.2) !important;
+  border-color: var(--bp-purple) !important;
+}
+
+.keypad__key--inactive {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.keypad__key--disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.keypad__key--disabled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(248, 113, 113, 0.06);
+  border-radius: var(--radius-sm);
+}
+
+.keypad__key-num {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bp-text-accent);
+}
+
+.keypad__key-label {
+  display: block;
+  font-size: 9px;
+  color: var(--bp-text-secondary);
+  margin-top: 2px;
+}
