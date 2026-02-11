@@ -2,7 +2,9 @@ import { ImageResponse } from '@vercel/og';
 
 export const runtime = 'edge';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const title = searchParams.get('title');
   const headshotUrl = 'https://minamankarious.com/headshot.png';
 
   return new ImageResponse(
@@ -27,45 +29,60 @@ export async function GET() {
             maxWidth: '600px',
           }}
         >
-          <div
-            style={{
-              fontSize: 72,
-              fontWeight: 700,
-              color: '#f0f0f5',
-              marginBottom: 16,
-              display: 'flex',
-            }}
-          >
-            Mina{' '}
-            <span
+          {title ? (
+            <div
               style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)',
-                backgroundClip: 'text',
-                color: 'transparent',
-                marginLeft: 16,
+                fontSize: 48,
+                fontWeight: 700,
+                color: '#f0f0f5',
+                marginBottom: 24,
+                display: 'flex',
+                lineClamp: 3,
               }}
             >
-              Mankarious
-            </span>
-          </div>
+              {title}
+            </div>
+          ) : (
+            <div
+              style={{
+                fontSize: 72,
+                fontWeight: 700,
+                color: '#f0f0f5',
+                marginBottom: 16,
+                display: 'flex',
+              }}
+            >
+              Mina{' '}
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                  marginLeft: 16,
+                }}
+              >
+                Mankarious
+              </span>
+            </div>
+          )}
           <div
             style={{
-              fontSize: 32,
+              fontSize: title ? 24 : 32,
               color: '#8b5cf6',
               marginBottom: 12,
               display: 'flex',
             }}
           >
-            Founder & CEO of Olunix
+            {title ? 'Mina Mankarious' : 'Founder & CEO of Olunix'}
           </div>
           <div
             style={{
-              fontSize: 24,
+              fontSize: title ? 20 : 24,
               color: '#6a6a7a',
               display: 'flex',
             }}
           >
-            Marketing & Consulting
+            {title ? 'minamankarious.com' : 'Marketing & Consulting'}
           </div>
           <div
             style={{

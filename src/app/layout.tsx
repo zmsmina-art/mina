@@ -79,7 +79,7 @@ export const metadata: Metadata = {
         alt: "Mina Mankarious - Founder & CEO of Olunix",
       },
     ],
-    creator: "@minamankrious",
+    creator: "@minamnkarious",
   },
   robots: {
     index: true,
@@ -198,8 +198,8 @@ export default function RootLayout({
     sameAs: [
       "https://linkedin.com/in/mina-mankarious",
       "https://www.linkedin.com/in/mina-mankarious",
-      "https://twitter.com/minamankrious",
-      "https://x.com/minamankrious",
+      "https://twitter.com/minamnkarious",
+      "https://x.com/minamnkarious",
       "https://olunix.com",
       "https://www.wikidata.org/wiki/Q138001904",
     ],

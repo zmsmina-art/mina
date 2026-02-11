@@ -210,7 +210,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                     <Image
                       src="/olunix-logo.png"
-                      alt="Olunix"
+                      alt="Olunix marketing and consulting firm logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-cover"
@@ -243,7 +243,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                     <Image
                       src="/boardy-logo.png"
-                      alt="Boardy"
+                      alt="Boardy professional networking platform logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-cover"
@@ -279,7 +279,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a2e] p-2">
                     <Image
                       src="/hope-logo.webp"
-                      alt="Hope Bible Church"
+                      alt="Hope Bible Church Oakville logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-contain"
@@ -310,7 +310,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a1a]">
                     <Image
                       src="/habits-together-logo.png"
-                      alt="Habits Together"
+                      alt="Habits Together habit tracking app logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-contain"
@@ -347,7 +347,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white p-1.5">
                     <Image
                       src="/toyota-logo.png"
-                      alt="Toyota"
+                      alt="Milton Toyota dealership logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-contain"
@@ -375,7 +375,7 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                     <Image
                       src="/zms-logo.svg"
-                      alt="ZMS Media"
+                      alt="ZMS Media marketing agency logo"
                       width={48}
                       height={48}
                       className="w-full h-full object-cover"
@@ -426,7 +426,7 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                   <Image
                     src="/mcmaster-logo.png"
-                    alt="McMaster University"
+                    alt="McMaster University crest and logo"
                     width={48}
                     height={48}
                     className="w-full h-full object-contain"

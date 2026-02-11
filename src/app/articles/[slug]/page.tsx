@@ -33,12 +33,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: article.publishedAt,
       authors: ['Mina Mankarious'],
       tags: article.tags,
+      images: [
+        {
+          url: `/api/og?title=${encodeURIComponent(article.title)}`,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.excerpt,
-      creator: '@minamankrious',
+      creator: '@minamnkarious',
+      images: [`/api/og?title=${encodeURIComponent(article.title)}`],
     },
   };
 }
@@ -80,11 +89,40 @@ export default function ArticlePage({ params }: Props) {
     },
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://minamankarious.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Articles',
+        item: 'https://minamankarious.com/articles',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: `https://minamankarious.com/articles/${article.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ArticlePageClient article={article} />
     </>
