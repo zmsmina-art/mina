@@ -14,14 +14,32 @@ const fade = {
 
 export default function ArticlesPageClient({ articles }: { articles: Article[] }) {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const sortedArticles = useMemo(() => {
-    return [...articles].sort((a, b) => {
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    articles.forEach((a) => a.tags.forEach((t) => tags.add(t)));
+    return Array.from(tags).sort();
+  }, [articles]);
+
+  const filteredAndSortedArticles = useMemo(() => {
+    const filtered = selectedTags.length === 0
+      ? articles
+      : articles.filter((a) => a.tags.some((t) => selectedTags.includes(t)));
+    return [...filtered].sort((a, b) => {
       const dateA = new Date(a.publishedAt).getTime();
       const dateB = new Date(b.publishedAt).getTime();
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
-  }, [articles, sortOrder]);
+  }, [articles, sortOrder, selectedTags]);
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const isFiltering = selectedTags.length > 0;
 
   return (
     <div className="min-h-screen bg-[#050507] text-[#f0f0f5]">
@@ -86,21 +104,74 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
               </motion.button>
             </div>
 
+            {allTags.length > 0 && (
+              <motion.div
+                variants={fade}
+                transition={{ duration: 0.5 }}
+                className="flex flex-wrap gap-2 mb-4"
+              >
+                <button
+                  onClick={() => setSelectedTags([])}
+                  className={`text-xs px-3 py-1.5 rounded-md border transition-all duration-200 cursor-pointer ${
+                    !isFiltering
+                      ? 'bg-[#8b5cf6] text-white border-[#8b5cf6]'
+                      : 'bg-[#8b5cf6]/10 text-[#8b5cf6] border-[#8b5cf6]/10 hover:bg-[#8b5cf6]/20'
+                  }`}
+                >
+                  All
+                </button>
+                {allTags.map((tag) => {
+                  const active = selectedTags.includes(tag);
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      className={`text-xs px-3 py-1.5 rounded-md border transition-all duration-200 cursor-pointer ${
+                        active
+                          ? 'bg-[#8b5cf6] text-white border-[#8b5cf6]'
+                          : 'bg-[#8b5cf6]/10 text-[#8b5cf6] border-[#8b5cf6]/10 hover:bg-[#8b5cf6]/20'
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  );
+                })}
+              </motion.div>
+            )}
+
+            {isFiltering && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-xs text-[#6a6a7a] mb-8"
+              >
+                Showing {filteredAndSortedArticles.length} of {articles.length} article{articles.length !== 1 ? 's' : ''}
+              </motion.p>
+            )}
+
+            {!isFiltering && <div className="mb-4" />}
+
             <motion.div
-              key={sortOrder}
+              key={`${sortOrder}-${selectedTags.join(',')}`}
               className="space-y-6"
               initial="initial"
               animate="animate"
               transition={{ staggerChildren: 0.1 }}
             >
-              {sortedArticles.map((article, i) => (
+              {filteredAndSortedArticles.map((article, i) => (
                 <ArticleCard key={article.slug} article={article} index={i} />
               ))}
             </motion.div>
 
-            {articles.length === 0 && (
-              <motion.p variants={fade} className="text-[#6a6a7a] text-center py-12">
-                No articles yet. Check back soon.
+            {filteredAndSortedArticles.length === 0 && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-[#6a6a7a] text-center py-12"
+              >
+                {isFiltering
+                  ? 'No articles match the selected tags.'
+                  : 'No articles yet. Check back soon.'}
               </motion.p>
             )}
           </motion.div>
