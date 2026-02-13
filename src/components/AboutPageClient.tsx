@@ -169,6 +169,7 @@ export default function AboutPageClient() {
                   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/mina-mankarious' },
                   { label: 'X / Twitter', url: 'https://x.com/minamnkarious' },
                   { label: 'GitHub', url: 'https://github.com/minamankarious' },
+                  { label: 'Medium', url: 'https://mankarious.medium.com' },
                   { label: 'Crunchbase', url: 'https://www.crunchbase.com/person/mina-mankarious' },
                 ].map((link) => (
                   <a

@@ -273,6 +273,7 @@ export default function RootLayout({
       "https://github.com/minamankarious",
       "https://www.youtube.com/@minamankarious",
       "https://www.crunchbase.com/person/mina-mankarious",
+      "https://mankarious.medium.com",
       "https://www.boardy.ai",
     ],
     potentialAction: {
@@ -336,6 +337,7 @@ export default function RootLayout({
         <link rel="me" href="https://x.com/minamnkarious" />
         <link rel="me" href="https://github.com/minamankarious" />
         <link rel="me" href="https://www.youtube.com/@minamankarious" />
+        <link rel="me" href="https://mankarious.medium.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
