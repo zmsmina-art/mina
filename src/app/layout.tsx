@@ -86,7 +86,7 @@ export const metadata: Metadata = {
         alt: "Mina Mankarious - Male Founder & CEO of Olunix | Toronto Entrepreneur",
       },
     ],
-    creator: "@minamankrious",
+    creator: "@minamnkarious",
   },
   robots: {
     index: true,
@@ -317,7 +317,7 @@ export default function RootLayout({
       "@id": "https://minamankarious.com/#person",
     },
     dateCreated: "2024-09-01T00:00:00Z",
-    dateModified: "2026-02-13T00:00:00Z",
+    dateModified: new Date().toISOString(),
     isPartOf: {
       "@id": "https://minamankarious.com/#website",
     },
