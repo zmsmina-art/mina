@@ -267,11 +267,10 @@ export default function RootLayout({
     ],
     sameAs: [
       "https://www.linkedin.com/in/mina-mankarious",
-      "https://x.com/minamankrious",
+      "https://x.com/minamnkarious",
       "https://olunix.com",
       "https://www.wikidata.org/wiki/Q138001904",
       "https://github.com/minamankarious",
-      "https://www.instagram.com/minamankarious",
       "https://www.youtube.com/@minamankarious",
       "https://www.crunchbase.com/person/mina-mankarious",
       "https://www.boardy.ai",
@@ -334,9 +333,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
-        <link rel="me" href="https://x.com/minamankrious" />
+        <link rel="me" href="https://x.com/minamnkarious" />
         <link rel="me" href="https://github.com/minamankarious" />
-        <link rel="me" href="https://www.instagram.com/minamankarious" />
         <link rel="me" href="https://www.youtube.com/@minamankarious" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
       </head>
