@@ -27,22 +27,26 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   title: {
-    default: "Mina Mankarious | Olunix Founder & CEO, Toronto",
+    default: "Mina Mankarious | Male Founder & CEO of Olunix, Toronto",
     template: "%s | Mina Mankarious",
   },
   applicationName: "Mina Mankarious Portfolio",
-  description: "Mina Mankarious is the Founder & CEO of Olunix, a marketing and consulting firm in Toronto. Final year Automotive Engineering student at McMaster University. Connect for business opportunities.",
+  description: "Mina Mankarious is a male entrepreneur, Founder & CEO of Olunix, a marketing and consulting firm in Toronto. Final year Automotive Engineering student at McMaster University. He helps AI startups with strategic marketing and growth.",
   keywords: [
     "Mina Mankarious",
+    "Mina Mankarious male founder",
+    "Mina Mankarious Olunix CEO",
     "Olunix",
     "Marketing Consultant",
     "Business Consulting",
     "McMaster University",
     "Toronto Entrepreneur",
+    "Toronto male founder",
     "Boardy",
     "Automotive Engineering",
     "Startup Founder",
     "CEO",
+    "male entrepreneur Toronto",
   ],
   authors: [{ name: "Mina Mankarious", url: "https://minamankarious.com" }],
   creator: "Mina Mankarious",
@@ -56,8 +60,8 @@ export const metadata: Metadata = {
     telephone: true,
   },
   openGraph: {
-    title: "Mina Mankarious | Olunix Founder & CEO, Toronto",
-    description: "Founder & CEO of Olunix - Marketing & Consulting. McMaster University student. Let's connect!",
+    title: "Mina Mankarious | Male Founder & CEO of Olunix, Toronto",
+    description: "Mina Mankarious is a male entrepreneur, Founder & CEO of Olunix - Marketing & Consulting. McMaster University student. He helps AI startups grow.",
     url: "https://minamankarious.com",
     siteName: "Mina Mankarious",
     locale: "en_US",
@@ -67,19 +71,19 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Mina Mankarious - Founder & CEO of Olunix | Marketing & Consulting",
+        alt: "Mina Mankarious - Male Founder & CEO of Olunix | Marketing & Consulting | Toronto",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mina Mankarious | Olunix Founder & CEO",
-    description: "Founder & CEO of Olunix - Marketing & Consulting. Let's connect!",
+    title: "Mina Mankarious | Male Founder & CEO of Olunix",
+    description: "Male entrepreneur, Founder & CEO of Olunix - Marketing & Consulting. He helps AI startups grow.",
     images: [
       {
         url: "/og.png",
-        alt: "Mina Mankarious - Founder & CEO of Olunix",
+        alt: "Mina Mankarious - Male Founder & CEO of Olunix | Toronto Entrepreneur",
       },
     ],
     creator: "@minamankrious",
@@ -106,6 +110,10 @@ export const metadata: Metadata = {
   other: {
     "msapplication-TileColor": "#8b5cf6",
     "theme-color": "#050507",
+    "profile:first_name": "Mina",
+    "profile:last_name": "Mankarious",
+    "profile:gender": "male",
+    "profile:username": "minamankarious",
   },
 };
 
@@ -122,31 +130,68 @@ export default function RootLayout({
     name: "Mina Mankarious",
     givenName: "Mina",
     familyName: "Mankarious",
+    gender: "Male",
+    honorificPrefix: "Mr.",
+    additionalType: "https://www.wikidata.org/wiki/Q138001904",
     alternateName: ["Mina M.", "Mina Mankarious"],
     url: "https://minamankarious.com",
     mainEntityOfPage: "https://minamankarious.com",
-    image: {
-      "@type": "ImageObject",
-      "@id": "https://minamankarious.com/#primaryimage",
-      url: "https://minamankarious.com/headshot.jpg",
-      contentUrl: "https://minamankarious.com/headshot.jpg",
-      width: 799,
-      height: 799,
-      caption: "Mina Mankarious - Founder & CEO of Olunix",
-    },
+    image: [
+      {
+        "@type": "ImageObject",
+        "@id": "https://minamankarious.com/#primaryimage",
+        url: "https://minamankarious.com/headshot.jpg",
+        contentUrl: "https://minamankarious.com/headshot.jpg",
+        width: 799,
+        height: 799,
+        caption: "Mina Mankarious - Male Founder & CEO of Olunix | Toronto Entrepreneur",
+      },
+      {
+        "@type": "ImageObject",
+        url: "https://minamankarious.com/mina-mankarious-headshot.png",
+        contentUrl: "https://minamankarious.com/mina-mankarious-headshot.png",
+        caption: "Mina Mankarious - Male Entrepreneur and CEO, Toronto",
+      },
+      {
+        "@type": "ImageObject",
+        url: "https://minamankarious.com/og.png",
+        contentUrl: "https://minamankarious.com/og.png",
+        width: 1200,
+        height: 630,
+        caption: "Mina Mankarious - Founder & CEO of Olunix",
+      },
+    ],
     jobTitle: "Founder & CEO",
-    description: "Mina Mankarious is the Founder and CEO of Olunix, a marketing and consulting firm based in Toronto, Canada. He is a final year Automotive Engineering Technology student at McMaster University with expertise in business development, marketing strategy, and entrepreneurship.",
+    description: "Mina Mankarious is a male entrepreneur, Founder and CEO of Olunix, a marketing and consulting firm based in Toronto, Canada. He is a final year Automotive Engineering Technology student at McMaster University with expertise in business development, marketing strategy, and entrepreneurship.",
     worksFor: {
       "@type": "Organization",
       "@id": "https://olunix.com/#organization",
       name: "Olunix",
       legalName: "Olunix",
       url: "https://olunix.com",
-      description: "Marketing & Consulting Firm",
+      description: "Marketing & Consulting Firm helping AI startups with strategic growth",
       foundingDate: "2024-09",
       founder: {
         "@id": "https://minamankarious.com/#person",
       },
+      logo: {
+        "@type": "ImageObject",
+        url: "https://minamankarious.com/olunix-logo.png",
+        caption: "Olunix - Marketing & Consulting",
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Toronto",
+        addressRegion: "Ontario",
+        addressCountry: "CA",
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "Canada",
+      },
+      sameAs: [
+        "https://olunix.com",
+      ],
     },
     alumniOf: [
       {
@@ -170,15 +215,23 @@ export default function RootLayout({
         description: "Professional networking platform",
       },
     ],
+    birthPlace: {
+      "@type": "Place",
+      name: "Egypt",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "EG",
+      },
+    },
+    nationality: {
+      "@type": "Country",
+      name: "Canada",
+    },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Toronto",
       addressRegion: "Ontario",
       addressCountry: "CA",
-    },
-    nationality: {
-      "@type": "Country",
-      name: "Canada",
     },
     email: "mina@olunix.com",
     knowsAbout: [
@@ -200,14 +253,34 @@ export default function RootLayout({
       },
       description: "Founder and CEO of marketing and consulting firm",
     },
+    knowsLanguage: [
+      {
+        "@type": "Language",
+        name: "English",
+        alternateName: "en",
+      },
+      {
+        "@type": "Language",
+        name: "Arabic",
+        alternateName: "ar",
+      },
+    ],
     sameAs: [
-      "https://linkedin.com/in/mina-mankarious",
       "https://www.linkedin.com/in/mina-mankarious",
-      "https://twitter.com/minamankrious",
       "https://x.com/minamankrious",
       "https://olunix.com",
       "https://www.wikidata.org/wiki/Q138001904",
+      "https://github.com/minamankarious",
+      "https://www.instagram.com/minamankarious",
+      "https://www.youtube.com/@minamankarious",
+      "https://www.crunchbase.com/person/mina-mankarious",
+      "https://www.boardy.ai",
     ],
+    potentialAction: {
+      "@type": "ViewAction",
+      target: "https://minamankarious.com/about",
+      name: "View Profile",
+    },
   };
 
   // WebSite schema for site identity
@@ -217,11 +290,20 @@ export default function RootLayout({
     "@id": "https://minamankarious.com/#website",
     url: "https://minamankarious.com",
     name: "Mina Mankarious",
-    description: "Official website of Mina Mankarious - Founder & CEO of Olunix",
+    alternateName: "Mina Mankarious Portfolio",
+    description: "Official website of Mina Mankarious - Male Founder & CEO of Olunix",
     publisher: {
       "@id": "https://minamankarious.com/#person",
     },
     inLanguage: "en-US",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://minamankarious.com/articles?q={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 
   // ProfilePage schema for the main page
@@ -236,7 +318,7 @@ export default function RootLayout({
       "@id": "https://minamankarious.com/#person",
     },
     dateCreated: "2024-09-01T00:00:00Z",
-    dateModified: "2026-02-06T00:00:00Z",
+    dateModified: "2026-02-13T00:00:00Z",
     isPartOf: {
       "@id": "https://minamankarious.com/#website",
     },
@@ -250,6 +332,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
+        <link rel="me" href="https://x.com/minamankrious" />
+        <link rel="me" href="https://github.com/minamankarious" />
+        <link rel="me" href="https://www.instagram.com/minamankarious" />
+        <link rel="me" href="https://www.youtube.com/@minamankarious" />
+        <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <script
           type="application/ld+json"

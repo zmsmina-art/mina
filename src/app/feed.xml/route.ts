@@ -15,17 +15,19 @@ export async function GET() {
       <pubDate>${new Date(article.publishedAt).toUTCString()}</pubDate>
       ${article.tags.map((tag) => `<category>${tag}</category>`).join('\n      ')}
       <author>mina@olunix.com (Mina Mankarious)</author>
+      <dc:creator>Mina Mankarious</dc:creator>
     </item>`
     )
     .join('');
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Mina Mankarious</title>
+    <title>Mina Mankarious - Male Founder &amp; CEO of Olunix</title>
     <link>${siteUrl}</link>
-    <description>Thoughts on entrepreneurship, marketing, consulting, and building businesses by Mina Mankarious, Founder &amp; CEO of Olunix.</description>
+    <description>Thoughts on entrepreneurship, marketing, consulting, and building businesses by Mina Mankarious, male founder and CEO of Olunix in Toronto.</description>
     <language>en-us</language>
+    <dc:creator>Mina Mankarious</dc:creator>
     <lastBuildDate>${new Date(articles[0]?.updatedAt || new Date()).toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml" />
     <managingEditor>mina@olunix.com (Mina Mankarious)</managingEditor>

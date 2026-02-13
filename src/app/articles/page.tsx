@@ -39,6 +39,7 @@ export default function ArticlesPage() {
       '@type': 'Person',
       '@id': 'https://minamankarious.com/#person',
       name: 'Mina Mankarious',
+      gender: 'Male',
     },
     isPartOf: {
       '@id': 'https://minamankarious.com/#website',
@@ -54,6 +55,7 @@ export default function ArticlesPage() {
         '@type': 'Person',
         '@id': 'https://minamankarious.com/#person',
         name: 'Mina Mankarious',
+        gender: 'Male',
       },
     })),
   };

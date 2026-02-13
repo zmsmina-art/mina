@@ -1,0 +1,91 @@
+import { Metadata } from 'next';
+import AboutPageClient from '@/components/AboutPageClient';
+
+export const metadata: Metadata = {
+  title: 'About Mina Mankarious | Male Founder & CEO of Olunix, Toronto',
+  description:
+    'Mina Mankarious is a Canadian male entrepreneur, founder and CEO of Olunix, a marketing and consulting firm in Toronto. He helps AI startups with strategic marketing and growth.',
+  alternates: {
+    canonical: 'https://minamankarious.com/about',
+  },
+  openGraph: {
+    title: 'About Mina Mankarious | Male Founder & CEO of Olunix',
+    description:
+      'Mina Mankarious is a Canadian male entrepreneur, founder and CEO of Olunix. He helps AI startups with strategic marketing and growth.',
+    url: 'https://minamankarious.com/about',
+    type: 'profile',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Mina Mankarious - Male Founder & CEO of Olunix | Toronto Entrepreneur',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Mina Mankarious | Male Founder & CEO of Olunix',
+    description:
+      'Canadian male entrepreneur, founder and CEO of Olunix. He helps AI startups with strategic marketing and growth.',
+    images: [
+      {
+        url: '/og.png',
+        alt: 'Mina Mankarious - Male Founder & CEO of Olunix | Toronto Entrepreneur',
+      },
+    ],
+    creator: '@minamankrious',
+  },
+};
+
+export default function AboutPage() {
+  const aboutJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    '@id': 'https://minamankarious.com/about#aboutpage',
+    url: 'https://minamankarious.com/about',
+    name: 'About Mina Mankarious | Male Founder & CEO of Olunix',
+    description:
+      'Mina Mankarious is a Canadian male entrepreneur, founder and CEO of Olunix, a marketing and consulting firm based in Toronto, Ontario.',
+    mainEntity: {
+      '@id': 'https://minamankarious.com/#person',
+    },
+    isPartOf: {
+      '@id': 'https://minamankarious.com/#website',
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://minamankarious.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'About',
+        item: 'https://minamankarious.com/about',
+      },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <AboutPageClient />
+    </>
+  );
+}

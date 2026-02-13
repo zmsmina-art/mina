@@ -88,12 +88,14 @@ export default function ArticlePage({ params }: Props) {
       '@type': 'Person',
       '@id': 'https://minamankarious.com/#person',
       name: 'Mina Mankarious',
+      gender: 'Male',
       url: 'https://minamankarious.com',
     },
     publisher: {
       '@type': 'Person',
       '@id': 'https://minamankarious.com/#person',
       name: 'Mina Mankarious',
+      gender: 'Male',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

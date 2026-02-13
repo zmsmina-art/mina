@@ -28,6 +28,12 @@ ${homepageImages
   .join("\n")}
   </url>`;
 
+  const aboutEntry = `  <url>
+    <loc>${baseUrl}/about</loc>
+    <image:image><image:loc>${baseUrl}/headshot.png</image:loc><image:caption>Mina Mankarious - Male Founder and CEO of Olunix, Toronto entrepreneur</image:caption></image:image>
+    <image:image><image:loc>${baseUrl}/mina-mankarious-headshot.png</image:loc><image:caption>Mina Mankarious - Male Entrepreneur and CEO</image:caption></image:image>
+  </url>`;
+
   // Map article slugs to their inline images for the image sitemap
   const articleImages: Record<string, string[]> = {
     "hi-im-mina": [
@@ -55,6 +61,7 @@ ${(articleImages[article.slug] || [])
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${homepageEntry}
+${aboutEntry}
 ${articleEntries}
 </urlset>
 `;

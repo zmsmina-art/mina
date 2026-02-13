@@ -6,6 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://minamankarious.com/sitemap.xml",
+    sitemap: [
+      "https://minamankarious.com/sitemap.xml",
+      "https://minamankarious.com/sitemap-images.xml",
+    ],
   };
 }

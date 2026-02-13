@@ -14,11 +14,11 @@ export const articles: Article[] = [
     slug: "hi-im-mina",
     title: "Hi, I\u2019m Mina.",
     excerpt:
-      "From Egypt to Canada, from engineering to marketing, and everything in between. The story of how curiosity, hustle, and a refusal to cut corners led to building Olunix.",
+      "From Egypt to Canada, from engineering to marketing, and everything in between. The story of how a young man's curiosity, hustle, and refusal to cut corners led to building Olunix.",
     content: `
-<img src="/mina-mankarious-headshot.png" alt="Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student" class="article-float-img" />
+<img src="/mina-mankarious-headshot.png" alt="Mina Mankarious - Male Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student" class="article-float-img" />
 
-It's great to have you here, and I'm genuinely grateful you took a second to look around my website. I'm not entirely sure what this article section will look like down the line. Maybe it becomes a place where I share what I'm learning, maybe it turns into something completely different. But for now, I figured the best place to start is with a bit about who I am, how I got here, and why I'm writing any of this in the first place.
+It's great to have you here, and I'm genuinely grateful you took a second to look around my website. I'm not entirely sure what this article section will look like down the line. Maybe it becomes a place where I share what I'm learning as a young man navigating entrepreneurship, maybe it turns into something completely different. But for now, I figured the best place to start is with a bit about who I am, how I got here, and why I'm writing any of this in the first place.
 
 ## Born in Egypt. Raised in Canada. Built by Curiosity.
 
