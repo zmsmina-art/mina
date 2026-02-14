@@ -327,8 +327,8 @@ a {
 }
 
 .mini-fan-rotor-dot {
-  fill: rgba(191, 219, 254, 0.95);
-  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.75));
+  fill: rgba(191, 219, 254, 1);
+  filter: drop-shadow(0 0 7px rgba(96, 165, 250, 0.85));
 }
 
 .mini-fan-open {
@@ -417,16 +417,13 @@ a {
   .mini-fan-svg {
     width: 88px;
     height: 88px;
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: mini-fan-spin var(--fan-spin-duration-mobile, var(--fan-spin-duration)) linear infinite;
   }
 
   .mini-fan-blades-group {
-    animation: none;
+    animation-duration: var(--fan-spin-duration-mobile, var(--fan-spin-duration));
   }
 
-  .mini-fan-disc--stopped .mini-fan-svg {
+  .mini-fan-disc--stopped .mini-fan-blades-group {
     animation-play-state: paused;
     opacity: 0.58;
   }

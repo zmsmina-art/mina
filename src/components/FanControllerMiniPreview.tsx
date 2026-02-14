@@ -95,9 +95,14 @@ export default function FanControllerMiniPreview() {
     return { duty, mode, spinDuration, sliderBackground };
   }, [engineTempRaw, safetyActive, temperature]);
 
+  const mobileSpinDuration = useMemo(() => {
+    if (duty === 0) return 2.8;
+    return Number((3.8 - (duty / 100) * 2.5).toFixed(2));
+  }, [duty]);
+
   const fanStyle = {
     ['--fan-spin-duration' as string]: `${spinDuration}s`,
-    ['--fan-spin-duration-mobile' as string]: `${Math.max(spinDuration * 1.8, 0.55).toFixed(2)}s`,
+    ['--fan-spin-duration-mobile' as string]: `${mobileSpinDuration}s`,
   } as CSSProperties;
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { ChevronRight, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 type NavItem = {
@@ -86,7 +86,7 @@ export default function SiteNav() {
           }`}
         >
           <div className="flex items-center justify-between px-5 py-5 border-b border-white/10">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#8a8a9a]">Navigation</p>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#b9b4d7]">Navigation</p>
             <button
               type="button"
               className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 bg-white/[0.03] text-[#c4b5fd]"
@@ -103,19 +103,21 @@ export default function SiteNav() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="block rounded-lg px-3 py-3 text-sm text-[#b7b7c7] hover:text-white hover:bg-white/[0.04]"
+                  className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-[15px] font-medium text-[#e8e4ff] hover:border-[#8b5cf6]/45 hover:bg-[#8b5cf6]/10"
                   onClick={closeMenu}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  <ChevronRight size={15} className="text-[#a78bfa] transition-transform group-hover:translate-x-0.5" />
                 </Link>
               ) : (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block rounded-lg px-3 py-3 text-sm text-[#b7b7c7] hover:text-white hover:bg-white/[0.04]"
+                  className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-[15px] font-medium text-[#e8e4ff] hover:border-[#8b5cf6]/45 hover:bg-[#8b5cf6]/10"
                   onClick={closeMenu}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  <ChevronRight size={15} className="text-[#a78bfa] transition-transform group-hover:translate-x-0.5" />
                 </a>
               ),
             )}
