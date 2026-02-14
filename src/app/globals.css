@@ -303,8 +303,7 @@ a {
 }
 
 .mini-fan-blades-group {
-  transform-origin: 100px 100px;
-  transform-box: fill-box;
+  transform-origin: center;
   animation: mini-fan-spin var(--fan-spin-duration) linear infinite;
   will-change: transform;
 }

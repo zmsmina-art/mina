@@ -106,6 +106,9 @@ export default function FanControllerMiniPreview() {
     const group = bladesGroupRef.current;
     if (!group) return;
 
+    group.style.transformOrigin = 'center';
+    group.style.transformBox = 'fill-box';
+
     const mobileLike = window.matchMedia('(max-width: 640px), (pointer: coarse)').matches;
     if (!mobileLike) return;
 
@@ -114,7 +117,7 @@ export default function FanControllerMiniPreview() {
     let lastTime = performance.now();
 
     if (duty === 0) {
-      group.setAttribute('transform', `rotate(${bladeAngleRef.current} 100 100)`);
+      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
       return;
     }
 
@@ -125,7 +128,7 @@ export default function FanControllerMiniPreview() {
       const deltaSeconds = Math.min((timestamp - lastTime) / 1000, 0.05);
       lastTime = timestamp;
       bladeAngleRef.current = (bladeAngleRef.current + speedDegPerSecond * deltaSeconds) % 360;
-      group.setAttribute('transform', `rotate(${bladeAngleRef.current} 100 100)`);
+      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
       rafId = window.requestAnimationFrame(tick);
     };
 
