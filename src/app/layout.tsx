@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import CustomCursor from '@/components/CustomCursor';
 import './globals.css';
 
 const geistSans = localFont({
@@ -255,9 +254,8 @@ export default function RootLayout({
         <link rel="me" href="https://mankarious.medium.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-style-prism`}>
         <a href="#main-content" className="skip-link">Skip to content</a>
-        <CustomCursor />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

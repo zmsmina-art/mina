@@ -1,37 +1,80 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 
-function getFanMode(duty: number, temperature: number) {
-  if (duty === 0) {
-    return 'OFF';
-  }
-  if (temperature >= 112) {
-    return 'CRITICAL';
-  }
-  if (duty < 45) {
-    return 'LOW';
-  }
-  if (duty < 75) {
-    return 'MED';
-  }
-  return 'HIGH';
+const FAN_BLADE_ANGLES = [0, 72, 144, 216, 288];
+
+function tempToDuty(tempC: number) {
+  if (tempC < 60) return 0;
+  if (tempC < 70) return 25;
+  if (tempC < 80) return 50;
+  if (tempC < 90) return 75;
+  return 100;
+}
+
+function adcToEngineTemp(rawADC: number) {
+  return (rawADC / 1023) * 120;
+}
+
+function adcToVoltage(rawADC: number) {
+  return (rawADC / 1023) * 5;
+}
+
+function getFanMode(duty: number) {
+  if (duty === 0) return 'AUTO / OFF';
+  return `AUTO / ${duty}%`;
 }
 
 export default function FanControllerMiniPreview() {
-  const [temperature, setTemperature] = useState(92);
+  const [engineTempRaw, setEngineTempRaw] = useState(614);
+  const [safetyActive, setSafetyActive] = useState(false);
 
-  const { duty, rpm, mode, spinDuration, sliderBackground } = useMemo(() => {
-    const dutyRaw = Math.round(((temperature - 82) / 30) * 100);
-    const duty = Math.max(0, Math.min(100, dutyRaw));
-    const rpm = Math.round(duty * 38);
-    const mode = getFanMode(duty, temperature);
-    const spinDuration = duty === 0 ? 2.4 : Number((2 - (duty / 100) * 1.55).toFixed(2));
-    const sliderBackground = `linear-gradient(90deg, rgba(139, 92, 246, 0.75) 0%, rgba(139, 92, 246, 0.75) ${duty}%, rgba(139, 92, 246, 0.14) ${duty}%, rgba(139, 92, 246, 0.14) 100%)`;
+  const temperature = adcToEngineTemp(engineTempRaw);
+  const voltage = adcToVoltage(engineTempRaw);
 
-    return { duty, rpm, mode, spinDuration, sliderBackground };
+  useEffect(() => {
+    setSafetyActive((isSafetyActive) => {
+      if (temperature >= 90) return true;
+      if (isSafetyActive && temperature >= 85) return true;
+      return false;
+    });
   }, [temperature]);
+
+  const onEngineTempRawChange = (rawValue: string) => {
+    const nextRaw = Number(rawValue);
+    if (Number.isNaN(nextRaw)) return;
+    setEngineTempRaw(nextRaw);
+  };
+
+  const { duty, mode, spinDuration, sliderBackground } = useMemo(() => {
+    const duty = safetyActive ? 100 : tempToDuty(temperature);
+    const mode = safetyActive ? 'SAFETY' : getFanMode(duty);
+    const spinDuration = duty === 0 ? 2.5 : Number((2.5 - (duty / 100) * 2.25).toFixed(2));
+    const adcFill = Number(((engineTempRaw / 1023) * 100).toFixed(2));
+    const sliderBackground = `
+      linear-gradient(
+        90deg,
+        rgba(74, 222, 128, 0.28) 0%,
+        rgba(74, 222, 128, 0.28) 49.9%,
+        rgba(96, 165, 250, 0.28) 50%,
+        rgba(96, 165, 250, 0.28) 66.6%,
+        rgba(251, 191, 36, 0.28) 66.7%,
+        rgba(251, 191, 36, 0.28) 74.9%,
+        rgba(248, 113, 113, 0.32) 75%,
+        rgba(248, 113, 113, 0.32) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(167, 139, 250, 0.86) 0%,
+        rgba(167, 139, 250, 0.86) ${adcFill}%,
+        rgba(139, 92, 246, 0.12) ${adcFill}%,
+        rgba(139, 92, 246, 0.12) 100%
+      )
+    `;
+
+    return { duty, mode, spinDuration, sliderBackground };
+  }, [engineTempRaw, safetyActive, temperature]);
 
   const fanStyle = {
     ['--fan-spin-duration' as string]: `${spinDuration}s`,
@@ -41,17 +84,18 @@ export default function FanControllerMiniPreview() {
     <div className="mini-fan-sim mt-4">
       <div className="mini-fan-top">
         <label htmlFor="mini-engine-temp">Engine Temperature</label>
-        <span>{temperature}C</span>
+        <span>{temperature.toFixed(1)}C</span>
       </div>
 
       <input
         id="mini-engine-temp"
         type="range"
-        min={70}
-        max={120}
+        min={0}
+        max={1023}
         step={1}
-        value={temperature}
-        onChange={(event) => setTemperature(Number(event.target.value))}
+        value={engineTempRaw}
+        onInput={(event) => onEngineTempRawChange((event.target as HTMLInputElement).value)}
+        onChange={(event) => onEngineTempRawChange((event.target as HTMLInputElement).value)}
         className="mini-fan-slider"
         style={{ background: sliderBackground }}
         aria-label="Engine temperature slider"
@@ -60,20 +104,39 @@ export default function FanControllerMiniPreview() {
       <div className="mini-fan-stats">
         <span>Mode: {mode}</span>
         <span>{duty}% PWM</span>
-        <span>{rpm} RPM</span>
+        <span>ADC: {engineTempRaw}</span>
+        <span>{voltage.toFixed(2)}V</span>
       </div>
 
       <div className="mini-fan-stage">
         <div
-          className={`mini-fan-disc ${duty === 0 ? 'mini-fan-disc--stopped' : ''}`}
+          className={`mini-fan-disc ${duty === 0 ? 'mini-fan-disc--stopped' : ''} ${safetyActive ? 'mini-fan-disc--safety' : ''}`}
           style={fanStyle}
           aria-hidden="true"
         >
-          <span className="mini-fan-blade mini-fan-blade--1" />
-          <span className="mini-fan-blade mini-fan-blade--2" />
-          <span className="mini-fan-blade mini-fan-blade--3" />
-          <span className="mini-fan-blade mini-fan-blade--4" />
-          <span className="mini-fan-hub" />
+          <svg viewBox="0 0 200 200" className="mini-fan-svg">
+            <circle cx="100" cy="100" r="95" className="mini-fan-housing" />
+            <g className="mini-fan-blades-group">
+              <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
+              {FAN_BLADE_ANGLES.map((angle) => {
+                const rad = (angle * Math.PI) / 180;
+                const tipX = 100 + 75 * Math.cos(rad);
+                const tipY = 100 + 75 * Math.sin(rad);
+                const startX = 100 + 15 * Math.cos(rad);
+                const startY = 100 + 15 * Math.sin(rad);
+                const cpL = rad - 0.4;
+                const cpR = rad + 0.4;
+
+                return (
+                  <path
+                    key={angle}
+                    className="mini-fan-blade"
+                    d={`M ${startX},${startY} Q ${100 + 55 * Math.cos(cpL)},${100 + 55 * Math.sin(cpL)} ${tipX},${tipY} Q ${100 + 55 * Math.cos(cpR)},${100 + 55 * Math.sin(cpR)} ${startX},${startY}`}
+                  />
+                );
+              })}
+            </g>
+          </svg>
         </div>
 
         <a href="/fan-controller/index.html" className="mini-fan-open">
