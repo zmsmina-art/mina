@@ -288,7 +288,7 @@ export default function Home() {
                       <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Feb 2026</span>
                     </div>
                     <p className="text-[#8a8a9a] text-sm leading-relaxed">
-                      Interactive web simulator of an HCS12 microcontroller-based automotive cooling fan controller. Features CAN bus communication, PWM motor control, ADC temperature sensing, and safety-critical overheat protection.
+                      We first built and tested this as a physical HCS12 automotive cooling fan controller, then I turned that real implementation into an interactive web simulator. It includes CAN bus communication, PWM motor control, ADC temperature sensing, and safety-critical overheat protection.
                     </p>
                     <FanControllerMiniPreview />
                     <div className="flex flex-wrap gap-2 mt-3">

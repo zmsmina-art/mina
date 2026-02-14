@@ -214,13 +214,17 @@ a {
   height: 8px;
   border-radius: 9999px;
   border: 1px solid rgba(139, 92, 246, 0.24);
+  -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mini-fan-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
   width: 17px;
   height: 17px;
@@ -253,6 +257,10 @@ a {
   font-size: 0.72rem;
   color: #8a8a9a;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+.mini-fan-stats span {
+  white-space: nowrap;
 }
 
 .mini-fan-stage {
@@ -316,6 +324,11 @@ a {
   stroke-width: 2;
 }
 
+.mini-fan-rotor-dot {
+  fill: rgba(191, 219, 254, 0.95);
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.75));
+}
+
 .mini-fan-open {
   display: inline-flex;
   align-items: center;
@@ -348,13 +361,70 @@ a {
 }
 
 @media (max-width: 640px) {
+  .mini-fan-sim {
+    margin-top: 12px;
+    padding: 12px;
+  }
+
+  .mini-fan-top label {
+    font-size: 0.7rem;
+    letter-spacing: 0.09em;
+  }
+
+  .mini-fan-top span {
+    font-size: 0.82rem;
+  }
+
+  .mini-fan-slider {
+    height: 10px;
+  }
+
+  .mini-fan-slider::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.28);
+  }
+
+  .mini-fan-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.28);
+  }
+
+  .mini-fan-stats {
+    margin-top: 9px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 10px;
+    font-size: 0.68rem;
+  }
+
+  .mini-fan-blades-group {
+    animation-duration: var(--fan-spin-duration-mobile, var(--fan-spin-duration));
+  }
+
   .mini-fan-stage {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .mini-fan-disc {
+    width: 88px;
+    height: 88px;
+    align-self: center;
+  }
+
+  .mini-fan-svg {
+    width: 80px;
+    height: 80px;
   }
 
   .mini-fan-open {
     width: 100%;
+    min-height: 38px;
+    font-size: 0.72rem;
   }
 }
 

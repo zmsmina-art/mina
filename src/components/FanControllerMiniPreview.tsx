@@ -1,9 +1,14 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import type { CSSProperties } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, TouchEvent } from 'react';
 
 const FAN_BLADE_ANGLES = [0, 72, 144, 216, 288];
+const ENGINE_ADC_MAX = 1023;
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
 
 function tempToDuty(tempC: number) {
   if (tempC < 60) return 0;
@@ -29,6 +34,7 @@ function getFanMode(duty: number) {
 export default function FanControllerMiniPreview() {
   const [engineTempRaw, setEngineTempRaw] = useState(614);
   const [safetyActive, setSafetyActive] = useState(false);
+  const sliderRef = useRef<HTMLInputElement | null>(null);
 
   const temperature = adcToEngineTemp(engineTempRaw);
   const voltage = adcToVoltage(engineTempRaw);
@@ -47,11 +53,24 @@ export default function FanControllerMiniPreview() {
     setEngineTempRaw(nextRaw);
   };
 
+  const updateEngineTempFromTouch = (event: TouchEvent<HTMLInputElement>) => {
+    const slider = sliderRef.current;
+    const touch = event.touches[0];
+    if (!slider || !touch) return;
+
+    const bounds = slider.getBoundingClientRect();
+    if (bounds.width <= 0) return;
+
+    const ratio = clamp((touch.clientX - bounds.left) / bounds.width, 0, 1);
+    setEngineTempRaw(Math.round(ratio * ENGINE_ADC_MAX));
+    event.preventDefault();
+  };
+
   const { duty, mode, spinDuration, sliderBackground } = useMemo(() => {
     const duty = safetyActive ? 100 : tempToDuty(temperature);
     const mode = safetyActive ? 'SAFETY' : getFanMode(duty);
     const spinDuration = duty === 0 ? 2.5 : Number((2.5 - (duty / 100) * 2.25).toFixed(2));
-    const adcFill = Number(((engineTempRaw / 1023) * 100).toFixed(2));
+    const adcFill = Number(((engineTempRaw / ENGINE_ADC_MAX) * 100).toFixed(2));
     const sliderBackground = `
       linear-gradient(
         90deg,
@@ -78,6 +97,7 @@ export default function FanControllerMiniPreview() {
 
   const fanStyle = {
     ['--fan-spin-duration' as string]: `${spinDuration}s`,
+    ['--fan-spin-duration-mobile' as string]: `${Math.max(spinDuration * 1.8, 0.55).toFixed(2)}s`,
   } as CSSProperties;
 
   return (
@@ -88,14 +108,17 @@ export default function FanControllerMiniPreview() {
       </div>
 
       <input
+        ref={sliderRef}
         id="mini-engine-temp"
         type="range"
         min={0}
-        max={1023}
+        max={ENGINE_ADC_MAX}
         step={1}
         value={engineTempRaw}
         onInput={(event) => onEngineTempRawChange((event.target as HTMLInputElement).value)}
         onChange={(event) => onEngineTempRawChange((event.target as HTMLInputElement).value)}
+        onTouchStart={updateEngineTempFromTouch}
+        onTouchMove={updateEngineTempFromTouch}
         className="mini-fan-slider"
         style={{ background: sliderBackground }}
         aria-label="Engine temperature slider"
@@ -118,6 +141,7 @@ export default function FanControllerMiniPreview() {
             <circle cx="100" cy="100" r="95" className="mini-fan-housing" />
             <g className="mini-fan-blades-group">
               <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
+              <circle cx="160" cy="100" r="3.2" className="mini-fan-rotor-dot" />
               {FAN_BLADE_ANGLES.map((angle) => {
                 const rad = (angle * Math.PI) / 180;
                 const tipX = 100 + 75 * Math.cos(rad);
