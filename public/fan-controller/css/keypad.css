@@ -29,6 +29,11 @@
   background: rgba(139, 92, 246, 0.12);
 }
 
+.keypad__key:focus-visible {
+  outline: 2px solid var(--bp-purple-light);
+  outline-offset: 1px;
+}
+
 .keypad__key--flash {
   background: rgba(139, 92, 246, 0.2) !important;
   border-color: var(--bp-purple) !important;

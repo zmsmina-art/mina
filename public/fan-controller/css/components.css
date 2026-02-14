@@ -68,6 +68,11 @@
   box-shadow: 0 0 12px rgba(139, 92, 246, 0.1);
 }
 
+.btn:focus-visible {
+  outline: 2px solid var(--bp-purple-light);
+  outline-offset: 2px;
+}
+
 .btn--active {
   background: rgba(139, 92, 246, 0.15);
   border-color: var(--bp-purple);
@@ -194,6 +199,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: var(--radius-sm);
   max-width: 280px;
   line-height: 1.5;
+  white-space: pre-line;
   pointer-events: none;
   z-index: 1000;
   opacity: 0;
@@ -223,4 +229,9 @@ input[type="range"]::-moz-range-thumb {
 .info-icon:hover {
   border-color: var(--bp-purple-light);
   color: var(--bp-purple-light);
+}
+
+.info-icon:focus-visible {
+  outline: 2px solid var(--bp-purple-light);
+  outline-offset: 2px;
 }

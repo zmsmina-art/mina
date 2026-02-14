@@ -108,3 +108,24 @@
   min-width: 60px;
   text-align: right;
 }
+
+@media (max-width: 980px) {
+  .signals__pwm-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .signals__pwm-row {
+    grid-template-columns: 1fr;
+  }
+
+  .signals__slider-row {
+    flex-wrap: wrap;
+  }
+
+  .signals__slider-value {
+    min-width: auto;
+    text-align: left;
+  }
+}

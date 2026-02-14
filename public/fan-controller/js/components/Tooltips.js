@@ -2,7 +2,7 @@ import { el } from '../utils/DOMHelpers.js';
 
 export class Tooltips {
   constructor() {
-    this.tooltip = el('div', { className: 'tooltip' });
+    this.tooltip = el('div', { className: 'tooltip', role: 'tooltip', id: 'fc-tooltip' });
     document.body.appendChild(this.tooltip);
     this._bindGlobal();
   }
@@ -19,14 +19,25 @@ export class Tooltips {
       if (!target) return;
       this._hide();
     }, true);
+
+    document.addEventListener('focusin', (e) => {
+      const target = e.target.closest('[data-tooltip]');
+      if (!target) return;
+      this._show(target);
+    });
+
+    document.addEventListener('focusout', () => {
+      this._hide();
+    });
   }
 
   _show(target) {
     const text = target.getAttribute('data-tooltip');
     if (!text) return;
 
-    this.tooltip.innerHTML = text.replace(/\n/g, '<br>');
+    this.tooltip.textContent = text;
     this.tooltip.classList.add('tooltip--visible');
+    target.setAttribute('aria-describedby', 'fc-tooltip');
 
     const rect = target.getBoundingClientRect();
     const tipRect = this.tooltip.getBoundingClientRect();

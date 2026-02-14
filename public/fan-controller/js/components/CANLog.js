@@ -18,7 +18,10 @@ export class CANLog {
     const info = el('span', {
       className: 'info-icon',
       textContent: 'i',
-      'data-tooltip': 'CAN (Controller Area Network) is the standard automotive bus protocol.\nID: 11-bit message identifier. DLC: Data Length Code (0-8 bytes).\nTX (0x100): ECU sends temperature data to controller.\nRX (0x200): Controller responds with fan status and mode.'
+      'data-tooltip': 'CAN (Controller Area Network) is the standard automotive bus protocol.\nID: 11-bit message identifier. DLC: Data Length Code (0-8 bytes).\nTX (0x100): ECU sends temperature data to controller.\nRX (0x200): Controller responds with fan status and mode.',
+      tabindex: '0',
+      role: 'button',
+      'aria-label': 'CAN bus info'
     });
     title.appendChild(info);
     wrapper.appendChild(title);

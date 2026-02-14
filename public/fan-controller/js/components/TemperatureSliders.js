@@ -18,7 +18,10 @@ export class TemperatureSliders {
     const info = el('span', {
       className: 'info-icon',
       textContent: 'i',
-      'data-tooltip': 'ADC: 10-bit resolution (0-1023). Voltage range: 0-5V.\nPotentiometers simulate temperature sensors connected to ATD Channels 0 and 1 on the HCS12 microcontroller.'
+      'data-tooltip': 'ADC: 10-bit resolution (0-1023). Voltage range: 0-5V.\nPotentiometers simulate temperature sensors connected to ATD Channels 0 and 1 on the HCS12 microcontroller.',
+      tabindex: '0',
+      role: 'button',
+      'aria-label': 'ADC sensor info'
     });
     wrapper.querySelector('.panel__title').appendChild(info);
 

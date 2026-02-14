@@ -3,6 +3,7 @@
   gap: 2px;
   border-bottom: 1px solid var(--bp-border);
   margin-bottom: var(--gap-lg);
+  flex-wrap: wrap;
 }
 
 .tab-bar__btn {
@@ -23,6 +24,11 @@
 .tab-bar__btn:hover {
   color: var(--bp-text-primary);
   background: rgba(139, 92, 246, 0.06);
+}
+
+.tab-bar__btn:focus-visible {
+  outline: 2px solid var(--bp-purple-light);
+  outline-offset: -2px;
 }
 
 .tab-bar__btn--active {
@@ -47,4 +53,11 @@
 
 .tab-content--active {
   display: block;
+}
+
+@media (max-width: 640px) {
+  .tab-bar__btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
 }

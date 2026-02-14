@@ -16,7 +16,7 @@ const BLOCKS = [
     lines: ['EVALH1 Trainer Board', '', 'Modules: MSCAN, ATD,', 'PWM, Timer, GPIO, IRQ'],
     info: {
       title: 'HCS12 Microcontroller (EVALH1 Board)',
-      body: 'The central processing unit running the fan control algorithm.\n\nModules Used:\n\u2022 MSCAN: CAN bus communication\n\u2022 ATD: 10-bit ADC for temperature sensors\n\u2022 PWM: Motor speed control output\n\u2022 Timer: PWM signal generation\n\u2022 GPIO: LCD, LEDs, buzzer control\n\u2022 IRQ: Keypad interrupt handler (vector 6)'
+      body: 'The central processing unit running the fan control algorithm.\n\nModules Used:\n• MSCAN: CAN bus communication\n• ATD: 10-bit ADC for temperature sensors\n• PWM: Motor speed control output\n• Timer: PWM signal generation\n• GPIO: LCD, LEDs, buzzer control\n• IRQ: Keypad interrupt handler (vector 6)'
     }
   },
   {
@@ -25,7 +25,7 @@ const BLOCKS = [
     lines: ['DC Motor (fan)', 'Pot 1: Engine Temp', 'Pot 2: Ambient Temp', 'Motor Driver IC'],
     info: {
       title: 'Roboteurs I/O Trainer Board',
-      body: 'Provides analog input and motor output interfaces.\n\nComponents:\n\u2022 DC Motor: Simulates radiator cooling fan\n\u2022 Potentiometer 1: Engine temp sensor (ADC Ch0, 0-120\u00B0C)\n\u2022 Potentiometer 2: Ambient temp sensor (ADC Ch1, -20 to 50\u00B0C)\n\u2022 Motor Driver: H-bridge for PWM-controlled variable speed'
+      body: 'Provides analog input and motor output interfaces.\n\nComponents:\n• DC Motor: Simulates radiator cooling fan\n• Potentiometer 1: Engine temp sensor (ADC Ch0, 0-120°C)\n• Potentiometer 2: Ambient temp sensor (ADC Ch1, -20 to 50°C)\n• Motor Driver: H-bridge for PWM-controlled variable speed'
     }
   },
   {
@@ -43,7 +43,7 @@ const BLOCKS = [
     lines: ['GPIO + IRQ'],
     info: {
       title: '4x4 Matrix Keypad',
-      body: 'User input for mode selection and manual fan speed control.\n\nInterface: Port S (rows scan, columns read)\nInterrupt: Vector 6 (keypress detection)\n\nKey Functions:\n\u2022 Key 1: AUTO mode\n\u2022 Key 2: MANUAL mode\n\u2022 Keys 4-8: Fan speed (0%-100%)\n\u2022 Key #: System reset'
+      body: 'User input for mode selection and manual fan speed control.\n\nInterface: Port S (rows scan, columns read)\nInterrupt: Vector 6 (keypress detection)\n\nKey Functions:\n• Key 1: AUTO mode\n• Key 2: MANUAL mode\n• Keys 4-8: Fan speed (0%-100%)\n• Key #: System reset'
     }
   },
 ];
@@ -58,14 +58,18 @@ const CONNECTIONS = [
 export class ArchitectureTab {
   constructor() {
     this.infoPanel = null;
+    this.infoPanelTitle = null;
+    this.infoPanelBody = null;
     this.el = this._create();
   }
 
   _create() {
     const wrapper = el('div', { className: 'architecture' });
 
-    const intro = el('div', { className: 'signals__annotation' });
-    intro.innerHTML = 'Click on any component block to view detailed information about its role, connections, and configuration in the system.';
+    const intro = el('div', {
+      className: 'signals__annotation',
+      textContent: 'Click or press Enter on any component block to view detailed information about its role, connections, and configuration in the system.',
+    });
     wrapper.appendChild(intro);
 
     const diagContainer = el('div', { className: 'architecture__diagram' });
@@ -74,33 +78,43 @@ export class ArchitectureTab {
     svg.style.width = '100%';
     svg.style.height = 'auto';
 
-    // Draw connections first (behind blocks)
     for (const conn of CONNECTIONS) {
       this._drawConnection(svg, conn);
     }
 
-    // Draw blocks
     for (const block of BLOCKS) {
       this._drawBlock(svg, block);
     }
 
     diagContainer.appendChild(svg);
 
-    // Info panel
-    this.infoPanel = el('div', { className: 'arch-info-panel' });
-    this.infoPanel.innerHTML = `
-      <button class="arch-info-panel__close">\u00D7</button>
-      <div class="arch-info-panel__title"></div>
-      <div class="arch-info-panel__body"></div>
-    `;
-    this.infoPanel.querySelector('.arch-info-panel__close').addEventListener('click', () => {
+    this.infoPanel = el('div', {
+      className: 'arch-info-panel',
+      role: 'dialog',
+      'aria-modal': 'false',
+      'aria-live': 'polite',
+    });
+
+    const closeBtn = el('button', {
+      className: 'arch-info-panel__close',
+      type: 'button',
+      textContent: '×',
+      'aria-label': 'Close details',
+    });
+    closeBtn.addEventListener('click', () => {
       this.infoPanel.classList.remove('arch-info-panel--visible');
     });
+
+    this.infoPanelTitle = el('div', { className: 'arch-info-panel__title' });
+    this.infoPanelBody = el('div', { className: 'arch-info-panel__body' });
+
+    this.infoPanel.appendChild(closeBtn);
+    this.infoPanel.appendChild(this.infoPanelTitle);
+    this.infoPanel.appendChild(this.infoPanelBody);
     diagContainer.appendChild(this.infoPanel);
 
     wrapper.appendChild(diagContainer);
 
-    // Legend
     const legend = el('div', { className: 'arch-legend' });
     for (const conn of CONNECTIONS) {
       const item = el('div', { className: 'arch-legend__item' });
@@ -120,7 +134,7 @@ export class ArchitectureTab {
   }
 
   _findBlock(id) {
-    return BLOCKS.find(b => b.id === id);
+    return BLOCKS.find((b) => b.id === id);
   }
 
   _drawConnection(svg, conn) {
@@ -129,7 +143,6 @@ export class ArchitectureTab {
     const fc = this._getBlockCenter(fromBlock);
     const tc = this._getBlockCenter(toBlock);
 
-    // Calculate edge connection points
     const { x: x1, y: y1 } = this._edgePoint(fromBlock, tc);
     const { x: x2, y: y2 } = this._edgePoint(toBlock, fc);
 
@@ -143,7 +156,6 @@ export class ArchitectureTab {
     });
     svg.appendChild(path);
 
-    // Label at midpoint
     const mx = (x1 + x2) / 2;
     const my = (y1 + y2) / 2;
     const label = svgEl('text', {
@@ -156,7 +168,6 @@ export class ArchitectureTab {
     label.textContent = conn.label;
     svg.appendChild(label);
 
-    // Animated flow dots
     this._addFlowDot(svg, pathId, conn.color, 0);
     this._addFlowDot(svg, pathId, conn.color, 0.5);
     if (conn.bidir) {
@@ -183,10 +194,10 @@ export class ArchitectureTab {
     if (absDx / block.w > absDy / block.h) {
       const signX = dx > 0 ? 1 : -1;
       return { x: cx + signX * block.w / 2, y: cy + dy * (block.w / 2) / absDx };
-    } else {
-      const signY = dy > 0 ? 1 : -1;
-      return { x: cx + dx * (block.h / 2) / absDy, y: cy + signY * block.h / 2 };
     }
+
+    const signY = dy > 0 ? 1 : -1;
+    return { x: cx + dx * (block.h / 2) / absDy, y: cy + signY * block.h / 2 };
   }
 
   _addFlowDot(svg, pathId, color, delayRatio) {
@@ -215,6 +226,9 @@ export class ArchitectureTab {
   _drawBlock(svg, block) {
     const g = svgEl('g', { class: 'arch-block', 'data-block-id': block.id });
     g.style.cursor = 'pointer';
+    g.setAttribute('role', 'button');
+    g.setAttribute('tabindex', '0');
+    g.setAttribute('aria-label', `${block.title} component details`);
 
     const rect = svgEl('rect', {
       x: String(block.x),
@@ -251,11 +265,18 @@ export class ArchitectureTab {
       g.appendChild(t);
     });
 
-    g.addEventListener('click', () => {
-      const panel = this.infoPanel;
-      panel.querySelector('.arch-info-panel__title').textContent = block.info.title;
-      panel.querySelector('.arch-info-panel__body').innerHTML = block.info.body.replace(/\n/g, '<br>');
-      panel.classList.add('arch-info-panel--visible');
+    const showPanel = () => {
+      this.infoPanelTitle.textContent = block.info.title;
+      this.infoPanelBody.textContent = block.info.body;
+      this.infoPanel.classList.add('arch-info-panel--visible');
+    };
+
+    g.addEventListener('click', showPanel);
+    g.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        showPanel();
+      }
     });
 
     svg.appendChild(g);

@@ -22,6 +22,7 @@ export default function ReadingProgress() {
       className="reading-progress"
       style={{ width: `${progress}%` }}
       role="progressbar"
+      aria-label="Article reading progress"
       aria-valuenow={Math.round(progress)}
       aria-valuemin={0}
       aria-valuemax={100}

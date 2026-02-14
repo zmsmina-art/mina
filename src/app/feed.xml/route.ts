@@ -23,9 +23,9 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Mina Mankarious - Male Founder &amp; CEO of Olunix</title>
+    <title>Mina Mankarious - Founder &amp; CEO of Olunix</title>
     <link>${siteUrl}</link>
-    <description>Thoughts on entrepreneurship, marketing, consulting, and building businesses by Mina Mankarious, male founder and CEO of Olunix in Toronto.</description>
+    <description>Thoughts on entrepreneurship, marketing, consulting, and building businesses by Mina Mankarious, founder and CEO of Olunix in Toronto.</description>
     <language>en-us</language>
     <dc:creator>Mina Mankarious</dc:creator>
     <lastBuildDate>${new Date(articles[0]?.updatedAt || new Date()).toUTCString()}</lastBuildDate>

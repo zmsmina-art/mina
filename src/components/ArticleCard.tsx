@@ -1,14 +1,6 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Clock, Calendar, ArrowUpRight } from 'lucide-react';
 import type { Article } from '@/data/articles';
-
-const fade = {
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
-};
 
 interface ArticleCardProps {
   article: Article;
@@ -23,10 +15,7 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
   });
 
   return (
-    <motion.div
-      variants={fade}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-    >
+    <div style={{ animationDelay: `${index * 80}ms` }} className="fade-in-up">
       <Link
         href={`/articles/${article.slug}`}
         className="glass-holographic scanlines rounded-xl p-6 block group relative"
@@ -69,6 +58,6 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 }

@@ -39,6 +39,9 @@ export class ModeIndicator {
     row.appendChild(label);
 
     this.badge = el('span', { className: 'badge' });
+    this.badge.setAttribute('tabindex', '0');
+    this.badge.setAttribute('role', 'button');
+    this.badge.setAttribute('aria-label', 'Operating mode info');
     this.badge.setAttribute('data-tooltip', 'The system has 3 modes:\n\u2022 AUTO: Fan speed set by temperature thresholds\n\u2022 MANUAL: User selects speed via keypad\n\u2022 SAFETY: Activates at \u226590\u00B0C, forces 100% fan, exits at <85\u00B0C (hysteresis)');
     row.appendChild(this.badge);
 

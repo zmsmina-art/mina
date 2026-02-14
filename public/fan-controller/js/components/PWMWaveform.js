@@ -13,7 +13,10 @@ export class PWMWaveform {
     const info = el('span', {
       className: 'info-icon',
       textContent: 'i',
-      'data-tooltip': 'Pulse Width Modulation controls motor speed by rapidly switching power on/off.\nThe duty cycle (% of time HIGH) determines the average voltage delivered to the motor.\nHigher duty cycle = faster fan speed.'
+      'data-tooltip': 'Pulse Width Modulation controls motor speed by rapidly switching power on/off.\nThe duty cycle (% of time HIGH) determines the average voltage delivered to the motor.\nHigher duty cycle = faster fan speed.',
+      tabindex: '0',
+      role: 'button',
+      'aria-label': 'PWM info'
     });
     title.appendChild(info);
     wrapper.appendChild(title);

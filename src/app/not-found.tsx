@@ -3,6 +3,10 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Page Not Found',
   description: 'The page you are looking for does not exist.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function NotFound() {
@@ -22,24 +26,26 @@ export default function NotFound() {
         </div>
       </nav>
 
-      <div className="text-center">
-        <h1 className="text-6xl md:text-8xl font-bold mb-4 gradient-text">404</h1>
-        <p className="text-xl text-[#8a8a9a] mb-8">This page doesn&apos;t exist.</p>
-        <div className="flex gap-3 justify-center">
-          <Link
-            href="/"
-            className="btn-primary px-5 py-2.5 rounded-lg font-medium text-sm"
-          >
-            Go home
-          </Link>
-          <Link
-            href="/articles"
-            className="btn-secondary px-5 py-2.5 rounded-lg font-medium text-sm"
-          >
-            Read articles
-          </Link>
+      <main id="main-content">
+        <div className="text-center">
+          <h1 className="text-6xl md:text-8xl font-bold mb-4 gradient-text">404</h1>
+          <p className="text-xl text-[#8a8a9a] mb-8">This page doesn&apos;t exist.</p>
+          <div className="flex gap-3 justify-center">
+            <Link
+              href="/"
+              className="btn-primary px-5 py-2.5 rounded-lg font-medium text-sm"
+            >
+              Go home
+            </Link>
+            <Link
+              href="/articles"
+              className="btn-secondary px-5 py-2.5 rounded-lg font-medium text-sm"
+            >
+              Read articles
+            </Link>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

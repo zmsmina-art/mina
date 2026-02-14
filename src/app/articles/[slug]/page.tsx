@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${article.title} | Mina Mankarious`,
       description: article.excerpt,
       url: `https://minamankarious.com/articles/${article.slug}`,
+      siteName: 'Mina Mankarious',
       type: 'article',
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
@@ -51,6 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: article.title,
       description: article.excerpt,
+      site: '@minamnkarious',
       creator: '@minamnkarious',
       images: [
         {
@@ -88,14 +90,12 @@ export default function ArticlePage({ params }: Props) {
       '@type': 'Person',
       '@id': 'https://minamankarious.com/#person',
       name: 'Mina Mankarious',
-      gender: 'Male',
       url: 'https://minamankarious.com',
     },
     publisher: {
       '@type': 'Person',
       '@id': 'https://minamankarious.com/#person',
       name: 'Mina Mankarious',
-      gender: 'Male',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

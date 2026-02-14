@@ -54,6 +54,11 @@ body {
   overflow-x: hidden;
 }
 
+:focus-visible {
+  outline: 2px solid var(--bp-purple-light);
+  outline-offset: 2px;
+}
+
 ::selection {
   background: rgba(139, 92, 246, 0.3);
   color: white;
@@ -129,4 +134,32 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--gap-md) var(--gap-lg);
+}
+
+@media (max-width: 860px) {
+  .app-header {
+    padding: var(--gap-md);
+  }
+
+  .title-block__title {
+    font-size: 17px;
+  }
+
+  .title-block__subtitle {
+    font-size: 12px;
+  }
+
+  #app {
+    padding: var(--gap-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

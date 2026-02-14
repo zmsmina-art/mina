@@ -28,6 +28,11 @@
   filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.3));
 }
 
+.arch-block:focus-visible rect {
+  stroke: var(--bp-purple-light);
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.35));
+}
+
 .arch-block rect,
 .arch-block__border {
   fill: none;
@@ -106,6 +111,7 @@
   font-size: 11px;
   color: var(--bp-text-secondary);
   line-height: 1.6;
+  white-space: pre-line;
 }
 
 .arch-info-panel__close {
@@ -143,4 +149,13 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
+}
+
+@media (max-width: 980px) {
+  .arch-info-panel {
+    position: static;
+    width: 100%;
+    margin-top: var(--gap-md);
+    transform: none;
+  }
 }
