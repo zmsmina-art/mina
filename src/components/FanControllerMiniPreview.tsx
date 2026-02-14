@@ -114,7 +114,7 @@ export default function FanControllerMiniPreview() {
     let lastTime = performance.now();
 
     if (duty === 0) {
-      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
+      group.setAttribute('transform', `rotate(${bladeAngleRef.current} 100 100)`);
       return;
     }
 
@@ -125,7 +125,7 @@ export default function FanControllerMiniPreview() {
       const deltaSeconds = Math.min((timestamp - lastTime) / 1000, 0.05);
       lastTime = timestamp;
       bladeAngleRef.current = (bladeAngleRef.current + speedDegPerSecond * deltaSeconds) % 360;
-      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
+      group.setAttribute('transform', `rotate(${bladeAngleRef.current} 100 100)`);
       rafId = window.requestAnimationFrame(tick);
     };
 
