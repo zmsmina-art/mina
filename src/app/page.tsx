@@ -5,6 +5,7 @@ import { ExternalLink, MapPin, ArrowDown, ArrowUpRight } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
 import FanControllerMiniPreview from '@/components/FanControllerMiniPreview';
 import FuturisticScrollBackdrop from '@/components/FuturisticScrollBackdrop';
+import SiteNav from '@/components/SiteNav';
 import { getAllArticlesSorted, articles } from '@/data/articles';
 
 const LinkedInIcon = ({ size = 16 }: { size?: number }) => (
@@ -59,20 +60,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
       />
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050507]/85 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <Link href="/" aria-label="Mina Mankarious home" className="text-2xl italic font-light tracking-wide logo-glow flex-shrink-0">
-            <span className="text-[#8b5cf6]">m</span><span className="text-white">m</span><span className="text-[#8b5cf6] text-sm ml-0.5">.</span>
-          </Link>
-          <div className="flex gap-3 sm:gap-6 md:gap-8 text-xs sm:text-sm max-w-[72vw] overflow-x-auto scrollbar-hide whitespace-nowrap">
-            <Link href="/about" className="text-[#8a8a9a] hover:text-white">About</Link>
-            <a href="#experience" className="text-[#8a8a9a] hover:text-white">Experience</a>
-            <a href="#work-with-me" className="text-[#8a8a9a] hover:text-white">Work With Me</a>
-            <Link href="/articles" className="text-[#8a8a9a] hover:text-white">Articles</Link>
-            <a href="#contact" className="text-[#8a8a9a] hover:text-white">Contact</a>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       <main id="main-content" className="relative z-10">
         <section className="min-h-screen flex flex-col items-center justify-start pt-32 md:justify-center md:pt-0 px-6">
