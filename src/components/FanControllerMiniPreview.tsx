@@ -35,6 +35,8 @@ export default function FanControllerMiniPreview() {
   const [engineTempRaw, setEngineTempRaw] = useState(614);
   const [safetyActive, setSafetyActive] = useState(false);
   const sliderRef = useRef<HTMLInputElement | null>(null);
+  const bladesGroupRef = useRef<SVGGElement | null>(null);
+  const bladeAngleRef = useRef(0);
 
   const temperature = adcToEngineTemp(engineTempRaw);
   const voltage = adcToVoltage(engineTempRaw);
@@ -95,15 +97,41 @@ export default function FanControllerMiniPreview() {
     return { duty, mode, spinDuration, sliderBackground };
   }, [engineTempRaw, safetyActive, temperature]);
 
-  const mobileSpinDuration = useMemo(() => {
-    if (duty === 0) return 2.8;
-    return Number((3.8 - (duty / 100) * 2.5).toFixed(2));
-  }, [duty]);
-
   const fanStyle = {
     ['--fan-spin-duration' as string]: `${spinDuration}s`,
-    ['--fan-spin-duration-mobile' as string]: `${mobileSpinDuration}s`,
   } as CSSProperties;
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const group = bladesGroupRef.current;
+    if (!group) return;
+
+    const mobileLike = window.matchMedia('(max-width: 640px), (pointer: coarse)').matches;
+    if (!mobileLike) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let rafId = 0;
+    let lastTime = performance.now();
+
+    if (duty === 0) {
+      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
+      return;
+    }
+
+    const baseSpeed = prefersReducedMotion ? 75 : 130;
+    const speedDegPerSecond = baseSpeed + duty * (prefersReducedMotion ? 3.2 : 5.2);
+
+    const tick = (timestamp: number) => {
+      const deltaSeconds = Math.min((timestamp - lastTime) / 1000, 0.05);
+      lastTime = timestamp;
+      bladeAngleRef.current = (bladeAngleRef.current + speedDegPerSecond * deltaSeconds) % 360;
+      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    rafId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(rafId);
+  }, [duty]);
 
   return (
     <div className="mini-fan-sim mt-4">
@@ -144,7 +172,7 @@ export default function FanControllerMiniPreview() {
         >
           <svg viewBox="0 0 200 200" className="mini-fan-svg">
             <circle cx="100" cy="100" r="95" className="mini-fan-housing" />
-            <g className="mini-fan-blades-group">
+            <g ref={bladesGroupRef} className="mini-fan-blades-group">
               <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
               <circle cx="160" cy="100" r="3.2" className="mini-fan-rotor-dot" />
               {FAN_BLADE_ANGLES.map((angle) => {
