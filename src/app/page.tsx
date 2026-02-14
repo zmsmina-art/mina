@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { ExternalLink, MapPin, ArrowDown, ArrowUpRight } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
 import FanControllerMiniPreview from '@/components/FanControllerMiniPreview';
+import FuturisticScrollBackdrop from '@/components/FuturisticScrollBackdrop';
 import { getAllArticlesSorted, articles } from '@/data/articles';
 
 const LinkedInIcon = ({ size = 16 }: { size?: number }) => (
@@ -52,6 +53,7 @@ export default function Home() {
 
   return (
     <div className="relative isolate min-h-screen bg-[#050507] text-[#f0f0f5] overflow-x-clip">
+      <FuturisticScrollBackdrop />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
