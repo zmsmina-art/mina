@@ -824,6 +824,11 @@ a {
   transform: translateZ(0);
 }
 
+.mini-fan-blades-group--js {
+  animation: none !important;
+  transform-box: fill-box;
+}
+
 .mini-fan-disc--stopped .mini-fan-blades-group {
   animation-play-state: paused;
   opacity: 0.58;
