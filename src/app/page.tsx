@@ -34,6 +34,11 @@ function delay(ms: number) {
 
 export default function Home() {
   const displayedArticles = getAllArticlesSorted().slice(0, 3);
+  const heroStats = [
+    { label: 'Go-to-market systems built', value: '20+' },
+    { label: 'Primary focus', value: 'AI Startups' },
+    { label: 'Based in', value: 'Toronto, ON' },
+  ];
 
   const homeBreadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -55,50 +60,118 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
       />
 
-      <main id="main-content" className="page-enter pt-20">
-        <section id="hero" className="relative flex min-h-[calc(100vh-80px)] items-center overflow-hidden page-gutter pb-14 pt-10 sm:pb-12 sm:pt-14 md:pt-16">
-          <div className="pointer-events-none absolute right-[-5vw] top-1/2 hidden -translate-y-1/2 select-none lg:block">
-            <span className="font-serif text-[20vw] leading-none tracking-tight text-[#292524]/40">MM</span>
+      <main id="main-content" className="page-enter portfolio-editorial pt-20">
+        <section id="hero" className="editorial-hero relative overflow-hidden page-gutter pb-14 pt-10 sm:pb-12 sm:pt-14 md:pt-16">
+          <div className="editorial-grid-lines" aria-hidden="true" />
+          <div className="editorial-orbit" aria-hidden="true" />
+
+          <div className="mx-auto grid min-h-[calc(100vh-84px)] max-w-7xl items-center gap-10 pb-6 md:grid-cols-[minmax(0,1fr)_320px] md:gap-14">
+            <div className="relative z-10 max-w-4xl pb-4">
+              <p
+                className="reveal reveal--up editorial-kicker mb-4 inline-flex text-[0.63rem] uppercase tracking-[0.22em] text-[#d6cfbf] sm:mb-5 sm:text-[0.68rem]"
+                style={delay(70)}
+              >
+                Founder Dossier / Toronto
+              </p>
+
+              <div className="hero-line mb-1" style={delay(150)}>
+                <span className="mobile-tight-title font-serif text-[clamp(3.1rem,14vw,4.2rem)] leading-[1.01] text-[#f5f0e8] sm:text-7xl md:text-8xl lg:text-[6.5rem]">
+                  Mina
+                </span>
+              </div>
+
+              <div className="hero-line mb-6 sm:mb-8" style={delay(240)}>
+                <span className="mobile-tight-title font-serif text-[clamp(3.1rem,14vw,4.2rem)] leading-[1.01] text-[#f5f0e8] sm:text-7xl md:text-8xl lg:text-[6.5rem]">
+                  Mankarious
+                </span>
+              </div>
+
+              <p className="reveal reveal--up mb-3 text-xs uppercase tracking-[0.2em] text-[#c8c2b6] md:text-sm" style={delay(340)}>
+                Founder &amp; CEO, Olunix
+              </p>
+
+              <p className="reveal reveal--up mb-6 max-w-2xl text-base text-[#e8c97a] sm:text-lg md:text-2xl" style={delay(440)}>
+                Helping AI startups turn technical products into clear positioning, founder-led demand, and compounding growth systems.
+              </p>
+
+              <div
+                className="reveal reveal--up mb-7 flex w-full max-w-sm flex-wrap items-center gap-2.5 sm:max-w-none sm:gap-3"
+                style={delay(520)}
+              >
+                <a
+                  href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
+                  className="accent-btn w-full justify-center sm:w-auto"
+                >
+                  Get in touch
+                  <ArrowUpRight size={15} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/mina-mankarious"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ghost-btn w-full justify-center sm:w-auto"
+                >
+                  <LinkedInIcon size={14} />
+                  LinkedIn
+                </a>
+                <a href="https://olunix.com" target="_blank" rel="noopener noreferrer" className="ghost-btn w-full justify-center sm:w-auto">
+                  <ExternalLink size={14} />
+                  Olunix
+                </a>
+              </div>
+
+              <div className="reveal reveal--up grid gap-2.5 sm:grid-cols-3" style={delay(620)}>
+                {heroStats.map((item) => (
+                  <div key={item.label} className="editorial-stat">
+                    <p className="editorial-stat-value">{item.value}</p>
+                    <p className="editorial-stat-label">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <aside className="reveal reveal--right editorial-aside compact-card hidden md:block" style={delay(420)}>
+              <div className="editorial-aside-media mb-5">
+                <Image
+                  src="/headshot.png"
+                  alt="Mina Mankarious"
+                  width={260}
+                  height={320}
+                  className="h-auto w-full rounded-xl object-cover object-top"
+                  priority
+                />
+              </div>
+
+              <p className="text-[0.65rem] uppercase tracking-[0.2em] text-[#9f947f]">Current Focus</p>
+              <p className="mt-2 text-sm leading-relaxed text-[#e6dece]">
+                Narrative design, founder-led trust systems, and practical GTM infrastructure for technical teams.
+              </p>
+
+              <div className="mt-5 space-y-2 border-t border-[#3b3327] pt-4 text-xs text-[#b7ad9a]">
+                <p className="editorial-aside-item">
+                  <span>Role</span>
+                  <span>Founder / CEO</span>
+                </p>
+                <p className="editorial-aside-item">
+                  <span>Firm</span>
+                  <span>Olunix</span>
+                </p>
+                <p className="editorial-aside-item">
+                  <span>Coverage</span>
+                  <span>North America</span>
+                </p>
+                <p className="editorial-aside-item">
+                  <span className="inline-flex items-center gap-1">
+                    <MapPin size={12} />
+                    Location
+                  </span>
+                  <span>Toronto, Canada</span>
+                </p>
+              </div>
+            </aside>
           </div>
 
-          <div className="relative z-10 max-w-4xl pb-10 sm:pb-4 md:pb-0">
-            <div className="hero-line mb-2" style={delay(80)}>
-              <span className="mobile-tight-title font-serif text-[clamp(2.9rem,14vw,3.9rem)] leading-[1.04] text-[#f5f0e8] sm:text-6xl md:text-7xl lg:text-8xl">Mina</span>
-            </div>
-            <div className="hero-line mb-6 sm:mb-8" style={delay(180)}>
-              <span className="mobile-tight-title font-serif text-[clamp(2.9rem,14vw,3.9rem)] leading-[1.04] text-[#f5f0e8] sm:text-6xl md:text-7xl lg:text-8xl">Mankarious</span>
-            </div>
-
-            <p className="reveal reveal--up mb-3 text-xs uppercase tracking-[0.2em] text-[#c8c2b6] md:text-sm" style={delay(320)}>
-              Founder &amp; CEO, Olunix
-            </p>
-
-            <p className="reveal reveal--up mb-6 max-w-2xl text-base text-[#e8c97a] sm:text-lg md:text-2xl" style={delay(430)}>
-              Helping AI startups turn technical products into clear positioning, founder-led demand, and compounding growth systems.
-            </p>
-
-            <div className="reveal reveal--up mb-7 flex w-full max-w-sm flex-wrap items-center gap-2.5 sm:max-w-none sm:gap-3" style={delay(520)}>
-              <a href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious" className="accent-btn w-full justify-center sm:w-auto">
-                Get in touch
-                <ArrowUpRight size={15} />
-              </a>
-              <a href="https://www.linkedin.com/in/mina-mankarious" target="_blank" rel="noopener noreferrer" className="ghost-btn w-full justify-center sm:w-auto">
-                <LinkedInIcon size={14} />
-                LinkedIn
-              </a>
-              <a href="https://olunix.com" target="_blank" rel="noopener noreferrer" className="ghost-btn w-full justify-center sm:w-auto">
-                <ExternalLink size={14} />
-                Olunix
-              </a>
-            </div>
-
-            <div className="reveal reveal--up flex items-center gap-2 text-xs text-[#b2ab9f] sm:text-sm" style={delay(620)}>
-              <MapPin size={14} />
-              <span>Toronto, Canada</span>
-            </div>
-          </div>
-
-          <div className="reveal reveal--fade absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-[#615a50] sm:block" style={delay(960)}>
+          <div className="reveal reveal--fade absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-[#7d7668] sm:block" style={delay(980)}>
             <div className="scroll-indicator flex flex-col items-center gap-1 text-[10px] uppercase tracking-[0.2em]">
               <span>Scroll</span>
               <ArrowDown size={14} />
@@ -132,20 +205,41 @@ export default function Home() {
               </div>
 
               <div className="reveal reveal--right justify-self-center md:col-span-4 md:justify-self-end" style={delay(220)}>
-                <div className="glass-panel compact-card w-full max-w-[250px] sm:max-w-[280px]">
-                  <div className="mx-auto w-fit rounded-xl border border-[#3d352a] p-1">
-                    <Image
-                      src="/headshot.png"
-                      alt="Mina Mankarious"
-                      width={128}
-                      height={160}
-                      className="h-40 w-32 rounded-lg object-cover object-top"
-                      priority
-                    />
+                <div className="glass-panel compact-card w-full max-w-[290px] sm:max-w-[330px]">
+                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[#8f8268]">Operator Snapshot</p>
+                  <h3 className="mt-2 text-lg leading-tight text-[#f5f0e8]">Founder-led operator with engineering systems thinking.</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#c8c2b6]">
+                    I translate technical depth into clear market narratives and practical go-to-market operating systems.
+                  </p>
+
+                  <div className="mt-4 space-y-2 border-t border-[#312b22] pt-4 text-xs text-[#b0a795]">
+                    <p className="flex items-center justify-between gap-3">
+                      <span>Current Role</span>
+                      <span className="text-[#e8c97a]">Founder &amp; CEO, Olunix</span>
+                    </p>
+                    <p className="flex items-center justify-between gap-3">
+                      <span>Specialty</span>
+                      <span>AI Startup GTM</span>
+                    </p>
+                    <p className="flex items-center justify-between gap-3">
+                      <span className="inline-flex items-center gap-1">
+                        <MapPin size={12} />
+                        Location
+                      </span>
+                      <span>Toronto, Canada</span>
+                    </p>
                   </div>
-                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.18em] text-[#8f8268]">Profile</p>
-                  <p className="mt-1 text-sm leading-relaxed text-[#f5f0e8]">Founder-led operator with engineering systems thinking.</p>
-                  <p className="mt-2 text-xs text-[#a89f90]">Toronto, Canada</p>
+
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <div className="rounded-lg border border-[#3a3226] bg-[#1a1917]/85 px-3 py-2">
+                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-[#8f8268]">Focus</p>
+                      <p className="mt-1 text-sm text-[#f5f0e8]">Positioning</p>
+                    </div>
+                    <div className="rounded-lg border border-[#3a3226] bg-[#1a1917]/85 px-3 py-2">
+                      <p className="text-[0.62rem] uppercase tracking-[0.12em] text-[#8f8268]">Strength</p>
+                      <p className="mt-1 text-sm text-[#f5f0e8]">Execution</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

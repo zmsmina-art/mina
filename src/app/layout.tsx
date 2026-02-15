@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import RevealRuntime from '@/components/RevealRuntime';
+import ArticleTransitionRuntime from '@/components/navigation/ArticleTransitionRuntime';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -252,6 +253,7 @@ export default function RootLayout({
         </a>
         <div className="grain-overlay" aria-hidden="true" />
         <RevealRuntime />
+        <ArticleTransitionRuntime />
         <SiteNav />
         <script
           type="application/ld+json"
