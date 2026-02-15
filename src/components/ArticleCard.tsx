@@ -15,47 +15,35 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
   });
 
   return (
-    <div style={{ animationDelay: `${index * 80}ms` }} className="fade-in-up">
+    <div className="reveal reveal--up" style={{ transitionDelay: `${index * 90}ms` }}>
       <Link
         href={`/articles/${article.slug}`}
-        className="glass-holographic scanlines rounded-xl p-6 block group relative"
+        className="glass-panel compact-card card-lift group block border border-[#292524]"
       >
-        <div className="data-stream-line" />
-
-        <div className="relative z-10">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {article.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2.5 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6] border border-[#8b5cf6]/10 glow-pulse"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <h3 className="font-semibold text-lg text-white group-hover:text-[#8b5cf6] transition-colors mb-2 flex items-start gap-2">
-            {article.title}
-            <ArrowUpRight
-              size={16}
-              className="flex-shrink-0 mt-1 text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors opacity-0 group-hover:opacity-100"
-            />
-          </h3>
-
-          <p className="text-[#8a8a9a] text-sm leading-relaxed mb-4 line-clamp-2">
-            {article.excerpt}
-          </p>
-
-          <div className="flex items-center gap-4 text-xs text-[#6a6a7a]">
-            <time dateTime={article.publishedAt} className="flex items-center gap-1.5">
-              <Calendar size={12} />
-              {formattedDate}
-            </time>
-            <span className="flex items-center gap-1.5">
-              <Clock size={12} />
-              {article.readingTime}
+        <div className="mb-3 flex flex-wrap gap-2">
+          {article.tags.map((tag) => (
+            <span key={tag} className="tag-chip">
+              {tag}
             </span>
-          </div>
+          ))}
+        </div>
+
+        <h3 className="mb-2 flex items-start gap-2 text-lg leading-snug text-[#f5f0e8] transition-colors group-hover:text-[#e8c97a] sm:text-xl">
+          {article.title}
+          <ArrowUpRight size={14} className="mt-1 shrink-0 text-[#8b857b] transition-colors group-hover:text-[#e8c97a]" />
+        </h3>
+
+        <p className="mb-4 text-sm leading-relaxed text-[#c8c2b6]">{article.excerpt}</p>
+
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[#968f81]">
+          <time dateTime={article.publishedAt} className="flex items-center gap-1.5">
+            <Calendar size={12} />
+            {formattedDate}
+          </time>
+          <span className="flex items-center gap-1.5">
+            <Clock size={12} />
+            {article.readingTime}
+          </span>
         </div>
       </Link>
     </div>

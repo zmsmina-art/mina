@@ -1,27 +1,27 @@
 :root {
-  /* Matching minamankarious.com palette */
-  --bp-bg-primary: #050507;
-  --bp-bg-secondary: #0a0a0f;
-  --bp-bg-surface: rgba(139, 92, 246, 0.03);
-  --bp-border: rgba(139, 92, 246, 0.12);
-  --bp-grid: rgba(139, 92, 246, 0.04);
+  /* Aligned with the portfolio amber/cream redesign */
+  --bp-bg-primary: #0d0c0b;
+  --bp-bg-secondary: #141311;
+  --bp-bg-surface: rgba(212, 168, 83, 0.05);
+  --bp-border: rgba(212, 168, 83, 0.2);
+  --bp-grid: rgba(212, 168, 83, 0.05);
 
-  --bp-text-primary: #f0f0f5;
-  --bp-text-secondary: #8a8a9a;
-  --bp-text-accent: #a78bfa;
+  --bp-text-primary: #f5f0e8;
+  --bp-text-secondary: #b8ae9f;
+  --bp-text-accent: #e8c97a;
 
-  --bp-purple: #8b5cf6;
-  --bp-purple-light: #a78bfa;
-  --bp-purple-dark: #6d28d9;
-  --bp-purple-glow: rgba(139, 92, 246, 0.12);
+  --bp-purple: #d4a853;
+  --bp-purple-light: #e8c97a;
+  --bp-purple-dark: #a67c3d;
+  --bp-purple-glow: rgba(212, 168, 83, 0.18);
   --bp-green: #4ade80;
   --bp-red: #f87171;
   --bp-amber: #fbbf24;
   --bp-blue: #60a5fa;
 
-  --lcd-bg: #080810;
-  --lcd-text: #a78bfa;
-  --lcd-glow: rgba(139, 92, 246, 0.5);
+  --lcd-bg: #11100f;
+  --lcd-text: #e8c97a;
+  --lcd-glow: rgba(212, 168, 83, 0.5);
 
   --font-mono: 'Fira Code', 'Courier New', monospace;
 
@@ -60,8 +60,8 @@ body {
 }
 
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
-  color: white;
+  background: rgba(212, 168, 83, 0.35);
+  color: #0d0c0b;
 }
 
 ::-webkit-scrollbar {

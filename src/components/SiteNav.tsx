@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronRight, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 
 type NavItem = {
   label: string;
@@ -19,110 +20,156 @@ const navItems: NavItem[] = [
 ];
 
 export default function SiteNav() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(pathname !== '/');
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     if (!isOpen) return;
-    const { style } = document.body;
-    const originalOverflow = style.overflow;
-    style.overflow = 'hidden';
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     return () => {
-      style.overflow = originalOverflow;
+      document.body.style.overflow = originalOverflow;
     };
   }, [isOpen]);
 
-  const closeMenu = () => setIsOpen(false);
+  useEffect(() => {
+    if (pathname !== '/') {
+      setIsScrolled(true);
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    const mountHeroObserver = () => {
+      const hero = document.getElementById('hero');
+      if (!hero) return;
+
+      observer?.disconnect();
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsScrolled(!entry.isIntersecting);
+        },
+        { threshold: 0.08 },
+      );
+      observer.observe(hero);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    mountHeroObserver();
+    const delayedMount = window.setTimeout(mountHeroObserver, 180);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.clearTimeout(delayedMount);
+      observer?.disconnect();
+    };
+  }, [pathname]);
+
+  const resolvedItems = useMemo(() => {
+    return navItems.map((item) => {
+      if (item.kind === 'route') {
+        return { ...item, resolvedHref: item.href, active: pathname === item.href };
+      }
+
+      const resolvedHref = pathname === '/' ? item.href : `/${item.href}`;
+      return { ...item, resolvedHref, active: false };
+    });
+  }, [pathname]);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050507]/85 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <Link href="/" aria-label="Mina Mankarious home" className="text-2xl italic font-light tracking-wide logo-glow flex-shrink-0">
-            <span className="text-[#8b5cf6]">m</span><span className="text-white">m</span><span className="text-[#8b5cf6] text-sm ml-0.5">.</span>
+      <nav
+        className={`fixed inset-x-0 top-0 z-[90] transition-all duration-500 ${
+          isScrolled ? 'border-b border-[#292524]/70 bg-[#141311]/85 backdrop-blur-xl' : 'bg-transparent'
+        }`}
+      >
+        <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
+          <Link href="/" aria-label="Mina Mankarious home" className="text-[0.68rem] font-medium uppercase tracking-[0.19em] text-[#f5f0e8] transition-colors hover:text-[#e8c97a] sm:text-sm">
+            Mina Mankarious
           </Link>
 
-          <div className="hidden md:flex gap-3 sm:gap-6 md:gap-8 text-xs sm:text-sm max-w-[72vw] overflow-x-auto scrollbar-hide whitespace-nowrap">
-            {navItems.map((item) =>
+          <div className="hidden items-center gap-8 lg:gap-10 md:flex">
+            {resolvedItems.map((item) => (
               item.kind === 'route' ? (
-                <Link key={item.label} href={item.href} className="text-[#8a8a9a] hover:text-white">
+                <Link
+                  key={item.label}
+                  href={item.resolvedHref}
+                  className={`link-underline text-sm font-light tracking-wide transition-colors ${
+                    item.active ? 'text-[#d4a853]' : 'text-[#c8c2b6] hover:text-[#f5f0e8]'
+                  }`}
+                >
                   {item.label}
                 </Link>
               ) : (
-                <a key={item.label} href={item.href} className="text-[#8a8a9a] hover:text-white">
+                <a
+                  key={item.label}
+                  href={item.resolvedHref}
+                  className="link-underline text-sm font-light tracking-wide text-[#c8c2b6] transition-colors hover:text-[#f5f0e8]"
+                >
                   {item.label}
                 </a>
-              ),
-            )}
+              )
+            ))}
           </div>
 
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-white/[0.03] text-[#c4b5fd]"
-            onClick={() => setIsOpen((open) => !open)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#2d2923] bg-[#141311]/70 text-[#f5f0e8] transition-colors hover:text-[#e8c97a] md:hidden"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
-            aria-controls="mobile-nav-panel"
+            aria-controls="mobile-nav"
+            onClick={() => setIsOpen((open) => !open)}
           >
-            {isOpen ? <X size={18} /> : <Menu size={18} />}
+            {isOpen ? <X size={19} /> : <Menu size={19} />}
           </button>
         </div>
       </nav>
 
       <div
-        className={`md:hidden fixed inset-0 z-[60] transition ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
-        aria-hidden={!isOpen}
+        id="mobile-nav"
+        className={`fixed inset-0 z-[85] flex bg-[#0d0c0b]/95 backdrop-blur-xl transition-opacity duration-500 md:hidden ${
+          isOpen ? 'pointer-events-auto opacity-100 mobile-nav-open' : 'pointer-events-none opacity-0'
+        }`}
+        style={{
+          paddingTop: 'max(6rem, env(safe-area-inset-top))',
+          paddingBottom: 'max(2.5rem, env(safe-area-inset-bottom))',
+          paddingLeft: 'max(var(--page-gutter-mobile), env(safe-area-inset-left))',
+          paddingRight: 'max(var(--page-gutter-mobile), env(safe-area-inset-right))',
+        }}
       >
-        <button
-          type="button"
-          className={`absolute inset-0 bg-[#050507]/74 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
-          aria-label="Close menu overlay"
-          onClick={closeMenu}
-        />
-
-        <aside
-          id="mobile-nav-panel"
-          className={`absolute top-0 right-0 h-full w-[min(82vw,340px)] border-l border-white/10 bg-[#070710]/96 shadow-[-24px_0_60px_rgba(0,0,0,0.5)] transition-transform duration-300 ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          <div className="flex items-center justify-between px-5 py-5 border-b border-white/10">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#b9b4d7]">Navigation</p>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 bg-white/[0.03] text-[#c4b5fd]"
-              onClick={closeMenu}
-              aria-label="Close menu"
-            >
-              <X size={16} />
-            </button>
-          </div>
-
-          <div className="px-3 py-4 space-y-1">
-            {navItems.map((item) =>
-              item.kind === 'route' ? (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-[15px] font-medium text-[#e8e4ff] hover:border-[#8b5cf6]/45 hover:bg-[#8b5cf6]/10"
-                  onClick={closeMenu}
-                >
-                  <span>{item.label}</span>
-                  <ChevronRight size={15} className="text-[#a78bfa] transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-[15px] font-medium text-[#e8e4ff] hover:border-[#8b5cf6]/45 hover:bg-[#8b5cf6]/10"
-                  onClick={closeMenu}
-                >
-                  <span>{item.label}</span>
-                  <ChevronRight size={15} className="text-[#a78bfa] transition-transform group-hover:translate-x-0.5" />
-                </a>
-              ),
-            )}
-          </div>
-        </aside>
+        <div className="mx-auto flex w-full max-w-sm flex-col items-start gap-5">
+          {resolvedItems.map((item) => (
+            item.kind === 'route' ? (
+              <Link
+                key={item.label}
+                href={item.resolvedHref}
+                onClick={() => setIsOpen(false)}
+                className="mobile-nav-link w-full border-b border-[#292524]/70 pb-3 text-3xl leading-tight text-[#f5f0e8] transition-colors hover:text-[#d4a853] sm:text-4xl"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={item.label}
+                href={item.resolvedHref}
+                onClick={() => setIsOpen(false)}
+                className="mobile-nav-link w-full border-b border-[#292524]/70 pb-3 text-3xl leading-tight text-[#f5f0e8] transition-colors hover:text-[#d4a853] sm:text-4xl"
+              >
+                {item.label}
+              </a>
+            )
+          ))}
+        </div>
       </div>
     </>
   );

@@ -35,8 +35,6 @@ export default function FanControllerMiniPreview() {
   const [engineTempRaw, setEngineTempRaw] = useState(614);
   const [safetyActive, setSafetyActive] = useState(false);
   const sliderRef = useRef<HTMLInputElement | null>(null);
-  const bladesGroupRef = useRef<SVGGElement | null>(null);
-  const bladeAngleRef = useRef(0);
 
   const temperature = adcToEngineTemp(engineTempRaw);
   const voltage = adcToVoltage(engineTempRaw);
@@ -87,10 +85,10 @@ export default function FanControllerMiniPreview() {
       ),
       linear-gradient(
         90deg,
-        rgba(167, 139, 250, 0.86) 0%,
-        rgba(167, 139, 250, 0.86) ${adcFill}%,
-        rgba(139, 92, 246, 0.12) ${adcFill}%,
-        rgba(139, 92, 246, 0.12) 100%
+        rgba(212, 168, 83, 0.86) 0%,
+        rgba(212, 168, 83, 0.86) ${adcFill}%,
+        rgba(212, 168, 83, 0.14) ${adcFill}%,
+        rgba(212, 168, 83, 0.14) 100%
       )
     `;
 
@@ -100,41 +98,6 @@ export default function FanControllerMiniPreview() {
   const fanStyle = {
     ['--fan-spin-duration' as string]: `${spinDuration}s`,
   } as CSSProperties;
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const group = bladesGroupRef.current;
-    if (!group) return;
-
-    group.style.transformOrigin = 'center';
-    group.style.transformBox = 'fill-box';
-
-    const mobileLike = window.matchMedia('(max-width: 640px), (pointer: coarse)').matches;
-    if (!mobileLike) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let rafId = 0;
-    let lastTime = performance.now();
-
-    if (duty === 0) {
-      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
-      return;
-    }
-
-    const baseSpeed = prefersReducedMotion ? 75 : 130;
-    const speedDegPerSecond = baseSpeed + duty * (prefersReducedMotion ? 3.2 : 5.2);
-
-    const tick = (timestamp: number) => {
-      const deltaSeconds = Math.min((timestamp - lastTime) / 1000, 0.05);
-      lastTime = timestamp;
-      bladeAngleRef.current = (bladeAngleRef.current + speedDegPerSecond * deltaSeconds) % 360;
-      group.style.transform = `rotate(${bladeAngleRef.current}deg)`;
-      rafId = window.requestAnimationFrame(tick);
-    };
-
-    rafId = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(rafId);
-  }, [duty]);
 
   return (
     <div className="mini-fan-sim mt-4">
@@ -168,35 +131,37 @@ export default function FanControllerMiniPreview() {
       </div>
 
       <div className="mini-fan-stage">
-        <div
-          className={`mini-fan-disc ${duty === 0 ? 'mini-fan-disc--stopped' : ''} ${safetyActive ? 'mini-fan-disc--safety' : ''}`}
-          style={fanStyle}
-          aria-hidden="true"
-        >
-          <svg viewBox="0 0 200 200" className="mini-fan-svg">
-            <circle cx="100" cy="100" r="95" className="mini-fan-housing" />
-            <g ref={bladesGroupRef} className="mini-fan-blades-group">
-              <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
-              <circle cx="160" cy="100" r="3.2" className="mini-fan-rotor-dot" />
-              {FAN_BLADE_ANGLES.map((angle) => {
-                const rad = (angle * Math.PI) / 180;
-                const tipX = 100 + 75 * Math.cos(rad);
-                const tipY = 100 + 75 * Math.sin(rad);
-                const startX = 100 + 15 * Math.cos(rad);
-                const startY = 100 + 15 * Math.sin(rad);
-                const cpL = rad - 0.4;
-                const cpR = rad + 0.4;
+        <div className="mini-fan-disc-wrap">
+          <div
+            className={`mini-fan-disc ${duty === 0 ? 'mini-fan-disc--stopped' : ''} ${safetyActive ? 'mini-fan-disc--safety' : ''}`}
+            style={fanStyle}
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 200 200" className="mini-fan-svg">
+              <circle cx="100" cy="100" r="95" className="mini-fan-housing" />
+              <g className="mini-fan-blades-group">
+                <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
+                <circle cx="160" cy="100" r="3.2" className="mini-fan-rotor-dot" />
+                {FAN_BLADE_ANGLES.map((angle) => {
+                  const rad = (angle * Math.PI) / 180;
+                  const tipX = 100 + 75 * Math.cos(rad);
+                  const tipY = 100 + 75 * Math.sin(rad);
+                  const startX = 100 + 15 * Math.cos(rad);
+                  const startY = 100 + 15 * Math.sin(rad);
+                  const cpL = rad - 0.4;
+                  const cpR = rad + 0.4;
 
-                return (
-                  <path
-                    key={angle}
-                    className="mini-fan-blade"
-                    d={`M ${startX},${startY} Q ${100 + 55 * Math.cos(cpL)},${100 + 55 * Math.sin(cpL)} ${tipX},${tipY} Q ${100 + 55 * Math.cos(cpR)},${100 + 55 * Math.sin(cpR)} ${startX},${startY}`}
-                  />
-                );
-              })}
-            </g>
-          </svg>
+                  return (
+                    <path
+                      key={angle}
+                      className="mini-fan-blade"
+                      d={`M ${startX},${startY} Q ${100 + 55 * Math.cos(cpL)},${100 + 55 * Math.sin(cpL)} ${tipX},${tipY} Q ${100 + 55 * Math.cos(cpR)},${100 + 55 * Math.sin(cpR)} ${startX},${startY}`}
+                    />
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
         </div>
 
         <a href="/fan-controller/index.html" className="mini-fan-open">

@@ -14,7 +14,7 @@
   position: absolute;
   width: 12px;
   height: 12px;
-  border-color: rgba(139, 92, 246, 0.25);
+  border-color: rgba(212, 168, 83, 0.25);
   border-style: solid;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .btn {
-  background: rgba(139, 92, 246, 0.06);
-  border: 1px solid rgba(139, 92, 246, 0.15);
+  background: rgba(212, 168, 83, 0.06);
+  border: 1px solid rgba(212, 168, 83, 0.15);
   color: var(--bp-text-primary);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -62,10 +62,10 @@
 }
 
 .btn:hover {
-  background: rgba(139, 92, 246, 0.12);
-  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(212, 168, 83, 0.12);
+  border-color: rgba(212, 168, 83, 0.3);
   color: var(--bp-purple-light);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.1);
+  box-shadow: 0 0 12px rgba(212, 168, 83, 0.1);
 }
 
 .btn:focus-visible {
@@ -74,10 +74,10 @@
 }
 
 .btn--active {
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(212, 168, 83, 0.15);
   border-color: var(--bp-purple);
   color: var(--bp-purple-light);
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 16px rgba(212, 168, 83, 0.15);
 }
 
 .btn--danger {
@@ -161,7 +161,7 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 4px;
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(212, 168, 83, 0.15);
   border-radius: 2px;
   outline: none;
   cursor: pointer;
@@ -175,7 +175,7 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--bp-purple);
   border-radius: 50%;
   border: 2px solid var(--bp-bg-primary);
-  box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 8px rgba(212, 168, 83, 0.4);
   cursor: pointer;
 }
 
@@ -185,14 +185,14 @@ input[type="range"]::-moz-range-thumb {
   background: var(--bp-purple);
   border-radius: 50%;
   border: 2px solid var(--bp-bg-primary);
-  box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 8px rgba(212, 168, 83, 0.4);
   cursor: pointer;
 }
 
 .tooltip {
   position: fixed;
   background: #0f0f18;
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(212, 168, 83, 0.2);
   color: var(--bp-text-primary);
   font-size: 11px;
   padding: 8px 12px;
@@ -204,7 +204,7 @@ input[type="range"]::-moz-range-thumb {
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.15s;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 92, 246, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 168, 83, 0.06);
 }
 
 .tooltip--visible {

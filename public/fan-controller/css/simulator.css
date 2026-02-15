@@ -13,7 +13,7 @@
 
 .simulator__scenarios-label {
   font-size: 11px;
-  color: var(--bp-text-secondary);
+  color: var(--bp-text-accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-right: var(--gap-sm);

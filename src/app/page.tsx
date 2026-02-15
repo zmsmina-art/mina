@@ -1,22 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { ExternalLink, MapPin, ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, ExternalLink, Fan, MapPin } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
 import FanControllerMiniPreview from '@/components/FanControllerMiniPreview';
-import FuturisticScrollBackdrop from '@/components/FuturisticScrollBackdrop';
-import SiteNav from '@/components/SiteNav';
 import { getAllArticlesSorted, articles } from '@/data/articles';
 
 const LinkedInIcon = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </svg>
-);
-
-const XIcon = ({ size = 16 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
 
@@ -36,6 +28,10 @@ export const metadata: Metadata = {
   ],
 };
 
+function delay(ms: number) {
+  return { transitionDelay: `${ms}ms` };
+}
+
 export default function Home() {
   const displayedArticles = getAllArticlesSorted().slice(0, 3);
 
@@ -53,596 +49,339 @@ export default function Home() {
   };
 
   return (
-    <div className="relative isolate min-h-screen bg-[#050507] text-[#f0f0f5] overflow-x-clip">
-      <FuturisticScrollBackdrop />
+    <div className="relative z-[3]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
       />
 
-      <SiteNav />
+      <main id="main-content" className="page-enter pt-20">
+        <section id="hero" className="relative flex min-h-[calc(100vh-80px)] items-center overflow-hidden page-gutter pb-14 pt-10 sm:pb-12 sm:pt-14 md:pt-16">
+          <div className="pointer-events-none absolute right-[-5vw] top-1/2 hidden -translate-y-1/2 select-none lg:block">
+            <span className="font-serif text-[20vw] leading-none tracking-tight text-[#292524]/40">MM</span>
+          </div>
 
-      <main id="main-content" className="relative z-10">
-        <section className="min-h-screen flex flex-col items-center justify-start pt-32 md:justify-center md:pt-0 px-6">
-          <div className="text-center max-w-3xl">
-            <div className="w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-[#8b5cf6]/20">
-              <Image
-                src="/headshot.png"
-                alt="Mina Mankarious, Founder and CEO of Olunix"
-                width={192}
-                height={192}
-                className="w-full h-full object-cover scale-110"
-                priority
-              />
+          <div className="relative z-10 max-w-4xl pb-10 sm:pb-4 md:pb-0">
+            <div className="hero-line mb-2" style={delay(80)}>
+              <span className="mobile-tight-title font-serif text-[clamp(2.9rem,14vw,3.9rem)] leading-[1.04] text-[#f5f0e8] sm:text-6xl md:text-7xl lg:text-8xl">Mina</span>
+            </div>
+            <div className="hero-line mb-6 sm:mb-8" style={delay(180)}>
+              <span className="mobile-tight-title font-serif text-[clamp(2.9rem,14vw,3.9rem)] leading-[1.04] text-[#f5f0e8] sm:text-6xl md:text-7xl lg:text-8xl">Mankarious</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
-              Mina <span className="gradient-text">Mankarious</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-[#8b5cf6] mb-2 font-medium">
-              Founder & CEO of Olunix
+            <p className="reveal reveal--up mb-3 text-xs uppercase tracking-[0.2em] text-[#c8c2b6] md:text-sm" style={delay(320)}>
+              Founder &amp; CEO, Olunix
             </p>
 
-            <p className="text-[#b0b0c0] leading-relaxed max-w-2xl mx-auto mb-6">
-              I help AI startups turn technical products into clear market positioning,
-              credible founder-led demand, and practical growth systems that generate revenue.
+            <p className="reveal reveal--up mb-6 max-w-2xl text-base text-[#e8c97a] sm:text-lg md:text-2xl" style={delay(430)}>
+              Helping AI startups turn technical products into clear positioning, founder-led demand, and compounding growth systems.
             </p>
 
-            <div className="flex items-center justify-center gap-2 text-[#6a6a7a] text-sm mb-10">
-              <MapPin size={14} />
-              <span>Toronto, Canada</span>
-            </div>
-
-            <div className="flex flex-wrap gap-3 justify-center">
-              <a
-                href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-                className="btn-primary px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2"
-              >
-                <ArrowUpRight size={16} />
-                Contact
+            <div className="reveal reveal--up mb-7 flex w-full max-w-sm flex-wrap items-center gap-2.5 sm:max-w-none sm:gap-3" style={delay(520)}>
+              <a href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious" className="accent-btn w-full justify-center sm:w-auto">
+                Get in touch
+                <ArrowUpRight size={15} />
               </a>
-              <a
-                href="https://www.linkedin.com/in/mina-mankarious"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2"
-              >
-                <LinkedInIcon size={16} />
+              <a href="https://www.linkedin.com/in/mina-mankarious" target="_blank" rel="noopener noreferrer" className="ghost-btn w-full justify-center sm:w-auto">
+                <LinkedInIcon size={14} />
                 LinkedIn
               </a>
-              <a
-                href="https://olunix.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary px-5 py-2.5 rounded-lg font-medium text-sm flex items-center gap-2"
-              >
-                <ExternalLink size={16} />
+              <a href="https://olunix.com" target="_blank" rel="noopener noreferrer" className="ghost-btn w-full justify-center sm:w-auto">
+                <ExternalLink size={14} />
                 Olunix
               </a>
             </div>
 
-            <div className="mt-10 max-w-3xl mx-auto">
-              <div className="glass rounded-xl px-4 py-4 sm:px-6 sm:py-5">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-left">
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-[#6a6a7a] mb-1">Current Role</p>
-                    <p className="text-sm text-[#f0f0f5]">Founder & CEO, Olunix</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-[#6a6a7a] mb-1">Primary Focus</p>
-                    <p className="text-sm text-[#f0f0f5]">AI Startup Growth Systems</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-[#6a6a7a] mb-1">Network Role</p>
-                    <p className="text-sm text-[#f0f0f5]">Deal Partner, Boardy</p>
-                  </div>
-                </div>
-              </div>
+            <div className="reveal reveal--up flex items-center gap-2 text-xs text-[#b2ab9f] sm:text-sm" style={delay(620)}>
+              <MapPin size={14} />
+              <span>Toronto, Canada</span>
             </div>
           </div>
 
-          <div className="absolute bottom-12 opacity-40" aria-hidden="true">
-            <ArrowDown size={20} className="animate-bounce" />
-          </div>
-        </section>
-
-        <section id="about" className="py-20 md:py-28 px-6">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Profile</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">About</h2>
-            <p className="text-[#8a8a9a] mb-8">Who I am, how I think, and what I optimize for when helping companies grow.</p>
-            <div className="space-y-5 text-[#b0b0c0] leading-relaxed">
-              <p>
-                I&apos;m the <span className="text-white">Founder and CEO of Olunix</span>, a marketing and consulting firm
-                helping ambitious AI startups create real market traction through strategic clarity and disciplined execution.
-              </p>
-              <p>
-                As a <span className="text-white">Deal Partner at Boardy</span>, I focus on connecting founders to opportunities,
-                partnerships, and networks that accelerate growth.
-              </p>
-              <p>
-                My background combines frontline business experience at <span className="text-white">Toyota</span> with technical
-                training in <span className="text-white">Automotive Engineering Technology</span> at McMaster University.
-                That mix shapes how I work: systems-first, data-aware, and outcome-focused.
-              </p>
-            </div>
-            <div className="mt-8">
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 text-sm text-[#8b5cf6] hover:text-white transition-colors"
-              >
-                Read full background and biography
-                <ArrowUpRight size={14} />
-              </Link>
+          <div className="reveal reveal--fade absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-[#615a50] sm:block" style={delay(960)}>
+            <div className="scroll-indicator flex flex-col items-center gap-1 text-[10px] uppercase tracking-[0.2em]">
+              <span>Scroll</span>
+              <ArrowDown size={14} />
             </div>
           </div>
         </section>
 
-        <div className="divider max-w-3xl mx-auto" />
+        <section id="about" className="section-block page-gutter">
+          <div className="mx-auto max-w-7xl">
+            <p className="section-label reveal reveal--left">01 About</p>
 
-        <section id="experience" className="py-20 md:py-28 px-6 section-fade">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Track Record</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Experience</h2>
-            <p className="text-[#8a8a9a] mb-10">Operating history across startups, partnerships, engineering systems, and frontline execution.</p>
-
-            <div className="space-y-6">
-              <div className="glass rounded-xl p-5">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                    <Image src="/olunix-logo.png" alt="Olunix logo" width={48} height={48} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div>
-                        <h3 className="font-semibold text-lg">Founder & CEO</h3>
-                        <p className="text-[#8b5cf6] text-sm">Olunix</p>
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Sep 2024 - Present</span>
-                    </div>
-                    <p className="text-[#8a8a9a] text-sm">
-                      Marketing & Consulting
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <a
-                href="https://boardy.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass rounded-xl p-5 block group"
-              >
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                    <Image src="/boardy-logo.png" alt="Boardy logo" width={48} height={48} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Deal Partner</h3>
-                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Jan 2026 - Present</span>
-                    </div>
-                    <div>
-                      <p className="text-[#8b5cf6] text-sm">Boardy</p>
-                    </div>
-                    <p className="text-[#8a8a9a] text-sm mt-2">
-                      Boardy Fellowship Fall 2025 · Expanding network and opportunities for Olunix
-                    </p>
-                  </div>
-                </div>
-              </a>
-
-              <div className="glass rounded-xl p-5">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#0a0a0f] flex items-center justify-center">
-                    <svg width="28" height="28" viewBox="0 0 200 200" className="text-[#8b5cf6]" aria-hidden="true">
-                      <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="4" opacity="0.3" />
-                      <circle cx="100" cy="100" r="12" fill="none" stroke="currentColor" strokeWidth="3" />
-                      {[0, 72, 144, 216, 288].map((angle) => {
-                        const rad = (angle * Math.PI) / 180;
-                        const tipX = 100 + 75 * Math.cos(rad);
-                        const tipY = 100 + 75 * Math.sin(rad);
-                        const startX = 100 + 15 * Math.cos(rad);
-                        const startY = 100 + 15 * Math.sin(rad);
-                        const cpL = rad - 0.4;
-                        const cpR = rad + 0.4;
-                        return (
-                          <path
-                            key={angle}
-                            d={`M ${startX},${startY} Q ${100 + 55 * Math.cos(cpL)},${100 + 55 * Math.sin(cpL)} ${tipX},${tipY} Q ${100 + 55 * Math.cos(cpR)},${100 + 55 * Math.sin(cpR)} ${startX},${startY}`}
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                          />
-                        );
-                      })}
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div className="flex items-center gap-2">
-                        <a
-                          href="/fan-controller/index.html"
-                          className="inline-flex items-center gap-2 font-semibold text-lg text-white hover:text-[#8b5cf6] transition-colors"
-                        >
-                          Engine Cooling Fan Controller
-                          <ArrowUpRight size={14} className="text-[#6a6a7a] hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                        </a>
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Feb 2026</span>
-                    </div>
-                    <p className="text-[#8a8a9a] text-sm leading-relaxed">
-                      We first built and tested this as a physical HCS12 automotive cooling fan controller, then I turned that real implementation into an interactive web simulator. It includes CAN bus communication, PWM motor control, ADC temperature sensing, and safety-critical overheat protection.
-                    </p>
-                    <FanControllerMiniPreview />
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Embedded Systems</span>
-                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">CAN Bus</span>
-                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Interactive Simulator</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <a
-                href="https://hopeoakville.ca"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass rounded-xl p-5 block group"
-              >
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a2e] p-2">
-                    <Image
-                      src="/hope-logo.webp"
-                      alt="Hope Bible Church"
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Intern</h3>
-                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Sep 2024 - Present</span>
-                    </div>
-                    <p className="text-[#8b5cf6] text-sm">Hope Bible Church</p>
-                  </div>
-                </div>
-              </a>
-
-              <a
-                href="https://habitstogether.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass rounded-xl p-5 block group"
-              >
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-[#1a1a1a]">
-                    <Image
-                      src="/habits-together-logo.png"
-                      alt="Habits Together"
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Habits Together</h3>
-                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Summer 2024</span>
-                    </div>
-                    <p className="text-[#8a8a9a] text-sm leading-relaxed">
-                      A habit tracking app that helps you and your friends stay accountable and motivated to reach your goals. Built with a team of developers as an open-source project.
-                    </p>
-                    <div className="flex gap-2 mt-3">
-                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Mobile App</span>
-                      <span className="text-xs px-2 py-1 rounded-md bg-[#8b5cf6]/10 text-[#8b5cf6]">Open Source</span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-              <a
-                href="https://miltontoyota.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass rounded-xl p-5 block group"
-              >
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-white p-1.5">
-                    <Image src="/toyota-logo.png" alt="Toyota logo" width={48} height={48} className="w-full h-full object-contain" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">Customer Service Attendant</h3>
-                        <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">Aug 2022 - Aug 2024</span>
-                    </div>
-                    <p className="text-[#8b5cf6] text-sm">Milton Toyota</p>
-                    <p className="text-[#8a8a9a] text-sm mt-2">
-                      2+ years in automotive customer service
-                    </p>
-                  </div>
-                </div>
-              </a>
-
-              <div className="glass rounded-xl p-5">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                    <Image
-                      src="/zms-logo.svg"
-                      alt="ZMS Media"
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
-                      <div>
-                        <h3 className="font-semibold text-lg">Founder & CEO</h3>
-                        <p className="text-[#8b5cf6] text-sm">ZMS Media</p>
-                      </div>
-                      <span className="text-[#6a6a7a] text-xs whitespace-nowrap">2018 - 2021</span>
-                    </div>
-                    <p className="text-[#8a8a9a] text-sm">
-                      Marketing
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="divider max-w-3xl mx-auto" />
-
-        <section id="work-with-me" className="py-20 md:py-28 px-6">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Engagement</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Work With Me</h2>
-            <p className="text-[#8a8a9a] mb-10 leading-relaxed">
-              If you&apos;re building a technical product and need stronger market traction,
-              I work hands-on at the strategy and execution layer.
-            </p>
-
-            <div className="grid sm:grid-cols-2 gap-4 mb-8">
-              <div className="glass rounded-xl p-5">
-                <h3 className="font-semibold mb-2">Positioning and Messaging</h3>
-                <p className="text-[#8a8a9a] text-sm">Clarify your category, ICP, and value story so buyers understand you quickly.</p>
-              </div>
-              <div className="glass rounded-xl p-5">
-                <h3 className="font-semibold mb-2">Founder-Led Growth</h3>
-                <p className="text-[#8a8a9a] text-sm">Build a credible content and relationship engine around the founder&apos;s voice.</p>
-              </div>
-              <div className="glass rounded-xl p-5 sm:col-span-2">
-                <h3 className="font-semibold mb-2">Marketing Systems</h3>
-                <p className="text-[#8a8a9a] text-sm">Design operating cadences, reporting, and channel priorities tied to pipeline and revenue.</p>
-              </div>
-            </div>
-
-            <div className="glass rounded-xl p-5 mb-8">
-              <p className="text-sm text-[#6a6a7a] uppercase tracking-wider mb-3">Best fit</p>
-              <ul className="list-disc pl-5 space-y-2 text-[#b0b0c0] text-sm">
-                <li>Early-stage to growth-stage AI startups</li>
-                <li>Founders who want strategic clarity and practical execution</li>
-                <li>Teams that care about quality, accountability, and compounding outcomes</li>
-              </ul>
-            </div>
-
-            <a
-              href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-              className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm"
-            >
-              Start a conversation
-              <ArrowUpRight size={16} />
-            </a>
-          </div>
-        </section>
-
-        <div className="divider max-w-3xl mx-auto" />
-
-        <section id="education" className="py-20 md:py-28 px-6">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Foundation</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Education</h2>
-            <p className="text-[#8a8a9a] mb-10">Engineering training that informs the systems-thinking behind every growth decision.</p>
-            <a
-              href="https://mcmaster.ca"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass rounded-xl p-6 block group"
-            >
-              <div className="flex items-start gap-5">
-                <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                  <Image src="/mcmaster-logo.png" alt="McMaster University logo" width={48} height={48} className="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-lg group-hover:text-[#8b5cf6] transition-colors">McMaster University</h3>
-                    <ExternalLink size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                  </div>
-                  <p className="text-[#8b5cf6] text-sm mb-3">Automotive Engineering Technology</p>
-                  <p className="text-[#8a8a9a] text-sm">
-                    Final year with a systems-engineering mindset applied to business, marketing, and growth execution.
+            <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-16">
+              <div className="reveal reveal--up md:col-span-8" style={delay(120)}>
+                <h2 className="mobile-tight-title mb-6 max-w-2xl text-[clamp(2rem,9vw,2.35rem)] leading-[1.15] text-[#f5f0e8] md:text-5xl">Engineering meets marketing.</h2>
+                <div className="space-y-4 text-[#c8c2b6] sm:space-y-5">
+                  <p>
+                    I&apos;m the Founder and CEO of <span className="text-[#f5f0e8]">Olunix</span>, where I help AI startups create real market traction through strategic clarity and disciplined execution.
+                  </p>
+                  <p>
+                    As a <span className="text-[#f5f0e8]">Deal Partner at Boardy</span>, I focus on connecting founders to opportunities and relationships that accelerate growth.
+                  </p>
+                  <p>
+                    My background combines frontline business experience at <span className="text-[#f5f0e8]">Toyota</span> with technical training in <span className="text-[#f5f0e8]">Automotive Engineering Technology at McMaster University</span>.
                   </p>
                 </div>
+
+                <Link href="/about" className="mt-7 inline-flex items-center gap-2 text-sm text-[#d4a853] transition-all duration-300 hover:gap-3">
+                  Read full background
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
+
+              <div className="reveal reveal--right justify-self-center md:col-span-4 md:justify-self-end" style={delay(220)}>
+                <div className="glass-panel compact-card w-full max-w-[250px] sm:max-w-[280px]">
+                  <div className="mx-auto w-fit rounded-xl border border-[#3d352a] p-1">
+                    <Image
+                      src="/headshot.png"
+                      alt="Mina Mankarious"
+                      width={128}
+                      height={160}
+                      className="h-40 w-32 rounded-lg object-cover object-top"
+                      priority
+                    />
+                  </div>
+                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.18em] text-[#8f8268]">Profile</p>
+                  <p className="mt-1 text-sm leading-relaxed text-[#f5f0e8]">Founder-led operator with engineering systems thinking.</p>
+                  <p className="mt-2 text-xs text-[#a89f90]">Toronto, Canada</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" className="section-block page-gutter">
+          <div className="mx-auto max-w-7xl">
+            <p className="section-label reveal reveal--left">02 Experience</p>
+            <h2 className="mobile-tight-title reveal reveal--up mb-10 max-w-3xl text-[clamp(2rem,9vw,2.35rem)] leading-[1.15] text-[#f5f0e8] md:mb-12 md:text-5xl" style={delay(100)}>
+              Operator, founder, partner.
+            </h2>
+
+            <div className="relative space-y-6">
+              <div className="timeline-line reveal absolute left-[1.375rem] top-6 bottom-6 hidden w-px bg-[#292524] md:block" aria-hidden="true" />
+
+              <article className="glass-panel compact-card card-lift reveal reveal--up" style={delay(180)}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <Image src="/olunix-logo.png" alt="Olunix" width={44} height={44} className="h-11 w-11 shrink-0 rounded-md object-cover" />
+                    <div>
+                      <h3 className="font-sans text-lg font-medium text-[#f5f0e8]">Founder &amp; CEO</h3>
+                      <p className="text-sm text-[#d4a853]">Olunix</p>
+                      <p className="mt-2 text-sm text-[#c8c2b6]">Marketing & consulting for AI startups.</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-[#8b857b]">Sep 2024 - Present</p>
+                </div>
+              </article>
+
+              <a href="https://boardy.ai" target="_blank" rel="noopener noreferrer" className="glass-panel compact-card card-lift reveal reveal--up block" style={delay(220)}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <Image src="/boardy-logo.png" alt="Boardy" width={44} height={44} className="h-11 w-11 shrink-0 rounded-md object-cover" />
+                    <div>
+                      <h3 className="font-sans text-lg font-medium text-[#f5f0e8]">Deal Partner</h3>
+                      <p className="text-sm text-[#d4a853]">Boardy</p>
+                      <p className="mt-2 text-sm text-[#c8c2b6]">Boardy Fellowship Fall 2025. Expanding network and opportunities for Olunix.</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-[#8b857b]">Jan 2026 - Present</p>
+                </div>
+              </a>
+
+              <article className="glass-panel compact-card card-lift reveal reveal--up" style={delay(260)}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-[#3f372d] bg-[#1c1b18] text-[#d4a853]">
+                      <Fan size={18} aria-hidden="true" />
+                    </div>
+                    <div>
+                      <a href="/fan-controller/index.html" className="inline-flex items-start gap-2 font-sans text-lg font-medium text-[#f5f0e8] transition-colors hover:text-[#e8c97a]">
+                        Engine Cooling Fan Controller
+                        <ArrowUpRight size={14} />
+                      </a>
+                      <p className="mt-2 text-sm text-[#c8c2b6]">
+                        Built and tested as a physical HCS12 controller, then transformed into an interactive web simulator with CAN bus communication, PWM motor control, ADC sensing, and safety override logic.
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-[#8b857b]">Feb 2026</p>
+                </div>
+
+                <FanControllerMiniPreview />
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="tag-chip">Embedded Systems</span>
+                  <span className="tag-chip">CAN Bus</span>
+                  <span className="tag-chip">Simulator</span>
+                </div>
+              </article>
+
+              <a href="https://habitstogether.app/" target="_blank" rel="noopener noreferrer" className="glass-panel compact-card card-lift reveal reveal--up block" style={delay(300)}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <Image src="/habits-together-logo.png" alt="Habits Together" width={44} height={44} className="h-11 w-11 shrink-0 rounded-md object-cover" />
+                    <div>
+                      <h3 className="font-sans text-lg font-medium text-[#f5f0e8]">Habits Together</h3>
+                      <p className="mt-1 text-sm text-[#d4a853]">Open-source mobile app</p>
+                      <p className="mt-2 text-sm text-[#c8c2b6]">A habit tracking app built with a team to help friends stay accountable.</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-[#8b857b]">Summer 2024</p>
+                </div>
+              </a>
+
+              <a href="https://miltontoyota.com" target="_blank" rel="noopener noreferrer" className="glass-panel compact-card card-lift reveal reveal--up block" style={delay(340)}>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <Image src="/toyota-logo.png" alt="Toyota" width={44} height={44} className="h-11 w-11 shrink-0 rounded-md bg-white p-1 object-contain" />
+                    <div>
+                      <h3 className="font-sans text-lg font-medium text-[#f5f0e8]">Customer Service Attendant</h3>
+                      <p className="text-sm text-[#d4a853]">Milton Toyota</p>
+                      <p className="mt-2 text-sm text-[#c8c2b6]">2+ years in automotive customer service.</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-[#8b857b]">Aug 2022 - Aug 2024</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="work-with-me" className="section-block page-gutter bg-[#141311]">
+          <div className="mx-auto max-w-7xl">
+            <p className="section-label reveal reveal--left">03 Services</p>
+            <h2 className="mobile-tight-title reveal reveal--up mb-4 text-[clamp(2rem,9vw,2.35rem)] leading-[1.15] text-[#f5f0e8] md:mb-5 md:text-5xl" style={delay(100)}>
+              Let&apos;s build something together.
+            </h2>
+            <p className="reveal reveal--up mb-10 max-w-2xl text-[#c8c2b6] md:mb-12" style={delay(180)}>
+              If you&apos;re building a technical product and need stronger market traction, I work hands-on at the strategy and execution layer.
+            </p>
+
+            <div className="grid gap-0 border-t border-[#292524] md:grid-cols-3">
+              {[
+                {
+                  title: 'Positioning & Messaging',
+                  desc: 'Clarify your category, ICP, and value story so buyers understand you quickly.',
+                },
+                {
+                  title: 'Founder-Led Growth',
+                  desc: 'Build a credible content and relationship engine around the founder voice.',
+                },
+                {
+                  title: 'Marketing Systems',
+                  desc: 'Design operating cadences and channel priorities tied to pipeline and revenue.',
+                },
+              ].map((service, index) => (
+                <article
+                  key={service.title}
+                  className={`service-card reveal reveal--up border-b border-[#292524] py-8 md:border-b-0 md:px-8 md:py-12 ${index < 2 ? 'md:border-r' : ''} ${index === 0 ? 'md:pl-0' : ''} ${index === 2 ? 'md:pr-0' : ''}`}
+                  style={delay(220 + index * 90)}
+                >
+                  <p className="mb-3 font-serif text-3xl text-[#7a6640]">0{index + 1}</p>
+                  <h3 className="mb-2 font-sans text-lg font-medium text-[#f5f0e8]">{service.title}</h3>
+                  <p className="text-sm text-[#c8c2b6]">{service.desc}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="reveal reveal--up mt-10 border-t border-[#292524] pt-7" style={delay(520)}>
+              <p className="mb-5 text-sm text-[#b2ab9f]">
+                Best fit: early-stage to growth-stage AI startups, founders seeking clarity, and teams that value disciplined execution.
+              </p>
+              <a href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious" className="accent-btn">
+                Start a conversation
+                <ArrowUpRight size={15} />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="education" className="section-block page-gutter">
+          <div className="mx-auto max-w-7xl">
+            <p className="section-label reveal reveal--left">04 Education</p>
+            <a href="https://mcmaster.ca" target="_blank" rel="noopener noreferrer" className="glass-panel compact-card card-lift reveal reveal--up block" style={delay(130)}>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                <Image
+                  src="/mcmaster-university-crest.png"
+                  alt="McMaster University crest"
+                  width={48}
+                  height={48}
+                  className="h-11 w-11 shrink-0 rounded-md border border-[#3f372d] bg-[#f5f0e8] p-1 object-contain sm:h-12 sm:w-12"
+                />
+                <div>
+                  <h3 className="font-sans text-lg font-medium text-[#f5f0e8] sm:text-xl">McMaster University</h3>
+                  <p className="text-sm text-[#d4a853]">Automotive Engineering Technology</p>
+                  <p className="mt-2 text-sm text-[#c8c2b6]">Final year, applying systems engineering thinking to marketing and growth execution.</p>
+                </div>
               </div>
             </a>
           </div>
         </section>
 
-        <div className="divider max-w-3xl mx-auto" />
-
-        <section id="articles" className="py-20 md:py-28 px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-10">
+        <section id="articles" className="section-block page-gutter">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Insights</p>
-                <h2 className="text-3xl md:text-4xl font-bold">Articles</h2>
-                <p className="text-[#8a8a9a] mt-3">Applied writing on startup growth, messaging, and founder-led execution.</p>
+                <p className="section-label reveal reveal--left">05 Writing</p>
+                <h2 className="mobile-tight-title reveal reveal--up text-[clamp(2rem,9vw,2.35rem)] leading-[1.15] text-[#f5f0e8] md:text-5xl" style={delay(100)}>
+                  Thinking out loud.
+                </h2>
               </div>
-              <Link href="/articles" className="text-sm text-[#8a8a9a] hover:text-white">
-                Browse all
+              <Link href="/articles" className="reveal reveal--fade hidden text-sm text-[#d4a853] md:inline-flex" style={delay(180)}>
+                View all
               </Link>
             </div>
 
-            <div className="glass rounded-xl p-5 mb-8">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Case Snapshot</p>
-              <h3 className="font-semibold text-lg mb-3">Repositioning GrowByte into Olunix</h3>
-              <div className="space-y-3 text-sm text-[#b0b0c0]">
-                <p><span className="text-[#8b5cf6] font-medium">Problem:</span> Broad agency framing attracted misaligned demand and diluted premium positioning.</p>
-                <p><span className="text-[#8b5cf6] font-medium">Approach:</span> Rebuilt brand narrative around AI startup growth with tighter messaging and founder-led content.</p>
-                <p><span className="text-[#8b5cf6] font-medium">Result:</span> Higher-quality inbound conversations and clearer fit with technical founders.</p>
+            <div className="reveal reveal--up glass-panel compact-card card-lift mb-10 border-[#2d281f] bg-[#141311]/70" style={delay(220)}>
+              <p className="mb-2 text-xs uppercase tracking-[0.2em] text-[#8f8268]">Case Snapshot</p>
+              <h3 className="mb-2 font-sans text-lg font-medium text-[#f5f0e8]">Repositioning GrowByte into Olunix</h3>
+              <div className="space-y-2 text-sm text-[#c8c2b6]">
+                <p><span className="text-[#e8c97a]">Problem:</span> Broad agency framing attracted misaligned demand.</p>
+                <p><span className="text-[#e8c97a]">Approach:</span> Rebuilt messaging around AI startup growth and founder-led trust.</p>
+                <p><span className="text-[#e8c97a]">Result:</span> Higher-quality inbound conversations and clearer fit.</p>
               </div>
             </div>
 
             <div className="space-y-6">
-              {displayedArticles.map((article, i) => (
-                <ArticleCard key={article.slug} article={article} index={i} />
+              {displayedArticles.map((article, index) => (
+                <ArticleCard key={article.slug} article={article} index={index} />
               ))}
             </div>
 
             {articles.length > 3 && (
               <div className="mt-8 text-center">
-                <Link
-                  href="/articles"
-                  className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium text-sm"
-                >
+                <Link href="/articles" className="accent-btn">
                   View all articles
-                  <ArrowUpRight size={16} />
+                  <ArrowUpRight size={15} />
                 </Link>
               </div>
             )}
-
-            <div className="mt-12">
-              <h3 className="text-sm font-medium text-[#6a6a7a] uppercase tracking-wider mb-4">Also on Medium</h3>
-              <a
-                href="https://medium.com/@mankarious/how-ai-startups-should-think-about-marketing-in-2026-d13e3042cb22"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass rounded-xl p-5 block group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#0a0a0f] flex items-center justify-center flex-shrink-0">
-                    <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor" className="text-[#8b5cf6]" aria-hidden="true">
-                      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-semibold text-white group-hover:text-[#8b5cf6] transition-colors">How AI Startups Should Think About Marketing in 2026</h4>
-                      <ArrowUpRight size={14} className="text-[#6a6a7a] group-hover:text-[#8b5cf6] transition-colors flex-shrink-0" />
-                    </div>
-                    <p className="text-[#6a6a7a] text-sm">Published on Medium</p>
-                  </div>
-                </div>
-              </a>
-            </div>
           </div>
         </section>
 
-        <div className="divider max-w-3xl mx-auto" />
-
-        <section id="contact" className="py-20 md:py-28 px-6">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#6a6a7a] mb-3">Connect</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Contact</h2>
-            <p className="text-[#8a8a9a] mb-8 leading-relaxed">
-              Looking for a strategic partner for your startup&apos;s marketing and growth?
-              Send context on your company, stage, and goals.
-            </p>
-            <div className="glass rounded-xl p-6">
-              <p className="text-[#6a6a7a] text-sm mb-2">Email</p>
+        <section id="contact" className="section-block page-gutter pb-20 md:pb-28">
+          <div className="mx-auto max-w-7xl">
+            <p className="section-label reveal reveal--left">06 Contact</p>
+            <div className="max-w-2xl">
+              <h2 className="mobile-tight-title reveal reveal--up mb-4 text-[clamp(2.2rem,10vw,2.85rem)] leading-[1.08] text-[#f5f0e8] md:mb-5 md:text-6xl" style={delay(100)}>
+                Let&apos;s talk.
+              </h2>
+              <p className="reveal reveal--up mb-8 text-[#c8c2b6]" style={delay(180)}>
+                Looking for a strategic partner for your startup&apos;s marketing and growth? Send context on your company, stage, and goals.
+              </p>
               <a
                 href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-                className="text-lg text-white hover:text-[#8b5cf6] transition-colors"
+                className="reveal reveal--up link-underline inline-block text-xl text-[#d4a853] transition-colors hover:text-[#e8c97a] sm:text-2xl md:text-3xl"
+                style={delay(260)}
               >
                 mina@olunix.com
               </a>
-              <p className="text-[#6a6a7a] text-sm mt-4">
-                Best for: project inquiries, partnerships, and speaking opportunities.
-              </p>
             </div>
           </div>
         </section>
       </main>
-
-      <footer className="relative z-10 py-12 px-6 border-t border-white/5">
-        <div className="max-w-3xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[#5a5a6a] text-sm">
-            &copy; {new Date().getFullYear()} Mina Mankarious
-          </p>
-          <div className="flex items-center gap-4 text-xs">
-            <Link href="/about" className="text-[#6a6a7a] hover:text-white">About</Link>
-            <Link href="/articles" className="text-[#6a6a7a] hover:text-white">Articles</Link>
-            <a href="#contact" className="text-[#6a6a7a] hover:text-white">Contact</a>
-          </div>
-          <div className="flex gap-4">
-            <a
-              href="https://www.linkedin.com/in/mina-mankarious"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Mina Mankarious on LinkedIn"
-              className="text-[#5a5a6a] hover:text-[#8b5cf6]"
-            >
-              <LinkedInIcon size={18} />
-            </a>
-            <a
-              href="https://x.com/minamnkarious"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Mina Mankarious on X"
-              className="text-[#5a5a6a] hover:text-[#8b5cf6]"
-            >
-              <XIcon size={18} />
-            </a>
-            <a
-              href="https://github.com/minamankarious"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Mina Mankarious on GitHub"
-              className="text-[#5a5a6a] hover:text-[#8b5cf6]"
-            >
-              <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-            </a>
-            <a
-              href="https://mankarious.medium.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Mina Mankarious on Medium"
-              className="text-[#5a5a6a] hover:text-[#8b5cf6]"
-            >
-              <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-              </svg>
-            </a>
-            <a
-              href="https://olunix.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Olunix website"
-              className="text-[#5a5a6a] hover:text-[#8b5cf6]"
-            >
-              <ExternalLink size={18} />
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

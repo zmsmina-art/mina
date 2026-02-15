@@ -1,18 +1,8 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import SiteNav from '@/components/SiteNav';
+import SiteFooter from '@/components/SiteFooter';
+import RevealRuntime from '@/components/RevealRuntime';
 import './globals.css';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://minamankarious.com'),
@@ -99,8 +89,8 @@ export const metadata: Metadata = {
     google: 'rZIuYERXXV18304PIGZJZUQ1C9Re4szYlDOskfurCxY',
   },
   other: {
-    'theme-color': '#050507',
-    'msapplication-TileColor': '#050507',
+    'theme-color': '#0d0c0b',
+    'msapplication-TileColor': '#0d0c0b',
     'profile:first_name': 'Mina',
     'profile:last_name': 'Mankarious',
     'profile:username': 'minamankarious',
@@ -247,6 +237,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preload" href="/fonts/gambetta-medium.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/switzer-light.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
         <link rel="me" href="https://x.com/minamnkarious" />
         <link rel="me" href="https://github.com/minamankarious" />
@@ -254,13 +246,21 @@ export default function RootLayout({
         <link rel="me" href="https://mankarious.medium.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased cursor-style-prism`}>
-        <a href="#main-content" className="skip-link">Skip to content</a>
+      <body className="antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <div className="grain-overlay" aria-hidden="true" />
+        <RevealRuntime />
+        <SiteNav />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <div className="page-shell">
+          {children}
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

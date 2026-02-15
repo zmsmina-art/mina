@@ -13,7 +13,7 @@ export default function Loading() {
         </div>
 
         <p className="loader-title">Mina Mankarious</p>
-        <p className="loader-subtitle">Loading interface</p>
+        <p className="loader-subtitle">Loading page</p>
 
         <div className="loader-bar" aria-hidden="true">
           <span className="loader-bar__fill" />

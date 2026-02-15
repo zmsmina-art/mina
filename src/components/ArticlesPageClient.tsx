@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpDown } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
@@ -12,14 +12,15 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
 
   const allTags = useMemo(() => {
     const tags = new Set<string>();
-    articles.forEach((a) => a.tags.forEach((t) => tags.add(t)));
+    articles.forEach((article) => article.tags.forEach((tag) => tags.add(tag)));
     return Array.from(tags).sort();
   }, [articles]);
 
   const filteredAndSortedArticles = useMemo(() => {
-    const filtered = selectedTags.length === 0
-      ? articles
-      : articles.filter((a) => a.tags.some((t) => selectedTags.includes(t)));
+    const filtered =
+      selectedTags.length === 0
+        ? articles
+        : articles.filter((article) => article.tags.some((tag) => selectedTags.includes(tag)));
 
     return [...filtered].sort((a, b) => {
       const dateA = new Date(a.publishedAt).getTime();
@@ -29,120 +30,89 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
   }, [articles, sortOrder, selectedTags]);
 
   const toggleTag = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
+    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
   const isFiltering = selectedTags.length > 0;
 
   return (
-    <div className="min-h-screen bg-[#050507] text-[#f0f0f5]">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050507]/85 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl italic font-light tracking-wide logo-glow flex-shrink-0" aria-label="Mina Mankarious home">
-            <span className="text-[#8b5cf6]">m</span>
-            <span className="text-white">m</span>
-            <span className="text-[#8b5cf6] text-sm ml-0.5">.</span>
-          </Link>
-          <div className="flex gap-3 sm:gap-6 md:gap-8 text-xs sm:text-sm">
-            <Link href="/" className="text-[#8a8a9a] hover:text-white">Home</Link>
-            <Link href="/about" className="text-[#8a8a9a] hover:text-white">About</Link>
-            <Link href="/articles" className="text-white">Articles</Link>
-          </div>
-        </div>
-      </nav>
+    <main id="main-content" className="page-enter page-gutter pb-20 pt-28 md:pb-24 md:pt-32">
+      <div className="mx-auto max-w-4xl">
+        <Link href="/" className="reveal reveal--up mb-8 inline-flex items-center gap-2 text-sm text-[#b2ab9f] transition-colors hover:text-[#f5f0e8]" style={{ transitionDelay: '80ms' }}>
+          <ArrowLeft size={14} />
+          Back home
+        </Link>
 
-      <main id="main-content" className="pt-32 pb-28 px-6">
-        <div className="max-w-3xl mx-auto">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-[#6a6a7a] hover:text-[#8b5cf6] transition-colors mb-8"
+        <header className="mb-8 flex flex-col gap-5 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h1 className="mobile-tight-title reveal reveal--up mb-2 text-[clamp(2.1rem,9.6vw,2.7rem)] text-[#f5f0e8] md:mb-3 md:text-5xl" style={{ transitionDelay: '120ms' }}>Articles</h1>
+            <p className="reveal reveal--up text-[#c8c2b6]" style={{ transitionDelay: '180ms' }}>
+              Thoughts on entrepreneurship, marketing, and building businesses.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setSortOrder((prev) => (prev === 'newest' ? 'oldest' : 'newest'))}
+            aria-label={sortOrder === 'newest' ? 'Sort articles oldest first' : 'Sort articles newest first'}
+            aria-pressed={sortOrder === 'oldest'}
+            className="reveal reveal--fade ghost-btn w-full justify-center sm:w-auto"
+            style={{ transitionDelay: '220ms' }}
           >
-            <ArrowLeft size={14} />
-            Back to home
-          </Link>
+            <ArrowUpDown size={14} />
+            {sortOrder === 'newest' ? 'Newest first' : 'Oldest first'}
+          </button>
+        </header>
 
-          <div className="flex items-end justify-between mb-12 gap-4">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">Articles</h1>
-              <p className="text-[#8a8a9a] text-lg">
-                Thoughts on entrepreneurship, marketing, and building businesses.
-              </p>
-              <p className="text-sm text-[#6a6a7a] mt-3">
-                Learn more about the author on the{' '}
-                <Link href="/about" className="text-[#8b5cf6] hover:text-white transition-colors">
-                  About page
-                </Link>.
-              </p>
-            </div>
-
+        {allTags.length > 0 && (
+          <div className="reveal reveal--up mb-4 flex flex-wrap gap-2" role="group" aria-label="Filter articles by topic" style={{ transitionDelay: '260ms' }}>
             <button
-              onClick={() => setSortOrder((prev) => (prev === 'newest' ? 'oldest' : 'newest'))}
-              aria-label={sortOrder === 'newest' ? 'Sort articles oldest first' : 'Sort articles newest first'}
-              aria-pressed={sortOrder === 'oldest'}
-              className="flex items-center gap-2 text-sm text-[#8a8a9a] hover:text-white border border-white/10 hover:border-[#8b5cf6]/30 rounded-lg px-3 py-2 transition-all flex-shrink-0"
+              onClick={() => setSelectedTags([])}
+              className={`filter-chip rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.08em] transition-all ${
+                !isFiltering
+                  ? 'border-[#d4a853] bg-[#d4a853]/15 text-[#e8c97a]'
+                  : 'border-[#292524] bg-[#1c1b18]/70 text-[#c8c2b6] hover:border-[#d4a853]/50 hover:text-[#f5f0e8]'
+              }`}
             >
-              <ArrowUpDown size={14} />
-              <span className="hidden sm:inline">{sortOrder === 'newest' ? 'Newest first' : 'Oldest first'}</span>
+              All
             </button>
+            {allTags.map((tag) => {
+              const active = selectedTags.includes(tag);
+              return (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  aria-pressed={active}
+                  className={`filter-chip rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.08em] transition-all ${
+                    active
+                      ? 'border-[#d4a853] bg-[#d4a853]/15 text-[#e8c97a]'
+                      : 'border-[#292524] bg-[#1c1b18]/70 text-[#c8c2b6] hover:border-[#d4a853]/50 hover:text-[#f5f0e8]'
+                  }`}
+                >
+                  {tag}
+                </button>
+              );
+            })}
           </div>
+        )}
 
-          {allTags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter articles by topic">
-              <button
-                onClick={() => setSelectedTags([])}
-                className={`text-xs px-3 py-1.5 rounded-md border transition-all duration-200 cursor-pointer ${
-                  !isFiltering
-                    ? 'bg-[#8b5cf6] text-white border-[#8b5cf6]'
-                    : 'bg-[#8b5cf6]/10 text-[#8b5cf6] border-[#8b5cf6]/10 hover:bg-[#8b5cf6]/20'
-                }`}
-              >
-                All
-              </button>
-              {allTags.map((tag) => {
-                const active = selectedTags.includes(tag);
-                return (
-                  <button
-                    key={tag}
-                    onClick={() => toggleTag(tag)}
-                    aria-pressed={active}
-                    className={`text-xs px-3 py-1.5 rounded-md border transition-all duration-200 cursor-pointer ${
-                      active
-                        ? 'bg-[#8b5cf6] text-white border-[#8b5cf6]'
-                        : 'bg-[#8b5cf6]/10 text-[#8b5cf6] border-[#8b5cf6]/10 hover:bg-[#8b5cf6]/20'
-                    }`}
-                  >
-                    {tag}
-                  </button>
-                );
-              })}
-            </div>
-          )}
+        {isFiltering && (
+          <p className="mb-8 text-xs text-[#8f887b]">
+            Showing {filteredAndSortedArticles.length} of {articles.length} article{articles.length !== 1 ? 's' : ''}
+          </p>
+        )}
 
-          {isFiltering && (
-            <p className="text-xs text-[#6a6a7a] mb-8">
-              Showing {filteredAndSortedArticles.length} of {articles.length} article{articles.length !== 1 ? 's' : ''}
-            </p>
-          )}
-
-          {!isFiltering && <div className="mb-4" />}
-
-          <div className="space-y-6">
-            {filteredAndSortedArticles.map((article, i) => (
-              <ArticleCard key={article.slug} article={article} index={i} />
-            ))}
-          </div>
-
-          {filteredAndSortedArticles.length === 0 && (
-            <p className="text-[#6a6a7a] text-center py-12">
-              {isFiltering
-                ? 'No articles match the selected tags.'
-                : 'No articles yet. Check back soon.'}
-            </p>
-          )}
+        <div className="space-y-6">
+          {filteredAndSortedArticles.map((article, index) => (
+            <ArticleCard key={article.slug} article={article} index={index} />
+          ))}
         </div>
-      </main>
-    </div>
+
+        {filteredAndSortedArticles.length === 0 && (
+          <p className="py-12 text-center text-[#8f887b]">
+            {isFiltering ? 'No articles match the selected tags.' : 'No articles yet. Check back soon.'}
+          </p>
+        )}
+      </div>
+    </main>
   );
 }
