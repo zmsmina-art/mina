@@ -96,7 +96,7 @@ export default function AuthoritySection() {
                 key={item.title + item.org}
                 className="timeline-item"
                 data-motion="timeline-card"
-                style={motionDelay(210 + index * 96)}
+                style={motionDelay(210)}
               >
                 <div className="timeline-dot" aria-hidden="true" />
                 <a

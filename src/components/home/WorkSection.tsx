@@ -34,11 +34,11 @@ export default function WorkSection() {
                 PWM motor control, ADC sensing, and safety override logic.
               </p>
 
-              <div data-motion="rise" style={motionDelay(220)}>
+              <div data-motion="rise" style={motionDelay(120)}>
                 <FanControllerMiniPreview />
               </div>
 
-              <div className="mt-6" data-motion="rise" style={motionDelay(300)}>
+              <div className="mt-6" data-motion="rise" style={motionDelay(120)}>
                 <a
                   href="/fan-controller/index.html"
                   className="inline-flex items-center gap-2 text-sm lowercase tracking-[0.12em] text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)]"
