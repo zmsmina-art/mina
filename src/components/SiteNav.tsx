@@ -77,9 +77,15 @@ export default function SiteNav() {
       }
     };
 
+    let scrollRaf = 0;
     const onScroll = () => {
-      updateScrolledState();
-      updateActiveHash();
+      if (!scrollRaf) {
+        scrollRaf = requestAnimationFrame(() => {
+          scrollRaf = 0;
+          updateScrolledState();
+          updateActiveHash();
+        });
+      }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -94,6 +100,7 @@ export default function SiteNav() {
     updateActiveHash();
 
     return () => {
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', updateActiveHash);
     };

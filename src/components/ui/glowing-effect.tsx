@@ -99,7 +99,15 @@ const GlowingEffect = memo(
     useEffect(() => {
       if (disabled) return;
 
-      const handleScroll = () => handleMove();
+      let scrollRaf = 0;
+      const handleScroll = () => {
+        if (!scrollRaf) {
+          scrollRaf = requestAnimationFrame(() => {
+            scrollRaf = 0;
+            handleMove();
+          });
+        }
+      };
       const handlePointerMove = (e: PointerEvent) => handleMove(e);
 
       window.addEventListener('scroll', handleScroll, { passive: true });
@@ -108,6 +116,7 @@ const GlowingEffect = memo(
       });
 
       return () => {
+        if (scrollRaf) cancelAnimationFrame(scrollRaf);
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
         }

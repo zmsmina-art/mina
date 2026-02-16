@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { EtheralShadow } from '@/components/ui/etheral-shadow';
 
 export default function EtheralAmbient() {
   const layer1 = useRef<HTMLDivElement>(null);
@@ -10,6 +9,7 @@ export default function EtheralAmbient() {
   const raf = useRef<number>(0);
   const current = useRef({ y: 0, rotation: 0 });
   const target = useRef({ y: 0, rotation: 0 });
+  const idle = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,6 +19,12 @@ export default function EtheralAmbient() {
 
       target.current.y = scrollY;
       target.current.rotation = progress * 12;
+
+      // Wake up the loop if idle
+      if (idle.current) {
+        idle.current = false;
+        raf.current = requestAnimationFrame(tick);
+      }
     };
 
     const tick = () => {
@@ -26,8 +32,19 @@ export default function EtheralAmbient() {
       const c = current.current;
       const t = target.current;
 
-      c.y += (t.y - c.y) * lerp;
-      c.rotation += (t.rotation - c.rotation) * lerp;
+      const dy = t.y - c.y;
+      const dr = t.rotation - c.rotation;
+
+      // If close enough, go idle
+      if (Math.abs(dy) < 0.5 && Math.abs(dr) < 0.01) {
+        c.y = t.y;
+        c.rotation = t.rotation;
+        idle.current = true;
+        return;
+      }
+
+      c.y += dy * lerp;
+      c.rotation += dr * lerp;
 
       const y1 = c.y * -0.04;
       const y2 = c.y * 0.06;
@@ -77,49 +94,25 @@ export default function EtheralAmbient() {
         pointerEvents: 'none',
       }}
     >
-      {/* Primary layer: the one real turbulence — deep purple */}
-      <div ref={layer1} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
-        <EtheralShadow
-          color="rgba(111, 74, 199, 0.52)"
-          animation={{ scale: 64, speed: 28 }}
-          noise={{ opacity: 0.3, scale: 1.4 }}
-          sizing="fill"
-          style={{
-            position: 'absolute',
-            inset: 0,
-          }}
-        />
-      </div>
-
-      {/* Secondary layer: CSS radial gradient — warm gold */}
+      {/* Primary layer: CSS animated purple nebula */}
       <div
-        ref={layer2}
-        style={{
-          position: 'absolute',
-          inset: '-10%',
-          willChange: 'transform',
-          mixBlendMode: 'screen',
-          opacity: 0.55,
-          background:
-            'radial-gradient(ellipse 70% 60% at 25% 35%, rgba(212, 175, 55, 0.28), transparent 70%), ' +
-            'radial-gradient(ellipse 60% 50% at 80% 70%, rgba(214, 163, 63, 0.22), transparent 65%)',
-        }}
+        ref={layer1}
+        className="etheral-layer-primary"
+        style={{ position: 'absolute', inset: 0, willChange: 'transform' }}
       />
 
-      {/* Tertiary layer: CSS radial gradient — cream warmth */}
+      {/* Secondary layer: warm gold accents */}
+      <div
+        ref={layer2}
+        className="etheral-layer-gold"
+        style={{ position: 'absolute', inset: '-10%', willChange: 'transform' }}
+      />
+
+      {/* Tertiary layer: cream warmth */}
       <div
         ref={layer3}
-        style={{
-          position: 'absolute',
-          inset: '-5%',
-          willChange: 'transform',
-          mixBlendMode: 'soft-light',
-          opacity: 0.45,
-          background:
-            'radial-gradient(ellipse 80% 70% at 50% 20%, rgba(246, 240, 228, 0.18), transparent 72%), ' +
-            'radial-gradient(ellipse 50% 50% at 15% 80%, rgba(155, 126, 230, 0.14), transparent 60%), ' +
-            'radial-gradient(ellipse 50% 50% at 85% 60%, rgba(246, 240, 228, 0.1), transparent 55%)',
-        }}
+        className="etheral-layer-cream"
+        style={{ position: 'absolute', inset: '-5%', willChange: 'transform' }}
       />
     </div>
   );

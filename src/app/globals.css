@@ -209,52 +209,18 @@ body {
   font-size: 1.02rem;
 }
 
-.home-royal::before {
-  content: '';
-  position: absolute;
-  inset: -24% -10% auto -10%;
-  height: 64vh;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(58% 80% at 50% 10%, rgba(246, 240, 228, 0.18), transparent 72%),
-    radial-gradient(56% 72% at 8% 34%, rgba(155, 126, 230, 0.2), transparent 76%),
-    radial-gradient(56% 72% at 92% 34%, rgba(111, 74, 199, 0.18), transparent 76%);
-  filter: blur(12px);
-}
-
+/* Satin layers handle all ambient atmosphere — no localized gradient patches */
+.home-royal::before,
 .home-royal::after {
-  content: '';
-  position: absolute;
-  inset: auto -20% -22% -20%;
-  height: 58vh;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(48% 62% at 20% 74%, rgba(111, 74, 199, 0.22), transparent 74%),
-    radial-gradient(48% 62% at 82% 74%, rgba(155, 126, 230, 0.2), transparent 74%),
-    radial-gradient(82% 86% at 50% 104%, rgba(9, 5, 22, 0.76), transparent 84%);
-  filter: blur(12px);
+  display: none;
 }
 
 body:has(.home-royal) {
-  background-color: #070312;
+  background-color: #0a0618;
   background-image: none;
 }
 
-body:has(.home-royal)::before {
-  content: '';
-  position: fixed;
-  inset: -20% -10% -16% -10%;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(50% 42% at 50% -10%, rgba(246, 240, 228, 0.2), transparent 74%),
-    radial-gradient(44% 44% at 0% 30%, rgba(111, 74, 199, 0.34), transparent 72%),
-    radial-gradient(44% 44% at 100% 68%, rgba(155, 126, 230, 0.28), transparent 72%),
-    linear-gradient(122deg, #070312 0%, #130a27 44%, #2b1753 100%);
-}
-
+body:has(.home-royal)::before,
 body:has(.home-royal)::after {
   display: none;
 }
@@ -277,14 +243,7 @@ body:has(.home-royal) .grain-overlay {
 }
 
 .home-royal.marketing-main::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.75;
-  background:
-    linear-gradient(90deg, transparent 0%, rgba(246, 240, 228, 0.04) 22%, transparent 48%, rgba(155, 126, 230, 0.07) 74%, transparent 100%);
+  display: none;
 }
 
 .home-royal .lowercase {
@@ -697,44 +656,70 @@ a {
   background-size: 220px;
 }
 
-.ambient-layer {
-  position: fixed;
-  inset: -16%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: var(--ambient-blend-opacity);
-  transition: opacity var(--motion-md) var(--ease-cinematic);
+/* ── Royal satin ambient layers ── */
+
+/* Primary: the satin fold structure — elongated highlights that simulate draped fabric */
+@keyframes satin-fold {
+  0%   { background-position: 0% 0%, 100% 50%, 50% 100%, 0% 50%; }
+  25%  { background-position: 50% 30%, 60% 80%, 80% 20%, 30% 70%; }
+  50%  { background-position: 100% 50%, 0% 30%, 30% 60%, 70% 40%; }
+  75%  { background-position: 40% 70%, 50% 10%, 60% 80%, 80% 20%; }
+  100% { background-position: 0% 0%, 100% 50%, 50% 100%, 0% 50%; }
 }
 
-.ambient-layer::before,
-.ambient-layer::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  transition: transform var(--motion-lg) var(--ease-royal), opacity var(--motion-md) var(--ease-cinematic);
+/* Secondary: the gold sheen — catches light at different angles */
+@keyframes satin-sheen {
+  0%   { background-position: 0% 40%, 100% 60%, 50% 50%; }
+  33%  { background-position: 60% 20%, 40% 80%, 80% 30%; }
+  66%  { background-position: 30% 70%, 70% 30%, 20% 60%; }
+  100% { background-position: 0% 40%, 100% 60%, 50% 50%; }
 }
 
-.ambient-layer::before {
-  opacity: 0.88;
+/* Tertiary: the soft ambient light */
+@keyframes satin-glow {
+  0%   { background-position: 30% 0%, 70% 100%; }
+  50%  { background-position: 70% 40%, 30% 60%; }
+  100% { background-position: 30% 0%, 70% 100%; }
+}
+
+.etheral-layer-primary {
   background:
-    radial-gradient(58% 52% at 12% 18%, var(--ambient-primary), transparent 76%),
-    radial-gradient(56% 48% at 88% 20%, var(--ambient-secondary), transparent 78%),
-    radial-gradient(62% 66% at 52% 94%, var(--ambient-tertiary), transparent 80%);
-  transform: translate3d(0, 0, 0) scale(1.02);
+    /* Main fold — a long diagonal highlight like light hitting a drape */
+    radial-gradient(ellipse 120% 28% at 30% 35%, rgba(111, 74, 199, 0.42), transparent 65%),
+    /* Counter fold — the shadow between two ridges */
+    radial-gradient(ellipse 100% 22% at 70% 65%, rgba(50, 32, 95, 0.55), transparent 60%),
+    /* Secondary highlight — thinner, brighter, like a satin crease catching light */
+    radial-gradient(ellipse 140% 16% at 55% 50%, rgba(155, 126, 230, 0.3), transparent 55%),
+    /* Deep base fold — broad, anchors the fabric illusion */
+    radial-gradient(ellipse 90% 35% at 45% 80%, rgba(80, 50, 160, 0.35), transparent 70%);
+  background-size: 250% 250%, 220% 220%, 280% 200%, 200% 250%;
+  animation: satin-fold 40s ease-in-out infinite;
 }
 
-.ambient-layer::after {
+.etheral-layer-gold {
+  mix-blend-mode: screen;
   opacity: 0.5;
   background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(246, 240, 228, 0.015) 0px,
-      rgba(246, 240, 228, 0.015) 2px,
-      transparent 2px,
-      transparent 20px
-    );
-  transform: translate3d(0, 0, 0);
+    /* Gold sheen — the warm catch-light that makes satin look royal */
+    radial-gradient(ellipse 130% 18% at 40% 30%, rgba(212, 175, 55, 0.26), transparent 58%),
+    /* Secondary gold — softer, wider */
+    radial-gradient(ellipse 100% 24% at 65% 70%, rgba(214, 163, 63, 0.18), transparent 55%),
+    /* Faint brass warmth — very diffuse, ties the fabric together */
+    radial-gradient(ellipse 80% 40% at 50% 50%, rgba(232, 200, 74, 0.08), transparent 65%);
+  background-size: 240% 220%, 220% 240%, 200% 200%;
+  animation: satin-sheen 32s ease-in-out infinite;
+}
+
+.etheral-layer-cream {
+  mix-blend-mode: soft-light;
+  opacity: 0.4;
+  background:
+    /* Cream highlight — like light spilling across the top folds */
+    radial-gradient(ellipse 110% 20% at 35% 25%, rgba(246, 240, 228, 0.2), transparent 60%),
+    /* Low ambient — warm undertone beneath the fabric */
+    radial-gradient(ellipse 90% 30% at 60% 75%, rgba(246, 240, 228, 0.1), transparent 55%);
+  background-size: 230% 230%, 200% 200%;
+  animation: satin-glow 36s ease-in-out infinite;
 }
 
 html[data-section-theme='hero'] {
@@ -913,8 +898,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   font-size: 0.64rem;
   letter-spacing: 0.22em;
   color: var(--text-muted);
-  background: rgba(10, 6, 18, 0.62);
-  backdrop-filter: blur(8px);
+  background: rgba(10, 6, 18, 0.82);
 }
 
 .masthead {
@@ -1379,7 +1363,6 @@ html[data-section-theme='footer'] .ambient-layer::before {
   background:
     radial-gradient(110% 80% at 12% 0%, rgba(124, 58, 237, 0.2), transparent 46%),
     linear-gradient(180deg, rgba(8, 5, 16, 0.98), rgba(8, 5, 16, 0.98));
-  backdrop-filter: blur(12px);
   transition: opacity 0.4s ease;
 }
 
@@ -1475,8 +1458,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
 
 .glass-panel {
   border: 1px solid var(--stroke-soft);
-  background: var(--bg-panel);
-  backdrop-filter: blur(10px);
+  background: var(--bg-panel-strong);
   box-shadow: 0 14px 32px rgba(8, 2, 20, 0.24);
   transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
@@ -2076,8 +2058,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   border: 1px solid rgba(160, 140, 200, 0.3);
   border-radius: 16px;
   padding: 1.4rem 1.25rem;
-  background: rgba(18, 14, 28, 0.78);
-  backdrop-filter: blur(12px);
+  background: rgba(18, 14, 28, 0.94);
   box-shadow: var(--shadow-deep), inset 0 0 0 1px rgba(160, 140, 200, 0.1);
 }
 
