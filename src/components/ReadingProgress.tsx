@@ -1,10 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function ReadingProgress() {
   const [progress, setProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const frameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const syncProgress = () => {
@@ -34,7 +40,7 @@ export default function ReadingProgress() {
     };
   }, []);
 
-  return (
+  const bar = (
     <div
       className="reading-progress"
       style={{ transform: `scaleX(${progress / 100})` }}
@@ -45,4 +51,7 @@ export default function ReadingProgress() {
       aria-valuemax={100}
     />
   );
+
+  if (!mounted) return null;
+  return createPortal(bar, document.body);
 }

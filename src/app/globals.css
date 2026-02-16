@@ -215,17 +215,17 @@ body {
   display: none;
 }
 
-body:has(.home-royal) {
+body {
   background-color: #0a0618;
   background-image: none;
 }
 
-body:has(.home-royal)::before,
-body:has(.home-royal)::after {
+body::before,
+body::after {
   display: none;
 }
 
-body:has(.home-royal) .grain-overlay {
+.grain-overlay {
   opacity: 0.1;
   mix-blend-mode: soft-light;
 }
@@ -424,23 +424,23 @@ body:has(.home-royal) .grain-overlay {
   color: var(--accent-gold-soft);
 }
 
-body:has(.home-royal) .command-brand,
-body:has(.home-royal) .command-link,
-body:has(.home-royal) .command-mobile-link,
-body:has(.home-royal) .footer-heading,
-body:has(.home-royal) .footer-link,
-body:has(.home-royal) .loader-kicker,
-body:has(.home-royal) .loader-subtitle {
+.command-brand,
+.command-link,
+.command-mobile-link,
+.footer-heading,
+.footer-link,
+.loader-kicker,
+.loader-subtitle {
   font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
   font-variant-caps: normal;
   text-transform: none;
 }
 
-body:has(.home-royal) .command-brand {
+.command-brand {
   color: var(--accent-gold-soft);
 }
 
-body:has(.home-royal) .command-brand.brand-mark {
+.command-brand.brand-mark {
   font-family: var(--royal-name-script, 'Playfair Display'), var(--royal-display, 'Cormorant Garamond'), 'EB Garamond', Georgia, serif;
   font-style: italic;
   font-weight: 400;
@@ -449,36 +449,36 @@ body:has(.home-royal) .command-brand.brand-mark {
   text-shadow: none;
 }
 
-body:has(.home-royal) .command-link {
-  font-size: 1.01rem;
+.command-link {
+  font-size: 1.12rem;
   letter-spacing: 0.028em;
   color: rgba(243, 220, 162, 0.9);
 }
 
-body:has(.home-royal) .command-link:hover,
-body:has(.home-royal) .command-link--active,
-body:has(.home-royal) .footer-link:hover {
+.command-link:hover,
+.command-link--active,
+.footer-link:hover {
   color: var(--accent-gold-soft);
 }
 
-body:has(.home-royal) .command-mobile-link {
+.command-mobile-link {
   font-size: clamp(2rem, 8.4vw, 2.7rem);
   letter-spacing: 0.018em;
 }
 
-body:has(.home-royal) .footer-heading {
+.footer-heading {
   font-size: 1rem;
   letter-spacing: 0.045em;
   color: var(--accent-gold-soft);
 }
 
-body:has(.home-royal) .footer-link {
+.footer-link {
   letter-spacing: 0.025em;
   font-size: 1.01rem;
   color: rgba(243, 220, 162, 0.88);
 }
 
-body:has(.home-royal) .loader-title {
+.loader-title {
   font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
   font-variant-caps: normal;
   text-transform: none;
@@ -581,7 +581,7 @@ body:has(.home-royal) .loader-title {
     line-height: 0.97;
   }
 
-  body:has(.home-royal)::before {
+  body::before {
     inset: -18% -18% -14% -18%;
     background:
       radial-gradient(58% 52% at 10% 6%, rgba(246, 240, 228, 0.14), transparent 75%),
@@ -592,7 +592,6 @@ body:has(.home-royal) .loader-title {
 }
 
 /* ── Global lowercase rule ── */
-h1, h2, h3, h4, h5, h6,
 .command-label,
 .command-kicker,
 .command-brand,
@@ -1133,7 +1132,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   margin-bottom: 1rem;
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.8rem;
-  color: rgba(124, 58, 237, 0.75);
+  color: rgba(212, 175, 55, 0.7);
 }
 
 .service-title {
@@ -1306,8 +1305,8 @@ html[data-section-theme='footer'] .ambient-layer::before {
   padding: 0 0.72rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  font-size: 1.12rem;
+  letter-spacing: 0.028em;
   color: var(--text-muted);
   transition: color 0.28s ease, border-color 0.28s ease, background 0.28s ease;
 }
@@ -1651,6 +1650,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   font-family: 'Cormorant Garamond', Georgia, serif;
   color: var(--color-cream);
   font-size: 1.75rem;
+  font-weight: 700;
   line-height: 1.26;
   margin-top: 3rem;
   margin-bottom: 1rem;
@@ -1804,15 +1804,15 @@ html[data-section-theme='footer'] .ambient-layer::before {
   top: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 3px;
   transform: scaleX(0);
   transform-origin: left center;
   background: linear-gradient(90deg, var(--accent-gold), var(--accent-purple-soft));
-  z-index: 120;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.45), 0 0 20px rgba(124, 58, 237, 0.2);
+  z-index: 9999;
   transition: transform 0.1s linear;
   will-change: transform;
   pointer-events: none;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.45), 0 0 20px rgba(124, 58, 237, 0.2);
 }
 
 .mini-fan-sim {
