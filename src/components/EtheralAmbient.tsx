@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react';
 
 export default function EtheralAmbient() {
-  const layer1 = useRef<HTMLDivElement>(null);
-  const layer2 = useRef<HTMLDivElement>(null);
-  const layer3 = useRef<HTMLDivElement>(null);
+  const wrap1 = useRef<HTMLDivElement>(null);
+  const wrap2 = useRef<HTMLDivElement>(null);
+  const wrap3 = useRef<HTMLDivElement>(null);
   const raf = useRef<number>(0);
   const current = useRef({ y: 0, rotation: 0 });
   const target = useRef({ y: 0, rotation: 0 });
@@ -20,7 +20,6 @@ export default function EtheralAmbient() {
       target.current.y = scrollY;
       target.current.rotation = progress * 12;
 
-      // Wake up the loop if idle
       if (idle.current) {
         idle.current = false;
         raf.current = requestAnimationFrame(tick);
@@ -35,7 +34,6 @@ export default function EtheralAmbient() {
       const dy = t.y - c.y;
       const dr = t.rotation - c.rotation;
 
-      // If close enough, go idle
       if (Math.abs(dy) < 0.5 && Math.abs(dr) < 0.01) {
         c.y = t.y;
         c.rotation = t.rotation;
@@ -58,16 +56,16 @@ export default function EtheralAmbient() {
       const s2 = 1 + c.rotation * -0.003;
       const s3 = 1 + c.rotation * 0.002;
 
-      if (layer1.current) {
-        layer1.current.style.transform =
+      if (wrap1.current) {
+        wrap1.current.style.transform =
           `translate3d(0, ${y1}px, 0) rotate(${r1}deg) scale(${s1})`;
       }
-      if (layer2.current) {
-        layer2.current.style.transform =
+      if (wrap2.current) {
+        wrap2.current.style.transform =
           `translate3d(0, ${y2}px, 0) rotate(${r2}deg) scale(${s2})`;
       }
-      if (layer3.current) {
-        layer3.current.style.transform =
+      if (wrap3.current) {
+        wrap3.current.style.transform =
           `translate3d(0, ${y3}px, 0) rotate(${r3}deg) scale(${s3})`;
       }
 
@@ -94,26 +92,19 @@ export default function EtheralAmbient() {
         pointerEvents: 'none',
       }}
     >
-      {/* Primary layer: CSS animated purple nebula */}
-      <div
-        ref={layer1}
-        className="etheral-layer-primary"
-        style={{ position: 'absolute', inset: 0, willChange: 'transform' }}
-      />
+      {/* Outer wrappers: JS scroll parallax (transform)
+          Inner layers: CSS satin drift animation (transform) */}
+      <div ref={wrap1} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
+        <div className="etheral-layer-primary" style={{ position: 'absolute', inset: 0 }} />
+      </div>
 
-      {/* Secondary layer: warm gold accents */}
-      <div
-        ref={layer2}
-        className="etheral-layer-gold"
-        style={{ position: 'absolute', inset: '-10%', willChange: 'transform' }}
-      />
+      <div ref={wrap2} style={{ position: 'absolute', inset: '-10%', willChange: 'transform' }}>
+        <div className="etheral-layer-gold" style={{ position: 'absolute', inset: 0 }} />
+      </div>
 
-      {/* Tertiary layer: cream warmth */}
-      <div
-        ref={layer3}
-        className="etheral-layer-cream"
-        style={{ position: 'absolute', inset: '-5%', willChange: 'transform' }}
-      />
+      <div ref={wrap3} style={{ position: 'absolute', inset: '-5%', willChange: 'transform' }}>
+        <div className="etheral-layer-cream" style={{ position: 'absolute', inset: 0 }} />
+      </div>
     </div>
   );
 }

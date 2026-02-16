@@ -656,70 +656,58 @@ a {
   background-size: 220px;
 }
 
-/* ── Royal satin ambient layers ── */
+/* ── Royal satin ambient layers (GPU-composited transform animations only) ── */
 
-/* Primary: the satin fold structure — elongated highlights that simulate draped fabric */
-@keyframes satin-fold {
-  0%   { background-position: 0% 0%, 100% 50%, 50% 100%, 0% 50%; }
-  25%  { background-position: 50% 30%, 60% 80%, 80% 20%, 30% 70%; }
-  50%  { background-position: 100% 50%, 0% 30%, 30% 60%, 70% 40%; }
-  75%  { background-position: 40% 70%, 50% 10%, 60% 80%, 80% 20%; }
-  100% { background-position: 0% 0%, 100% 50%, 50% 100%, 0% 50%; }
+@keyframes satin-drift-1 {
+  0%   { transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1); }
+  25%  { transform: translate3d(4%, -3%, 0) rotate(1.5deg) scale(1.04); }
+  50%  { transform: translate3d(-3%, 5%, 0) rotate(-1deg) scale(0.97); }
+  75%  { transform: translate3d(5%, 2%, 0) rotate(2deg) scale(1.02); }
+  100% { transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1); }
 }
 
-/* Secondary: the gold sheen — catches light at different angles */
-@keyframes satin-sheen {
-  0%   { background-position: 0% 40%, 100% 60%, 50% 50%; }
-  33%  { background-position: 60% 20%, 40% 80%, 80% 30%; }
-  66%  { background-position: 30% 70%, 70% 30%, 20% 60%; }
-  100% { background-position: 0% 40%, 100% 60%, 50% 50%; }
+@keyframes satin-drift-2 {
+  0%   { transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1); }
+  33%  { transform: translate3d(-5%, 3%, 0) rotate(-2deg) scale(1.05); }
+  66%  { transform: translate3d(4%, -4%, 0) rotate(1.5deg) scale(0.96); }
+  100% { transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1); }
 }
 
-/* Tertiary: the soft ambient light */
-@keyframes satin-glow {
-  0%   { background-position: 30% 0%, 70% 100%; }
-  50%  { background-position: 70% 40%, 30% 60%; }
-  100% { background-position: 30% 0%, 70% 100%; }
+@keyframes satin-drift-3 {
+  0%   { transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate3d(3%, -2%, 0) rotate(1deg) scale(1.03); }
+  100% { transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1); }
 }
 
 .etheral-layer-primary {
   background:
-    /* Main fold — a long diagonal highlight like light hitting a drape */
     radial-gradient(ellipse 120% 28% at 30% 35%, rgba(111, 74, 199, 0.42), transparent 65%),
-    /* Counter fold — the shadow between two ridges */
     radial-gradient(ellipse 100% 22% at 70% 65%, rgba(50, 32, 95, 0.55), transparent 60%),
-    /* Secondary highlight — thinner, brighter, like a satin crease catching light */
     radial-gradient(ellipse 140% 16% at 55% 50%, rgba(155, 126, 230, 0.3), transparent 55%),
-    /* Deep base fold — broad, anchors the fabric illusion */
     radial-gradient(ellipse 90% 35% at 45% 80%, rgba(80, 50, 160, 0.35), transparent 70%);
-  background-size: 250% 250%, 220% 220%, 280% 200%, 200% 250%;
-  animation: satin-fold 40s ease-in-out infinite;
+  animation: satin-drift-1 40s ease-in-out infinite;
+  will-change: transform;
 }
 
 .etheral-layer-gold {
   mix-blend-mode: screen;
   opacity: 0.5;
   background:
-    /* Gold sheen — the warm catch-light that makes satin look royal */
     radial-gradient(ellipse 130% 18% at 40% 30%, rgba(212, 175, 55, 0.26), transparent 58%),
-    /* Secondary gold — softer, wider */
     radial-gradient(ellipse 100% 24% at 65% 70%, rgba(214, 163, 63, 0.18), transparent 55%),
-    /* Faint brass warmth — very diffuse, ties the fabric together */
     radial-gradient(ellipse 80% 40% at 50% 50%, rgba(232, 200, 74, 0.08), transparent 65%);
-  background-size: 240% 220%, 220% 240%, 200% 200%;
-  animation: satin-sheen 32s ease-in-out infinite;
+  animation: satin-drift-2 32s ease-in-out infinite;
+  will-change: transform;
 }
 
 .etheral-layer-cream {
   mix-blend-mode: soft-light;
   opacity: 0.4;
   background:
-    /* Cream highlight — like light spilling across the top folds */
     radial-gradient(ellipse 110% 20% at 35% 25%, rgba(246, 240, 228, 0.2), transparent 60%),
-    /* Low ambient — warm undertone beneath the fabric */
     radial-gradient(ellipse 90% 30% at 60% 75%, rgba(246, 240, 228, 0.1), transparent 55%);
-  background-size: 230% 230%, 200% 200%;
-  animation: satin-glow 36s ease-in-out infinite;
+  animation: satin-drift-3 36s ease-in-out infinite;
+  will-change: transform;
 }
 
 html[data-section-theme='hero'] {
