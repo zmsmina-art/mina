@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type NavItem = {
   label: string;
@@ -13,16 +14,28 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { label: 'About', href: '/about', kind: 'route' },
-  { label: 'Experience', href: '#experience', kind: 'hash' },
-  { label: 'Work With Me', href: '#work-with-me', kind: 'hash' },
-  { label: 'Articles', href: '/articles', kind: 'route' },
+  { label: 'Authority', href: '#experience', kind: 'hash' },
+  { label: 'Operating Model', href: '#work-with-me', kind: 'hash' },
+  { label: 'Writing', href: '#articles', kind: 'hash' },
   { label: 'Contact', href: '#contact', kind: 'hash' },
 ];
+
+const sectionAnchors = ['#experience', '#work-with-me', '#articles', '#contact'];
+
+type IndicatorState = {
+  left: number;
+  width: number;
+  opacity: number;
+};
 
 export default function SiteNav() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(pathname !== '/');
+  const [activeHash, setActiveHash] = useState('');
+  const [indicatorState, setIndicatorState] = useState<IndicatorState>({ left: 0, width: 0, opacity: 0 });
+  const desktopRailRef = useRef<HTMLDivElement | null>(null);
+  const linkRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     setIsOpen(false);
@@ -30,83 +43,133 @@ export default function SiteNav() {
 
   useEffect(() => {
     if (!isOpen) return;
-    const originalOverflow = document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.overflow = previousOverflow;
     };
   }, [isOpen]);
 
   useEffect(() => {
     if (pathname !== '/') {
       setIsScrolled(true);
+      setActiveHash('');
       return;
     }
 
-    let observer: IntersectionObserver | null = null;
-
-    const onScroll = () => {
+    const updateScrolledState = () => {
       setIsScrolled(window.scrollY > 24);
     };
 
-    const mountHeroObserver = () => {
-      const hero = document.getElementById('hero');
-      if (!hero) return;
+    const updateActiveHash = () => {
+      const markerY = 170;
+      const best = sectionAnchors.find((anchor) => {
+        const section = document.querySelector(anchor);
+        if (!section) return false;
+        const rect = section.getBoundingClientRect();
+        return rect.top <= markerY && rect.bottom > markerY;
+      });
 
-      observer?.disconnect();
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          setIsScrolled(!entry.isIntersecting);
-        },
-        { threshold: 0.08 },
-      );
-      observer.observe(hero);
+      if (best) {
+        setActiveHash(best);
+      } else if (window.scrollY < 120) {
+        setActiveHash('');
+      }
+    };
+
+    const onScroll = () => {
+      updateScrolledState();
+      updateActiveHash();
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    mountHeroObserver();
-    const delayedMount = window.setTimeout(mountHeroObserver, 180);
+    window.addEventListener('resize', updateActiveHash);
+
+    const hash = window.location.hash;
+    if (sectionAnchors.includes(hash)) {
+      setActiveHash(hash);
+    }
+
+    updateScrolledState();
+    updateActiveHash();
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.clearTimeout(delayedMount);
-      observer?.disconnect();
+      window.removeEventListener('resize', updateActiveHash);
     };
   }, [pathname]);
 
   const resolvedItems = useMemo(() => {
     return navItems.map((item) => {
       if (item.kind === 'route') {
-        return { ...item, resolvedHref: item.href, active: pathname === item.href };
+        return {
+          ...item,
+          resolvedHref: item.href,
+          active: pathname === item.href,
+        };
       }
 
       const resolvedHref = pathname === '/' ? item.href : `/${item.href}`;
-      return { ...item, resolvedHref, active: false };
+      const active = pathname === '/' && activeHash === item.href;
+      return { ...item, resolvedHref, active };
     });
-  }, [pathname]);
+  }, [pathname, activeHash]);
+
+  const syncIndicator = useCallback(() => {
+    const rail = desktopRailRef.current;
+    if (!rail) return;
+
+    const activeItem = resolvedItems.find((item) => item.active);
+    if (!activeItem) {
+      setIndicatorState((prev) => ({ ...prev, opacity: 0 }));
+      return;
+    }
+
+    const activeNode = linkRefs.current[activeItem.label];
+    if (!activeNode) return;
+
+    const railRect = rail.getBoundingClientRect();
+    const activeRect = activeNode.getBoundingClientRect();
+
+    setIndicatorState({
+      left: activeRect.left - railRect.left,
+      width: activeRect.width,
+      opacity: 1,
+    });
+  }, [resolvedItems]);
+
+  useEffect(() => {
+    syncIndicator();
+    window.addEventListener('resize', syncIndicator);
+    return () => window.removeEventListener('resize', syncIndicator);
+  }, [syncIndicator]);
+
+  const indicatorStyle = ({
+    '--nav-indicator-left': `${indicatorState.left}px`,
+    '--nav-indicator-width': `${indicatorState.width}px`,
+    opacity: indicatorState.opacity,
+  } as CSSProperties);
 
   return (
     <>
-      <nav
-        className={`fixed inset-x-0 top-0 z-[90] transition-all duration-500 ${
-          isScrolled ? 'border-b border-[#292524]/70 bg-[#141311]/85 backdrop-blur-xl' : 'bg-transparent'
-        }`}
-      >
+      <nav className={`command-nav ${isScrolled ? 'command-nav--scrolled' : ''}`}>
         <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
-          <Link href="/" aria-label="Mina Mankarious home" className="text-[0.68rem] font-medium uppercase tracking-[0.19em] text-[#f5f0e8] transition-colors hover:text-[#e8c97a] sm:text-sm">
-            Mina Mankarious
+          <Link href="/" aria-label="Mina Mankarious home" className="command-brand brand-mark">
+            mm.
           </Link>
 
-          <div className="hidden items-center gap-8 lg:gap-10 md:flex">
-            {resolvedItems.map((item) => (
-              item.kind === 'route' ? (
+          <div ref={desktopRailRef} className="command-link-rail hidden items-center gap-2 md:flex">
+            <span className="command-link-indicator" aria-hidden="true" style={indicatorStyle} />
+            {resolvedItems.map((item) => {
+              const className = `command-link ${item.active ? 'command-link--active' : ''}`;
+              return item.kind === 'route' ? (
                 <Link
                   key={item.label}
                   href={item.resolvedHref}
-                  className={`link-underline text-sm font-light tracking-wide transition-colors ${
-                    item.active ? 'text-[#d4a853]' : 'text-[#c8c2b6] hover:text-[#f5f0e8]'
-                  }`}
+                  className={className}
+                  ref={(node) => {
+                    linkRefs.current[item.label] = node;
+                  }}
                 >
                   {item.label}
                 </Link>
@@ -114,21 +177,24 @@ export default function SiteNav() {
                 <a
                   key={item.label}
                   href={item.resolvedHref}
-                  className="link-underline text-sm font-light tracking-wide text-[#c8c2b6] transition-colors hover:text-[#f5f0e8]"
+                  className={className}
+                  ref={(node) => {
+                    linkRefs.current[item.label] = node;
+                  }}
                 >
                   {item.label}
                 </a>
-              )
-            ))}
+              );
+            })}
           </div>
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#2d2923] bg-[#141311]/70 text-[#f5f0e8] transition-colors hover:text-[#e8c97a] md:hidden"
+            className="command-menu-btn md:hidden"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-nav"
-            onClick={() => setIsOpen((open) => !open)}
+            onClick={() => setIsOpen((value) => !value)}
           >
             {isOpen ? <X size={19} /> : <Menu size={19} />}
           </button>
@@ -137,24 +203,23 @@ export default function SiteNav() {
 
       <div
         id="mobile-nav"
-        className={`fixed inset-0 z-[85] flex bg-[#0d0c0b]/95 backdrop-blur-xl transition-opacity duration-500 md:hidden ${
-          isOpen ? 'pointer-events-auto opacity-100 mobile-nav-open' : 'pointer-events-none opacity-0'
-        }`}
+        className={`command-mobile-panel ${isOpen ? 'is-open mobile-nav-open' : ''}`}
         style={{
-          paddingTop: 'max(6rem, env(safe-area-inset-top))',
-          paddingBottom: 'max(2.5rem, env(safe-area-inset-bottom))',
+          paddingTop: 'max(6.2rem, env(safe-area-inset-top))',
+          paddingBottom: 'max(2rem, env(safe-area-inset-bottom))',
           paddingLeft: 'max(var(--page-gutter-mobile), env(safe-area-inset-left))',
           paddingRight: 'max(var(--page-gutter-mobile), env(safe-area-inset-right))',
         }}
       >
-        <div className="mx-auto flex w-full max-w-sm flex-col items-start gap-5">
-          {resolvedItems.map((item) => (
-            item.kind === 'route' ? (
+        <div className="mx-auto flex w-full max-w-sm flex-col items-start gap-4">
+          {resolvedItems.map((item) => {
+            const className = `command-mobile-link ${item.active ? 'command-mobile-link--active' : ''}`;
+            return item.kind === 'route' ? (
               <Link
                 key={item.label}
                 href={item.resolvedHref}
                 onClick={() => setIsOpen(false)}
-                className="mobile-nav-link w-full border-b border-[#292524]/70 pb-3 text-3xl leading-tight text-[#f5f0e8] transition-colors hover:text-[#d4a853] sm:text-4xl"
+                className={className}
               >
                 {item.label}
               </Link>
@@ -163,12 +228,12 @@ export default function SiteNav() {
                 key={item.label}
                 href={item.resolvedHref}
                 onClick={() => setIsOpen(false)}
-                className="mobile-nav-link w-full border-b border-[#292524]/70 pb-3 text-3xl leading-tight text-[#f5f0e8] transition-colors hover:text-[#d4a853] sm:text-4xl"
+                className={className}
               >
                 {item.label}
               </a>
-            )
-          ))}
+            );
+          })}
         </div>
       </div>
     </>

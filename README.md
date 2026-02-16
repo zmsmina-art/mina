@@ -1,37 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mina Mankarious Portfolio
 
-## Getting Started
+Next.js 15 + TypeScript + Tailwind portfolio site.
 
-First, run the development server:
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## UI Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Source alias: `@/* -> src/*` (see `tsconfig.json`)
+- Shared UI components: `src/components/ui`
+- Utility helpers: `src/lib`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Glowing Border Hover Effect
 
-## Learn More
+A subtle pointer-tracking border glow is integrated across key cards.
 
-To learn more about Next.js, take a look at the following resources:
+### Core files
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/components/ui/glowing-effect.tsx`
+- `src/components/ui/card-glow.tsx`
+- `src/lib/utils.ts`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dependency
 
-## Deploy on Vercel
+- `motion` (installed in `package.json`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Integrated sections
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/components/ArticleCard.tsx`
+- `src/components/ArticlePageClient.tsx`
+- `src/components/home/AuthoritySection.tsx`
+- `src/components/home/ServiceSection.tsx`
+- `src/components/home/WorkSection.tsx`
+- `src/components/home/EducationSection.tsx`
+- `src/components/home/WritingSection.tsx`
+- `src/components/home/HomeHero.tsx`
+- `src/components/home/ContactSection.tsx`
 
+### Tuning glow behavior
+
+Adjust defaults in `src/components/ui/card-glow.tsx`:
+
+- `spread`
+- `proximity`
+- `inactiveZone`
+- `borderWidth`
+
+Adjust rendering details in `src/components/ui/glowing-effect.tsx`:
+
+- gradient colors
+- shadow intensity
+- movement duration
+- mask behavior

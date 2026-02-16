@@ -1,10 +1,13 @@
 'use client';
 
-export type ArticleNavDirection = 'forward' | 'back';
+export type RouteTransitionDirection = 'forward' | 'back';
+export type RouteTransitionScope = 'article' | 'page';
+export type RouteTransitionState = `${RouteTransitionScope}-${RouteTransitionDirection}`;
+export type ArticleNavDirection = RouteTransitionDirection;
 
 const ARTICLE_LIST_PATH = '/articles';
 const ARTICLE_DETAIL_PREFIX = '/articles/';
-const ARTICLE_NAV_ATTRIBUTE = 'data-article-nav';
+const ROUTE_TRANSITION_ATTRIBUTE = 'data-route-transition';
 
 export function isArticlesListPath(pathname: string): boolean {
   return pathname === ARTICLE_LIST_PATH;
@@ -25,14 +28,26 @@ export function isArticlesListDetailPair(fromPathname: string, toPathname: strin
   return (fromIsList && toIsDetail) || (fromIsDetail && toIsList);
 }
 
-export function setArticleNavDirection(direction: ArticleNavDirection): void {
+export function setRouteTransitionState(
+  direction: RouteTransitionDirection,
+  scope: RouteTransitionScope = 'page',
+): void {
   if (typeof document === 'undefined') return;
-  document.documentElement.setAttribute(ARTICLE_NAV_ATTRIBUTE, direction);
+  const state: RouteTransitionState = `${scope}-${direction}`;
+  document.documentElement.setAttribute(ROUTE_TRANSITION_ATTRIBUTE, state);
+}
+
+export function clearRouteTransitionState(): void {
+  if (typeof document === 'undefined') return;
+  document.documentElement.removeAttribute(ROUTE_TRANSITION_ATTRIBUTE);
+}
+
+export function setArticleNavDirection(direction: ArticleNavDirection): void {
+  setRouteTransitionState(direction, 'article');
 }
 
 export function clearArticleNavDirection(): void {
-  if (typeof document === 'undefined') return;
-  document.documentElement.removeAttribute(ARTICLE_NAV_ATTRIBUTE);
+  clearRouteTransitionState();
 }
 
 export function prefersReducedMotion(): boolean {

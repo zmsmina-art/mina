@@ -16,7 +16,7 @@ export default function RevealRuntime() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      { threshold: 0.2, rootMargin: '0px 0px -18% 0px' },
     );
 
     const revealNodes = Array.from(document.querySelectorAll<HTMLElement>('.reveal, .timeline-line'));
@@ -27,9 +27,9 @@ export default function RevealRuntime() {
 
     const timer = window.setTimeout(() => {
       heroLines.forEach((line, index) => {
-        window.setTimeout(() => line.classList.add('is-visible'), index * 140);
+        window.setTimeout(() => line.classList.add('is-visible'), index * 110);
       });
-    }, 120);
+    }, 80);
 
     return () => {
       revealObserver.disconnect();

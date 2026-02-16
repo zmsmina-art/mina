@@ -32,17 +32,17 @@ const DESKTOP_PROFILE: MotionProfile = {
   mode: 'desktop',
   reduced: false,
   durations: {
-    enter: 0.42,
-    stagger: 0.06,
+    enter: 0.54,
+    stagger: 0.07,
   },
   distances: {
-    enterY: 20,
-    proseY: 8,
+    enterY: 26,
+    proseY: 12,
   },
   spring: {
-    stiffness: 420,
-    damping: 34,
-    mass: 0.7,
+    stiffness: 360,
+    damping: 30,
+    mass: 0.78,
   },
 };
 
@@ -50,17 +50,17 @@ const MOBILE_PROFILE: MotionProfile = {
   mode: 'mobile',
   reduced: false,
   durations: {
-    enter: 0.24,
-    stagger: 0.03,
+    enter: 0.3,
+    stagger: 0.045,
   },
   distances: {
-    enterY: 10,
-    proseY: 4,
+    enterY: 14,
+    proseY: 6,
   },
   spring: {
-    stiffness: 520,
-    damping: 42,
-    mass: 0.65,
+    stiffness: 460,
+    damping: 38,
+    mass: 0.68,
   },
 };
 

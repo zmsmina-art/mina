@@ -5,6 +5,8 @@ import type { CSSProperties, TouchEvent } from 'react';
 
 const FAN_BLADE_ANGLES = [0, 72, 144, 216, 288];
 const ENGINE_ADC_MAX = 1023;
+const MOBILE_SPIN_QUERY = '(max-width: 767px), (hover: none) and (pointer: coarse)';
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
@@ -31,10 +33,37 @@ function getFanMode(duty: number) {
   return `AUTO / ${duty}%`;
 }
 
+function subscribeMediaQuery(query: MediaQueryList, handler: () => void) {
+  if (typeof query.addEventListener === 'function') {
+    query.addEventListener('change', handler);
+    return () => query.removeEventListener('change', handler);
+  }
+
+  query.addListener(handler);
+  return () => query.removeListener(handler);
+}
+
+function applyBladeRotation(group: SVGGElement, angleDeg: number) {
+  const normalizedAngle = ((angleDeg % 360) + 360) % 360;
+  const roundedAngle = Number(normalizedAngle.toFixed(3));
+  group.style.transform = `translate(100px, 100px) rotate(${roundedAngle}deg) translate(-100px, -100px)`;
+  group.setAttribute('transform', `rotate(${roundedAngle} 100 100)`);
+}
+
+function clearBladeRotation(group: SVGGElement) {
+  group.style.removeProperty('transform');
+  group.style.removeProperty('transform-origin');
+  group.style.removeProperty('transform-box');
+  group.removeAttribute('transform');
+}
+
 export default function FanControllerMiniPreview() {
   const [engineTempRaw, setEngineTempRaw] = useState(614);
   const [safetyActive, setSafetyActive] = useState(false);
   const [useJsSpin, setUseJsSpin] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(true);
+  const simRef = useRef<HTMLDivElement | null>(null);
   const sliderRef = useRef<HTMLInputElement | null>(null);
   const bladesGroupRef = useRef<SVGGElement | null>(null);
   const bladeAngleRef = useRef(0);
@@ -88,10 +117,10 @@ export default function FanControllerMiniPreview() {
       ),
       linear-gradient(
         90deg,
-        rgba(212, 168, 83, 0.86) 0%,
-        rgba(212, 168, 83, 0.86) ${adcFill}%,
-        rgba(212, 168, 83, 0.14) ${adcFill}%,
-        rgba(212, 168, 83, 0.14) 100%
+        rgba(212, 175, 55, 0.86) 0%,
+        rgba(212, 175, 55, 0.86) ${adcFill}%,
+        rgba(212, 175, 55, 0.14) ${adcFill}%,
+        rgba(212, 175, 55, 0.14) 100%
       )
     `;
 
@@ -105,27 +134,57 @@ export default function FanControllerMiniPreview() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const mediaQuery = window.matchMedia('(max-width: 767px), (pointer: coarse)');
-    const syncProfile = () => setUseJsSpin(mediaQuery.matches);
+    const coarseInputQuery = window.matchMedia(MOBILE_SPIN_QUERY);
+    const reducedMotionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+
+    const syncProfile = () => {
+      setUseJsSpin(coarseInputQuery.matches);
+      setPrefersReducedMotion(reducedMotionQuery.matches);
+    };
+
     syncProfile();
 
-    mediaQuery.addEventListener('change', syncProfile);
-    return () => mediaQuery.removeEventListener('change', syncProfile);
+    const unsubscribeCoarse = subscribeMediaQuery(coarseInputQuery, syncProfile);
+    const unsubscribeReduced = subscribeMediaQuery(reducedMotionQuery, syncProfile);
+
+    return () => {
+      unsubscribeCoarse();
+      unsubscribeReduced();
+    };
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return;
+    const node = simRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        setIsInViewport(entry.isIntersecting || entry.intersectionRatio > 0);
+      },
+      { threshold: 0.08 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const group = bladesGroupRef.current;
     if (!group) return;
 
     if (!useJsSpin) {
-      group.removeAttribute('transform');
+      clearBladeRotation(group);
       return;
     }
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion || duty === 0) {
-      group.setAttribute('transform', `rotate(${bladeAngleRef.current} 100 100)`);
+    group.style.transformOrigin = '0 0';
+    group.style.transformBox = 'view-box';
+
+    if (prefersReducedMotion || duty === 0 || !isInViewport) {
+      applyBladeRotation(group, bladeAngleRef.current);
       return;
     }
 
@@ -137,16 +196,16 @@ export default function FanControllerMiniPreview() {
       const deltaSeconds = Math.min((timestamp - lastTime) / 1000, 0.05);
       lastTime = timestamp;
       bladeAngleRef.current = (bladeAngleRef.current + speedDegPerSecond * deltaSeconds) % 360;
-      group.setAttribute('transform', `rotate(${bladeAngleRef.current} 100 100)`);
+      applyBladeRotation(group, bladeAngleRef.current);
       rafId = window.requestAnimationFrame(tick);
     };
 
     rafId = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(rafId);
-  }, [duty, useJsSpin]);
+  }, [duty, isInViewport, prefersReducedMotion, useJsSpin]);
 
   return (
-    <div className="mini-fan-sim mt-4">
+    <div ref={simRef} className="mini-fan-sim mt-4">
       <div className="mini-fan-top">
         <label htmlFor="mini-engine-temp">Engine Temperature</label>
         <span>{temperature.toFixed(1)}C</span>
@@ -189,7 +248,6 @@ export default function FanControllerMiniPreview() {
                 ref={bladesGroupRef}
                 className={`mini-fan-blades-group ${useJsSpin ? 'mini-fan-blades-group--js' : ''}`}
               >
-                <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
                 <circle cx="160" cy="100" r="3.2" className="mini-fan-rotor-dot" />
                 {FAN_BLADE_ANGLES.map((angle) => {
                   const rad = (angle * Math.PI) / 180;
@@ -209,6 +267,7 @@ export default function FanControllerMiniPreview() {
                   );
                 })}
               </g>
+              <circle cx="100" cy="100" r="12" className="mini-fan-hub" />
             </svg>
           </div>
         </div>

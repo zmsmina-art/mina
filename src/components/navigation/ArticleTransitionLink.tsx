@@ -4,11 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { ComponentProps, MouseEvent } from 'react';
 import {
-  clearArticleNavDirection,
+  clearRouteTransitionState,
   prefersReducedMotion,
-  setArticleNavDirection,
+  setRouteTransitionState,
   supportsViewTransitions,
-  type ArticleNavDirection,
+  type RouteTransitionDirection,
+  type RouteTransitionScope,
 } from '@/components/navigation/articleTransitionUtils';
 
 type FallbackMode = 'push' | 'backThenPush';
@@ -17,7 +18,8 @@ type BaseLinkProps = Omit<ComponentProps<typeof Link>, 'href'>;
 
 interface ArticleTransitionLinkProps extends BaseLinkProps {
   href: string;
-  direction: ArticleNavDirection;
+  direction: RouteTransitionDirection;
+  scope?: RouteTransitionScope;
   fallbackMode?: FallbackMode;
 }
 
@@ -37,6 +39,7 @@ function shouldIgnoreClick(event: MouseEvent<HTMLAnchorElement>, target?: string
 export default function ArticleTransitionLink({
   href,
   direction,
+  scope = 'article',
   fallbackMode = 'push',
   onClick,
   target,
@@ -72,10 +75,10 @@ export default function ArticleTransitionLink({
     }
 
     event.preventDefault();
-    setArticleNavDirection(direction);
+    setRouteTransitionState(direction, scope);
 
     const cleanupTimer = window.setTimeout(() => {
-      clearArticleNavDirection();
+      clearRouteTransitionState();
     }, DIRECTION_CLEANUP_MS);
 
     try {
@@ -91,18 +94,18 @@ export default function ArticleTransitionLink({
 
       if (!transition) {
         window.clearTimeout(cleanupTimer);
-        clearArticleNavDirection();
+        clearRouteTransitionState();
         runFallbackNavigation();
         return;
       }
 
       transition.finished.finally(() => {
         window.clearTimeout(cleanupTimer);
-        clearArticleNavDirection();
+        clearRouteTransitionState();
       });
     } catch {
       window.clearTimeout(cleanupTimer);
-      clearArticleNavDirection();
+      clearRouteTransitionState();
       runFallbackNavigation();
     }
   };

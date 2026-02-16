@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            backgroundColor: '#050507',
+            backgroundColor: '#080510',
             padding: '60px 80px',
           }}
         >
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
               style={{
                 fontSize: 56,
                 fontWeight: 700,
-                color: '#f0f0f5',
+                color: '#f0edf5',
                 lineHeight: 1.2,
                 display: 'flex',
               }}
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
               <div
                 style={{
                   fontSize: 24,
-                  color: '#6a6a7a',
+                  color: '#8578a0',
                   marginTop: 24,
                   lineHeight: 1.5,
                   display: 'flex',
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
                   width: 48,
                   height: 48,
                   borderRadius: '50%',
-                  backgroundColor: '#8b5cf6',
+                  backgroundColor: '#7C3AED',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -75,10 +75,10 @@ export async function GET(request: NextRequest) {
                 M
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 20, fontWeight: 600, color: '#f0f0f5', display: 'flex' }}>
+                <div style={{ fontSize: 20, fontWeight: 600, color: '#f0edf5', display: 'flex' }}>
                   Mina Mankarious
                 </div>
-                <div style={{ fontSize: 16, color: '#8b5cf6', display: 'flex' }}>
+                <div style={{ fontSize: 16, color: '#D4AF37', display: 'flex' }}>
                   minamankarious.com
                 </div>
               </div>
@@ -105,7 +105,7 @@ export async function GET(request: NextRequest) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          backgroundColor: '#050507',
+          backgroundColor: '#080510',
           padding: '60px 80px',
         }}
       >
@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
             style={{
               fontSize: 72,
               fontWeight: 700,
-              color: '#f0f0f5',
+              color: '#f0edf5',
               marginBottom: 16,
               display: 'flex',
             }}
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
             Mina{' '}
             <span
               style={{
-                background: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)',
+                background: 'linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)',
                 backgroundClip: 'text',
                 color: 'transparent',
                 marginLeft: 16,
@@ -142,7 +142,7 @@ export async function GET(request: NextRequest) {
           <div
             style={{
               fontSize: 32,
-              color: '#8b5cf6',
+              color: '#D4AF37',
               marginBottom: 12,
               display: 'flex',
             }}
@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
           <div
             style={{
               fontSize: 24,
-              color: '#6a6a7a',
+              color: '#8578a0',
               display: 'flex',
             }}
           >
@@ -169,8 +169,8 @@ export async function GET(request: NextRequest) {
             <div
               style={{
                 display: 'flex',
-                backgroundColor: '#8b5cf6',
-                color: '#fff',
+                backgroundColor: '#D4AF37',
+                color: '#080510',
                 padding: '12px 24px',
                 borderRadius: 8,
                 fontSize: 20,
@@ -183,7 +183,7 @@ export async function GET(request: NextRequest) {
               style={{
                 display: 'flex',
                 fontSize: 18,
-                color: '#6a6a7a',
+                color: '#8578a0',
               }}
             >
               minamankarious.com
@@ -207,7 +207,7 @@ export async function GET(request: NextRequest) {
             height={380}
             style={{
               borderRadius: '50%',
-              border: '4px solid rgba(139, 92, 246, 0.3)',
+              border: '4px solid rgba(124, 58, 237, 0.3)',
               objectFit: 'cover',
             }}
           />

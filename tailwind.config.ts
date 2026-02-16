@@ -12,6 +12,15 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        gold: {
+          DEFAULT: '#D4AF37',
+          soft: '#E8C84A',
+        },
+        purple: {
+          DEFAULT: '#7C3AED',
+          soft: '#A78BFA',
+          deep: '#6B21A8',
+        },
       },
     },
   },

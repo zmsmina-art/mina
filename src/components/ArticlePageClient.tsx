@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import ReadingProgress from '@/components/ReadingProgress';
 import useMotionProfile from '@/components/motion/useMotionProfile';
 import ArticleTransitionLink from '@/components/navigation/ArticleTransitionLink';
+import CardGlow from '@/components/ui/card-glow';
 import type { Article } from '@/data/articles';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -35,7 +36,11 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
         };
 
   return (
-    <main id="main-content" className="page-enter article-motion-shell page-gutter pb-20 pt-28 md:pb-24 md:pt-32">
+    <main
+      id="main-content"
+      data-section-theme="article"
+      className="page-enter article-motion-shell page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
+    >
       <ReadingProgress />
 
       <article className="mx-auto max-w-3xl">
@@ -47,7 +52,7 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
           <ArticleTransitionLink
             href="/articles"
             direction="back"
-            className="mb-10 inline-flex items-center gap-2 text-sm text-[#b2ab9f] transition-colors hover:text-[#f5f0e8]"
+            className="mb-10 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <ArrowLeft size={14} />
             Back to articles
@@ -67,9 +72,9 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
             ))}
           </div>
 
-          <h1 className="mobile-tight-title mb-4 text-[clamp(2.1rem,9.8vw,2.9rem)] leading-[1.1] text-[#f5f0e8] md:text-5xl">{article.title}</h1>
+          <h1 className="mobile-tight-title mb-4 text-[clamp(2.1rem,9.8vw,2.9rem)] leading-[1.1] text-[var(--text-primary)] md:text-5xl">{article.title}</h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-[#8f887b]">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-dim)]">
             <time dateTime={article.publishedAt} className="flex items-center gap-1.5">
               <Calendar size={14} />
               {formattedDate}
@@ -107,7 +112,7 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
             transition={sequenceTransition(5, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.72)}
           >
             <div className="site-divider mb-7" />
-            <h2 className="mb-6 text-2xl text-[#f5f0e8]">Related Articles</h2>
+            <h2 className="mb-6 text-2xl text-[var(--text-primary)]">Related Articles</h2>
             <ul className="space-y-4">
               {relatedArticles.map((related, index) => (
                 <motion.li
@@ -124,29 +129,32 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
                         }
                   }
                 >
-                  <Link href={`/articles/${related.slug}`} className="glass-panel compact-card article-motion-card group block">
-                    <div className="mb-2 flex flex-wrap gap-2">
-                      {related.tags.map((tag) => (
-                        <span key={tag} className="tag-chip">{tag}</span>
-                      ))}
-                    </div>
+                  <Link href={`/articles/${related.slug}`} className="glass-panel compact-card article-motion-card group relative block overflow-hidden">
+                    <CardGlow />
+                    <div className="relative z-[1]">
+                      <div className="mb-2 flex flex-wrap gap-2">
+                        {related.tags.map((tag) => (
+                          <span key={tag} className="tag-chip">{tag}</span>
+                        ))}
+                      </div>
 
-                    <h3 className="mb-1 flex items-start gap-2 text-lg text-[#f5f0e8] transition-colors group-hover:text-[#e8c97a]">
-                      {related.title}
-                      <ArrowUpRight size={14} className="mt-1 shrink-0 text-[#8f887b] transition-colors group-hover:text-[#e8c97a]" />
-                    </h3>
+                      <h3 className="mb-1 flex items-start gap-2 text-lg text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-gold-soft)]">
+                        {related.title}
+                        <ArrowUpRight size={14} className="mt-1 shrink-0 text-[var(--text-dim)] transition-colors group-hover:text-[var(--accent-gold-soft)]" />
+                      </h3>
 
-                    <p className="line-clamp-2 text-sm text-[#c8c2b6]">{related.excerpt}</p>
+                      <p className="line-clamp-2 text-sm text-[var(--text-muted)]">{related.excerpt}</p>
 
-                    <div className="mt-3 flex items-center gap-4 text-xs text-[#8f887b]">
-                      <time dateTime={related.publishedAt} className="flex items-center gap-1.5">
-                        <Calendar size={12} />
-                        {new Date(related.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                      </time>
-                      <span className="flex items-center gap-1.5">
-                        <Clock size={12} />
-                        {related.readingTime}
-                      </span>
+                      <div className="mt-3 flex items-center gap-4 text-xs text-[var(--text-dim)]">
+                        <time dateTime={related.publishedAt} className="flex items-center gap-1.5">
+                          <Calendar size={12} />
+                          {new Date(related.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                        </time>
+                        <span className="flex items-center gap-1.5">
+                          <Clock size={12} />
+                          {related.readingTime}
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </motion.li>
@@ -163,11 +171,11 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
         >
           <div className="site-divider mb-8" />
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-            <Link href="/articles" className="inline-flex items-center gap-2 text-[#b2ab9f] transition-colors hover:text-[#f5f0e8]">
+            <Link href="/articles" className="inline-flex items-center gap-2 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]">
               <ArrowLeft size={14} />
               All articles
             </Link>
-            <Link href="/about" className="inline-flex items-center gap-2 text-[#d4a853] transition-colors hover:text-[#e8c97a]">
+            <Link href="/about" className="inline-flex items-center gap-2 text-[var(--accent-gold)] transition-colors hover:text-[var(--accent-gold-soft)]">
               About Mina
               <ArrowUpRight size={14} />
             </Link>

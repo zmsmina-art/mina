@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import RevealRuntime from '@/components/RevealRuntime';
-import ArticleTransitionRuntime from '@/components/navigation/ArticleTransitionRuntime';
+import MotionRuntime from '@/components/MotionRuntime';
+import EtheralAmbient from '@/components/EtheralAmbient';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -90,8 +90,8 @@ export const metadata: Metadata = {
     google: 'rZIuYERXXV18304PIGZJZUQ1C9Re4szYlDOskfurCxY',
   },
   other: {
-    'theme-color': '#0d0c0b',
-    'msapplication-TileColor': '#0d0c0b',
+    'theme-color': '#080510',
+    'msapplication-TileColor': '#080510',
     'profile:first_name': 'Mina',
     'profile:last_name': 'Mankarious',
     'profile:username': 'minamankarious',
@@ -238,7 +238,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preload" href="/fonts/gambetta-medium.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+          rel="stylesheet"
+        />
         <link rel="preload" href="/fonts/switzer-light.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
         <link rel="me" href="https://x.com/minamnkarious" />
@@ -251,9 +256,9 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <EtheralAmbient />
         <div className="grain-overlay" aria-hidden="true" />
-        <RevealRuntime />
-        <ArticleTransitionRuntime />
+        <MotionRuntime />
         <SiteNav />
         <script
           type="application/ld+json"
