@@ -112,7 +112,7 @@ export default function HomeHero() {
               </p>
               <p className="flex items-center justify-between gap-4">
                 <span>Coverage</span>
-                <span className="text-[var(--text-primary)]">North America</span>
+                <span className="text-[var(--text-primary)]">North America & Europe</span>
               </p>
               <p className="flex items-center justify-between gap-4">
                 <span className="inline-flex items-center gap-1">
