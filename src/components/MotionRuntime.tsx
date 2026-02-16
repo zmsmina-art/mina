@@ -83,7 +83,7 @@ export default function MotionRuntime() {
           motionObserver.unobserve(entry.target);
         });
       },
-      { threshold: 0.22, rootMargin: '0px 0px -14% 0px' },
+      { threshold: 0.08, rootMargin: '0px 0px -6% 0px' },
     );
 
     motionNodes.forEach((node) => motionObserver.observe(node));

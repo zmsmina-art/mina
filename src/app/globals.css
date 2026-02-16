@@ -30,19 +30,19 @@
   --shadow-deep: 0 28px 70px rgba(8, 2, 20, 0.46);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-cinematic: cubic-bezier(0.2, 0.86, 0.24, 1);
-  --ease-royal: cubic-bezier(0.12, 0.88, 0.25, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-royal: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --motion-xxs: 140ms;
-  --motion-xs: 240ms;
-  --motion-sm: 360ms;
-  --motion-md: 540ms;
-  --motion-lg: 760ms;
+  --motion-xxs: 100ms;
+  --motion-xs: 160ms;
+  --motion-sm: 240ms;
+  --motion-md: 360ms;
+  --motion-lg: 500ms;
 
-  --motion-shift-sm: 10px;
-  --motion-shift-md: 22px;
-  --motion-shift-lg: 44px;
-  --motion-shift-xl: 70px;
+  --motion-shift-sm: 6px;
+  --motion-shift-md: 14px;
+  --motion-shift-lg: 28px;
+  --motion-shift-xl: 44px;
 
   --ambient-primary: rgba(212, 175, 55, 0.12);
   --ambient-secondary: rgba(124, 58, 237, 0.16);
@@ -1548,19 +1548,16 @@ html[data-section-theme='footer'] .ambient-layer::before {
 [data-motion] {
   opacity: 0;
   transform: translate3d(0, var(--motion-shift-md), 0);
-  filter: blur(1.8px);
   transition:
     opacity var(--motion-md) var(--ease-cinematic),
-    transform var(--motion-md) var(--ease-royal),
-    filter var(--motion-sm) ease;
+    transform var(--motion-md) var(--ease-royal);
   transition-delay: var(--motion-delay, 0ms);
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 [data-motion].is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  filter: none;
 }
 
 [data-motion='fade'] {
@@ -1632,7 +1629,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
 .hero-line span {
   display: block;
   transform: translateY(112%);
-  transition: transform var(--motion-lg) var(--ease-royal);
+  transition: transform var(--motion-md) var(--ease-royal);
   transition-delay: var(--motion-delay, 0ms);
 }
 
@@ -2520,9 +2517,9 @@ html[data-section-theme='footer'] .ambient-layer::before {
     --route-transition-shift: 24px;
     --route-transition-enter-offset: 6%;
     --route-transition-exit-opacity: 0.84;
-    --motion-shift-md: 12px;
-    --motion-shift-lg: 24px;
-    --motion-shift-xl: 32px;
+    --motion-shift-md: 8px;
+    --motion-shift-lg: 16px;
+    --motion-shift-xl: 24px;
   }
 
   .article-motion-shell {
