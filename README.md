@@ -1,6 +1,6 @@
 # Mina Mankarious Portfolio
 
-Next.js 15 + TypeScript + Tailwind portfolio site.
+Next.js 15 + TypeScript + Tailwind portfolio site with a royal editorial aesthetic — Cormorant Garamond display typography, warm gold accents, and cinematic scroll animations.
 
 ## Local Development
 
@@ -20,50 +20,57 @@ npm run start
 npm run lint
 ```
 
-## UI Structure
+## Architecture
 
 - Source alias: `@/* -> src/*` (see `tsconfig.json`)
 - Shared UI components: `src/components/ui`
 - Utility helpers: `src/lib`
 
-## Glowing Border Hover Effect
+### Pages
 
-A subtle pointer-tracking border glow is integrated across key cards.
+| Route | Component | Description |
+|-------|-----------|-------------|
+| `/` | `src/app/page.tsx` | Homepage with hero, services, authority, writing, contact sections |
+| `/about` | `src/components/AboutPageClient.tsx` | Editorial bio page with stat cards and centered prose |
+| `/articles` | `src/app/articles/page.tsx` | Article listing with card grid |
+| `/articles/[slug]` | `src/components/ArticlePageClient.tsx` | Article detail with reading progress bar |
 
-### Core files
+### Key Components
 
+- `src/components/SiteNav.tsx` — Fixed nav with scroll indicator and active-section tracking
+- `src/components/MotionRuntime.tsx` — IntersectionObserver-based scroll reveal system
+- `src/components/ReadingProgress.tsx` — Article reading progress bar (portaled to body)
+- `src/components/home/HomeHero.tsx` — Hero with wordmark reveal and command snapshot
+
+## Design System
+
+### Motion
+
+Scroll-triggered animations use `data-motion` attributes with CSS transitions. The `MotionRuntime` component observes elements and adds `is-visible` to trigger entrance animations.
+
+Motion variants: `rise`, `fade`, `sweep-left`, `sweep-right`, `h-sweep`, `spotlight`, `crest`, `flip`, `crescendo`, `footer-rise`, `wordmark`
+
+Timing variables defined in `globals.css`:
+- `--motion-xs` through `--motion-lg` (160ms–500ms)
+- `--motion-shift-sm` through `--motion-shift-xl` (6px–44px)
+- `--ease-royal` and `--ease-cinematic` cubic-bezier curves
+
+### Glowing Border Hover Effect
+
+A pointer-tracking border glow integrated across key cards.
+
+**Core files:**
 - `src/components/ui/glowing-effect.tsx`
 - `src/components/ui/card-glow.tsx`
 - `src/lib/utils.ts`
 
-### Dependency
+**Dependency:** `motion` (installed in `package.json`)
 
-- `motion` (installed in `package.json`)
+**Tuning:** Adjust `spread`, `proximity`, `inactiveZone`, `borderWidth` in `card-glow.tsx`. Adjust gradient colors, shadow intensity, and mask behavior in `glowing-effect.tsx`.
 
-### Integrated sections
+### Typography
 
-- `src/components/ArticleCard.tsx`
-- `src/components/ArticlePageClient.tsx`
-- `src/components/home/AuthoritySection.tsx`
-- `src/components/home/ServiceSection.tsx`
-- `src/components/home/WorkSection.tsx`
-- `src/components/home/EducationSection.tsx`
-- `src/components/home/WritingSection.tsx`
-- `src/components/home/HomeHero.tsx`
-- `src/components/home/ContactSection.tsx`
-
-### Tuning glow behavior
-
-Adjust defaults in `src/components/ui/card-glow.tsx`:
-
-- `spread`
-- `proximity`
-- `inactiveZone`
-- `borderWidth`
-
-Adjust rendering details in `src/components/ui/glowing-effect.tsx`:
-
-- gradient colors
-- shadow intensity
-- movement duration
-- mask behavior
+- Display: Cormorant Garamond (nav, headings, stats)
+- Brand mark: Playfair Display italic
+- Body: System sans-serif stack
+- Gold accent palette with warm brass and soft purple secondary
