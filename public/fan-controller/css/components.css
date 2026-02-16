@@ -14,7 +14,7 @@
   position: absolute;
   width: 12px;
   height: 12px;
-  border-color: rgba(212, 168, 83, 0.25);
+  border-color: rgba(255, 255, 255, 0.28);
   border-style: solid;
 }
 
@@ -46,12 +46,12 @@
   content: '';
   width: 8px;
   height: 1px;
-  background: var(--bp-purple);
+  background: var(--bp-purple-light);
 }
 
 .btn {
-  background: rgba(212, 168, 83, 0.06);
-  border: 1px solid rgba(212, 168, 83, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.26);
   color: var(--bp-text-primary);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -62,10 +62,10 @@
 }
 
 .btn:hover {
-  background: rgba(212, 168, 83, 0.12);
-  border-color: rgba(212, 168, 83, 0.3);
-  color: var(--bp-purple-light);
-  box-shadow: 0 0 12px rgba(212, 168, 83, 0.1);
+  background: linear-gradient(142deg, rgba(255, 255, 255, 0.2), rgba(122, 64, 242, 0.16));
+  border-color: rgba(255, 255, 255, 0.52);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(176, 137, 255, 0.2);
 }
 
 .btn:focus-visible {
@@ -74,21 +74,21 @@
 }
 
 .btn--active {
-  background: rgba(212, 168, 83, 0.15);
-  border-color: var(--bp-purple);
-  color: var(--bp-purple-light);
-  box-shadow: 0 0 16px rgba(212, 168, 83, 0.15);
+  background: linear-gradient(142deg, rgba(255, 255, 255, 0.22), rgba(122, 64, 242, 0.18));
+  border-color: rgba(176, 137, 255, 0.62);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(176, 137, 255, 0.24);
 }
 
 .btn--danger {
-  border-color: rgba(248, 113, 113, 0.3);
-  color: var(--bp-red);
-  background: rgba(248, 113, 113, 0.06);
+  border-color: rgba(176, 137, 255, 0.45);
+  color: #f2eaff;
+  background: rgba(122, 64, 242, 0.2);
 }
 
 .btn--danger:hover {
-  border-color: rgba(248, 113, 113, 0.5);
-  box-shadow: 0 0 12px rgba(248, 113, 113, 0.15);
+  border-color: rgba(176, 137, 255, 0.72);
+  box-shadow: 0 0 14px rgba(176, 137, 255, 0.3);
 }
 
 .badge {
@@ -105,27 +105,27 @@
 }
 
 .badge--auto {
-  border-color: rgba(96, 165, 250, 0.3);
-  color: var(--bp-blue);
-  background: rgba(96, 165, 250, 0.08);
+  border-color: rgba(255, 255, 255, 0.34);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .badge--manual {
-  border-color: rgba(74, 222, 128, 0.3);
-  color: var(--bp-green);
-  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(176, 137, 255, 0.48);
+  color: #efe6ff;
+  background: rgba(122, 64, 242, 0.14);
 }
 
 .badge--safety {
-  border-color: rgba(248, 113, 113, 0.4);
-  color: var(--bp-red);
-  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(176, 137, 255, 0.62);
+  color: #f8f4ff;
+  background: rgba(176, 137, 255, 0.2);
   animation: safety-pulse 1s ease-in-out infinite;
 }
 
 @keyframes safety-pulse {
-  0%, 100% { box-shadow: 0 0 4px rgba(248, 113, 113, 0.2); }
-  50% { box-shadow: 0 0 16px rgba(248, 113, 113, 0.4); }
+  0%, 100% { box-shadow: 0 0 4px rgba(176, 137, 255, 0.24); }
+  50% { box-shadow: 0 0 16px rgba(176, 137, 255, 0.42); }
 }
 
 .slider-group {
@@ -161,7 +161,7 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 4px;
-  background: rgba(212, 168, 83, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 2px;
   outline: none;
   cursor: pointer;
@@ -172,27 +172,27 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 14px;
   height: 14px;
-  background: var(--bp-purple);
+  background: var(--bp-purple-light);
   border-radius: 50%;
-  border: 2px solid var(--bp-bg-primary);
-  box-shadow: 0 0 8px rgba(212, 168, 83, 0.4);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(176, 137, 255, 0.42);
   cursor: pointer;
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 14px;
   height: 14px;
-  background: var(--bp-purple);
+  background: var(--bp-purple-light);
   border-radius: 50%;
-  border: 2px solid var(--bp-bg-primary);
-  box-shadow: 0 0 8px rgba(212, 168, 83, 0.4);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(176, 137, 255, 0.42);
   cursor: pointer;
 }
 
 .tooltip {
   position: fixed;
-  background: #0f0f18;
-  border: 1px solid rgba(212, 168, 83, 0.2);
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.24);
   color: var(--bp-text-primary);
   font-size: 11px;
   padding: 8px 12px;
@@ -204,7 +204,7 @@ input[type="range"]::-moz-range-thumb {
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.15s;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 168, 83, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 20px rgba(176, 137, 255, 0.14);
 }
 
 .tooltip--visible {

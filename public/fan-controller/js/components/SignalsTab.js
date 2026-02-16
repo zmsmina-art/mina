@@ -145,14 +145,14 @@ export class SignalsTab {
 
     // Section labels
     ctx.font = '11px "Fira Code", monospace';
-    ctx.fillStyle = '#a78bfa';
+    ctx.fillStyle = '#b089ff';
     ctx.textAlign = 'center';
     ctx.fillText('Analog Input', s1 / 2, 16);
     ctx.fillText('ADC Sampling', s1 + s2 / 2, 16);
     ctx.fillText('Digital Output', s1 + s2 + s3 / 2, 16);
 
     // Section dividers
-    ctx.strokeStyle = 'rgba(139, 92, 246, 0.2)';
+    ctx.strokeStyle = 'rgba(176, 137, 255, 0.24)';
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
     ctx.beginPath(); ctx.moveTo(s1, graphTop); ctx.lineTo(s1, graphBot); ctx.stroke();
@@ -161,7 +161,7 @@ export class SignalsTab {
 
     // --- Section 1: Analog waveform ---
     const normV = voltage / 5.0;
-    ctx.strokeStyle = '#fbbf24';
+    ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 2;
     ctx.beginPath();
     for (let x = margin; x < s1 - margin; x++) {
@@ -176,13 +176,13 @@ export class SignalsTab {
     // Current value marker
     const markerX = margin + normV * (s1 - 2 * margin);
     const markerY = graphBot - normV * graphH;
-    ctx.strokeStyle = '#a78bfa';
+    ctx.strokeStyle = '#b089ff';
     ctx.lineWidth = 1;
     ctx.setLineDash([2, 2]);
     ctx.beginPath(); ctx.moveTo(markerX, graphTop); ctx.lineTo(markerX, graphBot); ctx.stroke();
     ctx.setLineDash([]);
 
-    ctx.fillStyle = '#a78bfa';
+    ctx.fillStyle = '#b089ff';
     ctx.beginPath(); ctx.arc(markerX, markerY, 5, 0, Math.PI * 2); ctx.fill();
 
     ctx.font = '10px "Fira Code", monospace';
@@ -190,7 +190,7 @@ export class SignalsTab {
     ctx.fillText(`${voltage.toFixed(2)}V`, markerX, graphBot + 16);
 
     // Y-axis labels
-    ctx.fillStyle = 'rgba(240, 240, 245, 0.5)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.56)';
     ctx.textAlign = 'right';
     ctx.fillText('5.0V', margin - 4, graphTop + 4);
     ctx.fillText('0.0V', margin - 4, graphBot + 4);
@@ -198,7 +198,7 @@ export class SignalsTab {
     // --- Section 2: Staircase (quantized) ---
     const steps = 16;
     const stepW = (s2 - 2 * margin) / steps;
-    ctx.strokeStyle = '#4ade80';
+    ctx.strokeStyle = '#ddd3ff';
     ctx.lineWidth = 2;
     ctx.beginPath();
     for (let i = 0; i < steps; i++) {
@@ -216,7 +216,7 @@ export class SignalsTab {
     // Highlight current quantization level
     const currentLevel = Math.round(normV * 1023);
     const quantY = graphBot - normV * graphH;
-    ctx.fillStyle = '#a78bfa';
+    ctx.fillStyle = '#b089ff';
     ctx.beginPath();
     ctx.arc(s1 + s2 / 2, quantY, 4, 0, Math.PI * 2);
     ctx.fill();
@@ -226,30 +226,30 @@ export class SignalsTab {
     ctx.textAlign = 'center';
 
     // Binary
-    ctx.fillStyle = '#a78bfa';
+    ctx.fillStyle = '#b089ff';
     ctx.font = '12px "Fira Code", monospace';
     const binary = adcValue.toString(2).padStart(10, '0');
     ctx.fillText(`0b${binary}`, cx3, graphTop + 30);
 
     // Decimal
-    ctx.fillStyle = '#f0f0f5';
+    ctx.fillStyle = '#ffffff';
     ctx.font = '20px "Fira Code", monospace';
     ctx.fillText(`${adcValue}`, cx3, graphTop + 65);
     ctx.font = '10px "Fira Code", monospace';
-    ctx.fillStyle = 'rgba(240, 240, 245, 0.5)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.56)';
     ctx.fillText('(decimal)', cx3, graphTop + 80);
 
     // Voltage
-    ctx.fillStyle = '#fbbf24';
+    ctx.fillStyle = '#f5f5f5';
     ctx.font = '14px "Fira Code", monospace';
     ctx.fillText(`${voltage.toFixed(3)}V`, cx3, graphTop + 110);
 
     // Temperature
-    ctx.fillStyle = '#f87171';
+    ctx.fillStyle = '#c2a2ff';
     ctx.font = '16px "Fira Code", monospace';
     ctx.fillText(`${tempC.toFixed(1)}\u00B0C`, cx3, graphTop + 140);
     ctx.font = '9px "Fira Code", monospace';
-    ctx.fillStyle = 'rgba(240, 240, 245, 0.4)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.46)';
     ctx.fillText('(engine temp)', cx3, graphTop + 154);
   }
 
@@ -263,7 +263,7 @@ export class SignalsTab {
     ctx.clearRect(0, 0, W, H);
 
     // Grid
-    ctx.strokeStyle = 'rgba(139, 92, 246, 0.1)';
+    ctx.strokeStyle = 'rgba(176, 137, 255, 0.16)';
     ctx.lineWidth = 0.5;
     for (let y = 0; y <= H; y += 20) {
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
@@ -275,7 +275,7 @@ export class SignalsTab {
     const periodW = W / periods;
     const highW = (dutyPercent / 100) * periodW;
 
-    ctx.strokeStyle = '#a78bfa';
+    ctx.strokeStyle = '#b089ff';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, yLow);

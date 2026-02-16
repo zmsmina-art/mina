@@ -41,15 +41,17 @@ export default function ReadingProgress() {
   }, []);
 
   const bar = (
-    <div
-      className="reading-progress"
-      style={{ transform: `scaleX(${progress / 100})` }}
-      role="progressbar"
-      aria-label="Article reading progress"
-      aria-valuenow={Math.round(progress)}
-      aria-valuemin={0}
-      aria-valuemax={100}
-    />
+    <div className="reading-progress-shell">
+      <div
+        className="reading-progress"
+        style={{ transform: `scaleX(${progress / 100})` }}
+        role="progressbar"
+        aria-label="Article reading progress"
+        aria-valuenow={Math.round(progress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      />
+    </div>
   );
 
   if (!mounted) return null;

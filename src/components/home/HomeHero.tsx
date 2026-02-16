@@ -17,7 +17,6 @@ export default function HomeHero() {
   return (
     <section id="hero" data-section-theme="hero" className="section-hero page-gutter command-section">
       <div className="command-grid" aria-hidden="true" />
-      <div className="command-orbit" aria-hidden="true" />
 
       <div className="mx-auto grid min-h-[calc(100vh-86px)] w-full max-w-7xl grid-cols-1 gap-10 py-14 md:grid-cols-12 md:items-center md:gap-8 md:py-16 lg:gap-12">
         <div className="relative z-[2] md:col-span-7 lg:col-span-8">
@@ -65,7 +64,7 @@ export default function HomeHero() {
               className="ghost-btn w-full justify-center sm:w-auto"
             >
               <Image
-                src="/group-13.svg"
+                src="/olunix.svg"
                 alt="Olunix"
                 width={14}
                 height={14}

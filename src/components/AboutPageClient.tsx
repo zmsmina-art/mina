@@ -26,7 +26,7 @@ const dossierFacts = [
 
 export default function AboutPageClient() {
   return (
-    <main id="main-content" data-section-theme="about" className="page-enter">
+    <main id="main-content" data-section-theme="about" className="page-enter marketing-main home-royal pt-20">
       {/* ── Hero ── */}
       <section className="command-section page-gutter section-block" data-section-theme="about-hero">
         <div className="mx-auto w-full max-w-7xl">

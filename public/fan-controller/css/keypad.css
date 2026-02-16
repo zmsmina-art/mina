@@ -21,12 +21,12 @@
 }
 
 .keypad__key:hover:not(.keypad__key--disabled) {
-  border-color: rgba(139, 92, 246, 0.35);
-  box-shadow: 0 0 8px rgba(139, 92, 246, 0.15);
+  border-color: rgba(176, 137, 255, 0.44);
+  box-shadow: 0 0 10px rgba(176, 137, 255, 0.24);
 }
 
 .keypad__key:active:not(.keypad__key--disabled) {
-  background: rgba(139, 92, 246, 0.12);
+  background: rgba(176, 137, 255, 0.2);
 }
 
 .keypad__key:focus-visible {
@@ -35,7 +35,7 @@
 }
 
 .keypad__key--flash {
-  background: rgba(139, 92, 246, 0.2) !important;
+  background: rgba(176, 137, 255, 0.3) !important;
   border-color: var(--bp-purple) !important;
 }
 
@@ -53,7 +53,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(248, 113, 113, 0.06);
+  background: rgba(176, 137, 255, 0.16);
   border-radius: var(--radius-sm);
 }
 

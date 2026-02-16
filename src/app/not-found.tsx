@@ -16,7 +16,7 @@ function motionDelay(ms: number): CSSProperties {
 
 export default function NotFound() {
   return (
-    <main id="main-content" data-section-theme="default" className="page-enter page-gutter pb-20 pt-32 md:pb-24 md:pt-40">
+    <main id="main-content" data-section-theme="about" className="page-enter marketing-main home-royal page-gutter pb-20 pt-32 md:pb-24 md:pt-40">
       <div className="mx-auto max-w-3xl text-center">
         <p className="mb-3 text-sm lowercase tracking-[0.2em] text-[var(--text-dim)]" data-motion="rise" style={motionDelay(80)}>
           404

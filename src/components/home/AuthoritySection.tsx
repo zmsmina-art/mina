@@ -14,7 +14,7 @@ const authorityTimeline = [
     org: 'Olunix',
     period: 'Sep 2024 - Present',
     detail: 'Marketing and consulting for AI startups with an execution-first operating model.',
-    logo: '/olunix-logo.png',
+    logo: '/olunix.svg',
     logoAlt: 'Olunix',
     href: 'https://olunix.com',
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',

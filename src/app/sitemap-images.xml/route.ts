@@ -6,7 +6,7 @@ const homepageImages = [
   "/headshot.png",
   "/headshot.jpg",
   "/og-image.jpg",
-  "/olunix-logo.png",
+  "/olunix.svg",
   "/boardy-logo.png",
   "/habits-together-logo.png",
   "/hope-logo.webp",

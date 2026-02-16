@@ -57,7 +57,7 @@ export class CANLog {
     for (const msg of newMessages) {
       const row = el('div');
       const dirColor = msg.direction === 'TX' ? 'var(--bp-green)' : 'var(--bp-purple-light)';
-      row.style.cssText = `display:grid;grid-template-columns:70px 28px 42px 28px 1fr 1fr;gap:4px;font-size:10px;padding:2px 0;border-bottom:1px solid rgba(139,92,246,0.06);`;
+      row.style.cssText = `display:grid;grid-template-columns:70px 28px 42px 28px 1fr 1fr;gap:4px;font-size:10px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);`;
 
       const dataStr = msg.data.map(b => b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
 

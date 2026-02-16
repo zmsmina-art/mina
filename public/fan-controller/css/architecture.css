@@ -25,12 +25,12 @@
 .arch-block:hover rect,
 .arch-block:hover .arch-block__border {
   stroke: var(--bp-purple);
-  filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.3));
+  filter: drop-shadow(0 0 6px rgba(176, 137, 255, 0.3));
 }
 
 .arch-block:focus-visible rect {
   stroke: var(--bp-purple-light);
-  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.35));
+  filter: drop-shadow(0 0 8px rgba(176, 137, 255, 0.38));
 }
 
 .arch-block rect,

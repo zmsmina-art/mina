@@ -42,7 +42,7 @@ export class PWMWaveform {
     ctx.clearRect(0, 0, W, H);
 
     // Grid
-    ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
+    ctx.strokeStyle = 'rgba(176, 137, 255, 0.16)';
     ctx.lineWidth = 0.5;
     for (let y = 0; y <= H; y += 30) {
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
@@ -59,7 +59,7 @@ export class PWMWaveform {
 
     // V_avg dashed line
     const vAvgY = yLow - (dutyPercent / 100) * (yLow - yHigh);
-    ctx.strokeStyle = 'rgba(251, 191, 36, 0.5)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.62)';
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
@@ -69,12 +69,12 @@ export class PWMWaveform {
     ctx.setLineDash([]);
 
     // V_avg label
-    ctx.fillStyle = 'rgba(251, 191, 36, 0.7)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.84)';
     ctx.font = '10px "Fira Code", monospace';
     ctx.fillText(`V_avg = ${(dutyPercent / 100 * 5).toFixed(1)}V`, W - 95, vAvgY - 4);
 
     // Waveform
-    ctx.strokeStyle = '#a78bfa';
+    ctx.strokeStyle = '#b089ff';
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, yLow);
@@ -96,13 +96,13 @@ export class PWMWaveform {
     ctx.stroke();
 
     // Y-axis labels
-    ctx.fillStyle = 'rgba(240, 240, 245, 0.5)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.56)';
     ctx.font = '9px "Fira Code", monospace';
     ctx.fillText('HIGH (5V)', 4, yHigh - 4);
     ctx.fillText('LOW  (0V)', 4, yLow + 12);
 
     // Duty label
-    ctx.fillStyle = '#a78bfa';
+    ctx.fillStyle = '#b089ff';
     ctx.font = '12px "Fira Code", monospace';
     ctx.fillText(`Duty Cycle: ${dutyPercent}%`, W / 2 - 60, H - 4);
   }

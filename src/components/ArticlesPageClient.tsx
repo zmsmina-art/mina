@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ArticleCard from '@/components/ArticleCard';
+import ReadingProgress from '@/components/ReadingProgress';
 import useMotionProfile from '@/components/motion/useMotionProfile';
 import type { Article } from '@/data/articles';
 
@@ -58,8 +59,10 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
     <main
       id="main-content"
       data-section-theme="articles"
-      className="page-enter article-motion-shell page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
+      className="page-enter article-motion-shell marketing-main home-royal page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
     >
+      <ReadingProgress />
+
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: introOffset }}

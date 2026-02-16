@@ -1,29 +1,30 @@
 :root {
-  /* Aligned with the portfolio amber/cream redesign */
-  --bp-bg-primary: #0d0c0b;
-  --bp-bg-secondary: #141311;
-  --bp-bg-surface: rgba(212, 168, 83, 0.05);
-  --bp-border: rgba(212, 168, 83, 0.2);
-  --bp-grid: rgba(212, 168, 83, 0.05);
+  --bp-bg-primary: #050505;
+  --bp-bg-secondary: #0a0a0a;
+  --bp-bg-surface: linear-gradient(150deg, rgba(255, 255, 255, 0.08), rgba(122, 64, 242, 0.06));
+  --bp-border: rgba(255, 255, 255, 0.2);
+  --bp-grid: rgba(255, 255, 255, 0.06);
 
-  --bp-text-primary: #f5f0e8;
-  --bp-text-secondary: #b8ae9f;
-  --bp-text-accent: #e8c97a;
+  --bp-text-primary: #ffffff;
+  --bp-text-secondary: #cfcfcf;
+  --bp-text-accent: #f5f5f5;
 
-  --bp-purple: #d4a853;
-  --bp-purple-light: #e8c97a;
-  --bp-purple-dark: #a67c3d;
-  --bp-purple-glow: rgba(212, 168, 83, 0.18);
-  --bp-green: #4ade80;
-  --bp-red: #f87171;
-  --bp-amber: #fbbf24;
-  --bp-blue: #60a5fa;
+  --bp-purple: #7a40f2;
+  --bp-purple-light: #b089ff;
+  --bp-purple-dark: #3a1a75;
+  --bp-purple-glow: rgba(122, 64, 242, 0.24);
+  --bp-green: #ddd3ff;
+  --bp-red: #e9e2ff;
+  --bp-amber: #ffffff;
+  --bp-blue: #f0f0f0;
 
-  --lcd-bg: #11100f;
-  --lcd-text: #e8c97a;
-  --lcd-glow: rgba(212, 168, 83, 0.5);
+  --lcd-bg: #090909;
+  --lcd-text: #f8f6ff;
+  --lcd-glow: rgba(176, 137, 255, 0.38);
 
   --font-mono: 'Fira Code', 'Courier New', monospace;
+  --font-display: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  --font-text: 'EB Garamond', Georgia, serif;
 
   --gap-sm: 8px;
   --gap-md: 16px;
@@ -43,9 +44,15 @@
 body {
   background-color: var(--bp-bg-primary);
   background-image:
+    radial-gradient(80% 56% at 8% 0%, rgba(255, 255, 255, 0.15), transparent 62%),
+    radial-gradient(88% 66% at 92% 8%, rgba(122, 64, 242, 0.26), transparent 60%),
     linear-gradient(var(--bp-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-size:
+    auto,
+    auto,
+    22px 22px,
+    22px 22px;
   color: var(--bp-text-primary);
   font-family: var(--font-mono);
   font-size: 13px;
@@ -60,8 +67,8 @@ body {
 }
 
 ::selection {
-  background: rgba(212, 168, 83, 0.35);
-  color: #0d0c0b;
+  background: rgba(176, 137, 255, 0.42);
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
@@ -82,7 +89,9 @@ body {
 .app-header {
   border-bottom: 1px solid var(--bp-border);
   padding: var(--gap-lg) var(--gap-xl);
-  background: var(--bp-bg-secondary);
+  background:
+    linear-gradient(180deg, rgba(11, 11, 11, 0.94), rgba(8, 8, 8, 0.96)),
+    radial-gradient(72% 90% at 12% 0%, rgba(255, 255, 255, 0.14), transparent 58%);
   position: relative;
 }
 
@@ -93,8 +102,8 @@ body {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--bp-purple), transparent);
-  opacity: 0.4;
+  background: linear-gradient(90deg, transparent, var(--bp-purple-light), transparent);
+  opacity: 0.65;
 }
 
 .title-block__back {
@@ -111,16 +120,21 @@ body {
 }
 
 .title-block__title {
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-weight: 600;
   color: var(--bp-text-primary);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.02em;
+  line-height: 1.08;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.08), 0 0 20px rgba(176, 137, 255, 0.12);
 }
 
 .title-block__subtitle {
+  font-family: var(--font-text);
   font-size: 13px;
   color: var(--bp-text-secondary);
   margin-top: 4px;
+  letter-spacing: 0.02em;
 }
 
 .title-block__meta {

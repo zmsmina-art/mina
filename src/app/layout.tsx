@@ -90,8 +90,8 @@ export const metadata: Metadata = {
     google: 'rZIuYERXXV18304PIGZJZUQ1C9Re4szYlDOskfurCxY',
   },
   other: {
-    'theme-color': '#080510',
-    'msapplication-TileColor': '#080510',
+    'theme-color': '#050505',
+    'msapplication-TileColor': '#050505',
     'profile:first_name': 'Mina',
     'profile:last_name': 'Mankarious',
     'profile:username': 'minamankarious',
@@ -146,7 +146,7 @@ export default function RootLayout({
       },
       logo: {
         '@type': 'ImageObject',
-        url: 'https://minamankarious.com/olunix-logo.png',
+        url: 'https://minamankarious.com/olunix.svg',
       },
       address: {
         '@type': 'PostalAddress',

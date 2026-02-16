@@ -49,10 +49,10 @@ const BLOCKS = [
 ];
 
 const CONNECTIONS = [
-  { from: 'ecu', to: 'hcs12', label: 'CAN Bus', color: '#a78bfa', bidir: true },
-  { from: 'roboteurs', to: 'hcs12', label: 'PWM / ADC', color: '#fbbf24', bidir: true },
-  { from: 'hcs12', to: 'lcd', label: 'GPIO', color: '#4ade80', bidir: false },
-  { from: 'hcs12', to: 'keypad', label: 'IRQ + GPIO', color: '#f472b6', bidir: false },
+  { from: 'ecu', to: 'hcs12', label: 'CAN Bus', color: '#b089ff', bidir: true },
+  { from: 'roboteurs', to: 'hcs12', label: 'PWM / ADC', color: '#ffffff', bidir: true },
+  { from: 'hcs12', to: 'lcd', label: 'GPIO', color: '#ddd3ff', bidir: false },
+  { from: 'hcs12', to: 'keypad', label: 'IRQ + GPIO', color: '#7a40f2', bidir: false },
 ];
 
 export class ArchitectureTab {
@@ -236,7 +236,7 @@ export class ArchitectureTab {
       width: String(block.w),
       height: String(block.h),
       rx: '6',
-      fill: 'rgba(10, 10, 15, 0.9)',
+      fill: 'rgba(8, 8, 8, 0.92)',
       stroke: 'var(--bp-border)',
       'stroke-width': '1.5',
     });
