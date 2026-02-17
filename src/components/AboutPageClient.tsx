@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { ArrowLeft, ExternalLink, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ExternalLink } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 
 function motionDelay(ms: number): CSSProperties {
   return { '--motion-delay': `${ms}ms` } as CSSProperties;
 }
 
-const externalLinks = [
+const elsewhereLinks = [
   { label: 'Olunix', url: 'https://olunix.com' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/mina-mankarious' },
   { label: 'X / Twitter', url: 'https://x.com/minamnkarious' },
@@ -17,22 +17,26 @@ const externalLinks = [
   { label: 'Crunchbase', url: 'https://www.crunchbase.com/person/mina-mankarious' },
 ];
 
-const dossierFacts = [
-  { label: 'Role', value: 'Founder & CEO, Olunix' },
-  { label: 'Focus', value: 'AI Startup Positioning + Growth' },
-  { label: 'Education', value: 'Engineering, McMaster' },
-  { label: 'Base', value: 'Toronto, Canada' },
+const milestones = [
+  { year: '2016', text: 'First marketing projects in high school' },
+  { year: '2020', text: 'E-commerce work during COVID' },
+  { year: '2022', text: 'Joined Toyota, two years in frontline operations' },
+  { year: '2024', text: 'Founded Olunix (originally GrowByte Media)' },
+  { year: '2025', text: 'Ministry intern at Hope Bible Church' },
+  { year: '2026', text: 'Deal Partner at Boardy, final year at McMaster' },
 ];
 
 export default function AboutPageClient() {
   return (
     <main id="main-content" data-section-theme="about" className="page-enter marketing-main home-royal pt-20">
+
       {/* ── Hero ── */}
       <section className="command-section page-gutter section-block" data-section-theme="about-hero">
-        <div className="mx-auto w-full max-w-7xl">
+        <div className="mx-auto w-full max-w-5xl">
+
           <Link
             href="/"
-            className="mb-10 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+            className="mb-12 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
             data-motion="rise"
             style={motionDelay(60)}
           >
@@ -40,168 +44,204 @@ export default function AboutPageClient() {
             Back home
           </Link>
 
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8 lg:gap-12">
-            {/* Left column — text */}
-            <div className="relative z-[2] md:col-span-7 lg:col-span-8">
-              <p className="command-label mb-0" data-motion="rise" style={motionDelay(100)}>
-                About
-              </p>
+          {/* Photo + name — stacked on mobile, side by side on desktop */}
+          <div className="flex flex-col items-center gap-8 md:flex-row md:items-end md:gap-12">
 
-              <h1
-                className="home-heading-xl mt-4"
-                data-motion="rise"
-                style={motionDelay(160)}
-              >
-                Mina Mankarious
-              </h1>
-
-              <p
-                className="mt-4 text-base text-[var(--accent-brass-soft)] sm:text-lg"
-                data-motion="rise"
-                style={motionDelay(220)}
-              >
-                Founder &amp; CEO of Olunix
-              </p>
-
-              <p
-                className="mt-2 inline-flex items-center gap-2 text-sm text-[var(--text-muted)]"
-                data-motion="rise"
-                style={motionDelay(260)}
-              >
-                <MapPin size={14} />
-                Toronto, Canada
-              </p>
-
-              <p
-                className="mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-muted)] sm:text-lg"
-                data-motion="rise"
-                style={motionDelay(320)}
-              >
-                Entrepreneur operating at the intersection of engineering systems thinking and startup marketing execution.
-              </p>
-
-              {/* Stat cards */}
-              <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-motion="rise" style={motionDelay(400)}>
-                {dossierFacts.map((fact) => (
-                  <article key={fact.label} className="stat-card relative overflow-hidden">
-                    <CardGlow spread={14} proximity={42} borderWidth={1.1} />
-                    <div className="relative z-[1]">
-                      <p className="stat-value">{fact.value}</p>
-                      <p className="stat-label">{fact.label}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            {/* Right column — headshot */}
-            <aside className="command-aside md:col-span-5 lg:col-span-4" data-motion="sweep-right" style={motionDelay(300)}>
-              <div className="command-aside-frame">
+            {/* Headshot */}
+            <div
+              className="about-hero-photo shrink-0"
+              data-motion="rise"
+              style={motionDelay(120)}
+            >
+              <div className="command-aside-frame about-photo-frame">
                 <Image
                   src="/headshot.png"
                   alt="Mina Mankarious"
-                  width={320}
-                  height={420}
+                  width={280}
+                  height={360}
                   className="block h-auto w-full object-cover object-top"
                   priority
                 />
               </div>
-            </aside>
+            </div>
+
+            {/* Name + intro */}
+            <div className="flex-1 text-center md:text-left">
+              <p className="command-label mb-3" data-motion="rise" style={motionDelay(180)}>
+                About
+              </p>
+              <h1
+                className="home-heading-xl"
+                data-motion="rise"
+                style={motionDelay(240)}
+              >
+                Mina Mankarious
+              </h1>
+              <p
+                className="mt-3 text-[var(--accent-brass-soft)]"
+                data-motion="rise"
+                style={motionDelay(300)}
+              >
+                Founder &amp; CEO of{' '}
+                <a
+                  href="https://olunix.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-[var(--stroke-soft)] underline-offset-4 transition-colors hover:text-[var(--text-primary)] hover:decoration-[var(--text-primary)]"
+                >
+                  Olunix
+                </a>
+              </p>
+              <p
+                className="mt-6 max-w-xl text-[var(--text-muted)]"
+                data-motion="rise"
+                style={motionDelay(360)}
+              >
+                Born in Egypt. Raised in Canada. Building at the intersection of engineering and marketing,
+                helping AI startups turn technical depth into real market traction.
+              </p>
+
+              <div
+                className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start"
+                data-motion="rise"
+                style={motionDelay(420)}
+              >
+                <a
+                  href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
+                  className="accent-btn"
+                >
+                  Get in touch
+                  <ArrowUpRight size={14} />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/mina-mankarious"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ghost-btn"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Biography ── */}
+      {/* ── The Story ── */}
       <section className="command-section page-gutter section-block" data-section-theme="about-story">
         <div className="mx-auto w-full max-w-3xl">
-          <article className="article-prose text-[0.98rem] sm:text-[1.04rem]" data-motion="rise" style={motionDelay(460)}>
+
+          <article
+            className="article-prose text-[0.98rem] sm:text-[1.04rem]"
+            data-motion="rise"
+            style={motionDelay(480)}
+          >
             <p>
-              Mina Mankarious is a Canadian entrepreneur, founder and CEO of <a href="https://olunix.com" target="_blank" rel="noopener noreferrer">Olunix</a>,
-              a marketing and consulting firm headquartered in Toronto, Ontario. Born in Egypt and raised in Canada, he has
-              built a career at the intersection of engineering and marketing, helping technology companies, especially AI startups,
-              develop strategic growth systems.
+              I moved to Canada from Egypt when I was eight years old. Growing up between two cultures
+              taught me how to adapt, read people, and communicate across different contexts. I didn&apos;t
+              realize it at the time, but those were some of the earliest marketing skills I ever developed.
             </p>
 
-            <p className="command-label mb-0 mt-10" data-motion="rise" style={motionDelay(500)}>Early Life &amp; Education</p>
             <p>
-              Mina Mankarious was born in Egypt and immigrated to Canada at the age of eight. Growing up between two cultures gave
-              him an early understanding of cross-cultural communication and adaptability.
-            </p>
-            <p>
-              He is currently in his final year studying <strong>Automotive Engineering Technology</strong> at{' '}
-              <a href="https://mcmaster.ca" target="_blank" rel="noopener noreferrer">McMaster University</a> in Hamilton, Ontario.
-              His engineering education shaped a systems-oriented mindset he applies to marketing strategy.
+              For most of my life, I was set on engineering. I loved understanding how things worked,
+              breaking systems down, and rebuilding them. That hasn&apos;t changed. But somewhere in high school,
+              I discovered something that lit me up in a completely different way: <strong>marketing</strong>. Not the
+              surface-level kind. The real stuff. Understanding people, figuring out what makes them care,
+              and building a bridge between what someone offers and what someone needs.
             </p>
 
-            <p className="command-label mb-0 mt-10" data-motion="rise" style={motionDelay(540)}>Career</p>
+            {/* Pull quote */}
+            <blockquote className="about-pullquote">
+              <p>
+                The best marketing doesn&apos;t feel like marketing. It feels like engineering applied to people.
+              </p>
+            </blockquote>
 
-            <h3>Early Ventures</h3>
             <p>
-              Mankarious began his entrepreneurial journey during high school by founding <strong>ZMS Media</strong>
-              and expanded into e-commerce work during the COVID-19 period.
+              I&apos;m currently in my final year studying <strong>Automotive Engineering Technology</strong> at{' '}
+              <a href="https://mcmaster.ca" target="_blank" rel="noopener noreferrer">McMaster University</a>.
+              The combination sounds strange to most people, but to me it works. Engineering taught me how
+              to think in{' '}
+              <Link href="/articles/from-engineering-to-marketing-why-systems-thinking-matters">systems</Link>.
+              Marketing taught me how to think about people. Together, they became the foundation of
+              everything I build.
             </p>
 
-            <h3>Toyota</h3>
             <p>
-              From August 2022 to August 2024, he worked at{' '}
+              In September 2024, I founded <strong>Olunix</strong> alongside my CTO and CMO. We started as
+              GrowByte Media, working with automotive dealerships and dental offices. As our approach matured
+              and our clients evolved, we{' '}
+              <Link href="/articles/how-we-rebranded-from-growbyte-to-olunix">rebranded</Link> into
+              something that better reflects who we are: not just an agency, but a consulting and growth
+              partner for companies building the future.
+            </p>
+
+            <p>
+              Today, we work predominantly with AI startups. The companies we partner with are creating
+              the future, and our job is to help them get the right message in front of the right people
+              at the right time. It&apos;s strategic. It&apos;s technical. And it&apos;s deeply human.
+            </p>
+
+            <p>
+              Before Olunix, I spent two years at{' '}
               <a href="https://miltontoyota.com" target="_blank" rel="noopener noreferrer">Milton Toyota</a>,
-              where he handled high-volume customer interactions in a fast-paced dealership environment.
+              handling high-volume customer interactions in a fast-paced environment. Before that, I was
+              running e-commerce projects during COVID and learning more about scalable marketing than any
+              classroom could teach.
             </p>
 
-            <h3>Olunix</h3>
             <p>
-              In September 2024, Mankarious founded <strong>Olunix</strong> alongside his CTO and CMO.
-              Originally launched as GrowByte Media, the company{' '}
-              <Link href="/articles/how-we-rebranded-from-growbyte-to-olunix">rebranded to Olunix</Link>
-              {' '}as its focus shifted toward AI startups and technology companies.
-            </p>
-
-            <h3>Boardy</h3>
-            <p>
-              Since January 2026, Mankarious has served as a <strong>Deal Partner at{' '}
-              <a href="https://boardy.ai" target="_blank" rel="noopener noreferrer">Boardy</a></strong>,
-              expanding professional networks and creating business development opportunities.
-            </p>
-
-            <p className="command-label mb-0 mt-10" data-motion="rise" style={motionDelay(580)}>Approach &amp; Philosophy</p>
-            <p>
-              Mankarious is known for applying an{' '}
-              <Link href="/articles/from-engineering-to-marketing-why-systems-thinking-matters">engineering-driven approach to marketing</Link>.
-              He emphasizes measurable outcomes over vanity metrics.
-            </p>
-            <p>
-              He has written extensively on{' '}
-              <Link href="/articles/how-ai-startups-should-think-about-marketing">AI startup marketing strategy</Link>,{' '}
-              <Link href="/articles/why-most-startups-waste-money-on-marketing">startup marketing spend optimization</Link>, and{' '}
-              <Link href="/articles/building-a-business-in-toronto-as-a-student">student entrepreneurship in Toronto</Link>.
-            </p>
-
-            <p className="command-label mb-0 mt-10" data-motion="rise" style={motionDelay(620)}>Community Involvement</p>
-            <p>
-              Mankarious is an intern at{' '}
-              <a href="https://hopeoakville.ca" target="_blank" rel="noopener noreferrer">Hope Bible Church</a>
-              {' '}in Oakville, Ontario, and has contributed to open-source projects like{' '}
-              <a href="https://habitstogether.app" target="_blank" rel="noopener noreferrer">Habits Together</a>.
+              Outside of work, I&apos;m a ministry intern at{' '}
+              <a href="https://hopeoakville.ca" target="_blank" rel="noopener noreferrer">Hope Bible Church</a> in
+              Oakville, and since January 2026 I&apos;ve been a Deal Partner at{' '}
+              <a href="https://boardy.ai" target="_blank" rel="noopener noreferrer">Boardy</a>, building
+              connections and business development pathways for founders.
             </p>
           </article>
         </div>
       </section>
 
-      {/* ── External Links ── */}
+      {/* ── Timeline ── */}
+      <section className="command-section page-gutter section-block" data-section-theme="about-timeline">
+        <div className="mx-auto w-full max-w-3xl">
+          <p className="command-label mb-8" data-motion="rise" style={motionDelay(540)}>
+            Timeline
+          </p>
+
+          <div className="about-timeline" data-motion="rise" style={motionDelay(580)}>
+            {milestones.map((m, i) => (
+              <div key={m.year + i} className="about-timeline-item">
+                <span className="about-timeline-year">{m.year}</span>
+                <span className="about-timeline-line" aria-hidden="true" />
+                <span className="about-timeline-text">{m.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Elsewhere ── */}
       <section className="command-section page-gutter pb-20 md:pb-24">
-        <div className="mx-auto w-full max-w-3xl border-t border-[var(--stroke-soft)] pt-8" data-motion="rise" style={motionDelay(680)}>
-          <p className="command-label mb-4">Elsewhere</p>
-          <div className="flex flex-wrap gap-3">
-            {externalLinks.map((link) => (
+        <div
+          className="mx-auto w-full max-w-3xl border-t border-[var(--stroke-soft)] pt-8"
+          data-motion="rise"
+          style={motionDelay(640)}
+        >
+          <p className="command-label mb-5">Elsewhere</p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {elsewhereLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ghost-btn"
+                className="about-link-card relative overflow-hidden"
               >
-                {link.label}
-                <ExternalLink size={12} />
+                <CardGlow spread={12} proximity={36} borderWidth={1} />
+                <span className="relative z-[1] flex items-center justify-between gap-2">
+                  <span>{link.label}</span>
+                  <ExternalLink size={13} className="shrink-0 text-[var(--text-dim)]" />
+                </span>
               </a>
             ))}
           </div>

@@ -2906,6 +2906,118 @@ html[data-section-theme='footer'] .ambient-layer::before {
   }
 }
 
+/* ── About page ── */
+
+.about-hero-photo {
+  width: clamp(180px, 42vw, 240px);
+}
+
+.about-photo-frame {
+  border-radius: 14px;
+  aspect-ratio: 3 / 4;
+}
+
+.about-photo-frame img {
+  aspect-ratio: 3 / 4;
+}
+
+.about-pullquote {
+  position: relative;
+  margin: 2.4rem 0;
+  padding: 1.6rem 0 1.6rem 1.5rem;
+  border-left: 2px solid rgba(183, 148, 255, 0.5);
+  font-family: var(--royal-display);
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.about-pullquote p {
+  margin: 0;
+}
+
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.about-timeline-item {
+  display: grid;
+  grid-template-columns: 3.2rem 1px 1fr;
+  gap: 1.2rem;
+  align-items: start;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-timeline-item:first-child {
+  padding-top: 0;
+}
+
+.about-timeline-item:last-child {
+  border-bottom: none;
+}
+
+.about-timeline-year {
+  font-family: var(--royal-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--accent-purple-soft);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.about-timeline-line {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.about-timeline-text {
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.about-link-card {
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(160deg, rgba(11, 11, 11, 0.74), rgba(42, 24, 68, 0.5));
+  color: var(--text-primary);
+  font-family: var(--royal-ui);
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+  transition: border-color var(--motion-sm) var(--ease-out-expo),
+              box-shadow var(--motion-sm) var(--ease-out-expo);
+  text-decoration: none;
+}
+
+.about-link-card:hover {
+  border-color: rgba(255, 255, 255, 0.44);
+  box-shadow: 0 12px 28px rgba(2, 2, 2, 0.4), 0 0 20px rgba(183, 148, 255, 0.1);
+}
+
+html[data-section-theme='about-timeline'] {
+  --ambient-primary: rgba(255, 255, 255, 0.14);
+  --ambient-secondary: rgba(122, 64, 242, 0.22);
+  --ambient-tertiary: rgba(10, 10, 10, 0.76);
+}
+
+@media (min-width: 768px) {
+  .about-hero-photo {
+    width: 240px;
+  }
+
+  .about-timeline-item {
+    grid-template-columns: 3.6rem 1px 1fr;
+    gap: 1.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
