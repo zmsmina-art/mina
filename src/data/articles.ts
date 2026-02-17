@@ -11,6 +11,177 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "why-i-dont-sell-hard",
+    title: "Why I Don\u2019t Sell Hard",
+    excerpt:
+      "I\u2019ve never cold-called a prospect, never sent a pushy follow-up, never promised the moon to close a deal. Here\u2019s why \u2014 and what happens when you let the work do the talking instead.",
+    content: `
+I have a confession that would probably get me kicked out of most sales courses: **I don't like selling.**
+
+Not the act of it, exactly. I believe in what we do at Olunix. I believe in the value we create. But the version of selling that most people picture, the cold outreach, the objection handling, the "always be closing" mentality, that's never been me. And I've made a deliberate decision to never let it become me.
+
+Here's why that's worked out better than anyone expected.
+
+## The Anti-Pitch Philosophy
+
+Early on, I watched other agencies and consultants operate. The playbook was always the same: run ads to generate leads, get on a discovery call, spend 45 minutes "handling objections," and close the deal before the prospect has time to think. Then hope the actual delivery lives up to the promises made during the pitch.
+
+That last part is where most of them fall apart.
+
+I decided to flip it. What if instead of spending energy convincing people to hire us, we spent that energy making the work so good that people convinced themselves? What if the pitch *was* the delivery?
+
+It sounds idealistic. Maybe it is. But it's also just math. The cost of acquiring a client through aggressive sales tactics is high. The cost of retaining a client through excellent work is low. And a retained client who refers you to someone else? That's a negative acquisition cost. [You're not spending money. You're saving it.](/articles/why-most-startups-waste-money-on-marketing)
+
+## What This Looks Like in Practice
+
+Let me give you some real examples instead of theory.
+
+When the founder of Reefers Technologies came to us, they needed their website rebuilt. We could have scoped it out, delivered it, and moved on. Instead, we stayed. After-care. Follow-up. Making sure everything ran the way it should long after the invoice was paid.
+
+Here's what he said:
+
+> *"Olunix did an outstanding job rebuilding our website. They were fast to respond to every request, delivered high-quality work on time, and made the entire process smooth from start to finish. What stood out most was their after-care support \u2014 they didn't just hand off the site, they stayed involved to make sure everything ran perfectly."*
+> **\u2014 Founder & CEO, Reefers Technologies INC**
+
+Nobody asked us to do that. There was no upsell. No "premium support package." We just didn't want to hand someone a website and disappear. Because that's not how you build a relationship. That's how you complete a transaction.
+
+## When the Work Does Something Unexpected
+
+The founder of Xpomo came to us with a problem I genuinely found exciting: he'd built an AI study app and needed to reach students at scale. TikTok was the obvious channel. But he didn't just need someone to post videos. He needed a growth strategy built from scratch.
+
+So we built one. Together. From the ground up.
+
+> *"Working with Olunix has been a game changer. I was building an AI study app and I needed to find a TikTok growth strategy to reach students. They worked with me to build it out and execute from the ground up, as we received 5m+ views in just a few months. The Olunix guys have amazing energy and deliver results beyond my expectations."*
+> **\u2014 Founder, Xpomo.io**
+
+Five million views in a few months. That's a number I'm proud of. But what I'm more proud of is the "worked with me" part. He didn't say "they did it for me." He said they worked *with* him. That distinction matters. We're not a vending machine where you insert money and receive marketing. We're in it together. That's the only way it works.
+
+## Partnerships, Not Transactions
+
+The founder of Wize Consulting needed two things: visibility and connections. Google Ads handled the first part, bringing in consistent, qualified leads. But the second part, connecting him with partners who could actually accelerate his growth, that's not something most agencies even think about.
+
+We did. Because we care about the outcome, not just the deliverable.
+
+> *"Olunix has been a game changer for my consulting startup. Their Google Ads management boosted my visibility and brought in consistent, qualified leads, while their network connections opened doors to high-quality partners that have been invaluable for growth."*
+> **\u2014 Founder & Owner, Wize Consulting**
+
+Opening your network for a client isn't in any scope of work. It's not billable. It's not something you can put on a case study slide. But it's the kind of thing that turns a three-month engagement into a long-term partnership. And long-term partnerships are the entire game.
+
+## Why This Matters More Than Ever
+
+We're in an era where [AI is automating execution](/articles/how-ai-startups-should-think-about-marketing) and agencies are getting squeezed on margins. The ones that survive won't be the ones with the best sales decks. They'll be the ones whose clients refuse to leave.
+
+Forrester predicted that agencies will face an identity crisis in 2026, with significant headcount reductions as AI takes over execution work. The firms that make it through are the ones who've built something that can't be automated: **trust.**
+
+You can't automate the decision to stay involved after the project is done. You can't automate a genuine introduction to someone in your network. You can't automate caring about whether your client's business actually grows.
+
+That's the moat. Not the pitch. Not the close rate. Not the funnel. The work.
+
+## The Uncomfortable Truth About Sales Culture
+
+I think the reason so many agencies sell hard is because they have to. When your work is average, you need an exceptional pitch. When your delivery is inconsistent, you need a contract that locks people in. When your results are mediocre, you need vanity metrics and [creative reporting to keep clients from leaving](/articles/marketing-vs-consulting-what-startups-need).
+
+I'd rather have the opposite problem. I'd rather have work so good that the sales conversation becomes "here's what we've done for people like you, and here's what they said about it."
+
+That's not a pitch. That's just the truth.
+
+## What I'd Tell a Young Founder About Sales
+
+You don't have to become someone you're not to grow a business. You don't have to learn objection handling or build a 47-step email sequence or pretend to be best friends with someone you met on LinkedIn 30 seconds ago.
+
+You have to be excellent at what you do. You have to care about the people you work with. And you have to trust that when those two things are true, the work will speak louder than any pitch ever could.
+
+That's been the Olunix philosophy from day one. It's not scalable in the way a sales team is. It's not fast in the way paid acquisition is. But it's real. And in a world full of noise, real is the most valuable thing you can be.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-16",
+    updatedAt: "2026-02-16",
+    readingTime: "7 min read",
+    tags: ["Business", "Entrepreneurship", "Marketing"],
+  },
+  {
+    slug: "you-are-not-too-far-gone",
+    title: "You Are Not Too Far Gone",
+    excerpt:
+      "From doing nothing with my life during COVID to obsessively building my first company. This one's for the person who thinks they can't do hard things.",
+    content: `
+There's a version of me from a few years ago that I don't talk about much. Not because I'm ashamed of him, but because he feels like a completely different person. And honestly, that's the whole point of this article.
+
+If you're reading this and you feel like you've wasted too much time, like you're behind, like the gap between where you are and where you want to be is too wide to cross — I wrote this for you.
+
+## The Version of Me Nobody Saw
+
+When COVID hit, I was in a bad place. Not in the dramatic, cinematic way people talk about it on podcasts. In the quiet, invisible way where you just stop doing anything meaningful and convince yourself that's fine.
+
+I wasn't building anything. I wasn't working toward anything. I was just existing, and not in the peaceful, intentional way. In the stuck way. The kind where you know you should be doing more, but you can't figure out what "more" even looks like, so you just don't start.
+
+I think a lot of people felt that during COVID. But for me, it wasn't just the pandemic. It was deeper than that. I genuinely didn't know what I was supposed to be doing with my life. And when you don't have a direction, every day feels the same. You wake up, do nothing that matters, go to sleep, and repeat. And the longer that cycle goes, the harder it becomes to believe you're capable of breaking it.
+
+## The Switch
+
+I can't pinpoint the exact moment it changed. I wish I could give you some movie scene where everything clicked. It wasn't like that. It was more like a slow realization that I was running out of excuses.
+
+E-commerce was exploding. People needed help selling online. And I had been sharpening marketing skills for years without ever really putting them to serious use. So I started. Not because I had some grand vision. Not because I was "ready." I started because the alternative, another year of doing nothing, scared me more than failing.
+
+And then something happened that I didn't expect.
+
+**I fell in love with the process.**
+
+Not the results. Not the money. Not the validation. The process. The act of doing the work. The late nights figuring out how to make a campaign actually convert. The obsessive tinkering with a landing page until it felt right. The problem-solving. The building.
+
+## The Obsession That Saved Me
+
+People use the word "obsession" like it's unhealthy. And sure, it can be. But for me, it was the opposite. It was the thing that pulled me out.
+
+I became obsessed with getting better. Not in a comparison way, not "better than someone else." Just better than yesterday. I wanted to understand marketing at a level that most people don't bother reaching. I wanted to be precise. I wanted to be excellent. Not for the accolades, but because the pursuit itself felt like the first meaningful thing I'd done in a long time.
+
+If you want a recent example, this website you're on right now has gone through over 30 functional iterations in the past week alone. Thirty. Not because any of them were bad. But because I couldn't stop refining it. I'd finish a version, look at it, and think "this could be better." And then I'd rebuild it. Again. And again.
+
+Some people would call that a waste of time. I call it the reason I'm here at all.
+
+That same energy, that same refusal to settle, is what turned a kid doing nothing during a pandemic into someone [building a company](/articles/hi-im-mina), [working with AI startups](/articles/how-ai-startups-should-think-about-marketing), and writing articles at 1 AM because he genuinely wants to.
+
+## You Just Have to Know It to Be True
+
+I want to be honest about something. My conviction, the deep-down belief that I could actually do hard things, didn't come from a motivational video or a self-help book. It came from my faith. It came from God.
+
+I'm not going to preach at you. That's not what this is. But I'd be lying if I wrote this article about what pulled me through and left that part out. When I had no evidence that things would work out, when every rational indicator said I was behind and under-qualified and out of my depth, there was something deeper that told me to keep going. And I listened.
+
+Whatever that thing is for you, your faith, your family, a promise you made to yourself, hold onto it. Because the world will give you a thousand reasons to quit. You need at least one reason that's stronger than all of them.
+
+## Forget the Gurus
+
+Here's what nobody with a Lamborghini in their thumbnail is going to tell you: **fulfillment doesn't come from the outcome. It comes from the alignment.**
+
+When you find something you can make genuinely fun and exciting, something that pulls you forward instead of something you have to drag yourself through, that's where 90% of fulfillment lives. Not in the revenue milestone. Not in the follower count. Not in the "passive income lifestyle" that someone's selling you for $997.
+
+It's in the work itself. It's in choosing a thing, whether it's a school, a business, a job, a craft, and making it yours. Making it something you care about deeply enough that the hard parts stop feeling like punishment and start feeling like the price of admission to a life you actually want.
+
+I genuinely believe that. I believe that the kid who's scrolling at 2 AM feeling like they've wasted their potential is closer to a breakthrough than they think. Not because of some magic formula. But because the fact that they care, the fact that the gap between where they are and where they want to be actually bothers them, means the fire is already there. It just needs permission to burn.
+
+## What I'd Say to That Person
+
+If you're the person I wrote this for, here's what I want you to hear.
+
+You are not too far gone. You're not too old, too young, too broke, too uneducated, too whatever excuse feels the most convincing right now. The gap between doing nothing and doing something is exactly one decision wide.
+
+You don't need to have it all figured out. I didn't. I just needed to start, and then I needed to fall in love with getting better. That's it. That's the whole strategy.
+
+Pick something. Make it fun. Make it yours. Get obsessive about it. And when people tell you you're doing too much or caring too much or trying too hard, understand that those people have never felt what it's like to be fully alive inside of their work.
+
+The juxtaposition from where I was during COVID to where I am now is so sharp it almost doesn't feel real. But it is. And if it happened for me, it can happen for you.
+
+You just have to know it to be true. And then you have to start.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-16",
+    updatedAt: "2026-02-16",
+    readingTime: "6 min read",
+    tags: ["Personal", "Entrepreneurship", "Faith"],
+  },
+  {
     slug: "hi-im-mina",
     title: "Hi, I\u2019m Mina.",
     excerpt:
