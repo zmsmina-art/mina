@@ -122,9 +122,9 @@ I think a lot of people felt that during COVID. But for me, it wasn't just the p
 
 I can't pinpoint the exact moment it changed. I wish I could give you some movie scene where everything clicked. It wasn't like that. It was more like a slow realization that I was running out of excuses.
 
-E-commerce was exploding. People needed help selling online. And I had been sharpening marketing skills for years without ever really putting them to serious use. So I started. Not because I had some grand vision. Not because I was "ready." I started because the alternative, another year of doing nothing, scared me more than failing.
+And then something happened.
 
-And then something happened that I didn't expect.
+I started. Not because I had some grand vision. Not because I was "ready." I started because the alternative, another year of doing nothing, scared me more than failing.
 
 **I fell in love with the process.**
 
