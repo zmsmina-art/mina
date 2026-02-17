@@ -30,13 +30,13 @@ const authorityTimeline = [
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
   {
-    title: 'Product Collaborator',
-    org: 'Habits Together',
-    period: 'Summer 2024',
-    detail: 'Collaborative habit-tracking app work focused on accountability loops and consistent team execution.',
-    logo: '/habits-together-logo.png',
-    logoAlt: 'Habits Together',
-    href: 'https://habitstogether.app',
+    title: 'Ministry Intern',
+    org: 'Hope Bible Church Oakville',
+    period: 'Sep 2025 - Present',
+    detail: 'Actively serving in the church and discerning a call to ministry.',
+    logo: '/hope-logo.webp',
+    logoAlt: 'Hope Bible Church',
+    href: 'https://hopeoakville.ca',
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
   {
@@ -132,6 +132,7 @@ export default function AuthoritySection() {
               </article>
             ))}
           </div>
+
         </div>
       </div>
     </section>

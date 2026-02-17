@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ArrowUpRight, Fan } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import FanControllerMiniPreview from '@/components/FanControllerMiniPreview';
@@ -47,6 +48,39 @@ export default function WorkSection() {
                   <ArrowUpRight size={14} />
                 </a>
               </div>
+            </div>
+          </article>
+
+          <article className="feature-card relative overflow-hidden md:col-span-12" data-motion="spotlight" style={motionDelay(200)}>
+            <CardGlow />
+            <div className="relative z-[1]">
+              <a
+                href="https://habitstogether.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="logo-pill timeline-logo-shell">
+                    <Image
+                      src="/habits-together-logo.png"
+                      alt="Habits Together"
+                      width={56}
+                      height={56}
+                      className="timeline-logo h-10 w-10 object-contain md:h-11 md:w-11"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-xl text-[var(--text-primary)]">Product Collaborator</h3>
+                    <p className="mt-0.5 text-sm lowercase tracking-[0.12em] text-[var(--accent-oxide)]">Habits Together</p>
+                    <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Collaborative habit-tracking app work focused on accountability loops and consistent team execution.</p>
+                  </div>
+                </div>
+                <div className="flex shrink-0 items-center gap-2 text-xs lowercase tracking-[0.14em] text-[var(--text-dim)]">
+                  <span>Summer 2024</span>
+                  <ArrowUpRight size={13} className="shrink-0 text-[var(--accent-gold-soft)]" />
+                </div>
+              </a>
             </div>
           </article>
         </div>

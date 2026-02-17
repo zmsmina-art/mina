@@ -58,7 +58,7 @@ export default function SiteFooter() {
         data-motion="footer-rise"
         style={motionDelay(260)}
       >
-        © {new Date().getFullYear()} <span className="brand-mark brand-mark--copyright">mm.</span>
+        © {new Date().getFullYear()} Mina Mankarious.
       </div>
     </footer>
   );
