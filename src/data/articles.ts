@@ -11,6 +11,113 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "good-content-doesnt-win",
+    title: "Good Content Doesn\u2019t Win. Here\u2019s Why That\u2019s Our Fault.",
+    excerpt:
+      "There\u2019s a disconnect between quality content and the stuff that actually goes viral. Is it the algorithm? The platforms? Or something deeper that we\u2019re all complicit in?",
+    content: `
+There's a question that's been bugging me for a while, and I think it bugs anyone who's ever tried to make something genuinely good on the internet: **why does trash content outperform good content?**
+
+You know what I'm talking about. The rage bait. The AI-generated slop. The "day in my life" videos that are just someone walking through a parking lot with a voiceover about nothing. The posts engineered to make you angry enough to comment, or confused enough to share. That stuff gets millions of views. Meanwhile, someone who spent three weeks on a deeply researched, genuinely valuable piece of content gets 47 likes and a pity comment from their mom.
+
+It's easy to blame the algorithm. And a lot of people do. But I think the answer is more uncomfortable than that.
+
+## The Algorithm Argument
+
+Let's start with the obvious suspect. Social media algorithms are designed to maximize engagement. Not value. Not quality. Not truth. Engagement. And engagement, as it turns out, doesn't correlate with quality. It correlates with emotion.
+
+Content that makes you angry gets shared. Content that makes you anxious keeps you scrolling. Content that's mildly outrageous gets commented on by people who "just can't believe this." The algorithm doesn't know the difference between someone commenting "this changed my life" and someone commenting "this is the worst take I've ever seen." Both are engagement. Both get rewarded.
+
+Meta is currently in trial over exactly this. A lawsuit backed by over 40 state attorneys general accuses Meta of deliberately engineering features \u2014 infinite scroll, auto-play, push notifications, recommendation algorithms \u2014 that make their platforms addictive, particularly to young people. Internal documents allegedly show the company targeted children as an audience while publicly claiming to protect them. Zuckerberg himself took the stand and denied that Instagram was designed to be addictive, saying he's "focused on building a community that is sustainable."
+
+Plaintiff attorneys weren't buying it. Their argument? These companies "built machines designed to addict the brains of children, and they did it on purpose."
+
+Whether the court agrees or not, the accusation itself tells you something important: **the people building these platforms optimized for time spent, not value delivered.** And when you optimize for time spent, the content that wins is the content that keeps people on the app. Not the content that makes them better.
+
+## But Here's Where It Gets Complicated
+
+It's tempting to stop there. "The algorithm is broken, therefore trash content wins." Clean narrative. Easy villain.
+
+But I don't think it's that simple.
+
+Because here's the thing: **not every platform rewards the same behavior.** The kind of content that goes viral on TikTok is fundamentally different from what performs on LinkedIn. What works on X is different from what works on YouTube long-form. The algorithm isn't one monolithic thing. It's a set of incentive structures that vary dramatically across platforms.
+
+On TikTok, the algorithm is discovery-first. It shows your content to strangers. That means the content that wins is the content that captures attention in under two seconds and holds it through novelty, shock, or emotional hijacking. Quality is irrelevant if you can't hook someone before their thumb moves.
+
+On LinkedIn, the algorithm historically rewarded long-form, vulnerable storytelling. "I got fired and here's what I learned" posts outperformed actual business insights for years. LinkedIn has been actively trying to move away from this, but the ecosystem of users trained on engagement bait doesn't change overnight.
+
+On YouTube, watch time is king. Longer videos that keep people watching get pushed harder. That's why 10-minute videos with 2 minutes of actual value and 8 minutes of filler exist. The algorithm doesn't know the information density of the video. It just knows people didn't click away.
+
+So yes, the algorithm matters. But the specific *flavor* of mediocrity it incentivizes depends entirely on the platform. Which tells me the algorithm isn't the root cause. It's a symptom.
+
+## The Ecosystem We Built
+
+Here's what I think the deeper issue is: **we created an ecosystem where content is a commodity, not a craft.**
+
+Think about the sheer volume of content being published every day. Over 500 hours of video are uploaded to YouTube every minute. Millions of posts go up on Instagram daily. The supply of content is functionally infinite.
+
+When supply is infinite, attention becomes the scarce resource. And when attention is scarce, the content that wins isn't the best content. It's the most *attention-efficient* content. The content that delivers the maximum emotional response in the minimum amount of time.
+
+That's not an algorithm problem. That's an economics problem.
+
+We built platforms where anyone can publish. That's genuinely good. The democratization of media creation is one of the most important shifts of our generation. But the side effect is that we flooded the market. And in a flooded market, the loudest voice wins. Not the wisest.
+
+## The Creator's Dilemma
+
+This creates a brutal dilemma for anyone trying to make genuinely good content.
+
+You can spend a week researching, writing, and producing something that actually helps people. Or you can spend 20 minutes recording a hot take that gets 100x the reach. The market is telling you, explicitly, that the hot take is more valuable. Not because it's better. But because it's more efficient at capturing attention.
+
+And here's the part nobody wants to admit: **most people don't want depth.** Not really. They say they do. They share articles about wanting more "meaningful content." But their behavior tells a different story. They scroll past the in-depth analysis and stop on the meme. They skip the 30-minute documentary and watch the 60-second clip. They bookmark the long read and never open it.
+
+I'm not judging. I do it too. We all do. Our brains are wired for novelty and efficiency. Social media didn't create that wiring. It just exploited it at scale.
+
+## So Who's Actually Responsible?
+
+This is where it gets uncomfortable.
+
+**The platforms** are responsible for building systems that optimize for engagement over wellbeing. The Meta lawsuit makes that case clearly. When your recommendation engine actively promotes content that triggers emotional responses because it increases time on platform, you've made a choice. You've decided that ad revenue matters more than the quality of information your users consume.
+
+**The creators** are responsible for playing the game. Every person who posts rage bait, who writes misleading headlines, who manufactures outrage for clicks, is making a choice too. They're choosing reach over integrity. And the ones who are successful at it make it harder for everyone else.
+
+**The audience** is responsible for consuming it. Every view, every comment, every share is a vote. And collectively, we keep voting for the wrong thing.
+
+And **the advertisers** are responsible for funding it. The entire model runs on advertising. Advertisers fund platforms. Platforms optimize for engagement. Engagement rewards low-quality content. Advertisers are indirectly subsidizing the very ecosystem that degrades the attention of the people they're trying to reach.
+
+It's a cycle. And no single actor can break it alone.
+
+## What I Actually Think
+
+I think we're in a transitional period. The cracks are showing. The Meta trial is happening. Regulators are paying attention. Users are starting to feel the exhaustion. There's a growing market for slower, more intentional content \u2014 newsletters, podcasts, long-form YouTube, private communities.
+
+But I don't think the algorithm is going to save us. Even if Meta and YouTube and TikTok completely redesigned their recommendation systems to prioritize "quality" (whatever that means), the fundamental economics haven't changed. Attention is scarce. Content is infinite. And human psychology favors novelty over depth.
+
+What I *do* think is that there's a growing audience of people who are tired. Tired of feeling manipulated. Tired of consuming content that leaves them worse off than before. Tired of the empty calories.
+
+And for creators, especially for brands and founders, that's the opportunity. The same way I've argued that [honesty is a competitive advantage in AI marketing](/articles/how-ai-startups-should-think-about-marketing), I think **substance is becoming a competitive advantage in content.** Not because the algorithm rewards it. But because the people who matter \u2014 the ones who actually buy, who actually stick around, who actually become advocates \u2014 are increasingly the ones who can tell the difference.
+
+Good content doesn't win the algorithm game. But it wins the trust game. And trust is the only game that compounds.
+
+## What This Means If You're Building Something
+
+If you're a founder or a marketer reading this, here's my practical takeaway:
+
+**Stop trying to win the algorithm.** You will lose that race. There will always be someone willing to go lower, post more often, and manufacture more outrage than you. That's not your game.
+
+**Play the long game instead.** Create content that your ideal customer would save, share with a colleague, or reference six months from now. That content won't go viral. But it will build the kind of reputation that [no amount of ad spend can buy](/articles/why-most-startups-waste-money-on-marketing).
+
+**Choose your platform intentionally.** Not every platform deserves your presence. If the incentive structure of a platform fundamentally conflicts with the kind of content you want to create, you're better off not being there. Depth doesn't work everywhere. Find where it does and invest there.
+
+The disconnect between good content and popular content is real. But it's not permanent. And the creators who refuse to compromise on quality now are the ones who'll still be standing when the noise finally fades.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-19",
+    updatedAt: "2026-02-19",
+    readingTime: "8 min read",
+    tags: ["Marketing", "Business", "Personal"],
+  },
+  {
     slug: "why-i-dont-sell-hard",
     title: "Why I Don\u2019t Sell Hard",
     excerpt:
