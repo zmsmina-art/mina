@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
-import { ArrowLeft, ArrowUpRight, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Calendar, Clock, Share2, Linkedin, Check, Link as LinkIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ReadingProgress from '@/components/ReadingProgress';
 import useMotionProfile from '@/components/motion/useMotionProfile';
@@ -14,6 +14,52 @@ import CardGlow from '@/components/ui/card-glow';
 import type { Article } from '@/data/articles';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+function ShareButtons({ article }: { article: Article }) {
+  const [copied, setCopied] = useState(false);
+  const url = `https://minamankarious.com/articles/${article.slug}`;
+  const text = `${article.title} by Mina Mankarious`;
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-xs text-[var(--text-dim)]">Share</span>
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on LinkedIn"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--stroke-soft)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent-gold)]/50 hover:text-[var(--text-primary)]"
+      >
+        <Linkedin size={14} />
+      </a>
+      <a
+        href={`https://x.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on X"
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--stroke-soft)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent-gold)]/50 hover:text-[var(--text-primary)]"
+      >
+        <svg viewBox="0 0 24 24" width={14} height={14} fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      </a>
+      <button
+        type="button"
+        onClick={copyLink}
+        aria-label={copied ? 'Link copied' : 'Copy link'}
+        className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--stroke-soft)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent-gold)]/50 hover:text-[var(--text-primary)]"
+      >
+        {copied ? <Check size={14} /> : <LinkIcon size={14} />}
+      </button>
+    </div>
+  );
+}
 
 export default function ArticlePageClient({ article, relatedArticles = [] }: { article: Article; relatedArticles?: Article[] }) {
   const motionProfile = useMotionProfile();
@@ -102,6 +148,15 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
           <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
             {article.content}
           </ReactMarkdown>
+        </motion.div>
+
+        <motion.div
+          className="mt-10 flex items-center justify-between"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={sequenceTransition(5, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.6)}
+        >
+          <ShareButtons article={article} />
         </motion.div>
 
         {relatedArticles.length > 0 && (

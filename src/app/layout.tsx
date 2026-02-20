@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import MotionRuntime from '@/components/MotionRuntime';
@@ -118,8 +119,8 @@ export default function RootLayout({
         '@id': 'https://minamankarious.com/#primaryimage',
         url: 'https://minamankarious.com/headshot.jpg',
         contentUrl: 'https://minamankarious.com/headshot.jpg',
-        width: 799,
-        height: 799,
+        width: 800,
+        height: 800,
         caption: 'Mina Mankarious - Founder and CEO of Olunix',
       },
       {
@@ -268,6 +269,7 @@ export default function RootLayout({
           {children}
           <SiteFooter />
         </div>
+        <Analytics />
       </body>
     </html>
   );

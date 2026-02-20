@@ -31,7 +31,6 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-royal: cubic-bezier(0.16, 1, 0.3, 1);
 
   --motion-xxs: 100ms;
   --motion-xs: 160ms;
@@ -426,12 +425,7 @@ body:has(main.home-royal) .grain-overlay {
 }
 
 .home-royal .accent-btn:hover,
-.home-royal .ghost-btn:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.9);
-  background: linear-gradient(142deg, rgba(255, 255, 255, 0.3), rgba(108, 78, 176, 0.24));
-}
-
+.home-royal .ghost-btn:hover,
 .home-royal .mini-fan-open:hover {
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.9);
@@ -517,10 +511,6 @@ body:has(main.home-royal) .grain-overlay {
   background: linear-gradient(180deg, rgba(12, 12, 12, 0.48) 0%, rgba(10, 10, 10, 0.78) 100%);
   border-top-color: rgba(255, 255, 255, 0.18);
   border-bottom-color: rgba(255, 255, 255, 0.18);
-}
-
-.home-royal .command-grid {
-  display: none;
 }
 
 .home-royal .stat-card {
@@ -1109,7 +1099,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   );
   transform: scaleY(0);
   transform-origin: top;
-  transition: transform var(--motion-lg) var(--ease-royal);
+  transition: transform var(--motion-lg) var(--ease-out-expo);
 }
 
 .timeline-guide.is-visible::before {
@@ -1418,8 +1408,8 @@ html[data-section-theme='footer'] .ambient-layer::before {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.07));
   box-shadow: 0 12px 22px rgba(5, 5, 5, 0.24), 0 0 0 1px rgba(246, 246, 246, 0.04);
   transition:
-    left var(--motion-sm) var(--ease-royal),
-    width var(--motion-sm) var(--ease-royal),
+    left var(--motion-sm) var(--ease-out-expo),
+    width var(--motion-sm) var(--ease-out-expo),
     opacity var(--motion-xs) ease;
   pointer-events: none;
 }
@@ -1524,7 +1514,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   transform: scaleX(0);
   transform-origin: center;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
-  transition: transform var(--motion-lg) var(--ease-royal);
+  transition: transform var(--motion-lg) var(--ease-out-expo);
 }
 
 .site-footer:has([data-motion='footer-rise'].is-visible)::before {
@@ -1679,7 +1669,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   transform: translate3d(0, var(--motion-shift-md), 0);
   transition:
     opacity var(--motion-md) var(--ease-cinematic),
-    transform var(--motion-md) var(--ease-royal);
+    transform var(--motion-md) var(--ease-out-expo);
   transition-delay: var(--motion-delay, 0ms);
   will-change: transform, opacity;
 }
@@ -1758,7 +1748,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
 .hero-line span {
   display: block;
   transform: translateY(112%);
-  transition: transform var(--motion-md) var(--ease-royal);
+  transition: transform var(--motion-md) var(--ease-out-expo);
   transition-delay: var(--motion-delay, 0ms);
 }
 
@@ -2505,7 +2495,7 @@ html[data-section-theme='footer'] .ambient-layer::before {
   html[data-route-transition]::view-transition-new(root),
   html[data-route-transition]::view-transition-group(*) {
     animation-duration: var(--route-transition-duration);
-    animation-timing-function: var(--ease-royal);
+    animation-timing-function: var(--ease-out-expo);
   }
 
   html[data-route-transition='article-forward']::view-transition-old(root) {
@@ -2811,10 +2801,6 @@ html[data-section-theme='footer'] .ambient-layer::before {
     --article-motion-stagger: var(--article-motion-stagger-mobile);
     --article-motion-enter-y: var(--article-motion-enter-y-mobile);
     --article-motion-interaction: var(--article-motion-interaction-mobile);
-  }
-
-  .command-grid {
-    display: none;
   }
 
   .masthead {

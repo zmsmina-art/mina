@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpDown } from 'lucide-react';
+import { ArrowLeft, ArrowUpDown, Search, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ArticleCard from '@/components/ArticleCard';
 import ReadingProgress from '@/components/ReadingProgress';
@@ -14,6 +14,7 @@ const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 export default function ArticlesPageClient({ articles }: { articles: Article[] }) {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const motionProfile = useMotionProfile();
 
   const allTags = useMemo(() => {
@@ -23,23 +24,32 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
   }, [articles]);
 
   const filteredAndSortedArticles = useMemo(() => {
-    const filtered =
-      selectedTags.length === 0
-        ? articles
-        : articles.filter((article) => article.tags.some((tag) => selectedTags.includes(tag)));
+    let filtered = selectedTags.length === 0
+      ? articles
+      : articles.filter((article) => article.tags.some((tag) => selectedTags.includes(tag)));
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(
+        (article) =>
+          article.title.toLowerCase().includes(q) ||
+          article.excerpt.toLowerCase().includes(q) ||
+          article.content.toLowerCase().includes(q)
+      );
+    }
 
     return [...filtered].sort((a, b) => {
       const dateA = new Date(a.publishedAt).getTime();
       const dateB = new Date(b.publishedAt).getTime();
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
-  }, [articles, sortOrder, selectedTags]);
+  }, [articles, sortOrder, selectedTags, searchQuery]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   };
 
-  const isFiltering = selectedTags.length > 0;
+  const isFiltering = selectedTags.length > 0 || searchQuery.trim().length > 0;
   const introOffset = motionProfile.reduced ? 0 : Math.min(motionProfile.distances.enterY, 12);
   const listExitY = motionProfile.reduced ? 0 : -Math.max(6, Math.round(motionProfile.distances.enterY * 0.65));
   const layoutTransition = motionProfile.reduced
@@ -117,6 +127,35 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
             </AnimatePresence>
           </motion.button>
         </motion.header>
+
+        <motion.div
+          className="mb-5"
+          initial={{ opacity: 0, y: introOffset }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={introTransitionForStep(2.5)}
+        >
+          <div className="relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-dim)]" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search articles..."
+              aria-label="Search articles"
+              className="w-full rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)]/70 py-2.5 pl-9 pr-9 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[var(--accent-gold)]/50 focus:outline-none"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-dim)] transition-colors hover:text-[var(--text-primary)]"
+              >
+                <X size={14} />
+              </button>
+            )}
+          </div>
+        </motion.div>
 
         {allTags.length > 0 && (
           <motion.div
