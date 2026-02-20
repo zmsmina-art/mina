@@ -1,10 +1,35 @@
 import type { Metadata } from 'next';
+import { Cormorant_Garamond, EB_Garamond, Playfair_Display } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import MotionRuntime from '@/components/MotionRuntime';
 import EtheralAmbient from '@/components/EtheralAmbient';
 import './globals.css';
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-cormorant',
+});
+
+const ebGaramond = EB_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-eb-garamond',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-playfair',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://minamankarious.com'),
@@ -50,7 +75,7 @@ export const metadata: Metadata = {
     type: 'profile',
     images: [
       {
-        url: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
         alt: 'Mina Mankarious - Founder and CEO of Olunix',
@@ -66,7 +91,7 @@ export const metadata: Metadata = {
     site: '@minamnkarious',
     images: [
       {
-        url: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious - Founder and CEO of Olunix',
       },
     ],
@@ -117,16 +142,16 @@ export default function RootLayout({
       {
         '@type': 'ImageObject',
         '@id': 'https://minamankarious.com/#primaryimage',
-        url: 'https://minamankarious.com/headshot.jpg',
-        contentUrl: 'https://minamankarious.com/headshot.jpg',
+        url: 'https://minamankarious.com/headshot.png',
+        contentUrl: 'https://minamankarious.com/headshot.png',
         width: 800,
         height: 800,
         caption: 'Mina Mankarious - Founder and CEO of Olunix',
       },
       {
         '@type': 'ImageObject',
-        url: 'https://minamankarious.com/og.png',
-        contentUrl: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
+        contentUrl: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
         caption: 'Mina Mankarious - Founder and CEO of Olunix',
@@ -237,14 +262,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${cormorant.variable} ${ebGaramond.variable} ${playfair.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-          rel="stylesheet"
-        />
         <link rel="preload" href="/fonts/switzer-light.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
         <link rel="me" href="https://x.com/minamnkarious" />

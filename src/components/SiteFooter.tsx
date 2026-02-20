@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { NewsletterCTA } from '@/components/NewsletterModal';
+import { motionDelay } from '@/lib/utils';
 
 const navigationLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Articles', href: '/articles' },
+  { label: 'Newsletter', href: '/newsletter' },
   { label: 'Contact', href: '/#contact' },
 ];
 
@@ -16,9 +17,6 @@ const networkLinks = [
   { label: 'Olunix', href: 'https://olunix.com' },
 ];
 
-function motionDelay(ms: number): CSSProperties {
-  return { '--motion-delay': `${ms}ms` } as CSSProperties;
-}
 
 export default function SiteFooter() {
   return (

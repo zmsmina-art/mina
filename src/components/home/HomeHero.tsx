@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import type { CSSProperties } from 'react';
 import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
+import { motionDelay } from '@/lib/utils';
 
 const heroStats = [
   { label: 'Current Firm', value: 'Olunix' },
@@ -9,9 +9,6 @@ const heroStats = [
   { label: 'Client Stage', value: 'Seed to Growth' },
 ];
 
-function motionDelay(ms: number): CSSProperties {
-  return { '--motion-delay': `${ms}ms` } as CSSProperties;
-}
 
 export default function HomeHero() {
   return (

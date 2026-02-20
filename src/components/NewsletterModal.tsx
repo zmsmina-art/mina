@@ -24,10 +24,12 @@ export function NewsletterModal({
     useNewsletterSubscribe();
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<Element | null>(null);
 
-  /* Focus trap ---------------------------------------------------- */
+  /* Save trigger + focus input on open ------------------------------ */
   useEffect(() => {
     if (!open) return;
+    triggerRef.current = document.activeElement;
     const timer = setTimeout(() => inputRef.current?.focus(), 120);
     return () => clearTimeout(timer);
   }, [open]);
@@ -52,9 +54,13 @@ export function NewsletterModal({
     };
   }, [open]);
 
-  /* Reset on close ------------------------------------------------ */
+  /* Return focus + reset on close ---------------------------------- */
   useEffect(() => {
     if (!open) {
+      if (triggerRef.current instanceof HTMLElement) {
+        triggerRef.current.focus();
+        triggerRef.current = null;
+      }
       const timer = setTimeout(reset, 300);
       return () => clearTimeout(timer);
     }
@@ -177,7 +183,7 @@ export function NewsletterModal({
                     </motion.div>
                     <h3
                       className="mb-2 text-2xl text-[var(--text-primary)]"
-                      style={{ fontFamily: "'Cormorant Garamond', 'EB Garamond', Georgia, serif" }}
+                      style={{ fontFamily: "var(--font-cormorant, 'Cormorant Garamond'), var(--font-eb-garamond, 'EB Garamond'), Georgia, serif" }}
                     >
                       You&rsquo;re in.
                     </h3>
@@ -212,7 +218,7 @@ export function NewsletterModal({
 
                     <motion.h3
                       className="mb-2 mt-5 text-[clamp(1.6rem,5vw,2rem)] leading-[1.1] text-[var(--text-primary)]"
-                      style={{ fontFamily: "'Cormorant Garamond', 'EB Garamond', Georgia, serif" }}
+                      style={{ fontFamily: "var(--font-cormorant, 'Cormorant Garamond'), var(--font-eb-garamond, 'EB Garamond'), Georgia, serif" }}
                       initial={{ opacity: 0, y: enterY }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={stepTransition(1)}

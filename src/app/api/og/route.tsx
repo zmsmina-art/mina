@@ -3,408 +3,366 @@ import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
+/* ------------------------------------------------------------------ */
+/*  Shared background / chrome used by both branded templates          */
+/* ------------------------------------------------------------------ */
+
+function BrandedShell({
+  children,
+  label,
+  url,
+}: {
+  children: React.ReactNode;
+  label: string;
+  url: string;
+}) {
+  return (
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#080510',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Background glow effects */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '-120px',
+          left: '-80px',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
+          display: 'flex',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-100px',
+          right: '-60px',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+          display: 'flex',
+        }}
+      />
+
+      {/* Top gradient line */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '2px',
+          background:
+            'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(122,64,242,0.4) 60%, transparent 90%)',
+          display: 'flex',
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+          padding: '60px 80px',
+          textAlign: 'center',
+        }}
+      >
+        {children}
+      </div>
+
+      {/* Bottom bar */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '24px 80px',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+        }}
+      >
+        <div style={{ fontSize: 16, color: '#8578a0', display: 'flex' }}>
+          {url}
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            padding: '8px 20px',
+            borderRadius: 6,
+            fontSize: 14,
+            fontWeight: 500,
+            color: '#f0edf5',
+            letterSpacing: '0.04em',
+          }}
+        >
+          {label}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Route handler                                                      */
+/* ------------------------------------------------------------------ */
+
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const title = searchParams.get('title');
   const excerpt = searchParams.get('excerpt');
   const type = searchParams.get('type');
 
-  // Newsletter-specific branded OG image
-  if (type === 'newsletter') {
+  // Article-specific OG image
+  if (title) {
     return new ImageResponse(
       (
-        <div
-          style={{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: '#080510',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {/* Background glow effects */}
+        <BrandedShell label="Read" url="minamankarious.com">
+          {/* mm. mark — smaller for article cards */}
           <div
             style={{
-              position: 'absolute',
-              top: '-120px',
-              left: '-80px',
-              width: '500px',
-              height: '500px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
+              fontSize: 48,
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
+              color: 'rgba(240, 237, 245, 0.4)',
               display: 'flex',
+              marginBottom: 24,
             }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-100px',
-              right: '-60px',
-              width: '400px',
-              height: '400px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
-              display: 'flex',
-            }}
-          />
+          >
+            mm.
+          </div>
 
-          {/* Top gradient line */}
+          {/* Article title */}
           <div
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(122,64,242,0.4) 60%, transparent 90%)',
+              fontSize: 48,
+              fontWeight: 700,
+              color: '#f0edf5',
+              lineHeight: 1.2,
+              maxWidth: 900,
               display: 'flex',
-            }}
-          />
-
-          {/* Content */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-              padding: '60px 80px',
               textAlign: 'center',
             }}
           >
-            {/* mm. brand mark */}
-            <div
-              style={{
-                fontSize: 120,
-                fontWeight: 300,
-                letterSpacing: '-0.02em',
-                color: '#f0edf5',
-                display: 'flex',
-                marginBottom: 8,
-              }}
-            >
-              mm.
-            </div>
+            {title.length > 80 ? title.slice(0, 80) + '...' : title}
+          </div>
 
-            {/* Divider */}
+          {excerpt && (
             <div
               style={{
-                width: 80,
-                height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(124,58,237,0.3), transparent)',
-                marginBottom: 32,
-                display: 'flex',
-              }}
-            />
-
-            {/* Tagline */}
-            <div
-              style={{
-                fontSize: 32,
-                fontWeight: 400,
-                color: '#f0edf5',
-                lineHeight: 1.3,
+                fontSize: 22,
+                color: '#8578a0',
+                marginTop: 20,
+                lineHeight: 1.5,
                 maxWidth: 700,
                 display: 'flex',
                 textAlign: 'center',
               }}
             >
-              Entrepreneurship, marketing, and building businesses worth talking about.
+              {excerpt.length > 120
+                ? excerpt.slice(0, 120) + '...'
+                : excerpt}
             </div>
+          )}
 
-            {/* Newsletter label */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                marginTop: 40,
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  letterSpacing: '0.2em',
-                  color: '#D4AF37',
-                  textTransform: 'uppercase',
-                  display: 'flex',
-                }}
-              >
-                Newsletter
-              </div>
-              <div
-                style={{
-                  width: 4,
-                  height: 4,
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(255,255,255,0.3)',
-                  display: 'flex',
-                }}
-              />
-              <div
-                style={{
-                  fontSize: 14,
-                  letterSpacing: '0.1em',
-                  color: '#8578a0',
-                  display: 'flex',
-                }}
-              >
-                by Mina Mankarious
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
+          {/* Author line */}
           <div
             style={{
               display: 'flex',
-              justifyContent: 'space-between',
               alignItems: 'center',
-              padding: '24px 80px',
-              borderTop: '1px solid rgba(255,255,255,0.08)',
+              gap: 12,
+              marginTop: 32,
             }}
           >
-            <div style={{ fontSize: 16, color: '#8578a0', display: 'flex' }}>
-              minamankarious.com/newsletter
-            </div>
             <div
               style={{
-                display: 'flex',
-                backgroundColor: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.2)',
-                padding: '8px 20px',
-                borderRadius: 6,
                 fontSize: 14,
-                fontWeight: 500,
-                color: '#f0edf5',
-                letterSpacing: '0.04em',
+                letterSpacing: '0.1em',
+                color: '#D4AF37',
+                display: 'flex',
               }}
             >
-              Subscribe
+              Mina Mankarious
             </div>
           </div>
-        </div>
+        </BrandedShell>
       ),
-      {
-        width: 1200,
-        height: 630,
-      }
+      { width: 1200, height: 630 }
     );
   }
 
-  // If title is provided, render an article-specific OG image
-  if (title) {
+  // Newsletter page
+  if (type === 'newsletter') {
     return new ImageResponse(
       (
-        <div
-          style={{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            backgroundColor: '#080510',
-            padding: '60px 80px',
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div
-              style={{
-                fontSize: 56,
-                fontWeight: 700,
-                color: '#f0edf5',
-                lineHeight: 1.2,
-                display: 'flex',
-              }}
-            >
-              {title}
-            </div>
-            {excerpt && (
-              <div
-                style={{
-                  fontSize: 24,
-                  color: '#8578a0',
-                  marginTop: 24,
-                  lineHeight: 1.5,
-                  display: 'flex',
-                  maxWidth: '900px',
-                }}
-              >
-                {excerpt.length > 140 ? excerpt.slice(0, 140) + '...' : excerpt}
-              </div>
-            )}
-          </div>
+        <BrandedShell label="Subscribe" url="minamankarious.com/newsletter">
           <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: '50%',
-                  backgroundColor: '#7C3AED',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 22,
-                  fontWeight: 700,
-                  color: '#fff',
-                }}
-              >
-                M
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 20, fontWeight: 600, color: '#f0edf5', display: 'flex' }}>
-                  Mina Mankarious
-                </div>
-                <div style={{ fontSize: 16, color: '#D4AF37', display: 'flex' }}>
-                  minamankarious.com
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      {
-        width: 1200,
-        height: 630,
-      }
-    );
-  }
-
-  // Default: generic portfolio OG image
-  const headshotUrl = 'https://minamankarious.com/headshot.png';
-
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backgroundColor: '#080510',
-          padding: '60px 80px',
-        }}
-      >
-        {/* Left side - Text */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            maxWidth: '600px',
-          }}
-        >
-          <div
-            style={{
-              fontSize: 72,
-              fontWeight: 700,
+              fontSize: 120,
+              fontWeight: 300,
+              letterSpacing: '-0.02em',
               color: '#f0edf5',
-              marginBottom: 16,
               display: 'flex',
+              marginBottom: 8,
             }}
           >
-            Mina{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)',
-                backgroundClip: 'text',
-                color: 'transparent',
-                marginLeft: 16,
-              }}
-            >
-              Mankarious
-            </span>
+            mm.
           </div>
+
+          <div
+            style={{
+              width: 80,
+              height: 1,
+              background:
+                'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(124,58,237,0.3), transparent)',
+              marginBottom: 32,
+              display: 'flex',
+            }}
+          />
+
           <div
             style={{
               fontSize: 32,
-              color: '#D4AF37',
-              marginBottom: 12,
+              fontWeight: 400,
+              color: '#f0edf5',
+              lineHeight: 1.3,
+              maxWidth: 700,
               display: 'flex',
+              textAlign: 'center',
             }}
           >
-            Founder & CEO of Olunix
+            Entrepreneurship, marketing, and building businesses worth talking
+            about.
           </div>
+
           <div
             style={{
-              fontSize: 24,
-              color: '#8578a0',
-              display: 'flex',
-            }}
-          >
-            Marketing & Consulting
-          </div>
-          <div
-            style={{
-              marginTop: 40,
               display: 'flex',
               alignItems: 'center',
-              gap: 20,
+              gap: 12,
+              marginTop: 40,
             }}
           >
             <div
               style={{
+                fontSize: 14,
+                fontWeight: 500,
+                letterSpacing: '0.2em',
+                color: '#D4AF37',
+                textTransform: 'uppercase',
                 display: 'flex',
-                backgroundColor: '#D4AF37',
-                color: '#080510',
-                padding: '12px 24px',
-                borderRadius: 8,
-                fontSize: 20,
-                fontWeight: 600,
               }}
             >
-              Let&apos;s Connect
+              Newsletter
             </div>
             <div
               style={{
+                width: 4,
+                height: 4,
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255,255,255,0.3)',
                 display: 'flex',
-                fontSize: 18,
+              }}
+            />
+            <div
+              style={{
+                fontSize: 14,
+                letterSpacing: '0.1em',
                 color: '#8578a0',
+                display: 'flex',
               }}
             >
-              minamankarious.com
+              by Mina Mankarious
             </div>
           </div>
-        </div>
+        </BrandedShell>
+      ),
+      { width: 1200, height: 630 }
+    );
+  }
 
-        {/* Right side - Headshot */}
+  // Default: branded mm. OG image for all pages
+  return new ImageResponse(
+    (
+      <BrandedShell label="Visit" url="minamankarious.com">
         <div
           style={{
+            fontSize: 120,
+            fontWeight: 300,
+            letterSpacing: '-0.02em',
+            color: '#f0edf5',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            marginBottom: 8,
           }}
         >
-{/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={headshotUrl}
-            alt="Mina Mankarious"
-            width={380}
-            height={380}
-            style={{
-              borderRadius: '50%',
-              border: '4px solid rgba(124, 58, 237, 0.3)',
-              objectFit: 'cover',
-            }}
-          />
+          mm.
         </div>
-      </div>
+
+        <div
+          style={{
+            width: 80,
+            height: 1,
+            background:
+              'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(124,58,237,0.3), transparent)',
+            marginBottom: 32,
+            display: 'flex',
+          }}
+        />
+
+        <div
+          style={{
+            fontSize: 36,
+            fontWeight: 600,
+            color: '#f0edf5',
+            display: 'flex',
+            marginBottom: 12,
+          }}
+        >
+          Mina Mankarious
+        </div>
+
+        <div
+          style={{
+            fontSize: 22,
+            color: '#D4AF37',
+            display: 'flex',
+            marginBottom: 8,
+          }}
+        >
+          Founder & CEO of Olunix
+        </div>
+
+        <div
+          style={{
+            fontSize: 18,
+            color: '#8578a0',
+            display: 'flex',
+            maxWidth: 600,
+            textAlign: 'center',
+            lineHeight: 1.5,
+            marginTop: 16,
+          }}
+        >
+          Helping AI startups with positioning, marketing systems, and practical
+          growth strategy.
+        </div>
+      </BrandedShell>
     ),
-    {
-      width: 1200,
-      height: 630,
-    }
+    { width: 1200, height: 630 }
   );
 }

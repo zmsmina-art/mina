@@ -70,7 +70,7 @@ export default function ArticlesPageClient({ articles }: { articles: ArticleSumm
     <main
       id="main-content"
       data-section-theme="articles"
-      className="page-enter article-motion-shell marketing-main home-royal page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
+      className="page-enter article-motion-shell marketing-main site-theme page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
     >
       <div className="mx-auto max-w-4xl">
         <motion.div

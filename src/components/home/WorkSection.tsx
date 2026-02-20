@@ -1,12 +1,9 @@
 import Image from 'next/image';
 import { ArrowUpRight, Fan } from 'lucide-react';
-import type { CSSProperties } from 'react';
 import FanControllerMiniPreview from '@/components/FanControllerMiniPreview';
 import CardGlow from '@/components/ui/card-glow';
+import { motionDelay } from '@/lib/utils';
 
-function motionDelay(ms: number): CSSProperties {
-  return { '--motion-delay': `${ms}ms` } as CSSProperties;
-}
 
 export default function WorkSection() {
   return (

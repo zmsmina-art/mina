@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
         alt: 'Mina Mankarious articles and insights',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     creator: '@minamnkarious',
     images: [
       {
-        url: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious articles and insights',
       },
     ],

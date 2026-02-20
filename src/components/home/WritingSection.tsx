@@ -1,13 +1,10 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
 import type { Article } from '@/data/articles';
 import CardGlow from '@/components/ui/card-glow';
+import { motionDelay } from '@/lib/utils';
 
-function motionDelay(ms: number): CSSProperties {
-  return { '--motion-delay': `${ms}ms` } as CSSProperties;
-}
 
 interface WritingSectionProps {
   displayedArticles: Article[];

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import AboutPageClient from '@/components/AboutPageClient';
+import AboutPageContent from '@/components/AboutPageContent';
 
 export const metadata: Metadata = {
   title: 'About Mina Mankarious | Founder & CEO of Olunix, Toronto',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     type: 'profile',
     images: [
       {
-        url: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
         alt: 'Mina Mankarious - Founder & CEO of Olunix | Toronto Entrepreneur',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     site: '@minamnkarious',
     images: [
       {
-        url: 'https://minamankarious.com/og.png',
+        url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious - Founder & CEO of Olunix | Toronto Entrepreneur',
       },
     ],
@@ -67,7 +67,7 @@ export default function AboutPage() {
     inLanguage: 'en-US',
     primaryImageOfPage: {
       '@type': 'ImageObject',
-      url: 'https://minamankarious.com/og.png',
+      url: 'https://minamankarious.com/api/og',
       width: 1200,
       height: 630,
     },
@@ -109,7 +109,7 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <AboutPageClient />
+      <AboutPageContent />
     </>
   );
 }

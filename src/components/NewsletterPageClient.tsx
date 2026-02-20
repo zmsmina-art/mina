@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import { motionDelay } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowLeft,
@@ -19,9 +19,6 @@ import { useNewsletterSubscribe } from '@/hooks/useNewsletterSubscribe';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-function motionDelay(ms: number): CSSProperties {
-  return { '--motion-delay': `${ms}ms` } as CSSProperties;
-}
 
 const valueProps = [
   {
@@ -52,7 +49,7 @@ export default function NewsletterPageClient() {
     <main
       id="main-content"
       data-section-theme="newsletter"
-      className="page-enter marketing-main home-royal pt-20"
+      className="page-enter marketing-main site-theme pt-20"
     >
       {/* ── Hero ── */}
       <section

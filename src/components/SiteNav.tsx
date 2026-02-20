@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 
 type NavItem = {
   label: string;
@@ -17,6 +17,7 @@ const navItems: NavItem[] = [
   { label: 'Authority', href: '#experience', kind: 'hash' },
   { label: 'Operating Model', href: '#work-with-me', kind: 'hash' },
   { label: 'Writing', href: '#articles', kind: 'hash' },
+  { label: 'Newsletter', href: '/newsletter', kind: 'route' },
   { label: 'Contact', href: '#contact', kind: 'hash' },
 ];
 
@@ -36,6 +37,8 @@ export default function SiteNav() {
   const [indicatorState, setIndicatorState] = useState<IndicatorState>({ left: 0, width: 0, opacity: 0 });
   const desktopRailRef = useRef<HTMLDivElement | null>(null);
   const linkRefs = useRef<Record<string, HTMLElement | null>>({});
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     setIsOpen(false);
@@ -45,10 +48,48 @@ export default function SiteNav() {
     if (!isOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    // Focus first link when menu opens
+    const timer = setTimeout(() => {
+      const firstLink = mobileMenuRef.current?.querySelector<HTMLElement>('a, button');
+      firstLink?.focus();
+    }, 100);
+
+    // Escape to close
+    const handleEscape = (e: globalThis.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+
     return () => {
+      clearTimeout(timer);
       document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen]);
+
+  const handleMobileKeyDown = useCallback(
+    (e: ReactKeyboardEvent) => {
+      if (e.key !== 'Tab' || !mobileMenuRef.current) return;
+      const focusable = mobileMenuRef.current.querySelectorAll<HTMLElement>(
+        'a, button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -196,6 +237,7 @@ export default function SiteNav() {
           </div>
 
           <button
+            ref={menuButtonRef}
             type="button"
             className="command-menu-btn md:hidden"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -209,7 +251,12 @@ export default function SiteNav() {
       </nav>
 
       <div
+        ref={mobileMenuRef}
         id="mobile-nav"
+        role="dialog"
+        aria-modal={isOpen ? true : undefined}
+        aria-label="Navigation menu"
+        onKeyDown={isOpen ? handleMobileKeyDown : undefined}
         className={`command-mobile-panel ${isOpen ? 'is-open mobile-nav-open' : ''}`}
         style={{
           paddingTop: 'max(6.2rem, env(safe-area-inset-top))',

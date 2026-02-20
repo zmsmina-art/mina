@@ -86,7 +86,7 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
     <main
       id="main-content"
       data-section-theme="article"
-      className="page-enter article-motion-shell marketing-main home-royal page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
+      className="page-enter article-motion-shell marketing-main site-theme page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
     >
       <ReadingProgress />
 

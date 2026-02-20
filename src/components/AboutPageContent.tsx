@@ -1,12 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { ArrowLeft, ArrowUpRight, ExternalLink } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
+import { motionDelay } from '@/lib/utils';
 
-function motionDelay(ms: number): CSSProperties {
-  return { '--motion-delay': `${ms}ms` } as CSSProperties;
-}
 
 const elsewhereLinks = [
   { label: 'Olunix', url: 'https://olunix.com' },
@@ -26,9 +23,9 @@ const milestones = [
   { year: '2026', text: 'Deal Partner at Boardy, final year at McMaster' },
 ];
 
-export default function AboutPageClient() {
+export default function AboutPageContent() {
   return (
-    <main id="main-content" data-section-theme="about" className="page-enter marketing-main home-royal pt-20">
+    <main id="main-content" data-section-theme="about" className="page-enter marketing-main site-theme pt-20">
 
       {/* ── Hero ── */}
       <section className="command-section page-gutter section-block" data-section-theme="about-hero">

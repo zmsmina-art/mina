@@ -3,13 +3,67 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Privacy policy for minamankarious.com',
+  title: 'Privacy Policy | Mina Mankarious',
+  description:
+    'Privacy policy for minamankarious.com — what data is collected, how it is used, and third-party services.',
+  alternates: {
+    canonical: 'https://minamankarious.com/privacy',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Privacy Policy | Mina Mankarious',
+    description: 'Privacy policy for minamankarious.com.',
+    url: 'https://minamankarious.com/privacy',
+    siteName: 'Mina Mankarious',
+    type: 'website',
+    images: [
+      {
+        url: 'https://minamankarious.com/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'Mina Mankarious',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | Mina Mankarious',
+    description: 'Privacy policy for minamankarious.com.',
+    site: '@minamnkarious',
+    creator: '@minamnkarious',
+  },
 };
 
 export default function PrivacyPage() {
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://minamankarious.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Privacy Policy',
+        item: 'https://minamankarious.com/privacy',
+      },
+    ],
+  };
   return (
-    <main id="main-content" className="marketing-main home-royal page-gutter pb-20 pt-28 md:pb-24 md:pt-32">
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+    />
+    <main id="main-content" className="marketing-main site-theme page-gutter pb-20 pt-28 md:pb-24 md:pt-32">
       <div className="mx-auto max-w-3xl">
         <Link
           href="/"
@@ -107,5 +161,6 @@ export default function PrivacyPage() {
         </div>
       </div>
     </main>
+    </>
   );
 }

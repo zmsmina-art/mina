@@ -48,7 +48,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}
       />
 
-      <main id="main-content" className="page-enter marketing-main home-royal pt-20">
+      <main id="main-content" className="page-enter marketing-main site-theme pt-20">
         <HomeHero />
         <AuthoritySection />
         <WorkSection />

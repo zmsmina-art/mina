@@ -3,7 +3,9 @@ import { getAllArticlesSorted } from "@/data/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticlesSorted();
-  const siteLastModified = new Date('2026-02-14');
+  const siteLastModified = articles.length > 0
+    ? new Date(articles[0].updatedAt)
+    : new Date();
 
   const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `https://minamankarious.com/articles/${article.slug}`,
