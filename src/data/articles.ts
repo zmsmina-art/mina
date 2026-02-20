@@ -11,6 +11,85 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "ive-been-in-marketing-since-i-was-10",
+    title: "I\u2019ve Been in Marketing Since I Was 10",
+    excerpt:
+      "Before I knew what SEO or CTR meant, I was optimizing Minecraft thumbnails on my parents\u2019 computer. Here\u2019s what a zero-subscriber YouTube channel taught me about marketing.",
+    content: `
+I\u2019ve been in marketing since I was 10 years old.
+
+I just didn\u2019t know it yet.
+
+## The Channel Nobody Watched
+
+When I was a kid, I started a gaming YouTube channel. Zero subscribers. Big dreams. I was making Minecraft videos, screen recording on my parents\u2019 computer, and uploading them with the genuine belief that this was going to be my thing.
+
+It wasn\u2019t. Not even close.
+
+But something happened during that period that I didn\u2019t appreciate until much later. I became obsessed with a question that would end up defining my entire career: **why is nobody clicking my videos?**
+
+I didn\u2019t phrase it that way at the time. I was 10. What I actually thought was more like \u201cwhy does this guy with the same game get 50,000 views and I get 12?\u201d Eleven of those views were me, by the way.
+
+## Accidentally Learning the Fundamentals
+
+So I started doing what any obsessive kid would do. I studied.
+
+I looked at what the big creators were doing differently. Their titles were specific. Mine were generic. Their thumbnails had contrast and faces. Mine were blurry screenshots. Their videos hooked you in the first 10 seconds. Mine started with 30 seconds of silence while I figured out the screen recorder.
+
+I started changing things. New titles. Better thumbnails. Different intros. I\u2019d upload a video, watch the view count for a day, then tweak something and try again.
+
+![My old YouTube channel \u2014 proof that the obsession started early](/youtube-channel-screenshot.png)
+
+And as you can see\u2026 it actually worked. Not millions of views. But enough to prove something important: **small changes in how you present the same content can dramatically change how people respond to it.**
+
+I didn\u2019t know the word \u201coptimization.\u201d I just knew my video with 12 views needed help.
+
+I didn\u2019t know what \u201cclick-through rate\u201d meant. I just knew that some thumbnails made me want to click and others didn\u2019t.
+
+I didn\u2019t know I was doing A/B testing. I just kept changing things until something performed better.
+
+Turns out I was teaching myself SEO, CTR, and content strategy before I ever heard those words.
+
+## The Part Nobody Talks About
+
+Here\u2019s the honest part: I didn\u2019t have the discipline to keep going. I was 10. I got distracted. The channel died. I moved on to the next thing the way every kid does.
+
+But the instinct stayed.
+
+That impulse to look at something that isn\u2019t performing and ask \u201cwhy?\u201d and then actually do something about it \u2014 that never left me. It just went dormant for a while.
+
+When I eventually got into marketing properly, first with small projects, then with [e-commerce clients during COVID](/articles/hi-im-mina), then with [building Olunix](/articles/how-we-rebranded-from-growbyte-to-olunix), it didn\u2019t feel like learning something new. It felt like returning to something I\u2019d already been doing. The vocabulary was different. The stakes were higher. But the core question was the same: **why isn\u2019t this working, and what can I change?**
+
+## Why This Matters More Than You\u2019d Think
+
+I think a lot of people believe marketing is something you learn in a classroom or pick up from a course. And sure, formal education matters. [Systems thinking](/articles/from-engineering-to-marketing-why-systems-thinking-matters) and structured frameworks are valuable.
+
+But the foundation of marketing isn\u2019t technical knowledge. It\u2019s curiosity. It\u2019s the willingness to look at something that isn\u2019t working and be bothered enough to fix it. It\u2019s pattern recognition. It\u2019s empathy \u2014 understanding what makes someone click, watch, stay, or leave.
+
+That kid on his parents\u2019 computer had all of that. He just didn\u2019t have the vocabulary or the discipline.
+
+The vocabulary came later. The discipline came later. But the instinct? That was always there.
+
+## What I\u2019d Tell My 10-Year-Old Self
+
+Keep going.
+
+Not because the YouTube channel was going to blow up. It wasn\u2019t. But because the thing you\u2019re doing right now, the obsessive tinkering, the refusal to accept bad results, the hunger to understand why some things work and others don\u2019t \u2014 that\u2019s not a hobby. That\u2019s a career.
+
+You just don\u2019t know it yet.
+
+I didn\u2019t start my marketing career when I launched my company. I started it on my parents\u2019 computer, trying to outsmart the YouTube algorithm with a Minecraft video and zero subscribers.
+
+And honestly? [I\u2019m still doing the same thing.](/articles/good-content-doesnt-win) The algorithm is just bigger now.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-20",
+    updatedAt: "2026-02-20",
+    readingTime: "5 min read",
+    tags: ["Personal", "Marketing", "Entrepreneurship"],
+  },
+  {
     slug: "good-content-doesnt-win",
     title: "Good Content Doesn\u2019t Win. Here\u2019s Why That\u2019s Our Fault.",
     excerpt:
