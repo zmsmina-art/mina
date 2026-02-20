@@ -11,6 +11,7 @@ import ReadingProgress from '@/components/ReadingProgress';
 import useMotionProfile from '@/components/motion/useMotionProfile';
 import ArticleTransitionLink from '@/components/navigation/ArticleTransitionLink';
 import CardGlow from '@/components/ui/card-glow';
+import { NewsletterCTA } from '@/components/NewsletterModal';
 import type { Article } from '@/data/articles';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -234,6 +235,7 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
               About Mina
               <ArrowUpRight size={14} />
             </Link>
+            <NewsletterCTA />
           </div>
         </motion.div>
       </article>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
+import { NewsletterCTA } from '@/components/NewsletterModal';
 
 const navigationLinks = [
   { label: 'Home', href: '/' },
@@ -28,6 +29,9 @@ export default function SiteFooter() {
           <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--text-muted)]">
             Founder and operator building growth systems for AI startups through narrative clarity and disciplined execution.
           </p>
+          <div className="mt-5">
+            <NewsletterCTA />
+          </div>
         </div>
 
         <div className="md:col-span-3 lg:col-span-3" data-motion="footer-rise" style={motionDelay(120)}>
