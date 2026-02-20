@@ -87,7 +87,7 @@ export default function HomeHero() {
         <aside className="command-aside md:col-span-5 lg:col-span-4" data-motion="sweep-right" style={motionDelay(360)}>
           <div className="command-aside-frame">
             <Image
-              src="/headshot.png"
+              src="/headshot.webp"
               alt="Mina Mankarious"
               width={320}
               height={420}

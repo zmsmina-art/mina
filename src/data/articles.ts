@@ -294,7 +294,7 @@ You just have to know it to be true. And then you have to start.
     excerpt:
       "From Egypt to Canada, from engineering to marketing, and everything in between. The story of how a young man's curiosity, hustle, and refusal to cut corners led to building Olunix.",
     content: `
-![Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student](/mina-mankarious-headshot.png)
+![Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur and McMaster University student](/mina-mankarious-headshot.webp)
 
 It's great to have you here, and I'm genuinely grateful you took a second to look around my website. I'm not entirely sure what this article section will look like down the line. Maybe it becomes a place where I share what I'm learning as a young man navigating entrepreneurship, maybe it turns into something completely different. But for now, I figured the best place to start is with a bit about who I am, how I got here, and why I'm writing any of this in the first place.
 

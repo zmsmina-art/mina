@@ -52,7 +52,7 @@ export default function AboutPageContent() {
             >
               <div className="command-aside-frame about-photo-frame">
                 <Image
-                  src="/headshot.png"
+                  src="/headshot.webp"
                   alt="Mina Mankarious"
                   width={280}
                   height={360}

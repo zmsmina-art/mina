@@ -3,7 +3,7 @@ import { getAllArticlesSorted } from "@/data/articles";
 const baseUrl = "https://minamankarious.com";
 
 const homepageImages = [
-  "/headshot.png",
+  "/headshot.webp",
   "/headshot.jpg",
   "/og-image.jpg",
   "/olunix.svg",
@@ -30,14 +30,14 @@ ${homepageImages
 
   const aboutEntry = `  <url>
     <loc>${baseUrl}/about</loc>
-    <image:image><image:loc>${baseUrl}/headshot.png</image:loc><image:caption>Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur</image:caption></image:image>
-    <image:image><image:loc>${baseUrl}/mina-mankarious-headshot.png</image:loc><image:caption>Mina Mankarious - Entrepreneur and CEO</image:caption></image:image>
+    <image:image><image:loc>${baseUrl}/headshot.webp</image:loc><image:caption>Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur</image:caption></image:image>
+    <image:image><image:loc>${baseUrl}/mina-mankarious-headshot.webp</image:loc><image:caption>Mina Mankarious - Entrepreneur and CEO</image:caption></image:image>
   </url>`;
 
   // Map article slugs to their inline images for the image sitemap
   const articleImages: Record<string, string[]> = {
     "hi-im-mina": [
-      "/mina-mankarious-headshot.png",
+      "/mina-mankarious-headshot.webp",
       "/mcmaster-university-crest.png",
     ],
   };

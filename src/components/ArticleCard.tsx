@@ -18,7 +18,7 @@ export default function ArticleCard({
   animationMode = 'reveal',
   enableRouteTransition = false,
 }: ArticleCardProps) {
-  const formattedDate = new Date(article.publishedAt).toLocaleDateString('en-US', {
+  const formattedDate = new Date(article.publishedAt + 'T00:00:00').toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

@@ -142,8 +142,8 @@ export default function RootLayout({
       {
         '@type': 'ImageObject',
         '@id': 'https://minamankarious.com/#primaryimage',
-        url: 'https://minamankarious.com/headshot.png',
-        contentUrl: 'https://minamankarious.com/headshot.png',
+        url: 'https://minamankarious.com/headshot.webp',
+        contentUrl: 'https://minamankarious.com/headshot.webp',
         width: 800,
         height: 800,
         caption: 'Mina Mankarious - Founder and CEO of Olunix',

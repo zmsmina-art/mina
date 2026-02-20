@@ -65,7 +65,7 @@ function ShareButtons({ article }: { article: Article }) {
 export default function ArticlePageClient({ article, relatedArticles = [] }: { article: Article; relatedArticles?: Article[] }) {
   const motionProfile = useMotionProfile();
 
-  const formattedDate = new Date(article.publishedAt).toLocaleDateString('en-US', {
+  const formattedDate = new Date(article.publishedAt + 'T00:00:00').toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
