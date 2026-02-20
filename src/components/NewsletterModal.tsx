@@ -4,11 +4,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Mail, X, Check, Loader2, ArrowUpRight } from 'lucide-react';
 import useMotionProfile from '@/components/motion/useMotionProfile';
+import { useNewsletterSubscribe } from '@/hooks/useNewsletterSubscribe';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const BUTTONDOWN_USERNAME = 'minamankarious';
-
-type ModalState = 'idle' | 'loading' | 'success' | 'error';
 
 /* ------------------------------------------------------------------ */
 /*  Newsletter Modal                                                   */
@@ -22,9 +20,8 @@ export function NewsletterModal({
   onClose: () => void;
 }) {
   const motionProfile = useMotionProfile();
-  const [email, setEmail] = useState('');
-  const [state, setState] = useState<ModalState>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+  const { email, state, errorMsg, handleEmailChange, submit, reset } =
+    useNewsletterSubscribe();
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -58,14 +55,10 @@ export function NewsletterModal({
   /* Reset on close ------------------------------------------------ */
   useEffect(() => {
     if (!open) {
-      const timer = setTimeout(() => {
-        setEmail('');
-        setState('idle');
-        setErrorMsg('');
-      }, 300);
+      const timer = setTimeout(reset, 300);
       return () => clearTimeout(timer);
     }
-  }, [open]);
+  }, [open, reset]);
 
   /* Focus trap keyboard handler ----------------------------------- */
   const handleKeyDown = useCallback(
@@ -87,35 +80,6 @@ export function NewsletterModal({
     },
     []
   );
-
-  /* Submit -------------------------------------------------------- */
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim() || state === 'loading') return;
-
-    setState('loading');
-    setErrorMsg('');
-
-    try {
-      const res = await fetch(
-        `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({ email, tag: 'website' }),
-        }
-      );
-      if (res.ok || res.status === 201) {
-        setState('success');
-      } else {
-        setState('error');
-        setErrorMsg('Something went wrong. Please try again.');
-      }
-    } catch {
-      setState('error');
-      setErrorMsg('Unable to connect. Please try again.');
-    }
-  };
 
   /* Motion helpers ------------------------------------------------ */
   const dur = motionProfile.reduced ? 0 : 0.38;
@@ -267,7 +231,7 @@ export function NewsletterModal({
                     </motion.p>
 
                     <motion.form
-                      onSubmit={handleSubmit}
+                      onSubmit={submit}
                       initial={{ opacity: 0, y: enterY }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={stepTransition(3)}
@@ -278,10 +242,7 @@ export function NewsletterModal({
                           type="email"
                           name="email"
                           value={email}
-                          onChange={(e) => {
-                            setEmail(e.target.value);
-                            if (state === 'error') setState('idle');
-                          }}
+                          onChange={(e) => handleEmailChange(e.target.value)}
                           placeholder="your@email.com"
                           required
                           aria-label="Email address"
