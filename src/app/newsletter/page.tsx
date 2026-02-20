@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://minamankarious.com/api/og?title=Newsletter&excerpt=Entrepreneurship%2C+marketing%2C+and+building+businesses+worth+talking+about.',
+        url: 'https://minamankarious.com/api/og?type=newsletter',
         width: 1200,
         height: 630,
         alt: 'Mina Mankarious Newsletter — Entrepreneurship, Marketing & Growth',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     creator: '@minamnkarious',
     images: [
       {
-        url: 'https://minamankarious.com/api/og?title=Newsletter&excerpt=Entrepreneurship%2C+marketing%2C+and+building+businesses+worth+talking+about.',
+        url: 'https://minamankarious.com/api/og?type=newsletter',
         alt: 'Mina Mankarious Newsletter — Entrepreneurship, Marketing & Growth',
       },
     ],
@@ -69,7 +69,7 @@ export default function NewsletterPage() {
     inLanguage: 'en-US',
     primaryImageOfPage: {
       '@type': 'ImageObject',
-      url: 'https://minamankarious.com/api/og?title=Newsletter&excerpt=Entrepreneurship%2C+marketing%2C+and+building+businesses+worth+talking+about.',
+      url: 'https://minamankarious.com/api/og?type=newsletter',
       width: 1200,
       height: 630,
     },
