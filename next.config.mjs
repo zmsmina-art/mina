@@ -60,6 +60,18 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/api/og',
+        headers: [
+          ...securityHeaders.filter(
+            (h) => h.key !== 'Cross-Origin-Resource-Policy'
+          ),
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'cross-origin',
+          },
+        ],
+      },
+      {
         source: '/(.*)',
         headers: securityHeaders,
       },

@@ -43,8 +43,18 @@ export default function PrivacyPage() {
               <li>Country-level location (no precise geolocation)</li>
             </ul>
             <p>
-              No personally identifiable information (PII) is collected. No cookies are used for tracking.
+              No personally identifiable information (PII) is collected through analytics. No cookies are used for tracking.
               Vercel Analytics is privacy-focused and GDPR-compliant.
+            </p>
+          </section>
+
+          <section>
+            <h2>Newsletter</h2>
+            <p>
+              If you subscribe to the newsletter, your email address is collected and sent to Buttondown,
+              a third-party email service, to manage subscriptions and deliver emails. Your email is used
+              solely for newsletter delivery and is never sold or shared beyond this purpose.
+              You can unsubscribe at any time via the link in any newsletter email.
             </p>
           </section>
 
@@ -63,6 +73,7 @@ export default function PrivacyPage() {
             <ul>
               <li><strong>Vercel</strong> — Hosting and analytics</li>
               <li><strong>Google Fonts</strong> — Typography (loaded from Google servers)</li>
+              <li><strong>Buttondown</strong> — Newsletter subscriptions. If you subscribe to the newsletter, your email address is sent to Buttondown for delivery. Buttondown&apos;s privacy policy governs how they handle your data.</li>
             </ul>
             <p>Each service has its own privacy policy governing data it collects.</p>
           </section>

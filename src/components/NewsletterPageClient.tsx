@@ -62,7 +62,7 @@ export default function NewsletterPageClient() {
         <div className="mx-auto w-full max-w-3xl">
           <Link
             href="/"
-            className="mb-12 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+            className="mb-12 flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
             data-motion="rise"
             style={motionDelay(60)}
           >

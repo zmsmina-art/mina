@@ -2,7 +2,7 @@
 
 import { memo, useCallback, useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
-import { animate } from 'motion/react';
+import { animate } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface GlowingEffectProps {

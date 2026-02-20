@@ -5,7 +5,7 @@ import { useState, type CSSProperties } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
-import { ArrowLeft, ArrowUpRight, Calendar, Clock, Share2, Linkedin, Check, Link as LinkIcon } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Calendar, Clock, Linkedin, Check, Link as LinkIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ReadingProgress from '@/components/ReadingProgress';
 import useMotionProfile from '@/components/motion/useMotionProfile';

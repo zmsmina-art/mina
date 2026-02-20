@@ -49,7 +49,8 @@ export const metadata: Metadata = {
 };
 
 export default function ArticlesPage() {
-  const articles = getAllArticlesSorted();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const articles = getAllArticlesSorted().map(({ content, ...rest }) => rest);
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',

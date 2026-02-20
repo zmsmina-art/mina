@@ -924,15 +924,6 @@ export function getArticleBySlug(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
 }
 
-export function getLatestArticles(count: number): Article[] {
-  return [...articles]
-    .sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    )
-    .slice(0, count);
-}
-
 export function getAllArticlesSorted(): Article[] {
   return [...articles].sort(
     (a, b) =>

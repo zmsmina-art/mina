@@ -6,7 +6,7 @@ import ArticleTransitionLink from '@/components/navigation/ArticleTransitionLink
 import CardGlow from '@/components/ui/card-glow';
 
 interface ArticleCardProps {
-  article: Article;
+  article: Omit<Article, 'content'> | Article;
   index?: number;
   animationMode?: 'reveal' | 'static';
   enableRouteTransition?: boolean;

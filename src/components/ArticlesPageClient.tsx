@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpDown, Search, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ArticleCard from '@/components/ArticleCard';
-import ReadingProgress from '@/components/ReadingProgress';
 import useMotionProfile from '@/components/motion/useMotionProfile';
 import type { Article } from '@/data/articles';
 
+type ArticleSummary = Omit<Article, 'content'>;
+
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-export default function ArticlesPageClient({ articles }: { articles: Article[] }) {
+export default function ArticlesPageClient({ articles }: { articles: ArticleSummary[] }) {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,7 +35,7 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
         (article) =>
           article.title.toLowerCase().includes(q) ||
           article.excerpt.toLowerCase().includes(q) ||
-          article.content.toLowerCase().includes(q)
+          article.tags.some((tag) => tag.toLowerCase().includes(q))
       );
     }
 
@@ -71,8 +72,6 @@ export default function ArticlesPageClient({ articles }: { articles: Article[] }
       data-section-theme="articles"
       className="page-enter article-motion-shell marketing-main home-royal page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
     >
-      <ReadingProgress />
-
       <div className="mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: introOffset }}
