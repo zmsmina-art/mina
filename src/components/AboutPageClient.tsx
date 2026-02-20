@@ -12,7 +12,7 @@ const elsewhereLinks = [
   { label: 'Olunix', url: 'https://olunix.com' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/mina-mankarious' },
   { label: 'X / Twitter', url: 'https://x.com/minamnkarious' },
-  { label: 'GitHub', url: 'https://github.com/minamankarious' },
+  { label: 'GitHub', url: 'https://github.com/zmsmina-art' },
   { label: 'Medium', url: 'https://mankarious.medium.com' },
   { label: 'Crunchbase', url: 'https://www.crunchbase.com/person/mina-mankarious' },
 ];

@@ -192,7 +192,7 @@ export default function RootLayout({
       'https://www.linkedin.com/in/mina-mankarious',
       'https://x.com/minamnkarious',
       'https://olunix.com',
-      'https://github.com/minamankarious',
+      'https://github.com/zmsmina-art',
       'https://www.youtube.com/@minamankarious',
       'https://www.crunchbase.com/person/mina-mankarious',
       'https://mankarious.medium.com',
@@ -247,7 +247,7 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/switzer-light.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
         <link rel="me" href="https://x.com/minamnkarious" />
-        <link rel="me" href="https://github.com/minamankarious" />
+        <link rel="me" href="https://github.com/zmsmina-art" />
         <link rel="me" href="https://www.youtube.com/@minamankarious" />
         <link rel="me" href="https://mankarious.medium.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
