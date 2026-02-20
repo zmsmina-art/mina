@@ -26,7 +26,7 @@ When I was a kid, I started a gaming YouTube channel. Zero subscribers. Big drea
 
 It wasn\u2019t. Not even close.
 
-But something happened during that period that I didn\u2019t appreciate until much later. I became obsessed with a question that would end up defining my entire career: **why is nobody clicking my videos?**
+But something happened during that period that I didn\u2019t appreciate until much later. I got stuck on one question: **why is nobody clicking my videos?**
 
 I didn\u2019t phrase it that way at the time. I was 10. What I actually thought was more like \u201cwhy does this guy with the same game get 50,000 views and I get 12?\u201d Eleven of those views were me, by the way.
 
@@ -35,6 +35,8 @@ I didn\u2019t phrase it that way at the time. I was 10. What I actually thought 
 So I started doing what any obsessive kid would do. I studied.
 
 I looked at what the big creators were doing differently. Their titles were specific. Mine were generic. Their thumbnails had contrast and faces. Mine were blurry screenshots. Their videos hooked you in the first 10 seconds. Mine started with 30 seconds of silence while I figured out the screen recorder.
+
+My dad was so supportive in this. I remember we spent an entire day at the mall trying to find the best microphone for me to use, and I would get so excited to share all of the analytics with him.
 
 I started changing things. New titles. Better thumbnails. Different intros. I\u2019d upload a video, watch the view count for a day, then tweak something and try again.
 

@@ -141,7 +141,7 @@ export default function ArticlesPageClient({ articles }: { articles: ArticleSumm
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles..."
               aria-label="Search articles"
-              className="w-full rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)]/70 py-2.5 pl-9 pr-9 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[var(--accent-gold)]/50 focus:outline-none"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.04] py-2.5 pl-9 pr-9 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] backdrop-blur-md transition-colors focus:border-[var(--accent-gold)]/50 focus:outline-none"
             />
             {searchQuery && (
               <button
