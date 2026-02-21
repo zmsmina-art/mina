@@ -5,6 +5,7 @@ import AuthoritySection from '@/components/home/AuthoritySection';
 import WorkSection from '@/components/home/WorkSection';
 import EducationSection from '@/components/home/EducationSection';
 import ServiceSection from '@/components/home/ServiceSection';
+import SocialProofSection from '@/components/home/SocialProofSection';
 import WritingSection from '@/components/home/WritingSection';
 import ContactSection from '@/components/home/ContactSection';
 
@@ -54,6 +55,7 @@ export default function Home() {
         <WorkSection />
         <EducationSection />
         <ServiceSection />
+        <SocialProofSection />
         <WritingSection displayedArticles={displayedArticles} totalArticles={allArticles.length} />
         <ContactSection />
       </main>
