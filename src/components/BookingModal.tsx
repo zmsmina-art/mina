@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Calendar, Clock, User, Check, X, Copy, ArrowRight, ArrowLeft, Mail, Loader2 } from 'lucide-react';
 import useMotionProfile from '@/components/motion/useMotionProfile';
@@ -273,7 +274,7 @@ export function BookingModal({
   const progressSteps = 4; // date, time, details, review (success not counted)
   const activeProgress = Math.min(stepIndex, progressSteps - 1);
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -769,6 +770,7 @@ export function BookingModal({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
