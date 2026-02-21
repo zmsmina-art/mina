@@ -76,6 +76,9 @@ export function BookingModal({
   const motionProfile = useMotionProfile();
   const modalRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   /* Form state */
   const [step, setStep] = useState<Step>('date');
@@ -273,6 +276,8 @@ export function BookingModal({
   /* Progress bars */
   const progressSteps = 4; // date, time, details, review (success not counted)
   const activeProgress = Math.min(stepIndex, progressSteps - 1);
+
+  if (!mounted) return null;
 
   return createPortal(
     <AnimatePresence>
