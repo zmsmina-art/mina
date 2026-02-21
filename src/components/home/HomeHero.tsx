@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
+import { ArrowDown, MapPin } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
 import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
@@ -41,13 +41,7 @@ export default function HomeHero() {
 
           <div className="mt-7 flex w-full max-w-sm flex-wrap items-center gap-3 sm:max-w-none" data-motion="rise" style={motionDelay(510)}>
             <HeroBookingTrigger />
-            <a
-              href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-              className="ghost-btn w-full justify-center sm:w-auto"
-            >
-              Start a conversation
-              <ArrowUpRight size={15} />
-            </a>
+
             <a
               href="https://www.linkedin.com/in/mina-mankarious"
               target="_blank"

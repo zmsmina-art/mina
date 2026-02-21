@@ -277,7 +277,7 @@ export function BookingModal({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[200] flex items-end justify-center sm:items-center sm:p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -289,7 +289,7 @@ export function BookingModal({
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-[rgba(2,2,2,0.72)] backdrop-blur-sm"
+            className="absolute inset-0 bg-[rgba(2,2,2,0.96)] backdrop-blur-md sm:bg-[rgba(2,2,2,0.92)]"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -297,26 +297,26 @@ export function BookingModal({
             transition={motionProfile.reduced ? { duration: 0 } : { duration: 0.3 }}
           />
 
-          {/* Modal card */}
+          {/* Modal card — full-screen on mobile, centered card on desktop */}
           <motion.div
             ref={modalRef}
-            className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--stroke-soft)] shadow-[0_28px_70px_rgba(0,0,0,0.56)]"
+            className="relative flex w-full flex-col border-[var(--stroke-soft)] shadow-[0_28px_70px_rgba(0,0,0,0.7)] max-sm:h-[100dvh] max-sm:max-h-[100dvh] max-sm:rounded-none max-sm:border-0 sm:max-w-lg sm:rounded-2xl sm:border"
             style={{
-              background: 'linear-gradient(160deg, rgba(11, 11, 11, 0.92), rgba(32, 18, 52, 0.88))',
-              backdropFilter: 'blur(24px)',
+              background: 'linear-gradient(160deg, rgb(11, 11, 11), rgb(24, 14, 40))',
+              maxHeight: 'min(100dvh, 760px)',
             }}
-            initial={{ opacity: 0, scale: 0.96, y: motionProfile.reduced ? 0 : 14 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: motionProfile.reduced ? 0 : 14 }}
+            initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: motionProfile.reduced ? 0 : 40 }}
             transition={
               motionProfile.reduced
                 ? { duration: 0 }
                 : { duration: 0.4, ease: EASE_OUT_EXPO }
             }
           >
-            {/* Decorative top gradient line */}
+            {/* Decorative top gradient line (desktop only) */}
             <div
-              className="absolute left-0 right-0 top-0 h-px"
+              className="absolute left-0 right-0 top-0 hidden h-px sm:block"
               style={{
                 background:
                   'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(122,64,242,0.4) 60%, transparent 90%)',
@@ -333,7 +333,7 @@ export function BookingModal({
               <X size={16} />
             </button>
 
-            <div className="max-h-[90vh] overflow-y-auto px-7 pb-8 pt-9 sm:px-9 sm:pb-10 sm:pt-11">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-8 pt-8 sm:px-9 sm:pb-10 sm:pt-11">
               {/* Progress bars */}
               {step !== 'success' && (
                 <div className="mb-6 flex gap-1.5">
@@ -390,7 +390,7 @@ export function BookingModal({
                     </motion.p>
 
                     <motion.div
-                      className="grid grid-cols-2 gap-2"
+                      className="grid grid-cols-2 gap-2 sm:grid-cols-3"
                       initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 14 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={stepTransition(3)}
@@ -402,7 +402,7 @@ export function BookingModal({
                             key={d.toISOString()}
                             type="button"
                             onClick={() => handleDateSelect(d)}
-                            className={`rounded-lg border px-4 py-3 text-left text-sm transition-all ${
+                            className={`rounded-lg border px-3 py-2.5 text-left text-sm transition-all ${
                               isSelected
                                 ? 'border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] text-[var(--text-primary)]'
                                 : 'border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] text-[var(--text-muted)] hover:border-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.06)]'
@@ -477,7 +477,7 @@ export function BookingModal({
                           </button>
                         </div>
                       ) : (
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-3 gap-2">
                           {availableSlots.map((slot) => {
                             const isSelected = selectedTime === slot;
                             return (
@@ -485,7 +485,7 @@ export function BookingModal({
                                 key={slot}
                                 type="button"
                                 onClick={() => { setSelectedTime(slot); goNext(); }}
-                                className={`rounded-lg border px-4 py-3 text-center text-sm transition-all ${
+                                className={`rounded-lg border px-3 py-2.5 text-center text-sm transition-all ${
                                   isSelected
                                     ? 'border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] text-[var(--text-primary)]'
                                     : 'border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] text-[var(--text-muted)] hover:border-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.06)]'

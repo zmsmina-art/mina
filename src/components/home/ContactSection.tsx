@@ -1,4 +1,5 @@
 import CardGlow from '@/components/ui/card-glow';
+import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
 import { motionDelay } from '@/lib/utils';
 
 
@@ -20,14 +21,15 @@ export default function ContactSection() {
             <p className="mt-5 max-w-2xl text-[var(--text-muted)]">
               Share context on your company, stage, and what you need solved. I focus on clarity, leverage, and execution quality.
             </p>
-            <a
-              href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-              className="link-underline mt-8 inline-flex text-xl text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)] sm:text-2xl md:text-3xl"
-              data-motion="rise"
-              style={motionDelay(230)}
-            >
-              mina@olunix.com
-            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-4" data-motion="rise" style={motionDelay(230)}>
+              <HeroBookingTrigger />
+              <a
+                href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
+                className="link-underline inline-flex text-xl text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)] sm:text-2xl md:text-3xl"
+              >
+                mina@olunix.com
+              </a>
+            </div>
           </div>
         </article>
       </div>
