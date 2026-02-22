@@ -67,8 +67,15 @@ export function getCalendarClient() {
     subject: calendarId, // Impersonate the calendar owner via domain-wide delegation
   });
 
+  // Extra calendar IDs to check for busy times (comma-separated)
+  const extraIds = process.env.GOOGLE_CALENDAR_IDS_EXTRA
+    ?.split(',')
+    .map((id) => id.trim())
+    .filter(Boolean) ?? [];
+
   return {
     calendar: google.calendar({ version: 'v3', auth }),
     calendarId,
+    allCalendarIds: [calendarId, ...extraIds],
   };
 }

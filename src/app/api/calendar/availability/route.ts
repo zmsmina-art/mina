@@ -39,11 +39,14 @@ export async function GET(request: NextRequest) {
         timeMin,
         timeMax,
         timeZone: TIME_ZONE,
-        items: [{ id: client.calendarId }],
+        items: client.allCalendarIds.map((id) => ({ id })),
       },
     });
 
-    const busyPeriods = response.data.calendars?.[client.calendarId]?.busy ?? [];
+    // Merge busy periods from all calendars
+    const busyPeriods = client.allCalendarIds.flatMap(
+      (id) => response.data.calendars?.[id]?.busy ?? [],
+    );
 
     // Filter out slots that overlap with any busy period
     const availableSlots = ALL_SLOTS.filter((slot) => {
