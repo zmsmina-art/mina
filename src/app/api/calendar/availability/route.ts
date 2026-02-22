@@ -68,13 +68,14 @@ export async function GET(request: NextRequest) {
       configured: true,
     });
   } catch (error) {
-    console.error('Google Calendar API error:', error);
-    // Graceful fallback — show all slots so booking isn't blocked
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.error('Google Calendar API error:', errMsg);
     return NextResponse.json({
       date: dateStr,
       slots: ALL_SLOTS.map((s) => s.label),
       configured: false,
       error: 'Calendar unavailable',
+      debug: errMsg,
     });
   }
 }
