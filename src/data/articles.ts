@@ -11,6 +11,149 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "seo-vs-paid-ads-which-should-your-startup-prioritize",
+    title: "SEO vs. Paid Ads: Which Should Your Startup Prioritize?",
+    excerpt:
+      "Every startup founder asks this question. The answer isn\u2019t either/or \u2014 it\u2019s about sequencing. Here\u2019s a stage-by-stage breakdown of which channel makes sense and when.",
+    content: `
+This question comes up in almost every founder conversation I have. And like most binary questions in marketing, the answer is more nuanced than either camp wants to admit.
+
+**The short answer: it depends on your stage, your runway, and whether you have time or money.**
+
+The long answer is this article.
+
+## Why This Comparison Matters More Than Ever
+
+The paid ads space is getting expensive. Average CPCs across most industries have risen year-over-year for the last four years running. Meanwhile, AI-generated content has flooded organic search, making it harder to rank without genuine authority. Both channels are more competitive than they were two years ago.
+
+So the founder who says "we'll just run Google Ads" and the founder who says "we'll just do SEO" are both making a mistake. The question isn't which one is better. The question is which one is right for *where you are right now*.
+
+## What Each Channel Actually Does
+
+Let me strip away the jargon.
+
+**Paid ads** (Google Ads, Meta, LinkedIn, etc.) buy you attention. You pay for placement, your ad shows up, and when someone clicks, you pay again. The moment you stop paying, the traffic stops. It's renting space in someone else's system.
+
+**SEO** is building your own infrastructure. You create content, earn authority, and rank in search results. The traffic that comes in isn't paying you rent — it's yours. But building that infrastructure takes time. Months, often over a year, before it compounds meaningfully.
+
+Here's the fundamental tradeoff: **paid ads give you speed. SEO gives you compounding returns.** These aren't interchangeable. They solve different problems at different stages.
+
+## The Stage Framework
+
+### Pre-Product-Market Fit: Neither. Both. Wrong Question.
+
+If you haven't validated that people genuinely want what you're building, [neither channel will save you](/articles/why-most-startups-waste-money-on-marketing). I've said this before and I'll keep saying it because founders keep getting this wrong.
+
+Marketing amplifies what's already working. It doesn't create demand for something people don't want.
+
+At this stage, your job is to talk to people. Do 50 customer interviews. Build something small, put it in front of real humans, and watch what happens. The customer development work you do now will inform every marketing decision you make later — including which channel makes sense and what messaging actually resonates.
+
+**Budget: $0 on both channels.**
+
+### Early Traction (First Real Customers, Proving the Model)
+
+You've got some signal. A handful of customers who are genuinely happy. Some evidence of demand. Now what?
+
+This is where I usually recommend a *small* paid experiment — not as a growth channel, but as a research tool.
+
+Running $500–1,000 in Google Ads against your top 3–4 hypotheses about who your customer is and what they're searching for will teach you more in two weeks than six months of SEO guesswork. You'll find out if your ideal customer is even using search to find solutions like yours. You'll see what copy converts. You'll learn which problem framing resonates.
+
+Then you take those learnings and you *build your SEO strategy on proven data*, not assumptions.
+
+**Budget: $500–1,000/month in paid (research mode). Start producing 2–3 high-quality SEO pieces per month, targeting the keywords your paid experiments validated.**
+
+### Post-PMF, Pre-Series A
+
+Now it starts to get interesting.
+
+By this point, you should have enough data to know two things: who your customer actually is, and what they search for when they're looking for something like you.
+
+This is when SEO starts to make serious economic sense. If your customer acquisition cost through paid is, say, $200, and you can rank for a keyword that brings in customers organically for a one-time content investment of $2,000 — that content pays for itself after 10 customers. After that, every customer from that article is essentially free.
+
+But here's the catch: SEO at this stage takes 6–12 months to materialize. So you can't turn off paid ads while you wait. The play is to run paid to fund the present while SEO builds the future.
+
+**Budget: Maintain proven paid channels. Invest $2,000–5,000/month in SEO (content + technical + links). Expect the SEO flywheel to start turning in 6–9 months.**
+
+### Scaled / Series A+
+
+At this point, if SEO wasn't already a priority, you're behind. And not just a little behind.
+
+Organic search traffic is one of the highest-quality lead sources available because it captures demand that already exists. The person typing "AI legal research tool" into Google is actively looking. They have intent. Compare that to someone who sees your LinkedIn ad — you're interrupting them. You're creating awareness against their will.
+
+The companies that get this right early — the ones that invest in SEO before they "need to" — end up with a distribution moat that's genuinely hard to replicate. It takes time to build domain authority. It takes time to earn backlinks. It takes time for Google to recognize you as a trusted source. You can't shortcut it with budget. You can only shortcut it with time.
+
+**Budget: SEO should be a significant, ongoing investment. Paid is still part of the mix, but increasingly for retargeting and bottom-of-funnel, not awareness.**
+
+## The Honest Case for Paid Ads
+
+I want to be fair here because I just spent several paragraphs making the case for SEO, and that's not the whole picture.
+
+Paid ads have real advantages that SEO can't match:
+
+**Speed.** If you need revenue in 30 days, SEO isn't going to help you. Paid is. Full stop.
+
+**Precision.** You can target by job title, company size, location, interests, and behavior. SEO reaches whoever happens to be searching. Paid reaches exactly who you want to reach.
+
+**Testability.** Paid ads give you instant feedback. You know within days if a message is resonating. SEO takes months to tell you the same thing.
+
+**Scalability.** When you find a paid channel that works, you can scale it by increasing budget. SEO doesn't scale that way — you can't pour more money in and get proportionally more traffic.
+
+For certain business types — particularly those with high LTV, clear ICP, and strong product-market fit — paid ads might always be the primary channel. That's legitimate. Not every business needs to win on organic.
+
+## The Honest Case for SEO
+
+The compounding effect of SEO is hard to overstate. A piece of content that ranks for a valuable keyword can bring in leads every single month for years. The economics look terrible in year one and incredible in year three.
+
+There's also a trust dimension. Organic search results carry implicit credibility that ads don't. When your company shows up at the top of a search result — not in an ad slot — a portion of searchers will give you more benefit of the doubt than they would an ad.
+
+And then there's the volatility argument. Paid channels can change overnight. Google can shift its auction dynamics. Meta can change its algorithm. Your cost-per-click can double in a month. Companies that have built organic authority are insulated from that volatility in a way that paid-dependent businesses simply aren't.
+
+I've seen founders wake up to a 3x increase in their cost per acquisition because of a platform change they had no control over. The ones who'd also invested in SEO could absorb that hit. The ones who hadn't were suddenly in crisis.
+
+## The Question Nobody Asks
+
+Most founders ask "SEO or paid?" when the better question is: **do I have time or money?**
+
+Early-stage founders with limited runway and strong distribution instincts should think about SEO as a long-term investment they start now, while using paid sparingly and strategically to generate immediate learning.
+
+Founders with capital who need to prove growth metrics quickly should lean heavier on paid, but not at the expense of building any organic foundation.
+
+The founders who get into real trouble are the ones who go all-in on paid because it's fast, generate impressive short-term numbers, and then hit a wall when the economics stop working. By that point, they have no SEO foundation to fall back on and no time to build one.
+
+[This is related to the bigger pattern I've written about before](/articles/why-most-startups-waste-money-on-marketing): confusing activity with progress. Running ads feels like marketing. Watching impressions and click-through rates feels like traction. But if the unit economics don't work, you're just accelerating toward the same cliff.
+
+## What I Actually Recommend to Clients
+
+Here's the framework I use at Olunix when a new client asks this question:
+
+**1. What's your time horizon?** If you need revenue in 60 days, start with paid. If you're building for 24 months, start building SEO authority now.
+
+**2. Do you know who your customer is and what they search for?** If yes, start SEO immediately alongside a paid experiment. If no, run paid experiments first to find out.
+
+**3. What are your unit economics?** Calculate what a customer is worth (LTV) and what it costs to acquire them (CAC) through paid. If CAC is greater than LTV/3, your paid channel has a problem and SEO becomes more urgent.
+
+**4. What's your content capability?** SEO requires consistent, high-quality content production. If you don't have the internal capability or budget to produce it, a paid strategy you can execute well will outperform an SEO strategy you execute poorly.
+
+**5. What's your competitive landscape?** If your competitors have 10 years of SEO authority, ranking against them will take years of sustained investment. In that case, paid might be a faster path to visibility while you build organic credibility in adjacent topics where competition is lower.
+
+## The Real Answer
+
+Don't choose. Sequence.
+
+Start with enough paid spend to validate your assumptions and fund the learning you need. Use those learnings to build an SEO strategy grounded in real data. Invest in SEO consistently, even when it feels like nothing is happening. And maintain paid for the channels and use cases where it's provably working.
+
+The startups that win at marketing aren't the ones that picked the right channel. They're the ones that understood how to use each channel [as part of a larger system](/articles/from-engineering-to-marketing-why-systems-thinking-matters), at the right time, for the right purpose.
+
+That's not as satisfying as a definitive answer. But it's the one that actually works.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-22",
+    updatedAt: "2026-02-22",
+    readingTime: "8 min read",
+    tags: ["Marketing", "Startups", "Strategy"],
+  },
+  {
     slug: "ive-been-in-marketing-since-i-was-10",
     title: "I\u2019ve Been in Marketing Since I Was 10",
     excerpt:
