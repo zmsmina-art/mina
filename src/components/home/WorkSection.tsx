@@ -64,6 +64,7 @@ export default function WorkSection() {
                       alt="Habits Together"
                       width={56}
                       height={56}
+                      loading="lazy"
                       className="timeline-logo h-10 w-10 object-contain md:h-11 md:w-11"
                     />
                   </div>

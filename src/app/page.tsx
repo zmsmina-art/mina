@@ -16,13 +16,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://minamankarious.com',
   },
-  keywords: [
-    'Mina Mankarious',
-    'Olunix',
-    'AI startup marketing consultant',
-    'founder-led growth',
-    'Toronto startup advisor',
-  ],
 };
 
 export default function Home() {

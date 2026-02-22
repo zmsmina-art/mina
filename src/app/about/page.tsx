@@ -5,13 +5,6 @@ export const metadata: Metadata = {
   title: 'About Mina Mankarious | Founder & CEO of Olunix, Toronto',
   description:
     'Mina Mankarious is a Canadian entrepreneur, founder and CEO of Olunix, a marketing and consulting firm in Toronto. He helps AI startups with strategic marketing and growth.',
-  keywords: [
-    'About Mina Mankarious',
-    'Mina Mankarious biography',
-    'Olunix founder',
-    'Toronto entrepreneur',
-    'AI startup marketing',
-  ],
   alternates: {
     canonical: 'https://minamankarious.com/about',
     languages: {

@@ -6,12 +6,6 @@ export const metadata: Metadata = {
   title: 'Articles',
   description:
     'Thoughts on entrepreneurship, marketing, consulting, and building businesses. Written by Mina Mankarious, Founder & CEO of Olunix.',
-  keywords: [
-    'Mina Mankarious articles',
-    'AI startup marketing articles',
-    'founder-led growth insights',
-    'startup marketing strategy',
-  ],
   alternates: {
     canonical: 'https://minamankarious.com/articles',
   },

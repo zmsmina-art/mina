@@ -11,7 +11,7 @@
 
   --text-primary: #ffffff;
   --text-muted: #d6d6d6;
-  --text-dim: #a7a7a7;
+  --text-dim: #adadad;
 
   --accent-gold: #ffffff;
   --accent-gold-soft: #f5f5f5;
@@ -147,7 +147,7 @@ body {
   --bg-panel-strong: rgba(7, 7, 7, 0.93);
   --text-primary: #ffffff;
   --text-muted: #d6d6d6;
-  --text-dim: #a7a7a7;
+  --text-dim: #adadad;
   --accent-gold: #ffffff;
   --accent-gold-soft: #f5f5f5;
   --accent-gold-clean: #efefef;
@@ -1134,6 +1134,9 @@ html[data-section-theme='footer'] .ambient-layer::before {
   position: relative;
   display: grid;
   gap: 1.1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .timeline-item {
@@ -1625,6 +1628,13 @@ html[data-section-theme='footer'] .ambient-layer::before {
   background: rgba(255, 255, 255, 0.22);
 }
 
+.accent-btn:focus-visible {
+  outline: 2px solid var(--accent-gold-soft);
+  outline-offset: 2px;
+  border-color: var(--accent-gold-soft);
+  background: rgba(255, 255, 255, 0.22);
+}
+
 .ghost-btn {
   display: inline-flex;
   align-items: center;
@@ -1644,6 +1654,13 @@ html[data-section-theme='footer'] .ambient-layer::before {
   color: var(--text-primary);
   border-color: rgba(255, 255, 255, 0.34);
   background: rgba(12, 12, 12, 0.9);
+}
+
+.ghost-btn:focus-visible {
+  outline: 2px solid var(--accent-gold-soft);
+  outline-offset: 2px;
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.34);
 }
 
 .tag-chip {

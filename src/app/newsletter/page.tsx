@@ -5,15 +5,6 @@ export const metadata: Metadata = {
   title: 'Newsletter | Mina Mankarious — Entrepreneurship, Marketing & Growth',
   description:
     'Subscribe to Mina Mankarious\u2019s newsletter for essays on entrepreneurship, marketing strategy, and building businesses worth talking about. Frameworks for AI startup growth, behind-the-scenes lessons from Olunix, and early access to new articles.',
-  keywords: [
-    'Mina Mankarious newsletter',
-    'entrepreneurship newsletter',
-    'marketing newsletter',
-    'AI startup marketing',
-    'Olunix newsletter',
-    'startup growth strategies',
-    'business newsletter',
-  ],
   alternates: {
     canonical: 'https://minamankarious.com/newsletter',
     languages: {

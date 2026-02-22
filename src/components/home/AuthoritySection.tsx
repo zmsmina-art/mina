@@ -87,9 +87,9 @@ export default function AuthoritySection() {
 
         <div className="relative md:col-span-7 lg:col-span-8">
           <div className="timeline-guide hidden md:block" aria-hidden="true" data-motion="rail" />
-          <div className="timeline-stack">
+          <ul className="timeline-stack" role="list">
             {authorityTimeline.map((item, index) => (
-              <article
+              <li
                 key={item.title + item.org}
                 className="timeline-item"
                 data-motion="timeline-card"
@@ -111,6 +111,7 @@ export default function AuthoritySection() {
                           alt={item.logoAlt}
                           width={56}
                           height={56}
+                          loading="lazy"
                           className={item.logoClassName}
                         />
                       </div>
@@ -126,9 +127,9 @@ export default function AuthoritySection() {
                     </div>
                   </div>
                 </a>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
 
         </div>
       </div>
