@@ -1,64 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { google } from 'googleapis';
+import { getCalendarClient, etToUtcIso, ALL_SLOTS, TIME_ZONE } from '@/lib/google-calendar';
 
 /**
  * GET /api/calendar/availability?date=2025-03-15
  *
  * Returns available 30-min slots between 10:00 AM - 5:00 PM ET
  * by querying Google Calendar's freebusy API with a service account.
- *
- * Required env vars:
- *   GOOGLE_SERVICE_ACCOUNT_EMAIL
- *   GOOGLE_PRIVATE_KEY (PEM, with \n preserved)
- *   GOOGLE_CALENDAR_ID (usually the calendar owner's email)
  */
-
-const TIME_ZONE = 'America/New_York';
-
-/** All candidate 30-min slots — times in 24h ET */
-const ALL_SLOTS = [
-  { start: '10:00', end: '10:30', label: '10:00 AM' },
-  { start: '10:30', end: '11:00', label: '10:30 AM' },
-  { start: '11:00', end: '11:30', label: '11:00 AM' },
-  { start: '11:30', end: '12:00', label: '11:30 AM' },
-  { start: '12:00', end: '12:30', label: '12:00 PM' },
-  { start: '12:30', end: '13:00', label: '12:30 PM' },
-  { start: '13:00', end: '13:30', label: '1:00 PM' },
-  { start: '13:30', end: '14:00', label: '1:30 PM' },
-  { start: '14:00', end: '14:30', label: '2:00 PM' },
-  { start: '14:30', end: '15:00', label: '2:30 PM' },
-  { start: '15:00', end: '15:30', label: '3:00 PM' },
-  { start: '15:30', end: '16:00', label: '3:30 PM' },
-  { start: '16:00', end: '16:30', label: '4:00 PM' },
-  { start: '16:30', end: '17:00', label: '4:30 PM' },
-];
-
-/**
- * Get the UTC offset in minutes for a given date in America/New_York.
- * Handles EST (-300) vs EDT (-240) automatically.
- */
-function getETOffsetMinutes(dateStr: string): number {
-  const jan = new Date(`${dateStr}T12:00:00Z`);
-  const utcStr = jan.toLocaleString('en-US', { timeZone: 'UTC' });
-  const etStr = jan.toLocaleString('en-US', { timeZone: TIME_ZONE });
-  const utcDate = new Date(utcStr);
-  const etDate = new Date(etStr);
-  return (utcDate.getTime() - etDate.getTime()) / 60_000;
-}
-
-/** Convert an ET time on a given date to a UTC ISO string */
-function etToUtcIso(dateStr: string, time24: string): string {
-  const offsetMin = getETOffsetMinutes(dateStr);
-  const [h, m] = time24.split(':').map(Number);
-  const totalMin = h * 60 + m + offsetMin;
-  const utcH = Math.floor(totalMin / 60);
-  const utcM = totalMin % 60;
-
-  // Handle day rollover
-  const base = new Date(`${dateStr}T00:00:00Z`);
-  base.setUTCHours(utcH, utcM, 0, 0);
-  return base.toISOString();
-}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -71,11 +19,9 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const serviceEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-  const calendarId = process.env.GOOGLE_CALENDAR_ID;
+  const client = getCalendarClient();
 
-  if (!serviceEmail || !privateKey || !calendarId) {
+  if (!client) {
     // Calendar not configured — return all slots so the modal still works
     return NextResponse.json({
       date: dateStr,
@@ -85,27 +31,19 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const auth = new google.auth.JWT({
-      email: serviceEmail,
-      key: privateKey,
-      scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
-    });
-
-    const calendar = google.calendar({ version: 'v3', auth });
-
     const timeMin = etToUtcIso(dateStr, '10:00');
     const timeMax = etToUtcIso(dateStr, '17:00');
 
-    const response = await calendar.freebusy.query({
+    const response = await client.calendar.freebusy.query({
       requestBody: {
         timeMin,
         timeMax,
         timeZone: TIME_ZONE,
-        items: [{ id: calendarId }],
+        items: [{ id: client.calendarId }],
       },
     });
 
-    const busyPeriods = response.data.calendars?.[calendarId]?.busy ?? [];
+    const busyPeriods = response.data.calendars?.[client.calendarId]?.busy ?? [];
 
     // Filter out slots that overlap with any busy period
     const availableSlots = ALL_SLOTS.filter((slot) => {

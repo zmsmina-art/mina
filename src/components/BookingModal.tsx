@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Calendar, Clock, User, Check, X, Copy, ArrowRight, ArrowLeft, Mail, Loader2 } from 'lucide-react';
+import { Calendar, Clock, User, Check, X, Copy, ArrowRight, ArrowLeft, Loader2, Video } from 'lucide-react';
 import useMotionProfile from '@/components/motion/useMotionProfile';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -30,11 +30,6 @@ function getWeekdays(count: number): Date[] {
 /** Format date for display */
 function formatDate(d: Date): string {
   return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-}
-
-/** Format date for email */
-function formatDateLong(d: Date): string {
-  return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 /** 30-min time slots 10:00 AM - 4:30 PM ET */
@@ -97,6 +92,11 @@ export function BookingModal({
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotsError, setSlotsError] = useState('');
 
+  /* Booking */
+  const [booking, setBooking] = useState(false);
+  const [bookingError, setBookingError] = useState('');
+  const [meetLink, setMeetLink] = useState<string | null>(null);
+
   const weekdays = useMemo(() => getWeekdays(10), []);
 
   /* Reset on close */
@@ -114,6 +114,9 @@ export function BookingModal({
     setAvailableSlots(TIME_SLOTS);
     setLoadingSlots(false);
     setSlotsError('');
+    setBooking(false);
+    setBookingError('');
+    setMeetLink(null);
   }, []);
 
   /* Save trigger + manage focus on open */
@@ -238,28 +241,43 @@ export function BookingModal({
     return true;
   };
 
-  /* Submit via mailto */
-  const handleConfirm = () => {
-    const subject = encodeURIComponent(
-      `Booking Request — ${name.trim()} ${company ? `(${company.trim()})` : ''}`
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${name.trim()}`,
-        `Email: ${email.trim()}`,
-        company ? `Company: ${company.trim()}` : null,
-        companyStage ? `Stage: ${companyStage}` : null,
-        `Preferred Date: ${selectedDate ? formatDateLong(selectedDate) : ''}`,
-        `Preferred Time: ${selectedTime} ET`,
-        '',
-        context ? `Context:\n${context.trim()}` : null,
-      ]
-        .filter(Boolean)
-        .join('\n')
-    );
+  /* Submit booking via API */
+  const handleConfirm = async () => {
+    if (!selectedDate || !selectedTime) return;
 
-    window.location.href = `mailto:mina@olunix.com?subject=${subject}&body=${body}`;
-    setStep('success');
+    setBooking(true);
+    setBookingError('');
+
+    const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+
+    try {
+      const res = await fetch('/api/calendar/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date: dateStr,
+          time: selectedTime,
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || undefined,
+          companyStage: companyStage || undefined,
+          context: context.trim() || undefined,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setMeetLink(data.meetLink ?? null);
+        setStep('success');
+      } else {
+        setBookingError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setBookingError('Network error. Please try again or email mina@olunix.com directly.');
+    } finally {
+      setBooking(false);
+    }
   };
 
   /* Copy email fallback */
@@ -698,20 +716,40 @@ export function BookingModal({
                       )}
                     </motion.div>
 
+                    {bookingError && (
+                      <motion.p
+                        className="mb-4 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        {bookingError}
+                      </motion.p>
+                    )}
+
                     <div className="flex items-center justify-between">
                       <button
                         type="button"
                         onClick={goBack}
-                        className="inline-flex items-center gap-1.5 text-xs text-[var(--text-dim)] transition-colors hover:text-[var(--text-primary)]"
+                        disabled={booking}
+                        className="inline-flex items-center gap-1.5 text-xs text-[var(--text-dim)] transition-colors hover:text-[var(--text-primary)] disabled:opacity-50"
                       >
                         <ArrowLeft size={12} /> Back
                       </button>
                       <button
                         type="button"
                         onClick={handleConfirm}
-                        className="inline-flex items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-5 py-3 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)]"
+                        disabled={booking}
+                        className="inline-flex items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-5 py-3 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)] disabled:opacity-50"
                       >
-                        Confirm &amp; send <Mail size={14} />
+                        {booking ? (
+                          <>
+                            Booking&hellip; <Loader2 size={14} className="animate-spin" />
+                          </>
+                        ) : (
+                          <>
+                            Confirm booking <ArrowRight size={14} />
+                          </>
+                        )}
                       </button>
                     </div>
                   </motion.div>
@@ -743,12 +781,32 @@ export function BookingModal({
                       className="mb-2 text-2xl text-[var(--text-primary)]"
                       style={{ fontFamily: "var(--font-cormorant, 'Cormorant Garamond'), var(--font-eb-garamond, 'EB Garamond'), Georgia, serif" }}
                     >
-                      Request received.
+                      Meeting booked!
                     </h3>
                     <p className="text-sm text-[var(--text-muted)]">
-                      I&rsquo;ll confirm within 24 hours.
+                      A calendar invite has been sent to {email}.
                     </p>
 
+                    {/* Booked date/time */}
+                    <div className="mt-4 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-5 py-3 text-sm">
+                      <span className="text-[var(--text-muted)]">
+                        {selectedDate ? formatDate(selectedDate) : ''} &middot; {selectedTime} ET
+                      </span>
+                    </div>
+
+                    {/* Google Meet link */}
+                    {meetLink && (
+                      <a
+                        href={meetLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-5 py-3 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)]"
+                      >
+                        <Video size={14} /> Join Google Meet
+                      </a>
+                    )}
+
+                    {/* Email fallback */}
                     <div className="mt-5 flex items-center gap-2 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-4 py-2.5">
                       <span className="text-sm text-[var(--text-muted)]">mina@olunix.com</span>
                       <button
