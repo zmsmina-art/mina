@@ -63,7 +63,7 @@ export function getCalendarClient() {
   const auth = new google.auth.JWT({
     email: serviceEmail,
     key: privateKey,
-    scopes: ['https://www.googleapis.com/auth/calendar.events'],
+    scopes: ['https://www.googleapis.com/auth/calendar'],
     subject: calendarId, // Impersonate the calendar owner via domain-wide delegation
   });
 
