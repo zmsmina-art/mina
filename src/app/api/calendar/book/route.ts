@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCalendarClient, etToUtcIso, ALL_SLOTS, TIME_ZONE } from '@/lib/google-calendar';
+import { sendBookingEmails } from '@/lib/send-booking-email';
 
 /**
  * POST /api/calendar/book
@@ -129,6 +130,18 @@ export async function POST(request: NextRequest) {
       response.data.conferenceData?.entryPoints?.find(
         (ep) => ep.entryPointType === 'video',
       )?.uri ?? null;
+
+    // Fire-and-forget: send confirmation emails without blocking the response
+    void sendBookingEmails({
+      name: name.trim(),
+      email: email.trim(),
+      company: company?.trim(),
+      companyStage,
+      context: context?.trim(),
+      date,
+      time,
+      meetLink,
+    });
 
     return NextResponse.json({
       success: true,

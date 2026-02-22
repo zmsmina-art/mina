@@ -79,3 +79,30 @@ export function getCalendarClient() {
     allCalendarIds: [calendarId, ...extraIds],
   };
 }
+
+/**
+ * Returns an authenticated Gmail client for sending emails as mina@olunix.com.
+ * Reuses the same service account with domain-wide delegation.
+ * Returns null if env vars are not configured.
+ */
+export function getGmailClient() {
+  const serviceEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  const calendarId = process.env.GOOGLE_CALENDAR_ID; // mina@olunix.com
+
+  if (!serviceEmail || !privateKey || !calendarId) {
+    return null;
+  }
+
+  const auth = new google.auth.JWT({
+    email: serviceEmail,
+    key: privateKey,
+    scopes: ['https://www.googleapis.com/auth/gmail.send'],
+    subject: calendarId,
+  });
+
+  return {
+    gmail: google.gmail({ version: 'v1', auth }),
+    senderEmail: calendarId,
+  };
+}

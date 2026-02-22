@@ -12,11 +12,11 @@ const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
-/** Generate next N weekdays starting from tomorrow */
+/** Generate next N weekdays starting from the day after tomorrow (24h buffer) */
 function getWeekdays(count: number): Date[] {
   const days: Date[] = [];
   const cursor = new Date();
-  cursor.setDate(cursor.getDate() + 1);
+  cursor.setDate(cursor.getDate() + 2);
   while (days.length < count) {
     const dow = cursor.getDay();
     if (dow !== 0 && dow !== 6) {
