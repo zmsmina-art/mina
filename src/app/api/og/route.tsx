@@ -4,17 +4,29 @@ import { NextRequest } from 'next/server';
 export const runtime = 'edge';
 
 /* ------------------------------------------------------------------ */
-/*  Shared background / chrome used by both branded templates          */
+/*  Font loading — fetched once at edge cold-start, then cached        */
 /* ------------------------------------------------------------------ */
 
-function BrandedShell({
+const cormorantRegular = fetch(
+  new URL('https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_v86GnM.ttf')
+).then((res) => res.arrayBuffer());
+
+const cormorantSemiBold = fetch(
+  new URL('https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_iE9GnM.ttf')
+).then((res) => res.arrayBuffer());
+
+/* ------------------------------------------------------------------ */
+/*  Atmospheric background shell                                       */
+/* ------------------------------------------------------------------ */
+
+function OGShell({
   children,
-  label,
-  url,
+  footerLeft,
+  footerRight,
 }: {
   children: React.ReactNode;
-  label: string;
-  url: string;
+  footerLeft: string;
+  footerRight: string;
 }) {
   return (
     <div
@@ -23,62 +35,152 @@ function BrandedShell({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#0a0a0a',
         position: 'relative',
         overflow: 'hidden',
+        background: '#050505',
       }}
     >
-      {/* Subtle top accent line */}
+      {/* Deep atmospheric gradient — matches body.has-site-theme */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          background:
+            'radial-gradient(ellipse 130% 80% at 10% 15%, rgba(255,255,255,0.09), transparent 60%), ' +
+            'radial-gradient(ellipse 120% 70% at 92% 10%, rgba(122,64,242,0.18), transparent 55%), ' +
+            'radial-gradient(ellipse 100% 100% at 50% 110%, rgba(12,12,12,0.8), transparent 70%), ' +
+            'linear-gradient(162deg, #050505 0%, #0a0a0a 40%, #110a1a 100%)',
+        }}
+      />
+
+      {/* Soft purple glow bloom — top right */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '-80px',
+          right: '-40px',
+          width: '500px',
+          height: '400px',
+          display: 'flex',
+          background: 'radial-gradient(ellipse at center, rgba(176,137,255,0.12), transparent 70%)',
+          filter: 'blur(40px)',
+        }}
+      />
+
+      {/* Warm white glow bloom — bottom left */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '-60px',
+          left: '-20px',
+          width: '400px',
+          height: '350px',
+          display: 'flex',
+          background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.05), transparent 70%)',
+          filter: 'blur(30px)',
+        }}
+      />
+
+      {/* Top luminous accent line */}
       <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: '3px',
-          background: 'linear-gradient(90deg, #D4AF37, #f0edf5)',
+          height: '2px',
           display: 'flex',
+          background:
+            'linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.6) 30%, rgba(176,137,255,0.5) 60%, transparent 95%)',
         }}
       />
 
-      {/* Content */}
+      {/* Decorative vertical line — left side */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '48px',
+          left: '72px',
+          width: '1px',
+          height: '100px',
+          display: 'flex',
+          background:
+            'linear-gradient(180deg, rgba(255,255,255,0.35), rgba(176,137,255,0.2), transparent)',
+        }}
+      />
+
+      {/* Decorative corner detail — bottom right */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '72px',
+          right: '72px',
+          width: '60px',
+          height: '60px',
+          display: 'flex',
+          borderRight: '1px solid rgba(255,255,255,0.12)',
+          borderBottom: '1px solid rgba(255,255,255,0.12)',
+        }}
+      />
+
+      {/* Main content area */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'flex-start',
           flex: 1,
-          padding: '60px 80px',
+          padding: '64px 96px 48px',
+          position: 'relative',
         }}
       >
         {children}
       </div>
 
-      {/* Bottom bar */}
+      {/* Footer bar */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '24px 80px',
-          borderTop: '1px solid rgba(255,255,255,0.06)',
+          padding: '22px 96px 28px',
+          position: 'relative',
         }}
       >
-        <div style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', display: 'flex' }}>
-          {url}
+        {/* Divider line */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: '96px',
+            right: '96px',
+            height: '1px',
+            display: 'flex',
+            background:
+              'linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))',
+          }}
+        />
+        <div
+          style={{
+            fontSize: 15,
+            color: 'rgba(255,255,255,0.3)',
+            display: 'flex',
+            letterSpacing: '0.02em',
+          }}
+        >
+          {footerLeft}
         </div>
         <div
           style={{
             display: 'flex',
-            fontSize: 14,
-            fontWeight: 500,
-            color: '#D4AF37',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase' as const,
+            fontSize: 13,
+            fontWeight: 400,
+            color: 'rgba(255,255,255,0.5)',
+            letterSpacing: '0.1em',
           }}
         >
-          {label}
+          {footerRight}
         </div>
       </div>
     </div>
@@ -95,27 +197,54 @@ export async function GET(request: NextRequest) {
   const excerpt = searchParams.get('excerpt');
   const type = searchParams.get('type');
 
-  // Article-specific OG image
+  const [cormorantRegularData, cormorantSemiBoldData] = await Promise.all([
+    cormorantRegular,
+    cormorantSemiBold,
+  ]);
+
+  const fonts = [
+    { name: 'Cormorant', data: cormorantSemiBoldData, weight: 600 as const },
+    { name: 'Cormorant', data: cormorantRegularData, weight: 400 as const },
+  ];
+
+  /* ---- Article OG ---- */
   if (title) {
+    const displayTitle = title.length > 72 ? title.slice(0, 72) + '\u2026' : title;
+    const displayExcerpt = excerpt
+      ? excerpt.length > 120
+        ? excerpt.slice(0, 120) + '\u2026'
+        : excerpt
+      : null;
+
     return new ImageResponse(
       (
-        <BrandedShell label="Read" url="minamankarious.com">
-          {/* Author line */}
+        <OGShell footerLeft="minamankarious.com" footerRight="ARTICLE">
+          {/* Author kicker */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 10,
-              marginBottom: 24,
+              gap: 12,
+              marginBottom: 32,
             }}
           >
+            {/* Small decorative diamond */}
             <div
               style={{
-                fontSize: 15,
-                fontWeight: 500,
-                letterSpacing: '0.12em',
-                color: '#D4AF37',
-                textTransform: 'uppercase' as const,
+                width: 6,
+                height: 6,
+                display: 'flex',
+                background: 'rgba(176,137,255,0.7)',
+                transform: 'rotate(45deg)',
+              }}
+            />
+            <div
+              style={{
+                fontSize: 16,
+                fontFamily: 'Cormorant',
+                fontWeight: 400,
+                letterSpacing: '0.08em',
+                color: 'rgba(255,255,255,0.55)',
                 display: 'flex',
               }}
             >
@@ -123,146 +252,181 @@ export async function GET(request: NextRequest) {
             </div>
           </div>
 
-          {/* Article title */}
+          {/* Title */}
           <div
             style={{
-              fontSize: 52,
-              fontWeight: 700,
+              fontSize: 56,
+              fontFamily: 'Cormorant',
+              fontWeight: 600,
               color: '#ffffff',
-              lineHeight: 1.15,
-              maxWidth: 900,
+              lineHeight: 1.12,
+              maxWidth: 920,
               display: 'flex',
-              letterSpacing: '-0.02em',
+              letterSpacing: '0.005em',
             }}
           >
-            {title.length > 80 ? title.slice(0, 80) + '...' : title}
+            {displayTitle}
           </div>
 
-          {excerpt && (
+          {/* Excerpt */}
+          {displayExcerpt && (
             <div
               style={{
                 fontSize: 20,
-                color: 'rgba(255,255,255,0.45)',
-                marginTop: 24,
-                lineHeight: 1.6,
-                maxWidth: 750,
+                fontFamily: 'Cormorant',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.38)',
+                marginTop: 28,
+                lineHeight: 1.55,
+                maxWidth: 720,
                 display: 'flex',
               }}
             >
-              {excerpt.length > 140
-                ? excerpt.slice(0, 140) + '...'
-                : excerpt}
+              {displayExcerpt}
             </div>
           )}
-        </BrandedShell>
+        </OGShell>
       ),
-      { width: 1200, height: 630 }
+      { width: 1200, height: 630, fonts }
     );
   }
 
-  // Newsletter page
+  /* ---- Newsletter OG ---- */
   if (type === 'newsletter') {
     return new ImageResponse(
       (
-        <BrandedShell label="Subscribe" url="minamankarious.com/newsletter">
+        <OGShell footerLeft="minamankarious.com/newsletter" footerRight="SUBSCRIBE">
+          {/* Kicker */}
           <div
             style={{
-              fontSize: 15,
-              fontWeight: 500,
-              letterSpacing: '0.12em',
-              color: '#D4AF37',
-              textTransform: 'uppercase' as const,
               display: 'flex',
-              marginBottom: 24,
+              alignItems: 'center',
+              gap: 12,
+              marginBottom: 32,
             }}
           >
-            Newsletter
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                display: 'flex',
+                background: 'rgba(176,137,255,0.7)',
+                transform: 'rotate(45deg)',
+              }}
+            />
+            <div
+              style={{
+                fontSize: 16,
+                fontFamily: 'Cormorant',
+                fontWeight: 400,
+                letterSpacing: '0.08em',
+                color: 'rgba(255,255,255,0.55)',
+                display: 'flex',
+              }}
+            >
+              Newsletter
+            </div>
           </div>
 
+          {/* Headline */}
           <div
             style={{
-              fontSize: 48,
-              fontWeight: 700,
+              fontSize: 52,
+              fontFamily: 'Cormorant',
+              fontWeight: 600,
               color: '#ffffff',
-              lineHeight: 1.15,
-              maxWidth: 800,
+              lineHeight: 1.12,
+              maxWidth: 820,
               display: 'flex',
-              letterSpacing: '-0.02em',
+              letterSpacing: '0.005em',
             }}
           >
             Entrepreneurship, marketing, and building businesses worth talking about.
           </div>
 
+          {/* Byline */}
           <div
             style={{
-              fontSize: 18,
-              color: 'rgba(255,255,255,0.4)',
-              marginTop: 28,
+              fontSize: 19,
+              fontFamily: 'Cormorant',
+              fontWeight: 400,
+              color: 'rgba(255,255,255,0.35)',
+              marginTop: 32,
               display: 'flex',
             }}
           >
             by Mina Mankarious
           </div>
-        </BrandedShell>
+        </OGShell>
       ),
-      { width: 1200, height: 630 }
+      { width: 1200, height: 630, fonts }
     );
   }
 
-  // Default: branded mm. OG image for all pages
+  /* ---- Default / Profile OG ---- */
   return new ImageResponse(
     (
-      <BrandedShell label="Visit" url="minamankarious.com">
+      <OGShell footerLeft="minamankarious.com" footerRight="PORTFOLIO">
+        {/* Monogram */}
         <div
           style={{
-            fontSize: 80,
-            fontWeight: 300,
-            letterSpacing: '-0.02em',
+            fontSize: 88,
+            fontFamily: 'Cormorant',
+            fontWeight: 400,
+            fontStyle: 'italic',
+            letterSpacing: '0.01em',
             color: '#ffffff',
             display: 'flex',
-            marginBottom: 20,
-          }}
-        >
-          mm.
-        </div>
-
-        <div
-          style={{
-            fontSize: 36,
-            fontWeight: 600,
-            color: '#ffffff',
-            display: 'flex',
-            marginBottom: 12,
+            marginBottom: 16,
           }}
         >
           Mina Mankarious
         </div>
 
+        {/* Separator line */}
         <div
           style={{
-            fontSize: 20,
-            color: '#D4AF37',
+            width: 64,
+            height: 1,
             display: 'flex',
-            marginBottom: 8,
+            background:
+              'linear-gradient(90deg, rgba(255,255,255,0.5), rgba(176,137,255,0.4))',
+            marginBottom: 24,
+          }}
+        />
+
+        {/* Role */}
+        <div
+          style={{
+            fontSize: 22,
+            fontFamily: 'Cormorant',
+            fontWeight: 400,
+            color: 'rgba(255,255,255,0.6)',
+            display: 'flex',
+            marginBottom: 10,
+            letterSpacing: '0.04em',
           }}
         >
           Founder & CEO of Olunix
         </div>
 
+        {/* Description */}
         <div
           style={{
-            fontSize: 18,
-            color: 'rgba(255,255,255,0.4)',
+            fontSize: 19,
+            fontFamily: 'Cormorant',
+            fontWeight: 400,
+            color: 'rgba(255,255,255,0.3)',
             display: 'flex',
-            maxWidth: 600,
-            lineHeight: 1.5,
-            marginTop: 12,
+            maxWidth: 560,
+            lineHeight: 1.55,
+            marginTop: 8,
           }}
         >
           Helping AI startups with positioning, marketing systems, and practical growth strategy.
         </div>
-      </BrandedShell>
+      </OGShell>
     ),
-    { width: 1200, height: 630 }
+    { width: 1200, height: 630, fonts }
   );
 }
