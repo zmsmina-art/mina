@@ -164,6 +164,7 @@ export function NewsletterModal({
                   <motion.div
                     key="success"
                     className="flex flex-col items-center py-6 text-center"
+                    aria-live="polite"
                     initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}

@@ -40,3 +40,14 @@ next-env.d.ts
 *.png
 !public/*.png
 !src/app/apple-icon.png
+
+# Dev artifacts
+*.md
+!README.md
+*.jpg
+*.jpeg
+*.screenshot*
+
+# Audit / analysis tools
+.unlighthouse/
+.unlighthouse-reports/

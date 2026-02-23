@@ -6,9 +6,7 @@ import { ArrowLeft, ArrowUpDown, Search, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ArticleCard from '@/components/ArticleCard';
 import useMotionProfile from '@/components/motion/useMotionProfile';
-import type { Article } from '@/data/articles';
-
-type ArticleSummary = Omit<Article, 'content'>;
+import type { ArticleSummary } from '@/data/articles';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 

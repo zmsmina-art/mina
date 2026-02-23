@@ -35,6 +35,12 @@ export const metadata: Metadata = {
     description: 'Privacy policy for minamankarious.com.',
     site: '@minamnkarious',
     creator: '@minamnkarious',
+    images: [
+      {
+        url: 'https://minamankarious.com/api/og',
+        alt: 'Mina Mankarious',
+      },
+    ],
   },
 };
 
@@ -74,7 +80,7 @@ export default function PrivacyPage() {
         </Link>
 
         <h1 className="mb-4 text-4xl text-[var(--text-primary)] md:text-5xl">Privacy Policy</h1>
-        <p className="mb-10 text-sm text-[var(--text-dim)]">Last updated: February 19, 2026</p>
+        <p className="mb-10 text-sm text-[var(--text-dim)]">Last updated: February 23, 2026</p>
 
         <div className="site-divider mb-10" />
 
@@ -113,6 +119,16 @@ export default function PrivacyPage() {
           </section>
 
           <section>
+            <h2>Booking a Call</h2>
+            <p>
+              If you book a call through this site, the following information is collected: your name,
+              email address, company name (optional), company stage (optional), and any context you provide.
+              This data is sent to Google Calendar to create a calendar event and to Gmail to send you a
+              confirmation email. It is used solely for scheduling and is never sold or shared beyond this purpose.
+            </p>
+          </section>
+
+          <section>
             <h2>Contact Information</h2>
             <p>
               If you reach out via the email link on this site, your email address and message content
@@ -128,6 +144,7 @@ export default function PrivacyPage() {
               <li><strong>Vercel</strong> — Hosting and analytics</li>
               <li><strong>Google Fonts</strong> — Typography (loaded from Google servers)</li>
               <li><strong>Buttondown</strong> — Newsletter subscriptions. If you subscribe to the newsletter, your email address is sent to Buttondown for delivery. Buttondown&apos;s privacy policy governs how they handle your data.</li>
+              <li><strong>Google Calendar &amp; Gmail</strong> — Call scheduling and booking confirmation emails</li>
             </ul>
             <p>Each service has its own privacy policy governing data it collects.</p>
           </section>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCalendarClient, etToUtcIso, ALL_SLOTS, TIME_ZONE } from '@/lib/google-calendar';
 import { sendBookingEmails } from '@/lib/send-booking-email';
+import { bookingLimiter } from '@/lib/rate-limit';
 
 /**
  * POST /api/calendar/book
@@ -18,6 +19,27 @@ function labelTo24h(label: string): string | null {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (!bookingLimiter.check(ip)) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429 },
+    );
+  }
+
+  // CSRF protection: verify the request originates from our own site
+  const origin = request.headers.get('origin');
+  const allowedOrigins = ['https://minamankarious.com', 'https://www.minamankarious.com'];
+  if (process.env.NODE_ENV === 'development') {
+    allowedOrigins.push('http://localhost:3000');
+  }
+  if (!origin || !allowedOrigins.includes(origin)) {
+    return NextResponse.json(
+      { error: 'Forbidden' },
+      { status: 403 },
+    );
+  }
+
   let body: Record<string, string>;
   try {
     body = await request.json();

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import ArticlesPageClient from '@/components/ArticlesPageClient';
-import { getAllArticlesSorted } from '@/data/articles';
+import { getArticleSummaries } from '@/data/articles';
 
 export const metadata: Metadata = {
   title: 'Articles',
@@ -43,8 +43,7 @@ export const metadata: Metadata = {
 };
 
 export default function ArticlesPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const articles = getAllArticlesSorted().map(({ content, ...rest }) => rest);
+  const articles = getArticleSummaries();
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',

@@ -41,13 +41,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...articleEntries,
     {
+      url: "https://minamankarious.com/book",
+      lastModified: siteLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: "https://minamankarious.com/privacy",
       lastModified: new Date("2026-02-19"),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: "https://minamankarious.com/fan-controller/",
+      url: "https://minamankarious.com/fan-controller",
       lastModified: new Date("2026-02-10"),
       changeFrequency: "monthly",
       priority: 0.6,

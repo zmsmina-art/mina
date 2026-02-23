@@ -64,12 +64,12 @@ export default function SocialProofSection() {
                   <Quote size={18} />
                 </div>
                 <blockquote className="text-sm leading-relaxed text-[var(--text-muted)]">
-                  {t.quote}
+                  <p>{t.quote}</p>
+                  <footer className="mt-5 border-t border-[var(--stroke-soft)] pt-4">
+                    <p className="text-sm text-[var(--text-primary)]">{t.name}</p>
+                    <p className="text-xs text-[var(--text-dim)]">{t.company}</p>
+                  </footer>
                 </blockquote>
-                <div className="mt-5 border-t border-[var(--stroke-soft)] pt-4">
-                  <p className="text-sm text-[var(--text-primary)]">{t.name}</p>
-                  <p className="text-xs text-[var(--text-dim)]">{t.company}</p>
-                </div>
               </div>
             </article>
           ))}

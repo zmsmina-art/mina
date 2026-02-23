@@ -273,6 +273,11 @@ export default function RootLayout({
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
       </head>
       <body className="antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.body.classList.toggle('has-site-theme',!!document.querySelector('main.site-theme'))`,
+          }}
+        />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

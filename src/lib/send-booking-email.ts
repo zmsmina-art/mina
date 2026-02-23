@@ -11,6 +11,16 @@ interface BookingDetails {
   meetLink: string | null;
 }
 
+/** Escape HTML special characters to prevent XSS in email templates */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /** Format YYYY-MM-DD into a readable date like "Monday, March 17, 2025" */
 function formatDate(dateStr: string): string {
   const [y, m, d] = dateStr.split('-').map(Number);
@@ -101,11 +111,17 @@ function bookerEmailHtml(details: BookingDetails): string {
 function minaEmailHtml(details: BookingDetails): string {
   const formattedDate = formatDate(details.date);
 
+  const safeName = escapeHtml(details.name);
+  const safeEmail = escapeHtml(details.email);
+  const safeCompany = details.company ? escapeHtml(details.company) : undefined;
+  const safeStage = details.companyStage ? escapeHtml(details.companyStage) : undefined;
+  const safeContext = details.context ? escapeHtml(details.context) : undefined;
+
   const detailRows = [
-    { label: 'Name', value: details.name },
-    { label: 'Email', value: `<a href="mailto:${details.email}" style="color:#8b5cf6;text-decoration:none;">${details.email}</a>` },
-    details.company ? { label: 'Company', value: details.company } : null,
-    details.companyStage ? { label: 'Stage', value: details.companyStage } : null,
+    { label: 'Name', value: safeName },
+    { label: 'Email', value: `<a href="mailto:${safeEmail}" style="color:#8b5cf6;text-decoration:none;">${safeEmail}</a>` },
+    safeCompany ? { label: 'Company', value: safeCompany } : null,
+    safeStage ? { label: 'Stage', value: safeStage } : null,
     { label: 'Date', value: formattedDate },
     { label: 'Time', value: `${details.time} ET` },
   ].filter(Boolean) as { label: string; value: string }[];
@@ -119,12 +135,12 @@ function minaEmailHtml(details: BookingDetails): string {
     )
     .join('');
 
-  const contextSection = details.context
+  const contextSection = safeContext
     ? `<tr>
         <td style="padding:16px 24px 24px;" colspan="2">
           <p style="margin:0 0 8px;color:#a3a3a3;font-size:13px;text-transform:uppercase;letter-spacing:0.05em;">Context</p>
           <div style="background:#1a1a1a;border-radius:8px;border:1px solid #262626;padding:16px;">
-            <p style="margin:0;color:#d4d4d4;font-size:14px;line-height:1.6;white-space:pre-wrap;">${details.context}</p>
+            <p style="margin:0;color:#d4d4d4;font-size:14px;line-height:1.6;white-space:pre-wrap;">${safeContext}</p>
           </div>
         </td>
       </tr>`
@@ -148,7 +164,7 @@ function minaEmailHtml(details: BookingDetails): string {
         <table width="560" cellpadding="0" cellspacing="0" style="background:#141414;border-radius:16px;border:1px solid #262626;overflow:hidden;">
           <tr>
             <td style="padding:32px 24px 16px;border-bottom:1px solid #262626;">
-              <h1 style="margin:0;font-size:22px;color:#f5f5f5;font-weight:600;">New booking from ${details.name}</h1>
+              <h1 style="margin:0;font-size:22px;color:#f5f5f5;font-weight:600;">New booking from ${safeName}</h1>
             </td>
           </tr>
           <tr>
@@ -207,6 +223,8 @@ export async function sendBookingEmails(details: BookingDetails): Promise<void> 
           senderEmail,
           senderEmail,
           `New booking: ${details.name}${details.company ? ` (${details.company})` : ''} — ${formatDate(details.date)} at ${details.time} ET`,
+          // Note: subject line is plain text (not HTML) so no XSS risk there,
+          // but the HTML body below uses escaped values via minaEmailHtml()
           minaEmailHtml(details),
         ),
       },

@@ -33,7 +33,7 @@ export async function GET() {
     <managingEditor>mina@olunix.com (Mina Mankarious)</managingEditor>
     <webMaster>mina@olunix.com (Mina Mankarious)</webMaster>
     <image>
-      <url>${siteUrl}/og.png</url>
+      <url>${siteUrl}/api/og</url>
       <title>Mina Mankarious</title>
       <link>${siteUrl}</link>
     </image>${rssItems}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCalendarClient, etToUtcIso, ALL_SLOTS, TIME_ZONE } from '@/lib/google-calendar';
+import { availabilityLimiter } from '@/lib/rate-limit';
 
 /**
  * GET /api/calendar/availability?date=2025-03-15
@@ -9,6 +10,14 @@ import { getCalendarClient, etToUtcIso, ALL_SLOTS, TIME_ZONE } from '@/lib/googl
  */
 
 export async function GET(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (!availabilityLimiter.check(ip)) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429 },
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const dateStr = searchParams.get('date');
 

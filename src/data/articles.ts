@@ -1155,6 +1155,13 @@ export function getAllArticlesSorted(): Article[] {
   );
 }
 
+export type ArticleSummary = Omit<Article, 'content'>;
+
+export function getArticleSummaries(): ArticleSummary[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return getAllArticlesSorted().map(({ content, ...rest }) => rest);
+}
+
 export function getRelatedArticles(slug: string, count: number = 3): Article[] {
   const current = articles.find((a) => a.slug === slug);
   if (!current) return [];

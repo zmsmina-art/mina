@@ -66,7 +66,7 @@ export default function MotionRuntime() {
     const defaultTheme = resolveDefaultTheme(pathname);
     setSectionTheme(defaultTheme);
     html.setAttribute('data-page-path', pathname);
-    document.body.classList.toggle('has-site-theme', !!document.querySelector('main.site-theme'));
+    // has-site-theme is set by an inline script in layout.tsx before paint to avoid FOUC
 
     const motionNodes = Array.from(document.querySelectorAll<HTMLElement>(MOTION_SELECTOR));
     if (reducedMotion) {
