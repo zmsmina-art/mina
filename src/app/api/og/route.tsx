@@ -15,11 +15,19 @@ const cormorantSemiBold = fetch(
   new URL('https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_iE9GnM.ttf')
 ).then((res) => res.arrayBuffer());
 
+const cormorantItalic = fetch(
+  new URL('https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf')
+).then((res) => res.arrayBuffer());
+
+const dmSansBlack = fetch(
+  new URL('https://fonts.gstatic.com/s/dmsans/v17/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAC5thTg.ttf')
+).then((res) => res.arrayBuffer());
+
 /* ------------------------------------------------------------------ */
-/*  Atmospheric background shell                                       */
+/*  Dark atmospheric shell (default + newsletter)                      */
 /* ------------------------------------------------------------------ */
 
-function OGShell({
+function DarkShell({
   children,
   footerLeft,
   footerRight,
@@ -40,7 +48,7 @@ function OGShell({
         background: '#050505',
       }}
     >
-      {/* Deep atmospheric gradient — matches body.has-site-theme */}
+      {/* Deep atmospheric gradient */}
       <div
         style={{
           position: 'absolute',
@@ -54,7 +62,7 @@ function OGShell({
         }}
       />
 
-      {/* Soft purple glow bloom — top right */}
+      {/* Purple glow bloom — top right */}
       <div
         style={{
           position: 'absolute',
@@ -68,7 +76,7 @@ function OGShell({
         }}
       />
 
-      {/* Warm white glow bloom — bottom left */}
+      {/* White glow bloom — bottom left */}
       <div
         style={{
           position: 'absolute',
@@ -96,7 +104,7 @@ function OGShell({
         }}
       />
 
-      {/* Decorative vertical line — left side */}
+      {/* Decorative vertical line — left */}
       <div
         style={{
           position: 'absolute',
@@ -110,7 +118,7 @@ function OGShell({
         }}
       />
 
-      {/* Decorative corner detail — bottom right */}
+      {/* Decorative corner — bottom right */}
       <div
         style={{
           position: 'absolute',
@@ -124,7 +132,7 @@ function OGShell({
         }}
       />
 
-      {/* Main content area */}
+      {/* Content */}
       <div
         style={{
           display: 'flex',
@@ -138,7 +146,7 @@ function OGShell({
         {children}
       </div>
 
-      {/* Footer bar */}
+      {/* Footer */}
       <div
         style={{
           display: 'flex',
@@ -148,7 +156,6 @@ function OGShell({
           position: 'relative',
         }}
       >
-        {/* Divider line */}
         <div
           style={{
             position: 'absolute',
@@ -157,29 +164,13 @@ function OGShell({
             right: '96px',
             height: '1px',
             display: 'flex',
-            background:
-              'linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06))',
           }}
         />
-        <div
-          style={{
-            fontSize: 15,
-            color: 'rgba(255,255,255,0.3)',
-            display: 'flex',
-            letterSpacing: '0.02em',
-          }}
-        >
+        <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.3)', display: 'flex', letterSpacing: '0.02em' }}>
           {footerLeft}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 13,
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.5)',
-            letterSpacing: '0.1em',
-          }}
-        >
+        <div style={{ display: 'flex', fontSize: 13, fontWeight: 400, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em' }}>
           {footerRight}
         </div>
       </div>
@@ -197,97 +188,164 @@ export async function GET(request: NextRequest) {
   const excerpt = searchParams.get('excerpt');
   const type = searchParams.get('type');
 
-  const [cormorantRegularData, cormorantSemiBoldData] = await Promise.all([
-    cormorantRegular,
-    cormorantSemiBold,
-  ]);
+  const [cormorantRegularData, cormorantSemiBoldData, cormorantItalicData, dmSansBlackData] =
+    await Promise.all([cormorantRegular, cormorantSemiBold, cormorantItalic, dmSansBlack]);
 
-  const fonts = [
+  const darkFonts = [
     { name: 'Cormorant', data: cormorantSemiBoldData, weight: 600 as const },
     { name: 'Cormorant', data: cormorantRegularData, weight: 400 as const },
   ];
 
-  /* ---- Article OG ---- */
+  const articleFonts = [
+    { name: 'DMSans', data: dmSansBlackData, weight: 900 as const, style: 'normal' as const },
+    { name: 'CormorantItalic', data: cormorantItalicData, weight: 400 as const, style: 'italic' as const },
+    { name: 'Cormorant', data: cormorantRegularData, weight: 400 as const },
+  ];
+
+  /* ---- Article OG — light editorial style ---- */
   if (title) {
-    const displayTitle = title.length > 72 ? title.slice(0, 72) + '\u2026' : title;
+    const displayTitle = (title.length > 68 ? title.slice(0, 68) + '\u2026' : title).toLowerCase();
     const displayExcerpt = excerpt
-      ? excerpt.length > 120
-        ? excerpt.slice(0, 120) + '\u2026'
+      ? excerpt.length > 100
+        ? excerpt.slice(0, 100) + '\u2026'
         : excerpt
       : null;
 
     return new ImageResponse(
       (
-        <OGShell footerLeft="minamankarious.com" footerRight="ARTICLE">
-          {/* Author kicker */}
+        <div
+          style={{
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            overflow: 'hidden',
+            background: 'linear-gradient(135deg, #e4e0dc 0%, #d8d0e0 50%, #c8b8db 100%)',
+          }}
+        >
+          {/* Decorative large "mm" watermark — right side */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: '-30px',
+              display: 'flex',
+              transform: 'translateY(-50%)',
+              fontSize: 420,
+              fontFamily: 'CormorantItalic',
+              fontWeight: 400,
+              fontStyle: 'italic',
+              color: 'rgba(160,130,190,0.18)',
+              lineHeight: 0.85,
+              letterSpacing: '-0.04em',
+            }}
+          >
+            mm
+          </div>
+
+          {/* Content area */}
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              marginBottom: 32,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              flex: 1,
+              padding: '72px 88px',
+              position: 'relative',
             }}
           >
-            {/* Small decorative diamond */}
+            {/* "mm. journal" kicker */}
             <div
               style={{
-                width: 6,
-                height: 6,
-                display: 'flex',
-                background: 'rgba(176,137,255,0.7)',
-                transform: 'rotate(45deg)',
-              }}
-            />
-            <div
-              style={{
-                fontSize: 16,
-                fontFamily: 'Cormorant',
+                fontSize: 24,
+                fontFamily: 'CormorantItalic',
                 fontWeight: 400,
-                letterSpacing: '0.08em',
-                color: 'rgba(255,255,255,0.55)',
+                fontStyle: 'italic',
+                color: '#3a3a3a',
                 display: 'flex',
+                marginBottom: 24,
+                letterSpacing: '0.02em',
+              }}
+            >
+              mm. journal
+            </div>
+
+            {/* Title — bold black sans-serif */}
+            <div
+              style={{
+                fontSize: 64,
+                fontFamily: 'DMSans',
+                fontWeight: 900,
+                color: '#111111',
+                lineHeight: 1.05,
+                maxWidth: 820,
+                display: 'flex',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {displayTitle}
+            </div>
+
+            {/* Excerpt — italic serif */}
+            {displayExcerpt && (
+              <div
+                style={{
+                  fontSize: 22,
+                  fontFamily: 'CormorantItalic',
+                  fontWeight: 400,
+                  fontStyle: 'italic',
+                  color: '#4a4a4a',
+                  marginTop: 28,
+                  lineHeight: 1.45,
+                  maxWidth: 680,
+                  display: 'flex',
+                }}
+              >
+                {displayExcerpt}
+              </div>
+            )}
+          </div>
+
+          {/* Bottom bar */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '20px 88px 28px',
+              position: 'relative',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 15,
+                fontFamily: 'CormorantItalic',
+                fontWeight: 400,
+                fontStyle: 'italic',
+                color: '#6a6a6a',
+                display: 'flex',
+                letterSpacing: '0.02em',
               }}
             >
               Mina Mankarious
             </div>
-          </div>
-
-          {/* Title */}
-          <div
-            style={{
-              fontSize: 56,
-              fontFamily: 'Cormorant',
-              fontWeight: 600,
-              color: '#ffffff',
-              lineHeight: 1.12,
-              maxWidth: 920,
-              display: 'flex',
-              letterSpacing: '0.005em',
-            }}
-          >
-            {displayTitle}
-          </div>
-
-          {/* Excerpt */}
-          {displayExcerpt && (
             <div
               style={{
-                fontSize: 20,
+                fontSize: 14,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.38)',
-                marginTop: 28,
-                lineHeight: 1.55,
-                maxWidth: 720,
+                color: '#8a8a8a',
                 display: 'flex',
+                letterSpacing: '0.04em',
               }}
             >
-              {displayExcerpt}
+              minamankarious.com
             </div>
-          )}
-        </OGShell>
+          </div>
+        </div>
       ),
-      { width: 1200, height: 630, fonts }
+      { width: 1200, height: 630, fonts: articleFonts }
     );
   }
 
@@ -295,8 +353,7 @@ export async function GET(request: NextRequest) {
   if (type === 'newsletter') {
     return new ImageResponse(
       (
-        <OGShell footerLeft="minamankarious.com/newsletter" footerRight="SUBSCRIBE">
-          {/* Kicker */}
+        <DarkShell footerLeft="minamankarious.com/newsletter" footerRight="SUBSCRIBE">
           <div
             style={{
               display: 'flex',
@@ -328,7 +385,6 @@ export async function GET(request: NextRequest) {
             </div>
           </div>
 
-          {/* Headline */}
           <div
             style={{
               fontSize: 52,
@@ -344,7 +400,6 @@ export async function GET(request: NextRequest) {
             Entrepreneurship, marketing, and building businesses worth talking about.
           </div>
 
-          {/* Byline */}
           <div
             style={{
               fontSize: 19,
@@ -357,17 +412,16 @@ export async function GET(request: NextRequest) {
           >
             by Mina Mankarious
           </div>
-        </OGShell>
+        </DarkShell>
       ),
-      { width: 1200, height: 630, fonts }
+      { width: 1200, height: 630, fonts: darkFonts }
     );
   }
 
   /* ---- Default / Profile OG ---- */
   return new ImageResponse(
     (
-      <OGShell footerLeft="minamankarious.com" footerRight="PORTFOLIO">
-        {/* Monogram */}
+      <DarkShell footerLeft="minamankarious.com" footerRight="PORTFOLIO">
         <div
           style={{
             fontSize: 88,
@@ -383,19 +437,16 @@ export async function GET(request: NextRequest) {
           Mina Mankarious
         </div>
 
-        {/* Separator line */}
         <div
           style={{
             width: 64,
             height: 1,
             display: 'flex',
-            background:
-              'linear-gradient(90deg, rgba(255,255,255,0.5), rgba(176,137,255,0.4))',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0.5), rgba(176,137,255,0.4))',
             marginBottom: 24,
           }}
         />
 
-        {/* Role */}
         <div
           style={{
             fontSize: 22,
@@ -410,7 +461,6 @@ export async function GET(request: NextRequest) {
           Founder & CEO of Olunix
         </div>
 
-        {/* Description */}
         <div
           style={{
             fontSize: 19,
@@ -425,8 +475,8 @@ export async function GET(request: NextRequest) {
         >
           Helping AI startups with positioning, marketing systems, and practical growth strategy.
         </div>
-      </OGShell>
+      </DarkShell>
     ),
-    { width: 1200, height: 630, fonts }
+    { width: 1200, height: 630, fonts: darkFonts }
   );
 }
