@@ -43,7 +43,7 @@ export default function WritingSection({ displayedArticles, totalArticles }: Wri
         <article className="case-card relative mt-9 overflow-hidden" data-motion="flip" style={motionDelay(220)}>
           <CardGlow spread={16} proximity={48} />
           <div className="relative z-[1]">
-            <p className="text-[0.66rem] lowercase tracking-[0.2em] text-[var(--text-dim)]">Case Snapshot</p>
+            <p className="text-site-kicker lowercase tracking-[0.2em] text-[var(--text-dim)]">Case Snapshot</p>
             <h3 className="mt-2 text-xl text-[var(--text-primary)]">Repositioning GrowByte into Olunix</h3>
             <div className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
               <p>

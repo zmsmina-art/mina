@@ -9,7 +9,7 @@ import './globals.css';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-cormorant',
@@ -17,7 +17,7 @@ const cormorant = Cormorant_Garamond({
 
 const ebGaramond = EB_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500'],
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-eb-garamond',
@@ -25,8 +25,8 @@ const ebGaramond = EB_Garamond({
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['400'],
+  style: ['italic'],
   display: 'swap',
   variable: '--font-playfair',
 });

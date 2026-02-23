@@ -283,7 +283,7 @@ export function NewsletterModal({
                       </AnimatePresence>
 
                       <motion.p
-                        className="mt-4 text-[0.68rem] leading-relaxed text-[var(--text-dim)]"
+                        className="mt-4 text-site-kicker leading-relaxed text-[var(--text-dim)]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={stepTransition(4)}

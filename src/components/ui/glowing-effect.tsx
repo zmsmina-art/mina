@@ -4,6 +4,7 @@ import { memo, useCallback, useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 import { animate } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { subscribePointer } from '@/lib/pointer';
 
 interface GlowingEffectProps {
   blur?: number;
@@ -99,29 +100,13 @@ const GlowingEffect = memo(
     useEffect(() => {
       if (disabled) return;
 
-      let scrollRaf = 0;
-      const handleScroll = () => {
-        if (!scrollRaf) {
-          scrollRaf = requestAnimationFrame(() => {
-            scrollRaf = 0;
-            handleMove();
-          });
-        }
-      };
-      const handlePointerMove = (e: PointerEvent) => handleMove(e);
-
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      document.body.addEventListener('pointermove', handlePointerMove, {
-        passive: true,
-      });
+      const unsubscribe = subscribePointer((x, y) => handleMove({ x, y }));
 
       return () => {
-        if (scrollRaf) cancelAnimationFrame(scrollRaf);
+        unsubscribe();
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
         }
-        window.removeEventListener('scroll', handleScroll);
-        document.body.removeEventListener('pointermove', handlePointerMove);
       };
     }, [handleMove, disabled]);
 

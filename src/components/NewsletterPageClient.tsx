@@ -193,7 +193,7 @@ export default function NewsletterPageClient() {
                     )}
                   </AnimatePresence>
 
-                  <p className="mt-4 text-[0.68rem] leading-relaxed text-[var(--text-dim)]">
+                  <p className="mt-4 text-site-kicker leading-relaxed text-[var(--text-dim)]">
                     Powered by Buttondown. Read the{' '}
                     <Link
                       href="/privacy"

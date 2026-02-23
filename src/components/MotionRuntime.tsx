@@ -66,6 +66,7 @@ export default function MotionRuntime() {
     const defaultTheme = resolveDefaultTheme(pathname);
     setSectionTheme(defaultTheme);
     html.setAttribute('data-page-path', pathname);
+    document.body.classList.toggle('has-site-theme', !!document.querySelector('main.site-theme'));
 
     const motionNodes = Array.from(document.querySelectorAll<HTMLElement>(MOTION_SELECTOR));
     if (reducedMotion) {

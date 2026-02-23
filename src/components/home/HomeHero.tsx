@@ -94,7 +94,7 @@ export default function HomeHero() {
           </div>
 
           <div className="mt-5 space-y-4">
-            <p className="text-[0.66rem] lowercase tracking-[0.18em] text-[var(--text-dim)]">Command Snapshot</p>
+            <p className="text-site-kicker lowercase tracking-[0.18em] text-[var(--text-dim)]">Command Snapshot</p>
             <p className="text-sm leading-relaxed text-[var(--text-primary)]">
               Engineering-trained operator translating technical depth into positioning clarity and market traction for AI startups.
             </p>

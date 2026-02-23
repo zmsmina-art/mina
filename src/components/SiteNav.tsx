@@ -255,6 +255,7 @@ export default function SiteNav() {
         id="mobile-nav"
         role="dialog"
         aria-modal={isOpen ? true : undefined}
+        aria-hidden={!isOpen}
         aria-label="Navigation menu"
         onKeyDown={isOpen ? handleMobileKeyDown : undefined}
         className={`command-mobile-panel ${isOpen ? 'is-open mobile-nav-open' : ''}`}
