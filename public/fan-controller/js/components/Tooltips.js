@@ -2,7 +2,7 @@ import { el } from '../utils/DOMHelpers.js';
 
 export class Tooltips {
   constructor() {
-    this.tooltip = el('div', { className: 'tooltip', role: 'tooltip', id: 'fc-tooltip' });
+    this.tooltip = el('div', { className: 'tooltip', id: 'fc-tooltip' });
     document.body.appendChild(this.tooltip);
     this._bindGlobal();
   }

@@ -57,6 +57,9 @@ const nextConfig = {
   // Keep dev and prod build artifacts separate to avoid chunk corruption
   // when `next dev` and `next build` are run in the same workspace.
   distDir: isDev ? '.next-dev' : '.next',
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
   async headers() {
     return [
       {

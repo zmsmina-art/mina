@@ -61,10 +61,11 @@ export default function WorkSection() {
                   <div className="logo-pill timeline-logo-shell">
                     <Image
                       src="/habits-together-logo.png"
-                      alt="Habits Together"
+                      alt=""
                       width={56}
                       height={56}
                       loading="lazy"
+                      sizes="56px"
                       className="timeline-logo h-10 w-10 object-contain md:h-11 md:w-11"
                     />
                   </div>

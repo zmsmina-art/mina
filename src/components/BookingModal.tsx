@@ -584,6 +584,7 @@ export function BookingModal({
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your name *"
                         required
+                        aria-label="Your name"
                         className="w-full rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                       />
                       <div>
@@ -593,6 +594,7 @@ export function BookingModal({
                           onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
                           placeholder="Email address *"
                           required
+                          aria-label="Email address"
                           className="w-full rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                         />
                         {emailError && (
@@ -604,11 +606,13 @@ export function BookingModal({
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                         placeholder="Company name"
+                        aria-label="Company name"
                         className="w-full rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                       />
                       <select
                         value={companyStage}
                         onChange={(e) => setCompanyStage(e.target.value)}
+                        aria-label="Company stage"
                         className="booking-select w-full rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-[var(--text-primary)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                       >
                         <option value="">Company stage (optional)</option>
@@ -622,6 +626,7 @@ export function BookingModal({
                         placeholder="Brief context — what are you working on?"
                         maxLength={500}
                         rows={3}
+                        aria-label="Brief context"
                         className="w-full resize-none rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                       />
                     </motion.div>

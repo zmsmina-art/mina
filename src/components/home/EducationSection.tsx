@@ -24,6 +24,7 @@ export default function EducationSection() {
                     width={64}
                     height={64}
                     loading="lazy"
+                    sizes="56px"
                     className="timeline-logo h-12 w-12 object-contain md:h-14 md:w-14 drop-shadow-[0_0_6px_rgba(212,175,55,0.3)]"
                   />
                 </div>

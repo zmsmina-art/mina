@@ -202,7 +202,7 @@ export default function SiteNav() {
     <>
       <nav className={`command-nav ${isScrolled ? 'command-nav--scrolled' : ''}`}>
         <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
-          <Link href="/" aria-label="Mina Mankarious home" className="command-brand brand-mark">
+          <Link href="/" aria-label="mm. – Mina Mankarious, home" className="command-brand brand-mark">
             mm.
           </Link>
 

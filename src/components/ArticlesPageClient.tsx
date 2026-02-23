@@ -253,6 +253,7 @@ export default function ArticlesPageClient({ articles }: { articles: ArticleSumm
                         index={index}
                         animationMode="static"
                         enableRouteTransition
+                        headingLevel="h2"
                       />
                     </motion.li>
                   );

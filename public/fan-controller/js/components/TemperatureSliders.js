@@ -47,7 +47,7 @@ export class TemperatureSliders {
     const lbl = el('div', { className: 'slider-group__label', textContent: label });
     group.appendChild(lbl);
 
-    const input = el('input', { type: 'range', min: '0', max: '1023', value: '0', step: '1' });
+    const input = el('input', { type: 'range', min: '0', max: '1023', value: '0', step: '1', 'aria-label': label });
     input.addEventListener('input', () => {
       this.state.set(stateKey, parseInt(input.value, 10));
     });

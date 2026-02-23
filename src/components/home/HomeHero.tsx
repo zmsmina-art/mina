@@ -58,7 +58,7 @@ export default function HomeHero() {
             >
               <Image
                 src="/olunix.svg"
-                alt="Olunix"
+                alt=""
                 width={14}
                 height={14}
                 className="h-[14px] w-[14px] object-contain"
@@ -88,6 +88,7 @@ export default function HomeHero() {
               width={320}
               height={420}
               className="block h-auto w-full object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 320px"
               priority
             />
           </div>

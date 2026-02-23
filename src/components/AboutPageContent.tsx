@@ -57,6 +57,7 @@ export default function AboutPageContent() {
                   width={280}
                   height={360}
                   className="block h-auto w-full object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 280px"
                   priority
                 />
               </div>

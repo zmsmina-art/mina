@@ -10,6 +10,7 @@ interface ArticleCardProps {
   index?: number;
   animationMode?: 'reveal' | 'static';
   enableRouteTransition?: boolean;
+  headingLevel?: 'h2' | 'h3';
 }
 
 export default function ArticleCard({
@@ -17,6 +18,7 @@ export default function ArticleCard({
   index = 0,
   animationMode = 'reveal',
   enableRouteTransition = false,
+  headingLevel: Heading = 'h3',
 }: ArticleCardProps) {
   const formattedDate = new Date(article.publishedAt + 'T00:00:00').toLocaleDateString('en-US', {
     year: 'numeric',
@@ -48,10 +50,10 @@ export default function ArticleCard({
           ))}
         </div>
 
-        <h3 className="mb-2 flex items-start gap-2 text-lg leading-snug text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-gold-soft)] sm:text-xl">
+        <Heading className="mb-2 flex items-start gap-2 text-lg leading-snug text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-gold-soft)] sm:text-xl">
           {article.title}
           <ArrowUpRight size={14} className="mt-1 shrink-0 text-[var(--text-dim)] transition-colors group-hover:text-[var(--accent-gold-soft)]" />
-        </h3>
+        </Heading>
 
         <p className="mb-4 text-sm leading-relaxed text-[var(--text-muted)]">{article.excerpt}</p>
 

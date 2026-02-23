@@ -12,7 +12,7 @@ const authorityTimeline = [
     period: 'Sep 2024 - Present',
     detail: 'Marketing and consulting for AI startups with an execution-first operating model.',
     logo: '/olunix.svg',
-    logoAlt: 'Olunix',
+    logoAlt: '',
     href: 'https://olunix.com',
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
@@ -22,7 +22,7 @@ const authorityTimeline = [
     period: 'Jan 2026 - Present',
     detail: 'Building high-leverage founder connections and business development pathways.',
     logo: '/boardy-logo.png',
-    logoAlt: 'Boardy',
+    logoAlt: '',
     href: 'https://boardy.ai',
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
@@ -32,7 +32,7 @@ const authorityTimeline = [
     period: 'Sep 2025 - Present',
     detail: 'Actively serving in the church and discerning a call to ministry.',
     logo: '/hope-logo.webp',
-    logoAlt: 'Hope Bible Church',
+    logoAlt: '',
     href: 'https://hopeoakville.ca',
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
@@ -42,7 +42,7 @@ const authorityTimeline = [
     period: 'Aug 2022 - Aug 2024',
     detail: 'Two years in high-volume frontline operations, customer communication, and consistency.',
     logo: '/toyota-logo.png',
-    logoAlt: 'Toyota',
+    logoAlt: '',
     href: 'https://miltontoyota.com',
     logoClassName: 'timeline-logo h-8 w-11 object-contain md:h-9 md:w-11 invert brightness-[1.8]',
   },
@@ -112,6 +112,7 @@ export default function AuthoritySection() {
                           width={56}
                           height={56}
                           loading="lazy"
+                          sizes="56px"
                           className={item.logoClassName}
                         />
                       </div>
