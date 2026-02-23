@@ -1,7 +1,5 @@
 import { useCallback, useState } from 'react';
 
-const BUTTONDOWN_USERNAME = 'minamankarious';
-
 export type SubscribeState = 'idle' | 'loading' | 'success' | 'error';
 
 export function useNewsletterSubscribe() {
@@ -26,19 +24,19 @@ export function useNewsletterSubscribe() {
       setErrorMsg('');
 
       try {
-        const res = await fetch(
-          `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ email, tag: 'website' }),
-          }
-        );
-        if (res.ok || res.status === 201) {
+        const res = await fetch('/api/newsletter/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email.trim(), tag: 'website' }),
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if (res.ok) {
           setState('success');
         } else {
           setState('error');
-          setErrorMsg('Something went wrong. Please try again.');
+          setErrorMsg(data?.error || 'Something went wrong. Please try again.');
         }
       } catch {
         setState('error');
