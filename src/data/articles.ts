@@ -11,6 +11,101 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "what-nobody-tells-you-before-you-hire-a-marketing-consultant",
+    title: "What Nobody Tells You Before You Hire a Marketing Consultant",
+    excerpt:
+      "A founder spent $40K on marketing consulting and had nothing to show for it. Here\u2019s why the industry rewards diagnosis over delivery \u2014 and what to look for instead.",
+    content: `
+I sat across from a founder last month who had just fired his third marketing consultant in two years.
+
+He wasn\u2019t angry. He was tired. He\u2019d spent over $40,000 on marketing consulting and couldn\u2019t point to a single system that was still running. Every engagement followed the same arc: big promises, a flurry of activity, some slides, and then\u2026 nothing. No infrastructure left behind. No process he could repeat. Just a Notion board full of "strategic recommendations" that nobody acted on.
+
+"I don\u2019t even know what marketing consulting is supposed to deliver anymore," he told me.
+
+I didn\u2019t have a quick answer. Because honestly? He\u2019s not wrong to be confused.
+
+## The Marketing Consulting Industry Has an Accountability Problem
+
+Here\u2019s something most marketing consultants won\u2019t tell you: **a significant portion of what gets sold as marketing consulting is just organized opinion.**
+
+Someone with a nice LinkedIn profile shows up, interviews your team for two weeks, delivers a strategy deck, and invoices you. The deck has good ideas. It might even have great ideas. But ideas without implementation are just overhead.
+
+The dirty secret of marketing consulting is that most consultants are incentivized to diagnose, not to fix. Their business model depends on you needing more consulting. If they actually built a system that ran without them, they\u2019d lose the retainer.
+
+I\u2019m not saying every consultant operates this way. Some are exceptional. But the structure of the industry \u2014 diagnosis separated from execution \u2014 creates a misalignment that most clients don\u2019t see until they\u2019ve already spent the budget.
+
+## How I Learned This the Hard Way
+
+When I started Olunix, I modeled our work after what I thought marketing consulting was supposed to look like. We\u2019d do the research. Build the strategy. Present the deck. Hand it over.
+
+And then I\u2019d watch it collect dust.
+
+It didn\u2019t matter how good the strategy was. If the founder didn\u2019t have the team, the time, or the technical ability to execute it, the strategy was worthless. We\u2019d delivered exactly what was promised, and the client still didn\u2019t get results.
+
+That ate at me. Because [I didn\u2019t get into this to deliver decks](/articles/why-i-dont-sell-hard). I got into it to help companies grow.
+
+So I changed the model. Instead of just consulting, we started building. Instead of handing over strategy, we\u2019d implement it alongside the client. Instead of billing for recommendations, we\u2019d own the outcome.
+
+It felt risky at the time. Now it feels obvious.
+
+## The Missing Piece: Systems, Not Campaigns
+
+Here\u2019s where [my engineering background](/articles/from-engineering-to-marketing-why-systems-thinking-matters) changes the conversation.
+
+Most marketing consulting operates at the campaign level. "Run this ad. Post this content. Try this channel." Campaigns are one-off efforts. They produce spikes, not growth curves.
+
+What most companies actually need isn\u2019t a better campaign. It\u2019s a better system. A repeatable, measurable machine that turns attention into customers. That\u2019s not marketing consulting in the traditional sense. It\u2019s closer to marketing systems engineering \u2014 applying the rigor of engineering to the chaos of marketing.
+
+When we work with a client now, we don\u2019t start with "what should we post?" We start with:
+
+- Where are your customers right now?
+- What\u2019s the path from awareness to purchase?
+- Where does that path break?
+- What data do we have at each stage?
+- What can we automate, and what needs a human?
+
+Then we build. Test. Measure. Iterate. Just like engineering a product.
+
+The result isn\u2019t a strategy deck. It\u2019s a system that keeps running whether we\u2019re involved or not. That\u2019s the standard marketing consulting should be held to \u2014 but rarely is.
+
+## What to Actually Look for When Hiring
+
+If you\u2019re considering hiring a marketing consultant \u2014 or a firm that does marketing and consulting \u2014 here\u2019s the framework I\u2019d use:
+
+**1. Ask what you\u2019ll own when the engagement ends.** If the answer is "a strategy document," be cautious. You want systems, templates, and processes that your team can operate independently. The best marketing consultants make themselves unnecessary.
+
+**2. Ask how they measure success.** Vague metrics like "brand awareness" or "engagement" without clear definitions are a red flag. Good marketing consulting ties back to business outcomes: leads, revenue, retention. The numbers should be specific enough to hold someone accountable.
+
+**3. Ask about implementation.** Strategy without execution is expensive thinking. Find out whether they\u2019ll help you build the thing, or just tell you what to build. The gap between those two is where most consulting engagements die.
+
+**4. Ask for their failure stories.** Anyone who claims a 100% success rate is either lying or hasn\u2019t taken on hard enough problems. The best consultants have learned from engagements that didn\u2019t work. [I\u2019ve talked about my own lessons openly.](/articles/what-i-learned-from-my-first-10-clients) The ones who can\u2019t tell you what went wrong probably haven\u2019t interrogated their own process.
+
+**5. Look at how they think, not just what they\u2019ve done.** Case studies matter. But more important is whether their mental model matches the complexity of your problem. A consultant who thinks in systems will serve you differently than one who thinks in tactics.
+
+## The Founder From the Coffee Shop
+
+That founder I mentioned at the beginning? We ended up working together.
+
+We didn\u2019t start with a strategy deck. We spent the first two weeks inside his analytics, his CRM, and his product data. We found that 60% of his marketing spend was going to a channel that produced leads who never converted past the first call. Nobody had connected those two data points because the previous consultants looked at marketing metrics and sales metrics separately.
+
+We cut the wasted spend, redirected it to two channels that his own data said were working, and built a lead nurture sequence that actually matched his sales cycle. Within three months, his pipeline had doubled on a lower total budget.
+
+Nothing we did was revolutionary. It was just rigorous. It was [engineering applied to marketing](/articles/from-engineering-to-marketing-why-systems-thinking-matters). And it\u2019s the kind of result that marketing consulting should deliver every time \u2014 but usually doesn\u2019t.
+
+## The Real Question
+
+The marketing consulting industry isn\u2019t broken because the people in it are bad. Most are smart, experienced, and well-intentioned. It\u2019s broken because the model rewards the wrong things. It rewards diagnosis over delivery. Strategy over systems. Insight over implementation.
+
+If you\u2019re a founder looking for marketing help, don\u2019t hire someone to think for you. [Hire someone to build with you.](/articles/why-i-dont-sell-hard) The difference is everything.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-23",
+    updatedAt: "2026-02-23",
+    readingTime: "7 min read",
+    tags: ["Marketing", "Consulting", "Business"],
+  },
+  {
     slug: "seo-vs-paid-ads-which-should-your-startup-prioritize",
     title: "SEO vs. Paid Ads: Which Should Your Startup Prioritize?",
     excerpt:
