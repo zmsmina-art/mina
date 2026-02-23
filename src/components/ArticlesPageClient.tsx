@@ -98,7 +98,7 @@ export default function ArticlesPageClient({ articles }: { articles: ArticleSumm
           <motion.button
             type="button"
             onClick={() => setSortOrder((prev) => (prev === 'newest' ? 'oldest' : 'newest'))}
-            aria-label={sortOrder === 'newest' ? 'Sort articles oldest first' : 'Sort articles newest first'}
+            aria-label={sortOrder === 'newest' ? 'Newest first' : 'Oldest first'}
             aria-pressed={sortOrder === 'oldest'}
             className="ghost-btn article-sort-toggle w-full justify-center sm:w-auto"
             whileTap={motionProfile.reduced ? undefined : { scale: 0.99 }}
@@ -167,6 +167,7 @@ export default function ArticlesPageClient({ articles }: { articles: ArticleSumm
             <button
               type="button"
               onClick={() => setSelectedTags([])}
+              aria-pressed={!isFiltering}
               className={`filter-chip rounded-full border px-3 py-1.5 text-xs lowercase tracking-[0.08em] transition-all ${
                 !isFiltering
                   ? 'border-[var(--accent-gold)] bg-[var(--accent-gold)]/15 text-[var(--accent-gold-soft)]'

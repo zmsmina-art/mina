@@ -69,6 +69,7 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   });
 
   const proseEnterY = motionProfile.reduced ? 0 : motionProfile.distances.proseY;
@@ -204,7 +205,7 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
                       <div className="mt-3 flex items-center gap-4 text-xs text-[var(--text-dim)]">
                         <time dateTime={related.publishedAt} className="flex items-center gap-1.5">
                           <Calendar size={12} />
-                          {new Date(related.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                          {new Date(related.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
                         </time>
                         <span className="flex items-center gap-1.5">
                           <Clock size={12} />

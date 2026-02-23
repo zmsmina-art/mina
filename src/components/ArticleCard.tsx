@@ -24,6 +24,7 @@ export default function ArticleCard({
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    timeZone: 'UTC',
   });
 
   const wrapperClassName = animationMode === 'reveal' ? 'article-card-motion' : undefined;
