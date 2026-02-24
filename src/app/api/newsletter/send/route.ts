@@ -13,7 +13,7 @@ async function getSentEmailSubjects(): Promise<Set<string>> {
   let url: string | null = BUTTONDOWN_API_URL;
 
   while (url) {
-    const res = await fetch(url, {
+    const res: Response = await fetch(url, {
       headers: { Authorization: `Token ${BUTTONDOWN_API_KEY}` },
     });
 
@@ -22,7 +22,7 @@ async function getSentEmailSubjects(): Promise<Set<string>> {
       break;
     }
 
-    const data = await res.json();
+    const data: { results?: { subject?: string }[]; next?: string } = await res.json();
     for (const email of data.results ?? []) {
       if (email.subject) {
         subjects.add(email.subject);
