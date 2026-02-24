@@ -28,6 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: "https://minamankarious.com/work",
+      lastModified: siteLastModified,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: "https://minamankarious.com/articles",
       lastModified: siteLastModified,
       changeFrequency: "weekly",

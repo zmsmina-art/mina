@@ -29,6 +29,7 @@ function resolveDefaultTheme(pathname: string): string {
   if (pathname === '/about') return 'about';
   if (pathname === '/articles') return 'articles';
   if (pathname.startsWith('/articles/')) return 'article';
+  if (pathname === '/work') return 'case-studies';
   return 'default';
 }
 

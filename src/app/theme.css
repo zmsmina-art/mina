@@ -509,6 +509,12 @@ html[data-section-theme='about-story'] {
   --ambient-tertiary: rgba(10, 10, 10, 0.76);
 }
 
+html[data-section-theme='case-studies'] {
+  --ambient-primary: rgba(255, 255, 255, 0.16);
+  --ambient-secondary: rgba(183, 148, 255, 0.26);
+  --ambient-tertiary: rgba(9, 9, 9, 0.76);
+}
+
 html[data-section-theme='articles'] {
   --ambient-primary: rgba(255, 255, 255, 0.12);
   --ambient-secondary: rgba(122, 64, 242, 0.24);

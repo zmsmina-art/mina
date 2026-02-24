@@ -95,6 +95,10 @@
     grid-template-columns: 3.6rem 1px 1fr;
     gap: 1.5rem;
   }
+
+  .engagement-phase {
+    padding-left: 2.25rem;
+  }
 }
 
 /* ── Desktop fan controller refinements ── */

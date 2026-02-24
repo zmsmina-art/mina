@@ -40,24 +40,32 @@ export default function WritingSection({ displayedArticles, totalArticles }: Wri
           </Link>
         </div>
 
-        <article className="case-card relative mt-9 overflow-hidden" data-motion="flip" style={motionDelay(220)}>
-          <CardGlow spread={16} proximity={48} />
-          <div className="relative z-[1]">
-            <p className="text-site-kicker lowercase tracking-[0.2em] text-[var(--text-dim)]">Case Snapshot</p>
-            <h3 className="mt-2 text-xl text-[var(--text-primary)]">Repositioning GrowByte into Olunix</h3>
-            <div className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
-              <p>
-                <span className="text-[var(--accent-brass-soft)]">Problem:</span> Broad agency framing attracted misaligned demand.
-              </p>
-              <p>
-                <span className="text-[var(--accent-brass-soft)]">Approach:</span> Rebuilt messaging around AI startup growth and founder-led trust.
-              </p>
-              <p>
-                <span className="text-[var(--accent-brass-soft)]">Result:</span> Higher-quality inbound conversations and stronger strategic fit.
-              </p>
+        <Link href="/work" className="block" data-motion="flip" style={motionDelay(220)}>
+          <article className="case-card relative overflow-hidden">
+            <CardGlow spread={16} proximity={48} />
+            <div className="relative z-[1]">
+              <div className="flex items-center justify-between">
+                <p className="text-site-kicker lowercase tracking-[0.2em] text-[var(--text-dim)]">Case Snapshot</p>
+                <span className="inline-flex items-center gap-1 text-xs text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)]">
+                  View all case studies
+                  <ArrowUpRight size={12} />
+                </span>
+              </div>
+              <h3 className="mt-2 text-xl text-[var(--text-primary)]">Repositioning GrowByte into Olunix</h3>
+              <div className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
+                <p>
+                  <span className="text-[var(--accent-brass-soft)]">Problem:</span> Broad agency framing attracted misaligned demand.
+                </p>
+                <p>
+                  <span className="text-[var(--accent-brass-soft)]">Approach:</span> Rebuilt messaging around AI startup growth and founder-led trust.
+                </p>
+                <p>
+                  <span className="text-[var(--accent-brass-soft)]">Result:</span> Higher-quality inbound conversations and stronger strategic fit.
+                </p>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </Link>
 
         <div className="mt-8 space-y-6">
           {displayedArticles.map((article, index) => (
