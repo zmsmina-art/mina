@@ -11,6 +11,156 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "most-ai-startups-will-die-with-great-products",
+    title: "Most AI Startups Will Die With Great Products. Here\u2019s the Real Reason.",
+    excerpt:
+      "90% of AI startups will fail \u2014 and it won\u2019t be because of the technology. In a world where anyone can build anything, the only moat left is making people care. And almost nobody knows how.",
+    content: `
+I got a call last month from a founder who\u2019d raised $4.2 million for an AI startup. Great product. Clean UI. Genuinely useful technology that solved a real problem in healthcare documentation.
+
+He called me because after eight months of being live, he had 340 users. Not 340,000. Not 34,000. Three hundred and forty.
+
+His investors were getting nervous. His burn rate was $180K a month. And when I asked him what his go-to-market strategy looked like, he pulled up a Notion doc with the word "PLG" at the top and nothing underneath it.
+
+He wasn\u2019t stupid. He wasn\u2019t lazy. He\u2019d built something genuinely good. But he was about to become a statistic \u2014 and not because of the product.
+
+## The Graveyard Is Full of Great Products
+
+Here\u2019s something the tech world doesn\u2019t want to hear: **the AI startup graveyard isn\u2019t filled with companies that built bad products. It\u2019s filled with companies that never figured out how to make someone care.**
+
+The numbers are staggering. AI startups raised a record [$238 billion in total funding during 2025](https://news.crunchbase.com/ai/big-funding-trends-charts-eoy-2025/) \u2014 47% of all venture capital activity on the planet. The San Francisco Bay Area alone captured $122 billion. Money is not the problem.
+
+But the failure rate for AI startups sits at 90%, significantly higher than the ~70% for traditional tech companies. And here\u2019s the part that should terrify every technical founder reading this: **42% of them fail due to insufficient market demand.** Not insufficient technology. Not insufficient funding. Insufficient demand.
+
+They built it, and nobody came.
+
+I think about this constantly. Because I work with AI startups every day, and I keep seeing the same pattern. Brilliant engineers who can build anything, who genuinely believe \u2014 and are often right \u2014 that their product is better than the competition. And they\u2019re slowly dying anyway.
+
+## Everyone Can Build Now. That\u2019s the Problem.
+
+There\u2019s a term that\u2019s gone mainstream this year: **vibe coding.** The idea that you can describe what you want to build in plain English and AI handles the implementation. Non-technical founders are shipping paid products in two to four weeks. 92% of developers use AI coding tools daily. 41% of all code written globally is now AI-generated.
+
+A solo founder named Marc Lou built a product in a single day using AI tools that generated more monthly revenue than his previous three projects combined. He shipped 16 products in two years and hit $50K a month.
+
+This is incredible. It\u2019s also the single biggest threat to every AI startup that thinks their technology is their moat.
+
+Because here\u2019s what vibe coding actually means for the market: **the cost of building just dropped to near zero.** When anyone can build anything, the thing you built stops being special. The barrier to entry that used to protect technical founders \u2014 "we can build this and you can\u2019t" \u2014 is evaporating in real time.
+
+Google\u2019s VP of startups said it plainly last week: two types of AI startups are facing extinction \u2014 LLM wrappers and AI aggregators. "If you\u2019re really just counting on the back-end model to do all the work and you\u2019re almost white-labeling that model, the industry doesn\u2019t have a lot of patience for that anymore."
+
+The golden age of "raise money, figure it out later" is over. Welcome to the era of "figure it out, then raise money." And "it" isn\u2019t the technology. It\u2019s everything that happens after you build it.
+
+## The Trust Collapse Nobody\u2019s Talking About
+
+While founders were heads-down building, something happened to the world they\u2019re trying to sell into. **Trust collapsed.**
+
+Merriam-Webster named "slop" the 2025 Word of the Year \u2014 defined as digital content of low quality produced in quantity by artificial intelligence. A study of 65,000 URLs found that 52% of newly published articles are now AI-generated. YouTube deleted 16 AI slop channels totaling 4.7 billion views. Bandcamp banned AI-generated music entirely.
+
+And the consumer response has been brutal. 97% of consumers say authenticity is a key factor in their decision to support a brand. 48% feel that heavy reliance on AI content reduces authenticity. And here\u2019s the number that keeps me up at night: despite billions spent on AI-powered personalization, the percentage of consumers who say brands "don\u2019t get them" jumped from 25% to 40% in a single year.
+
+Read that again. We have more personalization technology than ever, and people feel *less* understood.
+
+This is the environment your AI startup is launching into. A market drowning in AI-generated noise, where consumers are actively developing antibodies against anything that feels automated, mass-produced, or inauthentic. Where the word for AI content is literally a synonym for garbage.
+
+And most AI startups\u2019 go-to-market strategy is\u2026 more AI content.
+
+## The Real Moat
+
+I\u2019ve been thinking about this a lot, and I want to be precise about what I mean because I think this is the most important thing I\u2019ve written.
+
+[I\u2019ve talked before about how engineering thinking applies to marketing](/articles/from-engineering-to-marketing-why-systems-thinking-matters). About how the best marketing is a system, not a campaign. I still believe that. But I think the game has shifted underneath all of us, and the implications are bigger than most people realize.
+
+**In a world where AI can build the product, write the content, generate the ads, and automate the outreach \u2014 the only thing it can\u2019t replicate is genuine human understanding of what makes people care.**
+
+That\u2019s not a marketing platitude. It\u2019s a structural argument about where value lives in the AI economy.
+
+Think about it like this. There are now four layers to any AI startup:
+
+1. **The technology layer** \u2014 the model, the infrastructure, the product itself.
+2. **The distribution layer** \u2014 how people find out about you.
+3. **The trust layer** \u2014 why people believe you\u2019re worth their time.
+4. **The meaning layer** \u2014 why people actually care.
+
+Most startups pour everything into layer one and hope layers two through four just happen. They don\u2019t. They never have. But in 2024, you could still brute-force distribution with enough funding and a decent growth hack. In 2026, the noise floor is so high and trust is so low that brute force doesn\u2019t work anymore.
+
+The startups that are winning right now \u2014 Cursor at $500M ARR, Harvey at $195M \u2014 didn\u2019t just build great products. They built movements. They created genuine communities of people who *identified* with the product. Who felt like the company understood their specific pain at a level no one else did. Who became evangelists not because they were incentivized to, but because the product felt like it was made for *them*.
+
+That\u2019s not technology. That\u2019s not even traditional marketing. That\u2019s empathy at scale. And it\u2019s the hardest thing in the world to manufacture.
+
+## Why I Think About This Differently
+
+I didn\u2019t come to marketing through a marketing degree or a FAANG growth team. I came through [building things and breaking them and rebuilding them 30 times](/articles/you-are-not-too-far-gone) until they felt right. I came through studying automotive engineering and realizing that the same systems thinking that makes an engine efficient makes a go-to-market strategy work.
+
+But more than that, I came through being the person nobody was supposed to bet on. [An immigrant kid from Egypt](/articles/hi-im-mina) who moved to Canada at eight, studied engineering, and somehow ended up building a marketing firm while still in school. I know what it feels like to have something genuinely valuable to offer and have absolutely no idea how to make the world see it.
+
+That\u2019s the same feeling I hear on every call with an AI founder. "Our product is better. Why aren\u2019t people using it?"
+
+Because better doesn\u2019t win. Better that people *know about, trust, and feel connected to* wins. And the gap between those two things is where most startups go to die.
+
+## The Agency Reckoning and What Comes After
+
+This problem is compounded by the fact that the traditional marketing infrastructure is collapsing. Forrester predicts a 15% reduction in agency jobs in 2026. Omnicom just completed a $13 billion acquisition of IPG and immediately announced they\u2019d cut $1.5 billion in costs, primarily through eliminating 4,000 positions. Entire legacy agency networks \u2014 FCB, MullenLowe, DDB \u2014 are being retired or absorbed.
+
+The marketing agency model that existed for 50 years is dying. And what\u2019s replacing it isn\u2019t "AI agencies." It\u2019s something that doesn\u2019t have a name yet.
+
+Here\u2019s what I think it looks like: **small, senior-led teams that combine strategic thinking with actual implementation.** Teams that don\u2019t just hand you a strategy deck but build the system alongside you. Teams that understand AI well enough to use it as infrastructure, not as a replacement for thinking.
+
+[I\u2019ve written about why I changed Olunix\u2019s model](/articles/what-nobody-tells-you-before-you-hire-a-marketing-consultant) from traditional consulting to something that looks more like embedded systems engineering. That decision feels more right every month. Because what AI startups need isn\u2019t more consultants or more agencies. They need someone who can sit at the intersection of product, market, and human psychology and build a bridge between them.
+
+## The Founder-Led Content Revolution
+
+There\u2019s one bright spot in all of this, and it\u2019s worth paying attention to.
+
+Creator content now outperforms brand-created content by 2.7x in controlled tests. 81% of marketers report that creator content outperforms brand assets. And the fastest-growing category isn\u2019t influencer content \u2014 it\u2019s **founder-led content.** Founders explaining tough decisions. Founders sharing real numbers. Founders being honest about what\u2019s working and what isn\u2019t.
+
+The data is telling us something profound: **people don\u2019t want to hear from brands. They want to hear from humans.**
+
+And for AI startup founders, this is simultaneously the best news and the worst news possible. Best, because you have a massive distribution advantage just by being a real person with a real story building something you actually believe in. Worst, because most technical founders would rather debug a memory leak at 3 AM than post on LinkedIn.
+
+But here\u2019s the thing. [The same way I argue that good content wins the trust game](/articles/good-content-doesnt-win), founder-led content isn\u2019t just a marketing tactic. It\u2019s the only reliable way to build the trust layer in a world where everything else feels fake.
+
+When you, the founder, explain why you built what you built, who it\u2019s for, and what problem kept you up at night \u2014 that cuts through the noise in a way no AI-generated blog post or automated email sequence ever will. Because it\u2019s real. And in 2026, real is the rarest commodity on the internet.
+
+## What I\u2019d Tell Every AI Founder Right Now
+
+I\u2019m going to be direct because I think this matters.
+
+**1. Your product is not your moat.** It might have been two years ago. It\u2019s not anymore. When the cost of building approaches zero and every week brings a new competitor built by a solo founder with Cursor and a weekend, the technology stops being the differentiator. Your understanding of your customer, your ability to articulate why you exist, and the trust you\u2019ve built with your market \u2014 that\u2019s the moat.
+
+**2. Stop outsourcing your voice.** Every AI founder I talk to wants to hire someone to "do the content." I get it. You\u2019re busy. You\u2019d rather be building. But the content that moves markets doesn\u2019t come from a content agency. It comes from you. Your perspective. Your story. Your conviction. Nobody can outsource that.
+
+**3. Build the system before you scale the spend.** I\u2019ve seen too many startups go from $0 to $50K/month in ad spend without understanding their unit economics, their conversion path, or their retention mechanics. [That\u2019s how startups waste money on marketing.](/articles/why-most-startups-waste-money-on-marketing) Build the machine first. Understand every step from awareness to activation. Then pour fuel on it.
+
+**4. Talk to your users like they\u2019re humans, not personas.** The biggest disconnect I see is founders who can describe their ICP in perfect marketing jargon but can\u2019t tell me what their customer was doing the moment before they realized they needed this product. That moment \u2014 that specific, human, emotional moment \u2014 is where all great marketing starts.
+
+**5. Accept that this is your job now.** Go-to-market isn\u2019t a department you hire later. It\u2019s a founder responsibility from day one. The best technical founders I\u2019ve worked with are the ones who treated market understanding with the same rigor they applied to their codebase. It\u2019s a system. It can be learned. It can be engineered. But it cannot be ignored.
+
+## The World Doesn\u2019t Need More AI Products
+
+I want to end with something that might sound contradictory coming from someone who works with AI startups for a living.
+
+The world doesn\u2019t need more AI products. We have plenty. What the world needs are people who can take genuinely transformative technology and make it mean something to real humans with real problems.
+
+We need builders who understand that the gap between "this works" and "people use this" is not a marketing budget. It\u2019s empathy. It\u2019s storytelling. It\u2019s the deeply human work of understanding what someone else needs and showing them you\u2019re the one who gets it.
+
+$238 billion went into AI last year. Most of it will be wasted. Not because the technology wasn\u2019t good enough, but because the people behind it never learned the hardest skill in business: **making someone who doesn\u2019t know you, trust you enough to try.**
+
+That\u2019s the work I do. That\u2019s the work I believe in. And I think it\u2019s the most important work in the AI economy right now.
+
+If you\u2019re building something real and you feel like the world hasn\u2019t noticed yet \u2014 you\u2019re not alone. And you\u2019re not wrong that it\u2019s hard. It is hard. It\u2019s the hardest part. But it\u2019s also the part that separates the companies that become footnotes from the ones that become forces.
+
+The technology is handled. The funding exists. The only question left is: can you make people care?
+
+I think you can. But not by building louder. By building closer.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-23",
+    updatedAt: "2026-02-23",
+    readingTime: "12 min read",
+    tags: ["AI", "Startups", "Marketing", "Strategy"],
+  },
+  {
     slug: "what-nobody-tells-you-before-you-hire-a-marketing-consultant",
     title: "What Nobody Tells You Before You Hire a Marketing Consultant",
     excerpt:
