@@ -428,7 +428,7 @@ export async function GET(request: NextRequest) {
           display: 'flex',
           position: 'relative',
           overflow: 'hidden',
-          background: '#060606',
+          background: '#111114',
         }}
       >
         {/* Background atmosphere */}
@@ -438,8 +438,8 @@ export async function GET(request: NextRequest) {
             inset: 0,
             display: 'flex',
             background:
-              'radial-gradient(ellipse 90% 80% at 30% 50%, rgba(255,255,255,0.04), transparent 70%), ' +
-              'radial-gradient(ellipse 60% 90% at 85% 30%, rgba(176,137,255,0.08), transparent 60%)',
+              'radial-gradient(ellipse 90% 80% at 30% 50%, rgba(255,255,255,0.06), transparent 70%), ' +
+              'radial-gradient(ellipse 60% 90% at 85% 30%, rgba(176,137,255,0.12), transparent 60%)',
           }}
         />
 
@@ -453,7 +453,7 @@ export async function GET(request: NextRequest) {
             height: '3px',
             display: 'flex',
             background:
-              'linear-gradient(90deg, transparent 0%, rgba(176,137,255,0.6) 20%, rgba(255,255,255,0.5) 50%, rgba(176,137,255,0.4) 80%, transparent 100%)',
+              'linear-gradient(90deg, transparent 0%, rgba(176,137,255,0.7) 20%, rgba(255,255,255,0.6) 50%, rgba(176,137,255,0.5) 80%, transparent 100%)',
           }}
         />
 
@@ -482,7 +482,7 @@ export async function GET(request: NextRequest) {
                 width: 28,
                 height: '1px',
                 display: 'flex',
-                background: 'rgba(176,137,255,0.6)',
+                background: 'rgba(176,137,255,0.8)',
               }}
             />
             <div
@@ -491,7 +491,7 @@ export async function GET(request: NextRequest) {
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
                 letterSpacing: '0.18em',
-                color: 'rgba(176,137,255,0.7)',
+                color: 'rgba(176,137,255,0.9)',
                 display: 'flex',
                 textTransform: 'uppercase',
               }}
@@ -542,7 +542,7 @@ export async function GET(request: NextRequest) {
               width: 48,
               height: '1px',
               display: 'flex',
-              background: 'linear-gradient(90deg, rgba(255,255,255,0.4), rgba(176,137,255,0.3))',
+              background: 'linear-gradient(90deg, rgba(255,255,255,0.5), rgba(176,137,255,0.4))',
               marginTop: 28,
               marginBottom: 24,
             }}
@@ -554,7 +554,7 @@ export async function GET(request: NextRequest) {
               fontSize: 20,
               fontFamily: 'Cormorant',
               fontWeight: 400,
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(255,255,255,0.7)',
               lineHeight: 1.5,
               maxWidth: 440,
               display: 'flex',
@@ -577,7 +577,7 @@ export async function GET(request: NextRequest) {
                 fontSize: 14,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.25)',
+                color: 'rgba(255,255,255,0.4)',
                 display: 'flex',
                 letterSpacing: '0.06em',
               }}
@@ -590,7 +590,7 @@ export async function GET(request: NextRequest) {
                 height: 3,
                 display: 'flex',
                 borderRadius: '50%',
-                background: 'rgba(255,255,255,0.15)',
+                background: 'rgba(255,255,255,0.25)',
               }}
             />
             <div
@@ -598,7 +598,7 @@ export async function GET(request: NextRequest) {
                 fontSize: 14,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.25)',
+                color: 'rgba(255,255,255,0.4)',
                 display: 'flex',
                 letterSpacing: '0.06em',
               }}
@@ -624,9 +624,9 @@ export async function GET(request: NextRequest) {
               top: 0,
               left: 0,
               bottom: 0,
-              width: '120px',
+              width: '80px',
               display: 'flex',
-              background: 'linear-gradient(90deg, #060606, transparent)',
+              background: 'linear-gradient(90deg, #111114, transparent)',
               zIndex: 2,
             }}
           />
@@ -637,22 +637,9 @@ export async function GET(request: NextRequest) {
               bottom: 0,
               left: 0,
               right: 0,
-              height: '160px',
+              height: '100px',
               display: 'flex',
-              background: 'linear-gradient(0deg, #060606, transparent)',
-              zIndex: 2,
-            }}
-          />
-          {/* Top fade */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '80px',
-              display: 'flex',
-              background: 'linear-gradient(180deg, #060606 0%, transparent 100%)',
+              background: 'linear-gradient(0deg, #111114, transparent)',
               zIndex: 2,
             }}
           />
