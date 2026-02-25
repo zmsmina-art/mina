@@ -11,6 +11,183 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "how-to-position-your-ai-startup-when-everything-sounds-the-same",
+    title: "How to Position Your AI Startup When Everything Sounds the Same",
+    excerpt:
+      "There are 70,000 AI startups globally, and most of them describe what they do in nearly identical language. Positioning isn\u2019t a marketing exercise \u2014 it\u2019s the strategic decision that determines whether your company lives or dies.",
+    content: `
+I was on a call last week with an AI founder who asked me to look at his website before we started talking strategy.
+
+I pulled it up. Clean design. Professional. The hero section read: "We use AI to help businesses make better decisions, faster."
+
+I asked him to close his eyes and tell me, without looking, what three of his competitors\u2019 websites said.
+
+He couldn\u2019t. But I could. Because I\u2019d looked at all of them that morning. Two of the three had nearly identical headlines. The third swapped "decisions" for "insights." Same thing dressed differently.
+
+This founder had built genuinely differentiated technology. A novel approach to data synthesis that his competitors hadn\u2019t figured out. But you\u2019d never know it from anything a potential customer would actually see or read. His positioning made him invisible.
+
+And he\u2019s not an outlier. He\u2019s the norm.
+
+## The Positioning Crisis Nobody\u2019s Naming
+
+There are over 17,000 AI startups in the United States alone. Globally, that number is closer to 70,000. And here\u2019s the problem that keeps me up at night: **the vast majority of them describe what they do in nearly identical language.**
+
+"AI-powered." "Intelligent automation." "Actionable insights." "Data-driven decisions." These phrases have been used so many times that they\u2019ve become semantic wallpaper. They don\u2019t mean anything to the person reading them. They just signal "we\u2019re an AI company," which in 2026 is like saying "we use electricity." It\u2019s table stakes, not a differentiator.
+
+April Dunford, who literally wrote the book on positioning, puts it this way: most companies default to describing their category ("we\u2019re an AI analytics platform") instead of their value ("we catch revenue leaks your finance team doesn\u2019t know exist"). The first tells someone what you are. The second tells someone why they should care. And in a world drowning in AI companies, "what you are" is worthless.
+
+The data backs this up. A study of B2B SaaS landing pages found that 78% of AI companies lead with technology-centric messaging \u2014 what the product does \u2014 rather than outcome-centric messaging \u2014 what it changes for the customer. Among those technology-centric companies, the average time-on-page was 37 seconds. Among the outcome-centric ones? Two minutes and twelve seconds.
+
+People stay when you talk about them. They leave when you talk about yourself.
+
+## Why Positioning Is Uniquely Hard for AI Companies
+
+I\u2019ve worked with startups across different verticals, and I can tell you that positioning an AI company is structurally harder than positioning almost anything else. Here\u2019s why.
+
+**The technology is invisible.** If you\u2019re selling a physical product, people can see it, touch it, evaluate it intuitively. If you\u2019re selling traditional software, people can at least screenshot the interface and understand what it does. But AI? The thing that makes your product special is a model running on a server somewhere. You can\u2019t hold it. You can\u2019t demo it in a way that feels tangible. And explaining why your model is better than the competitor\u2019s model requires a level of technical literacy that most buyers don\u2019t have and shouldn\u2019t need.
+
+**The benefits are abstract.** "Better predictions." "Faster processing." "More accurate results." These are real, meaningful improvements. But they\u2019re hard for a buyer to feel. They don\u2019t have an emotional weight until you connect them to a specific moment in the buyer\u2019s day \u2014 the moment they realize the forecast was wrong, the moment the report takes four hours instead of ten minutes, the moment a customer churns and nobody saw it coming.
+
+**Everyone claims the same capabilities.** This is the biggest one. When every competitor can plausibly claim to use AI, when every pitch deck has a slide about machine learning, and when the underlying foundation models are increasingly commoditized \u2014 the technology claim stops differentiating. [I\u2019ve written about this before](/articles/most-ai-startups-will-die-with-great-products): in a world where anyone can build anything, what you built stops being special. What becomes special is why you built it, who you built it for, and how deeply you understand the problem.
+
+## The Positioning Framework I Use With Every AI Startup
+
+I\u2019m going to share the actual framework we use at Olunix when positioning AI startups. Not the theoretical version \u2014 the real one.
+
+### Step 1: Kill the Category Label
+
+The first thing I do with every client is remove the category label from their messaging. If you\u2019re leading with "AI-powered [category] platform," you\u2019ve already lost. You\u2019re asking the buyer to do the work of figuring out why you\u2019re different from the other 200 AI-powered [category] platforms.
+
+Instead, lead with the transformation. What changes in the customer\u2019s world when they use your product?
+
+Not "AI-powered customer analytics." Instead: "See which customers are about to leave before they know it themselves."
+
+Not "Intelligent document processing." Instead: "Your legal team reviews contracts in minutes, not days."
+
+The category label is for your internal strategy documents and your Crunchbase profile. It\u2019s not for the human being deciding whether to give you 30 more seconds of attention.
+
+### Step 2: Find the Real Enemy
+
+Every great position is against something. Not necessarily a competitor \u2014 something bigger.
+
+Salesforce positioned against software itself ("No Software"). Slack positioned against email ("Be Less Busy"). Apple positioned against conformity ("Think Different").
+
+For AI startups, the enemy is almost never another AI company. It\u2019s a behavior. A workflow. A way of doing things that the customer has accepted as normal but secretly hates.
+
+When I work with an AI startup, I ask the founder one question that often catches them off guard: "What is your customer\u2019s most embarrassing workaround?"
+
+That workaround \u2014 the spreadsheet they maintain manually, the process that requires three people and two hours for something that should take ten minutes, the meeting that exists only because two systems don\u2019t talk to each other \u2014 that\u2019s your enemy. Name it. Make the customer feel seen. Show them you understand the specific, human absurdity of what they\u2019ve been living with.
+
+That resonates more than any amount of "AI-powered" copy ever will.
+
+### Step 3: Pass the "Only We" Test
+
+Here\u2019s a simple litmus test I run on every positioning statement we write: **can your competitor say the exact same thing?**
+
+If yes, it\u2019s not positioning. It\u2019s wallpaper.
+
+Real positioning passes the "Only We" test. It articulates something that is genuinely, structurally true about your company and not true about anyone else.
+
+"Only we" can mean a lot of things:
+
+- Only we have this specific dataset
+- Only we came from this industry and built the product from inside the problem
+- Only we integrate natively with this specific workflow
+- Only we serve this exact customer at this exact stage
+- Only we have this combination of features that creates this specific outcome
+
+The key word is *specific*. Generality is the enemy of positioning. The tighter your claim, the more it resonates with the exact right person \u2014 and the more it repels the wrong person. That repulsion is a feature, not a bug. If your positioning appeals to everyone, it means nothing to anyone.
+
+### Step 4: Anchor to a Moment, Not a Market
+
+This is the one that most founders miss, and it\u2019s the one that makes the biggest difference.
+
+Don\u2019t position against a market. Position against a moment.
+
+A "moment" is the specific situation in the buyer\u2019s life when the pain is sharpest. It\u2019s not "healthcare administrators" \u2014 it\u2019s "the moment a billing coordinator realizes at 4:55 PM that a claim was denied for the third time this week and she has to start the appeal process again from scratch."
+
+When you nail that moment, the buyer feels it in their chest. They think: "This company understands what my Tuesday actually looks like."
+
+That\u2019s when trust begins. Not when you show them a feature comparison chart. Not when you cite your benchmarks. When they feel understood at a specific, visceral, human level.
+
+[I\u2019ve talked about this in the context of founder-led content](/articles/most-ai-startups-will-die-with-great-products), but it applies even more directly to positioning. The best positioning feels like someone reached into the buyer\u2019s brain and described a frustration they\u2019d never articulated out loud.
+
+### Step 5: Make the Founder the Proof
+
+In AI specifically, there\u2019s a credibility problem that most startups underestimate. Buyers have been burned. They\u2019ve been promised AI that would change everything and received a ChatGPT wrapper. The trust deficit is real.
+
+The most effective way to bridge that gap isn\u2019t a case study or a testimonial. It\u2019s the founder.
+
+When the founder can explain, in their own words, why they left their previous role to solve this specific problem \u2014 when they can tell you about the exact conversation or experience that made them realize this had to exist \u2014 that story becomes the most powerful positioning asset the company has.
+
+Because it answers the question the buyer is actually asking, which isn\u2019t "does this work?" It\u2019s "do these people actually get my problem, or are they just building what they think is cool?"
+
+[This connects directly to why founder-led content is so powerful right now.](/articles/good-content-doesnt-win) The founder\u2019s story isn\u2019t separate from the positioning. It *is* the positioning.
+
+## The Companies Getting This Right
+
+Let me be concrete about what good AI positioning looks like in practice.
+
+**Cursor** doesn\u2019t position as "AI-powered code editor." They positioned as "the editor built for the way programmers actually think." Their entire product experience is designed around the fact that coding isn\u2019t about typing \u2014 it\u2019s about reasoning. That understanding of their user\u2019s mental model, not their feature set, is what drove them to $500 million in ARR.
+
+**Harvey** doesn\u2019t position as "AI for legal." They positioned around a specific frustration: lawyers spending 60% of their time on work that doesn\u2019t require legal judgment. That specificity \u2014 not "we help lawyers" but "we eliminate the parts of lawyering that lawyers hate" \u2014 is what made top law firms pay attention.
+
+**Notion AI** didn\u2019t position as another AI writing assistant. They positioned around the moment: "You have a messy page of notes from a meeting. What if it became a structured document in ten seconds?" That moment-based positioning makes the value immediate and tangible.
+
+In every case, the positioning starts with the human, not the technology.
+
+## What Happens When You Get Positioning Wrong
+
+I want to be direct about the stakes because I don\u2019t think most founders take this seriously enough.
+
+Bad positioning doesn\u2019t just mean lower conversion rates. It means:
+
+**Your sales team can\u2019t sell.** If your positioning is generic, every sales conversation starts from zero. Your reps have to manually differentiate you in every call because the marketing isn\u2019t doing it for them. That\u2019s expensive and it doesn\u2019t scale.
+
+**Your content doesn\u2019t compound.** [Good content needs a clear strategic position to anchor to.](/articles/seo-vs-paid-ads-which-should-your-startup-prioritize) Without it, every blog post, every social media update, every email is a disconnected piece of noise. With clear positioning, every piece of content reinforces the same idea and compounds over time.
+
+**You attract the wrong customers.** Generic positioning attracts generic interest. You end up with a pipeline full of people who aren\u2019t a great fit, which wastes your sales team\u2019s time and leads to higher churn. The irony of broad positioning is that it actually narrows your viable market by diluting your appeal to the people who would genuinely love you.
+
+**You can\u2019t charge what you\u2019re worth.** When the buyer can\u2019t see why you\u2019re different, they default to comparing you on price. Undifferentiated companies get commoditized. Strongly positioned companies command premiums. [This is the same dynamic I see when startups waste money on marketing](/articles/why-most-startups-waste-money-on-marketing) \u2014 they try to outspend the positioning problem instead of solving it.
+
+## How I Think About This Differently
+
+My background in [automotive engineering](/articles/from-engineering-to-marketing-why-systems-thinking-matters) taught me something that directly applies here: in engineering, tolerances define what makes a part fit. Too loose, and it rattles. Too tight, and it won\u2019t assemble. The precision has to match the function.
+
+Positioning works the same way. Too broad, and you rattle around in the market \u2014 nobody knows exactly where you fit. Too narrow, and you can\u2019t assemble a viable business around it. The art is in finding the specificity that\u2019s tight enough to resonate but wide enough to grow into.
+
+Most AI founders err on the side of too broad because they\u2019re afraid of excluding potential customers. But here\u2019s the counterintuitive truth: **the narrower your positioning, the faster you grow.** Because every piece of your go-to-market machine \u2014 your content, your ads, your sales conversations, your product roadmap \u2014 becomes more efficient when everyone in the company can articulate exactly who you\u2019re for and why you exist.
+
+Broad positioning creates internal confusion. Narrow positioning creates alignment. And alignment is the most underrated growth lever in business.
+
+## Where to Start
+
+If you\u2019ve read this far and you\u2019re looking at your own website thinking "we might have a positioning problem," here\u2019s what I\u2019d do:
+
+**1. Write down what your three closest competitors say on their homepage.** If yours sounds similar, you have a positioning problem.
+
+**2. Ask five customers why they chose you.** Not in a survey. On a call. Let them talk. The language they use to describe your value is almost always better than the language on your website. They\u2019ll tell you something you didn\u2019t know was important.
+
+**3. Find your moment.** What was happening in your customer\u2019s day the minute before they decided to look for a solution? That\u2019s your positioning anchor.
+
+**4. Kill every piece of jargon.** If a sentence would make sense on a competitor\u2019s website, it shouldn\u2019t be on yours. Rewrite until it\u2019s unmistakably you.
+
+**5. Test it with someone who doesn\u2019t know your industry.** If your mom can understand why your company matters after reading your homepage, you\u2019re close. If she can\u2019t, you\u2019re still hiding behind jargon.
+
+Positioning isn\u2019t a one-time exercise. It evolves as your market matures, as your product develops, and as you learn more about your customers. But getting the foundation right \u2014 knowing who you\u2019re for, what you\u2019re against, and why only you can deliver this \u2014 is the single highest-leverage thing an AI startup can do before spending a dollar on marketing.
+
+[I\u2019ve said before that your product is not your moat.](/articles/most-ai-startups-will-die-with-great-products) Your positioning might be. Because in a sea of 70,000 AI companies, the ones that survive won\u2019t be the ones with the best technology. They\u2019ll be the ones who made one person feel like this was built specifically for them.
+
+That\u2019s the work. It\u2019s hard. It\u2019s deeply human. And it matters more than anything else you\u2019ll do this year.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-25",
+    updatedAt: "2026-02-25",
+    readingTime: "11 min read",
+    tags: ["AI", "Startups", "Strategy", "Marketing"],
+  },
+  {
     slug: "most-ai-startups-will-die-with-great-products",
     title: "Most AI Startups Will Die With Great Products. Here\u2019s the Real Reason.",
     excerpt:
