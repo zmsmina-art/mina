@@ -15,6 +15,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { label: 'About', href: '/about', kind: 'route' },
   { label: 'Work', href: '/work', kind: 'route' },
+  { label: 'Diagnostic', href: '/diagnostic', kind: 'route' },
   { label: 'Authority', href: '#experience', kind: 'hash' },
   { label: 'Operating Model', href: '#work-with-me', kind: 'hash' },
   { label: 'Writing', href: '#articles', kind: 'hash' },
@@ -203,7 +204,7 @@ export default function SiteNav() {
     <>
       <nav className={`command-nav ${isScrolled ? 'command-nav--scrolled' : ''}`}>
         <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
-          <Link href="/" aria-label="Mina Mankarious — Home" className="command-brand brand-mark">
+          <Link prefetch={false} href="/" aria-label="mm. Mina Mankarious — Home" className="command-brand brand-mark">
             mm.
           </Link>
 
@@ -214,6 +215,7 @@ export default function SiteNav() {
               return item.kind === 'route' ? (
                 <Link
                   key={item.label}
+                  prefetch={false}
                   href={item.resolvedHref}
                   className={className}
                   ref={(node) => {
@@ -273,6 +275,7 @@ export default function SiteNav() {
             return item.kind === 'route' ? (
               <Link
                 key={item.label}
+                prefetch={false}
                 href={item.resolvedHref}
                 onClick={() => setIsOpen(false)}
                 className={className}

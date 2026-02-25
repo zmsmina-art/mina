@@ -77,6 +77,7 @@ export default function ArticleCard({
       {enableRouteTransition ? (
         <ArticleTransitionLink
           href={articleHref}
+          prefetch={false}
           direction="forward"
           className={cardClassName}
           style={sharedElementStyle}
@@ -84,7 +85,7 @@ export default function ArticleCard({
           {cardContent}
         </ArticleTransitionLink>
       ) : (
-        <Link href={articleHref} className={cardClassName} style={sharedElementStyle}>
+        <Link href={articleHref} prefetch={false} className={cardClassName} style={sharedElementStyle}>
           {cardContent}
         </Link>
       )}

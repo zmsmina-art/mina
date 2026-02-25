@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getAllArticlesSorted } from '@/data/articles';
+import { getArticleSummaries } from '@/data/articles';
 import HomeHero from '@/components/home/HomeHero';
 import AuthoritySection from '@/components/home/AuthoritySection';
 import WorkSection from '@/components/home/WorkSection';
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const allArticles = getAllArticlesSorted();
+  const allArticles = getArticleSummaries();
   const displayedArticles = allArticles.slice(0, 3);
 
   const homeBreadcrumbJsonLd = {

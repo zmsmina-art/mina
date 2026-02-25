@@ -3,23 +3,24 @@ import { Cormorant_Garamond, EB_Garamond, Playfair_Display } from 'next/font/goo
 import { Analytics } from '@vercel/analytics/next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
-import MotionRuntime from '@/components/MotionRuntime';
-import EtheralAmbient from '@/components/EtheralAmbient';
+import LayoutRuntime from '@/components/LayoutRuntime';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '600'],
   style: ['normal', 'italic'],
   display: 'swap',
+  preload: false,
   variable: '--font-cormorant',
 });
 
 const ebGaramond = EB_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500'],
-  style: ['normal', 'italic'],
-  display: 'swap',
+  weight: ['400'],
+  style: ['normal'],
+  display: 'optional',
+  preload: false,
   variable: '--font-eb-garamond',
 });
 
@@ -293,7 +294,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${ebGaramond.variable} ${playfair.variable}`}>
       <head>
-        <link rel="preload" href="/fonts/switzer-light.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/switzer-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
         <link rel="me" href="https://x.com/minamnkarious" />
         <link rel="me" href="https://github.com/zmsmina-art" />
@@ -311,9 +312,8 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <EtheralAmbient />
+        <LayoutRuntime />
         <div className="grain-overlay" aria-hidden="true" />
-        <MotionRuntime />
         <SiteNav />
         <script
           type="application/ld+json"

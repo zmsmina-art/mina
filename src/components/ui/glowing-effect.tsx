@@ -2,7 +2,6 @@
 
 import { memo, useCallback, useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
-import { animate } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { subscribePointer } from '@/lib/pointer';
 
@@ -34,17 +33,45 @@ const GlowingEffect = memo(
   }: GlowingEffectProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const lastPosition = useRef({ x: 0, y: 0 });
-    const animationFrameRef = useRef<number>(0);
+    const pointerAnimationFrameRef = useRef<number>(0);
+    const angleAnimationFrameRef = useRef<number>(0);
+    const currentAngleRef = useRef(0);
+    const targetAngleRef = useRef(0);
+
+    const animateAngle = useCallback(() => {
+      const element = containerRef.current;
+      if (!element) {
+        angleAnimationFrameRef.current = 0;
+        return;
+      }
+
+      const current = currentAngleRef.current;
+      const target = targetAngleRef.current;
+      const delta = target - current;
+
+      if (Math.abs(delta) < 0.08) {
+        currentAngleRef.current = target;
+        element.style.setProperty('--start', String(target));
+        angleAnimationFrameRef.current = 0;
+        return;
+      }
+
+      const smoothing = Math.min(0.6, Math.max(0.08, 16 / Math.max(120, movementDuration * 1000)));
+      const next = current + delta * smoothing;
+      currentAngleRef.current = next;
+      element.style.setProperty('--start', String(next));
+      angleAnimationFrameRef.current = requestAnimationFrame(animateAngle);
+    }, [movementDuration]);
 
     const handleMove = useCallback(
       (e?: MouseEvent | { x: number; y: number }) => {
         if (!containerRef.current) return;
 
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
+        if (pointerAnimationFrameRef.current) {
+          cancelAnimationFrame(pointerAnimationFrameRef.current);
         }
 
-        animationFrameRef.current = requestAnimationFrame(() => {
+        pointerAnimationFrameRef.current = requestAnimationFrame(() => {
           const element = containerRef.current;
           if (!element) return;
 
@@ -80,21 +107,17 @@ const GlowingEffect = memo(
 
           if (!isActive) return;
 
-          const currentAngle = parseFloat(element.style.getPropertyValue('--start')) || 0;
+          const currentAngle = currentAngleRef.current;
           const targetAngle = (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
           const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
-          const newAngle = currentAngle + angleDiff;
+          targetAngleRef.current = currentAngle + angleDiff;
 
-          animate(currentAngle, newAngle, {
-            duration: movementDuration,
-            ease: [0.16, 1, 0.3, 1],
-            onUpdate: (value) => {
-              element.style.setProperty('--start', String(value));
-            },
-          });
+          if (!angleAnimationFrameRef.current) {
+            angleAnimationFrameRef.current = requestAnimationFrame(animateAngle);
+          }
         });
       },
-      [inactiveZone, proximity, movementDuration],
+      [inactiveZone, proximity, animateAngle],
     );
 
     useEffect(() => {
@@ -104,8 +127,11 @@ const GlowingEffect = memo(
 
       return () => {
         unsubscribe();
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
+        if (pointerAnimationFrameRef.current) {
+          cancelAnimationFrame(pointerAnimationFrameRef.current);
+        }
+        if (angleAnimationFrameRef.current) {
+          cancelAnimationFrame(angleAnimationFrameRef.current);
         }
       };
     }, [handleMove, disabled]);

@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function EtheralAmbient() {
+  const [enabled, setEnabled] = useState(false);
   const wrap1 = useRef<HTMLDivElement>(null);
   const wrap2 = useRef<HTMLDivElement>(null);
   const wrap3 = useRef<HTMLDivElement>(null);
@@ -12,6 +13,16 @@ export default function EtheralAmbient() {
   const idle = useRef(false);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (prefersReducedMotion || hasCoarsePointer) return;
+    setEnabled(true);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+
     const onScroll = () => {
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -79,7 +90,9 @@ export default function EtheralAmbient() {
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(raf.current);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <div

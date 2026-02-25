@@ -1584,7 +1584,7 @@ export function getArticleSummaries(): ArticleSummary[] {
   return getAllArticlesSorted().map(({ content, ...rest }) => rest);
 }
 
-export function getRelatedArticles(slug: string, count: number = 3): Article[] {
+export function getRelatedArticles(slug: string, count: number = 3): ArticleSummary[] {
   const current = articles.find((a) => a.slug === slug);
   if (!current) return [];
 
@@ -1599,5 +1599,9 @@ export function getRelatedArticles(slug: string, count: number = 3): Article[] {
       return new Date(b.article.publishedAt).getTime() - new Date(a.article.publishedAt).getTime();
     })
     .slice(0, count)
-    .map((a) => a.article);
+    .map((a) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { content, ...summary } = a.article;
+      return summary;
+    });
 }

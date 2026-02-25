@@ -6,6 +6,7 @@ const navigationLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Work', href: '/work' },
+  { label: 'GTM Diagnostic', href: '/diagnostic' },
   { label: 'Articles', href: '/articles' },
   { label: 'Newsletter', href: '/newsletter' },
   { label: 'Book a Call', href: '/book' },
@@ -38,7 +39,7 @@ export default function SiteFooter() {
           <p className="footer-heading">Navigation</p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             {navigationLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="footer-link">
+              <Link key={link.label} href={link.href} prefetch={false} className="footer-link">
                 {link.label}
               </Link>
             ))}
@@ -64,7 +65,7 @@ export default function SiteFooter() {
       >
         <span>© {new Date().getFullYear()} Mina Mankarious.</span>
         <span className="mx-2">·</span>
-        <Link href="/privacy" className="transition-colors hover:text-[var(--text-muted)]">Privacy</Link>
+        <Link href="/privacy" prefetch={false} className="transition-colors hover:text-[var(--text-muted)]">Privacy</Link>
       </div>
     </footer>
   );

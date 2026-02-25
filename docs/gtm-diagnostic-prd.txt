@@ -1,0 +1,194 @@
+# AI Startup GTM Diagnostic
+
+## 1) Why This Feature
+
+### Problem
+Early-stage AI founders often have product depth but weak GTM alignment. The most common issues are unclear positioning, broad ICP targeting, missing proof, low conversion discipline, and no weekly GTM operating rhythm.
+
+### Market Need Signals (2025)
+- Buyers increasingly self-educate before sales engagement, so sites need decision tools, not only static content.
+- Pipeline outcomes are highly impacted by early shortlist positioning and trust artifacts.
+- Internal buyer misalignment is a major deal-kill factor in B2B purchase journeys.
+
+This diagnostic converts authority content into a practical decision asset that helps founders self-identify bottlenecks and creates a high-intent path to a strategy call.
+
+## 2) Goals
+
+### Business Goals
+- Increase high-intent conversion to `/book`.
+- Improve visitor-to-lead quality by qualifying founders before calls.
+- Strengthen personal-brand positioning as a systems-level GTM operator.
+
+### User Goals
+- Understand GTM maturity in under 10 minutes.
+- Identify top bottlenecks with immediate actions.
+- Leave with a clear 90-day plan they can share internally.
+
+## 3) Scope
+
+### In Scope (V1)
+- Interactive GTM assessment.
+- Stage-weighted score output (not one-size-fits-all).
+- Score vs stage benchmark target by dimension.
+- Top bottlenecks and strengths.
+- Owner-assigned "this week" actions + leading indicators.
+- Priority actions + 90-day execution plan.
+- KPI scoreboard pack based on stage.
+- Weekly GTM operating cadence template.
+- Leadership alignment checklist.
+- Downloadable alignment brief (Markdown).
+- Recommended article links by bottleneck.
+- Conversion CTA to booking.
+- Event instrumentation.
+
+### Out of Scope (V1)
+- Email delivery workflow for the brief.
+- CRM sync and lead scoring backend.
+- Multi-user collaboration or saved assessments.
+- LLM-generated custom plans.
+
+## 4) Information Architecture
+
+### Route Map
+- `/diagnostic` (new core feature page)
+- `/book` (conversion endpoint with diagnostic query params)
+- `/articles/[slug]` (supporting proof/education paths)
+
+### In-Page IA (`/diagnostic`)
+1. Hero + value proposition
+2. Progress module
+3. Company context inputs (stage, team size, traction, optional email)
+4. Diagnostic questionnaire grouped by GTM dimension
+5. Results block
+6. Priority actions
+7. 90-day plan
+8. Recommended reading
+9. Conversion actions (download brief, book call)
+
+## 5) UX and Interaction Design
+
+### UX Principles
+- Keep completion time to 7-10 minutes.
+- Force complete answers before score generation.
+- Translate score into plain-language operational guidance.
+- Make the “next action” obvious.
+
+### Core Flows
+1. User opens `/diagnostic`.
+2. User fills profile context.
+3. User answers 12 GTM maturity questions.
+4. User clicks “Generate diagnostic.”
+5. User receives score, bottlenecks, plan, and next-step CTA.
+6. User either downloads brief or books strategy call.
+
+## 6) Data Model
+
+### Key Entities
+- `DiagnosticDimension`
+- `DiagnosticQuestion`
+- `DiagnosticOption`
+- `DiagnosticProfile`
+- `DiagnosticResult`
+- `PlanPhase`
+
+### Scoring Logic
+- Each answer is scored 0-4.
+- Dimension scores are normalized to percentages.
+- Overall score is normalized to 0-100 with stage-specific weights:
+  - Early stage: heavier on positioning + ICP.
+  - Growth stage: heavier on conversion + GTM operating system.
+- Tier thresholds:
+  - `< 40`: Narrative Risk
+  - `40-59`: Emerging Signal
+  - `60-79`: Growth Ready
+  - `80+`: Scale Engine
+
+### Recommendation Logic
+- Bottlenecks: lowest two dimensions.
+- Strengths: highest two dimensions.
+- Priority actions: bottleneck-first + operating cadence action + one leverage action.
+- This-week action cards include owner, impact, and leading indicator.
+- KPI pack is stage-specific and immediately reviewable in weekly cadence.
+- 90-day plan phases:
+  - Weeks 1-2 alignment
+  - Weeks 3-6 asset/system build
+  - Weeks 7-10 conversion constraints
+  - Weeks 11-12 operating cadence lock-in
+
+## 7) Component Architecture
+
+### New Components
+- `src/components/DiagnosticPageClient.tsx`
+
+### New Data/Logic Modules
+- `src/data/diagnostic.ts`
+- `src/lib/diagnostic.ts`
+
+### New Route
+- `src/app/diagnostic/page.tsx`
+
+### Existing Components Updated
+- `src/components/SiteNav.tsx`
+- `src/components/SiteFooter.tsx`
+- `src/components/home/ContactSection.tsx`
+- `src/components/MotionRuntime.tsx`
+- `src/app/sitemap.ts`
+
+## 8) Analytics and Conversion Instrumentation
+
+### Event Taxonomy (Vercel Analytics)
+- `diagnostic_started`
+- `diagnostic_question_answered`
+- `diagnostic_completed`
+- `diagnostic_brief_downloaded`
+- `diagnostic_book_click`
+
+### Event Properties
+- `score`
+- `tier`
+- `stage`
+- `bottleneck_primary`
+- `question_id`
+- `answered_count`
+- `entry`
+
+### Primary KPI
+- `diagnostic_book_click / diagnostic_completed`
+
+### Secondary KPIs
+- Completion rate: `diagnostic_completed / diagnostic_started`
+- Brief download rate: `diagnostic_brief_downloaded / diagnostic_completed`
+- Brief copy rate: `diagnostic_brief_copied / diagnostic_completed`
+- Average score by stage and traction segment
+
+## 9) SEO/Schema
+
+### Metadata
+- Dedicated page title and description targeting “AI startup GTM diagnostic.”
+
+### Structured Data
+- `BreadcrumbList`
+- `WebApplication`
+
+## 10) Rollout Plan
+
+### Phase A (now)
+- Launch V1 assessment and reporting flow.
+- Capture analytics baseline for 2-4 weeks.
+
+### Phase B
+- Add “email me the brief” workflow.
+- Add UTM and campaign-level attribution fields.
+
+### Phase C
+- Add benchmark percentile by stage.
+- Add saved assessments and re-test deltas over time.
+
+## 11) Risks and Mitigations
+
+- **Risk:** Low completion rate.
+  - **Mitigation:** Keep to 12 questions, visible progress, immediate output.
+- **Risk:** Generic recommendations.
+  - **Mitigation:** Dimension-specific action library and bottleneck-driven plan.
+- **Risk:** Weak conversion handoff.
+  - **Mitigation:** Query-param handoff to `/book` and explicit CTA copy.

@@ -1,87 +1,37 @@
-'use client';
-
+import Image from 'next/image';
 import Link from 'next/link';
-import { useState, type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
-import { ArrowLeft, ArrowUpRight, Calendar, Clock, Linkedin, Check, Link as LinkIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowUpRight, Calendar, Clock } from 'lucide-react';
+import ArticleShareButtons from '@/components/ArticleShareButtons';
 import ReadingProgress from '@/components/ReadingProgress';
-import useMotionProfile from '@/components/motion/useMotionProfile';
-import ArticleTransitionLink from '@/components/navigation/ArticleTransitionLink';
 import CardGlow from '@/components/ui/card-glow';
 import { NewsletterCTA } from '@/components/NewsletterModal';
-import type { Article } from '@/data/articles';
+import type { Article, ArticleSummary } from '@/data/articles';
+import { motionDelay } from '@/lib/utils';
 
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function ShareButtons({ article }: { article: Article }) {
-  const [copied, setCopied] = useState(false);
-  const url = `https://minamankarious.com/articles/${article.slug}`;
-  const text = `${article.title} by Mina Mankarious`;
-
-  const copyLink = async () => {
-    await navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="flex items-center gap-3">
-      <span className="text-xs text-[var(--text-dim)]">Share</span>
-      <a
-        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Share on LinkedIn"
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--stroke-soft)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent-gold)]/50 hover:text-[var(--text-primary)]"
-      >
-        <Linkedin size={14} />
-      </a>
-      <a
-        href={`https://x.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Share on X"
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--stroke-soft)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent-gold)]/50 hover:text-[var(--text-primary)]"
-      >
-        <svg viewBox="0 0 24 24" width={14} height={14} fill="currentColor" aria-hidden="true">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-        </svg>
-      </a>
-      <button
-        type="button"
-        onClick={copyLink}
-        aria-label={copied ? 'Link copied' : 'Copy link'}
-        className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--stroke-soft)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent-gold)]/50 hover:text-[var(--text-primary)]"
-      >
-        {copied ? <Check size={14} /> : <LinkIcon size={14} />}
-      </button>
-    </div>
+export default function ArticlePageClient({
+  article,
+  relatedArticles = [],
+}: {
+  article: Article;
+  relatedArticles?: ArticleSummary[];
+}) {
+  const formattedDate = new Date(`${article.publishedAt}T00:00:00`).toLocaleDateString(
+    'en-US',
+    {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }
   );
-}
 
-export default function ArticlePageClient({ article, relatedArticles = [] }: { article: Article; relatedArticles?: Article[] }) {
-  const motionProfile = useMotionProfile();
-
-  const formattedDate = new Date(article.publishedAt + 'T00:00:00').toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-
-  const proseEnterY = motionProfile.reduced ? 0 : motionProfile.distances.proseY;
-  const sharedHeaderStyle = ({ viewTransitionName: `article-card-${article.slug}` } as CSSProperties);
-  const sequenceTransition = (step: number, duration = motionProfile.durations.enter) =>
-    motionProfile.reduced
-      ? { duration: 0 }
-      : {
-          duration,
-          delay: step * motionProfile.durations.stagger,
-          ease: EASE_OUT_EXPO,
-        };
+  const sharedHeaderStyle = {
+    viewTransitionName: `article-card-${article.slug}`,
+  } as CSSProperties;
 
   return (
     <main
@@ -92,35 +42,33 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
       <ReadingProgress />
 
       <article className="mx-auto max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={sequenceTransition(1)}
-        >
-          <ArticleTransitionLink
+        <div data-motion="rise" style={motionDelay(40)}>
+          <Link
             href="/articles"
-            direction="back"
+            prefetch={false}
             className="mb-10 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <ArrowLeft size={14} />
             Back to articles
-          </ArticleTransitionLink>
-        </motion.div>
+          </Link>
+        </div>
 
-        <motion.header
+        <header
           className="mb-10"
-          style={sharedHeaderStyle}
-          initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={sequenceTransition(2)}
+          style={{ ...sharedHeaderStyle, ...motionDelay(100) }}
+          data-motion="rise"
         >
           <div className="mb-4 flex flex-wrap gap-2">
             {article.tags.map((tag) => (
-              <span key={tag} className="tag-chip">{tag}</span>
+              <span key={tag} className="tag-chip">
+                {tag}
+              </span>
             ))}
           </div>
 
-          <h1 className="mobile-tight-title mb-4 text-[clamp(2.1rem,9.8vw,2.9rem)] leading-[1.1] text-[var(--text-primary)] md:text-5xl">{article.title}</h1>
+          <h1 className="mobile-tight-title mb-4 text-[clamp(2.1rem,9.8vw,2.9rem)] leading-[1.1] text-[var(--text-primary)] md:text-5xl">
+            {article.title}
+          </h1>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--text-dim)]">
             <time dateTime={article.publishedAt} className="flex items-center gap-1.5">
@@ -132,109 +80,109 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
               {article.readingTime}
             </span>
           </div>
-        </motion.header>
+        </header>
 
-        <motion.div
-          className="site-divider mb-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={sequenceTransition(3, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.6)}
-        />
+        <div className="site-divider mb-10" data-motion="fade" style={motionDelay(130)} />
 
-        <motion.div
+        <div
           className="article-prose text-[0.98rem] sm:text-[1.03rem]"
-          initial={{ opacity: 0, y: proseEnterY }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={sequenceTransition(4, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.75)}
+          data-motion="rise"
+          style={motionDelay(160)}
         >
           <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
             {article.content}
           </ReactMarkdown>
-        </motion.div>
+        </div>
 
-        <motion.div
+        <div
           className="mt-10 flex items-center justify-between"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={sequenceTransition(5, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.6)}
+          data-motion="rise"
+          style={motionDelay(190)}
         >
-          <ShareButtons article={article} />
-        </motion.div>
+          <ArticleShareButtons slug={article.slug} title={article.title} />
+        </div>
 
-        <motion.aside
+        <aside
           className="mt-12 rounded-xl border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)]/60 p-6 backdrop-blur-md"
-          initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={sequenceTransition(5.5, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.6)}
+          data-motion="rise"
+          style={motionDelay(220)}
           aria-label="About the author"
         >
           <div className="flex items-start gap-4">
             <Link href="/about" className="shrink-0">
-              <img
+              <Image
                 src="/headshot.webp"
                 alt="Mina Mankarious"
                 width={56}
                 height={56}
+                sizes="56px"
                 className="h-14 w-14 rounded-full object-cover object-top"
               />
             </Link>
             <div className="min-w-0">
-              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-dim)]">Written by</p>
-              <Link href="/about" className="mt-1 block text-lg text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]">
+              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-dim)]">
+                Written by
+              </p>
+              <Link
+                href="/about"
+                className="mt-1 block text-lg text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]"
+              >
                 Mina Mankarious
               </Link>
               <p className="mt-1 text-sm text-[var(--text-muted)]">
-                Founder &amp; CEO of Olunix. Helping AI startups with positioning, growth systems, and founder-led marketing from Toronto.
+                Founder &amp; CEO of Olunix. Helping AI startups with positioning, growth
+                systems, and founder-led marketing from Toronto.
               </p>
             </div>
           </div>
-        </motion.aside>
+        </aside>
 
         {relatedArticles.length > 0 && (
-          <motion.section
-            className="mt-16"
-            initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={sequenceTransition(5, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.72)}
-          >
+          <section className="mt-16" data-motion="rise" style={motionDelay(260)}>
             <div className="site-divider mb-7" />
             <h2 className="mb-6 text-2xl text-[var(--text-primary)]">Related Articles</h2>
             <ul className="space-y-4">
               {relatedArticles.map((related, index) => (
-                <motion.li
-                  key={related.slug}
-                  initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={
-                    motionProfile.reduced
-                      ? { duration: 0 }
-                      : {
-                          duration: motionProfile.durations.enter * 0.66,
-                          delay: Math.min(index, 2) * Math.min(motionProfile.durations.stagger, 0.04),
-                          ease: EASE_OUT_EXPO,
-                        }
-                  }
-                >
-                  <Link href={`/articles/${related.slug}`} className="glass-panel compact-card article-motion-card group relative block overflow-hidden">
+                <li key={related.slug} data-motion="rise" style={motionDelay(290 + index * 40)}>
+                  <Link
+                    href={`/articles/${related.slug}`}
+                    prefetch={false}
+                    className="glass-panel compact-card article-motion-card group relative block overflow-hidden"
+                  >
                     <CardGlow />
                     <div className="relative z-[1]">
                       <div className="mb-2 flex flex-wrap gap-2">
                         {related.tags.map((tag) => (
-                          <span key={tag} className="tag-chip">{tag}</span>
+                          <span key={tag} className="tag-chip">
+                            {tag}
+                          </span>
                         ))}
                       </div>
 
                       <h3 className="mb-1 flex items-start gap-2 text-lg text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-gold-soft)]">
                         {related.title}
-                        <ArrowUpRight size={14} className="mt-1 shrink-0 text-[var(--text-dim)] transition-colors group-hover:text-[var(--accent-gold-soft)]" />
+                        <ArrowUpRight
+                          size={14}
+                          className="mt-1 shrink-0 text-[var(--text-dim)] transition-colors group-hover:text-[var(--accent-gold-soft)]"
+                        />
                       </h3>
 
-                      <p className="line-clamp-2 text-sm text-[var(--text-muted)]">{related.excerpt}</p>
+                      <p className="line-clamp-2 text-sm text-[var(--text-muted)]">
+                        {related.excerpt}
+                      </p>
 
                       <div className="mt-3 flex items-center gap-4 text-xs text-[var(--text-dim)]">
                         <time dateTime={related.publishedAt} className="flex items-center gap-1.5">
                           <Calendar size={12} />
-                          {new Date(related.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
+                          {new Date(`${related.publishedAt}T00:00:00`).toLocaleDateString(
+                            'en-US',
+                            {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric',
+                              timeZone: 'UTC',
+                            }
+                          )}
                         </time>
                         <span className="flex items-center gap-1.5">
                           <Clock size={12} />
@@ -243,31 +191,33 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
                       </div>
                     </div>
                   </Link>
-                </motion.li>
+                </li>
               ))}
             </ul>
-          </motion.section>
+          </section>
         )}
 
-        <motion.div
-          className="mt-12"
-          initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={sequenceTransition(6, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.7)}
-        >
+        <div className="mt-12" data-motion="rise" style={motionDelay(340)}>
           <div className="site-divider mb-8" />
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
-            <Link href="/articles" className="inline-flex items-center gap-2 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]">
+            <Link
+              href="/articles"
+              prefetch={false}
+              className="inline-flex items-center gap-2 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+            >
               <ArrowLeft size={14} />
               All articles
             </Link>
-            <Link href="/about" className="inline-flex items-center gap-2 text-[var(--accent-gold)] transition-colors hover:text-[var(--accent-gold-soft)]">
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 text-[var(--accent-gold)] transition-colors hover:text-[var(--accent-gold-soft)]"
+            >
               About Mina
               <ArrowUpRight size={14} />
             </Link>
             <NewsletterCTA />
           </div>
-        </motion.div>
+        </div>
       </article>
     </main>
   );

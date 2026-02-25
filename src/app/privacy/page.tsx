@@ -80,7 +80,7 @@ export default function PrivacyPage() {
         </Link>
 
         <h1 className="mb-4 text-4xl text-[var(--text-primary)] md:text-5xl">Privacy Policy</h1>
-        <p className="mb-10 text-sm text-[var(--text-dim)]">Last updated: February 23, 2026</p>
+        <p className="mb-10 text-sm text-[var(--text-dim)]">Last updated: February 25, 2026</p>
 
         <div className="site-divider mb-10" />
 
@@ -101,6 +101,7 @@ export default function PrivacyPage() {
               <li>Referral sources (how you found this site)</li>
               <li>Device type, browser, and operating system</li>
               <li>Country-level location (no precise geolocation)</li>
+              <li>Interaction events for on-site tools (for example, diagnostic completion, score ranges, and CTA clicks)</li>
             </ul>
             <p>
               No personally identifiable information (PII) is collected through analytics. No cookies are used for tracking.

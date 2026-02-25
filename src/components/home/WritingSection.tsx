@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
-import type { Article } from '@/data/articles';
+import type { ArticleSummary } from '@/data/articles';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
 
 
 interface WritingSectionProps {
-  displayedArticles: Article[];
+  displayedArticles: ArticleSummary[];
   totalArticles: number;
 }
 

@@ -38,6 +38,7 @@ function shouldIgnoreClick(event: MouseEvent<HTMLAnchorElement>, target?: string
 
 export default function ArticleTransitionLink({
   href,
+  prefetch = false,
   direction,
   scope = 'article',
   fallbackMode = 'push',
@@ -111,6 +112,6 @@ export default function ArticleTransitionLink({
   };
 
   return (
-    <Link href={href} target={target} onClick={handleClick} {...rest} />
+    <Link href={href} prefetch={prefetch} target={target} onClick={handleClick} {...rest} />
   );
 }

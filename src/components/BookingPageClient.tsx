@@ -1,8 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react';
 import { Calendar, ArrowUpRight, Clock, MessageCircle, Sparkles } from 'lucide-react';
-import { BookingModal } from '@/components/BookingModal';
+
+type BookingModalProps = {
+  open: boolean;
+  onClose: () => void;
+};
+
+let bookingModalLoader: Promise<ComponentType<BookingModalProps>> | null = null;
+
+async function loadBookingModal(): Promise<ComponentType<BookingModalProps>> {
+  if (!bookingModalLoader) {
+    bookingModalLoader = import('@/components/BookingModal').then((module) => module.BookingModal);
+  }
+  return bookingModalLoader;
+}
 
 const DETAILS = [
   { icon: Clock, text: '30 minutes, no strings attached' },
@@ -12,10 +25,19 @@ const DETAILS = [
 
 export default function BookingPageClient() {
   const [open, setOpen] = useState(false);
+  const [BookingModalDialog, setBookingModalDialog] = useState<ComponentType<BookingModalProps> | null>(null);
+
+  const handleOpen = async () => {
+    if (!BookingModalDialog) {
+      const modal = await loadBookingModal();
+      setBookingModalDialog(() => modal);
+    }
+    setOpen(true);
+  };
 
   return (
     <div className="relative z-[3]">
-      <main className="page-enter marketing-main site-theme pt-20">
+      <main id="main-content" className="page-enter marketing-main site-theme pt-20">
         <section className="page-gutter command-section">
           <div className="mx-auto flex min-h-[calc(100vh-86px)] w-full max-w-3xl flex-col items-center justify-center py-16 text-center">
 
@@ -72,7 +94,7 @@ export default function BookingPageClient() {
             <div className="mt-10" data-motion="rise">
               <button
                 type="button"
-                onClick={() => setOpen(true)}
+                onClick={handleOpen}
                 className="accent-btn text-base"
               >
                 <Calendar size={15} />
@@ -98,7 +120,9 @@ export default function BookingPageClient() {
         </section>
       </main>
 
-      <BookingModal open={open} onClose={() => setOpen(false)} />
+      {open && BookingModalDialog ? (
+        <BookingModalDialog open={open} onClose={() => setOpen(false)} />
+      ) : null}
     </div>
   );
 }

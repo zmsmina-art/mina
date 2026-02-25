@@ -15,7 +15,7 @@ interface WorkPageClientProps {
 
 export default function WorkPageClient({ hero, supporting }: WorkPageClientProps) {
   return (
-    <div className="marketing-main site-theme">
+    <main id="main-content" className="marketing-main site-theme">
       <div className="page-gutter section-block mx-auto w-full max-w-7xl">
         {/* Back link */}
         <Link
@@ -151,6 +151,6 @@ export default function WorkPageClient({ hero, supporting }: WorkPageClientProps
           </a>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

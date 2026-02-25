@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import CardGlow from '@/components/ui/card-glow';
 import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
 import { motionDelay } from '@/lib/utils';
@@ -23,6 +24,9 @@ export default function ContactSection() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4" data-motion="rise" style={motionDelay(230)}>
               <HeroBookingTrigger />
+              <Link href="/diagnostic" className="ghost-btn">
+                Run GTM diagnostic
+              </Link>
               <a
                 href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
                 className="link-underline inline-flex text-xl text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)] sm:text-2xl md:text-3xl"
