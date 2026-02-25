@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 import AboutPageContent from '@/components/AboutPageContent';
 
 export const metadata: Metadata = {
-  title: 'About Mina Mankarious | Founder & CEO of Olunix, Toronto',
+  title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
   description:
-    'Mina Mankarious is a Canadian entrepreneur, founder and CEO of Olunix, a marketing and consulting firm in Toronto. He helps AI startups with strategic marketing and growth.',
+    'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
   alternates: {
     canonical: 'https://minamankarious.com/about',
     languages: {
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'About Mina Mankarious | Founder & CEO of Olunix',
+    title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
     description:
-      'Mina Mankarious is a Canadian entrepreneur, founder and CEO of Olunix. He helps AI startups with strategic marketing and growth.',
+      'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
     url: 'https://minamankarious.com/about',
     siteName: 'Mina Mankarious',
     type: 'profile',
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Mina Mankarious | Founder & CEO of Olunix',
+    title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
     description:
-      'Canadian entrepreneur, founder and CEO of Olunix. He helps AI startups with strategic marketing and growth.',
+      'Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
     site: '@minamnkarious',
     images: [
       {
@@ -54,9 +54,9 @@ export default function AboutPage() {
     '@type': 'AboutPage',
     '@id': 'https://minamankarious.com/about#aboutpage',
     url: 'https://minamankarious.com/about',
-    name: 'About Mina Mankarious | Founder & CEO of Olunix',
+    name: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
     description:
-      'Mina Mankarious is a Canadian entrepreneur, founder and CEO of Olunix, a marketing and consulting firm based in Toronto, Ontario.',
+      'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix, a marketing and consulting firm based in Toronto, Ontario.',
     inLanguage: 'en-US',
     primaryImageOfPage: {
       '@type': 'ImageObject',
@@ -64,7 +64,7 @@ export default function AboutPage() {
       width: 1200,
       height: 630,
     },
-    dateModified: '2026-02-14',
+    dateModified: '2026-02-25',
     mainEntity: {
       '@id': 'https://minamankarious.com/#person',
     },

@@ -91,7 +91,7 @@ export default function ArticlesPageClient({ articles }: { articles: ArticleSumm
           <div>
             <h1 className="mobile-tight-title mb-2 text-[clamp(2.1rem,9.6vw,2.7rem)] text-[var(--text-primary)] md:mb-3 md:text-5xl">Articles</h1>
             <p className="text-[var(--text-muted)]">
-              Thoughts on entrepreneurship, marketing, and building businesses.
+              Essays on AI startup growth, marketing strategy, and entrepreneurship by Mina Mankarious.
             </p>
           </div>
 

@@ -2,16 +2,16 @@ import type { Metadata } from 'next';
 import BookingPageClient from '@/components/BookingPageClient';
 
 export const metadata: Metadata = {
-  title: 'Book a Call',
+  title: 'Book a Call with Mina Mankarious — AI Startup Strategy',
   description:
-    'Schedule a 30-minute call with Mina Mankarious to discuss positioning, marketing strategy, or growth for your AI startup.',
+    'Schedule a 30-minute strategy call with Mina Mankarious, Founder & CEO of Olunix. Discuss positioning, marketing, or growth for your AI startup.',
   alternates: {
     canonical: 'https://minamankarious.com/book',
   },
   openGraph: {
-    title: 'Book a Call | Mina Mankarious',
+    title: 'Book a Call with Mina Mankarious — AI Startup Strategy',
     description:
-      'Schedule a 30-minute call with Mina Mankarious to discuss positioning, marketing strategy, or growth for your AI startup.',
+      'Schedule a 30-minute strategy call with Mina Mankarious, Founder & CEO of Olunix. Discuss positioning, marketing, or growth for your AI startup.',
     url: 'https://minamankarious.com/book',
     siteName: 'Mina Mankarious',
     locale: 'en_US',
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Book a Call | Mina Mankarious',
+    title: 'Book a Call with Mina Mankarious — AI Startup Strategy',
     description:
-      'Schedule a 30-minute call with Mina Mankarious to discuss positioning, marketing strategy, or growth for your AI startup.',
+      'Schedule a 30-minute strategy call with Mina Mankarious, Founder & CEO of Olunix. Discuss positioning, marketing, or growth for your AI startup.',
     images: [
       {
         url: 'https://minamankarious.com/api/og',

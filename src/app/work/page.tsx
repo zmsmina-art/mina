@@ -3,9 +3,9 @@ import WorkPageClient from '@/components/WorkPageClient';
 import { getHeroCaseStudy, getSupportingCaseStudies, getAllCaseStudies } from '@/data/case-studies';
 
 export const metadata: Metadata = {
-  title: 'Work | Case Studies by Mina Mankarious & Olunix',
+  title: 'Work — Case Studies by Mina Mankarious & Olunix',
   description:
-    'Explore real case studies from Olunix: branding, growth marketing, and content strategy for AI startups and B2B firms. See the process and the results.',
+    'Real case studies from Olunix showing branding, growth marketing, and content strategy for AI startups. See the process, approach, and measurable results.',
   alternates: {
     canonical: 'https://minamankarious.com/work',
     languages: {
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'Work | Case Studies by Mina Mankarious & Olunix',
+    title: 'Work — Case Studies by Mina Mankarious & Olunix',
     description:
-      'Real case studies from Olunix: branding, growth marketing, and content strategy. See the process and the results.',
+      'Real case studies from Olunix showing branding, growth marketing, and content strategy for AI startups. See the process, approach, and measurable results.',
     url: 'https://minamankarious.com/work',
     siteName: 'Mina Mankarious',
     type: 'website',
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Work | Case Studies by Mina Mankarious & Olunix',
+    title: 'Work — Case Studies by Mina Mankarious & Olunix',
     description:
-      'Real case studies from Olunix: branding, growth marketing, and content strategy.',
+      'Real case studies showing branding, growth marketing, and content strategy for AI startups.',
     site: '@minamnkarious',
     images: [
       {

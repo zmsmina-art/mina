@@ -3,16 +3,16 @@ import ArticlesPageClient from '@/components/ArticlesPageClient';
 import { getArticleSummaries } from '@/data/articles';
 
 export const metadata: Metadata = {
-  title: 'Articles',
+  title: 'Articles — Mina Mankarious on AI Startups, Marketing & Growth',
   description:
-    'Thoughts on entrepreneurship, marketing, consulting, and building businesses. Written by Mina Mankarious, Founder & CEO of Olunix.',
+    'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy. Written by Mina Mankarious, Founder & CEO of Olunix.',
   alternates: {
     canonical: 'https://minamankarious.com/articles',
   },
   openGraph: {
-    title: 'Articles | Mina Mankarious',
+    title: 'Articles — Mina Mankarious on AI Startups, Marketing & Growth',
     description:
-      'Thoughts on entrepreneurship, marketing, consulting, and building businesses.',
+      'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy by Mina Mankarious.',
     url: 'https://minamankarious.com/articles',
     siteName: 'Mina Mankarious',
     type: 'website',
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Articles | Mina Mankarious',
+    title: 'Articles — Mina Mankarious on AI Startups, Marketing & Growth',
     description:
-      'Thoughts on entrepreneurship, marketing, and building businesses.',
+      'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy by Mina Mankarious.',
     site: '@minamnkarious',
     creator: '@minamnkarious',
     images: [
@@ -68,9 +68,9 @@ export default function ArticlesPage() {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     '@id': 'https://minamankarious.com/articles/#blog',
-    name: 'Articles | Mina Mankarious',
+    name: 'Articles by Mina Mankarious',
     description:
-      'Thoughts on entrepreneurship, marketing, consulting, and building businesses.',
+      'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy by Mina Mankarious, Founder & CEO of Olunix.',
     url: 'https://minamankarious.com/articles',
     publisher: {
       '@type': 'Person',

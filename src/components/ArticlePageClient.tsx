@@ -161,6 +161,35 @@ export default function ArticlePageClient({ article, relatedArticles = [] }: { a
           <ShareButtons article={article} />
         </motion.div>
 
+        <motion.aside
+          className="mt-12 rounded-xl border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)]/60 p-6 backdrop-blur-md"
+          initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={sequenceTransition(5.5, motionProfile.reduced ? 0 : motionProfile.durations.enter * 0.6)}
+          aria-label="About the author"
+        >
+          <div className="flex items-start gap-4">
+            <Link href="/about" className="shrink-0">
+              <img
+                src="/headshot.webp"
+                alt="Mina Mankarious"
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-full object-cover object-top"
+              />
+            </Link>
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-dim)]">Written by</p>
+              <Link href="/about" className="mt-1 block text-lg text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]">
+                Mina Mankarious
+              </Link>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">
+                Founder &amp; CEO of Olunix. Helping AI startups with positioning, growth systems, and founder-led marketing from Toronto.
+              </p>
+            </div>
+          </div>
+        </motion.aside>
+
         {relatedArticles.length > 0 && (
           <motion.section
             className="mt-16"

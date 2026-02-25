@@ -58,7 +58,7 @@ export default function HomeHero() {
             >
               <Image
                 src="/olunix.svg"
-                alt=""
+                alt="Olunix logo"
                 width={14}
                 height={14}
                 className="h-[14px] w-[14px] object-contain"

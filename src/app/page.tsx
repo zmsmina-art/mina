@@ -10,9 +10,9 @@ import WritingSection from '@/components/home/WritingSection';
 import ContactSection from '@/components/home/ContactSection';
 
 export const metadata: Metadata = {
-  title: 'Mina Mankarious | Founder & CEO of Olunix',
+  title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth, Toronto',
   description:
-    'Mina Mankarious helps AI startups with positioning, founder-led demand, and growth systems through Olunix in Toronto.',
+    'Mina Mankarious is the Founder and CEO of Olunix, a Toronto-based firm helping AI startups with positioning, growth systems, and founder-led marketing. Explore his work, writing, and case studies.',
   alternates: {
     canonical: 'https://minamankarious.com',
   },

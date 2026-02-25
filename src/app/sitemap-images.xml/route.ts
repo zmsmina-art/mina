@@ -4,15 +4,12 @@ const baseUrl = "https://minamankarious.com";
 
 const homepageImages = [
   "/headshot.webp",
-  "/headshot.jpg",
-  "/og-image.jpg",
   "/olunix.svg",
   "/boardy-logo.png",
   "/habits-together-logo.png",
   "/hope-logo.webp",
   "/toyota-logo.png",
   "/mcmaster-logo.png",
-  "/zms-logo.svg",
 ];
 
 export async function GET() {

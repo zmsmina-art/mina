@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 import NewsletterPageClient from '@/components/NewsletterPageClient';
 
 export const metadata: Metadata = {
-  title: 'Newsletter | Mina Mankarious — Entrepreneurship, Marketing & Growth',
+  title: 'Newsletter — Mina Mankarious on Entrepreneurship, Marketing & Growth',
   description:
-    'Subscribe to Mina Mankarious\u2019s newsletter for essays on entrepreneurship, marketing strategy, and building businesses worth talking about. Frameworks for AI startup growth, behind-the-scenes lessons from Olunix, and early access to new articles.',
+    'Subscribe to Mina Mankarious\u2019s newsletter for essays on AI startup growth, marketing strategy, and entrepreneurship. Frameworks from Olunix, lessons from building, and early access to new writing.',
   alternates: {
     canonical: 'https://minamankarious.com/newsletter',
     languages: {

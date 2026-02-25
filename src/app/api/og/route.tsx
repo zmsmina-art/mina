@@ -421,61 +421,256 @@ export async function GET(request: NextRequest) {
   /* ---- Default / Profile OG ---- */
   return new ImageResponse(
     (
-      <DarkShell footerLeft="minamankarious.com" footerRight="PORTFOLIO">
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          position: 'relative',
+          overflow: 'hidden',
+          background: '#060606',
+        }}
+      >
+        {/* Background atmosphere */}
         <div
           style={{
-            fontSize: 88,
-            fontFamily: 'Cormorant',
-            fontWeight: 400,
-            fontStyle: 'italic',
-            letterSpacing: '0.01em',
-            color: '#ffffff',
+            position: 'absolute',
+            inset: 0,
             display: 'flex',
-            marginBottom: 16,
-          }}
-        >
-          Mina Mankarious
-        </div>
-
-        <div
-          style={{
-            width: 64,
-            height: 1,
-            display: 'flex',
-            background: 'linear-gradient(90deg, rgba(255,255,255,0.5), rgba(176,137,255,0.4))',
-            marginBottom: 24,
+            background:
+              'radial-gradient(ellipse 90% 80% at 30% 50%, rgba(255,255,255,0.04), transparent 70%), ' +
+              'radial-gradient(ellipse 60% 90% at 85% 30%, rgba(176,137,255,0.08), transparent 60%)',
           }}
         />
 
+        {/* Top accent line */}
         <div
           style={{
-            fontSize: 22,
-            fontFamily: 'Cormorant',
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.6)',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '3px',
             display: 'flex',
-            marginBottom: 10,
-            letterSpacing: '0.04em',
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(176,137,255,0.6) 20%, rgba(255,255,255,0.5) 50%, rgba(176,137,255,0.4) 80%, transparent 100%)',
+          }}
+        />
+
+        {/* Left column — text content */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            flex: 1,
+            padding: '72px 0 72px 80px',
+            position: 'relative',
           }}
         >
-          Founder & CEO of Olunix
+          {/* Kicker */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              marginBottom: 28,
+            }}
+          >
+            <div
+              style={{
+                width: 28,
+                height: '1px',
+                display: 'flex',
+                background: 'rgba(176,137,255,0.6)',
+              }}
+            />
+            <div
+              style={{
+                fontSize: 14,
+                fontFamily: 'Cormorant',
+                fontWeight: 400,
+                letterSpacing: '0.18em',
+                color: 'rgba(176,137,255,0.7)',
+                display: 'flex',
+                textTransform: 'uppercase',
+              }}
+            >
+              Founder & CEO
+            </div>
+          </div>
+
+          {/* Name — two lines */}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 0,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 72,
+                fontFamily: 'Cormorant',
+                fontWeight: 600,
+                color: '#ffffff',
+                lineHeight: 1.0,
+                letterSpacing: '-0.01em',
+                display: 'flex',
+              }}
+            >
+              Mina
+            </div>
+            <div
+              style={{
+                fontSize: 72,
+                fontFamily: 'Cormorant',
+                fontWeight: 600,
+                color: '#ffffff',
+                lineHeight: 1.0,
+                letterSpacing: '-0.01em',
+                display: 'flex',
+              }}
+            >
+              Mankarious
+            </div>
+          </div>
+
+          {/* Separator */}
+          <div
+            style={{
+              width: 48,
+              height: '1px',
+              display: 'flex',
+              background: 'linear-gradient(90deg, rgba(255,255,255,0.4), rgba(176,137,255,0.3))',
+              marginTop: 28,
+              marginBottom: 24,
+            }}
+          />
+
+          {/* Description */}
+          <div
+            style={{
+              fontSize: 20,
+              fontFamily: 'Cormorant',
+              fontWeight: 400,
+              color: 'rgba(255,255,255,0.5)',
+              lineHeight: 1.5,
+              maxWidth: 440,
+              display: 'flex',
+            }}
+          >
+            Helping AI startups with positioning, growth systems, and founder-led marketing.
+          </div>
+
+          {/* Bottom meta */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              marginTop: 36,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 14,
+                fontFamily: 'Cormorant',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.25)',
+                display: 'flex',
+                letterSpacing: '0.06em',
+              }}
+            >
+              minamankarious.com
+            </div>
+            <div
+              style={{
+                width: 3,
+                height: 3,
+                display: 'flex',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.15)',
+              }}
+            />
+            <div
+              style={{
+                fontSize: 14,
+                fontFamily: 'Cormorant',
+                fontWeight: 400,
+                color: 'rgba(255,255,255,0.25)',
+                display: 'flex',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Toronto, Canada
+            </div>
+          </div>
         </div>
 
+        {/* Right column — headshot */}
         <div
           style={{
-            fontSize: 19,
-            fontFamily: 'Cormorant',
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.3)',
             display: 'flex',
-            maxWidth: 560,
-            lineHeight: 1.55,
-            marginTop: 8,
+            width: '420px',
+            position: 'relative',
+            overflow: 'hidden',
           }}
         >
-          Helping AI startups with positioning, marketing systems, and practical growth strategy.
+          {/* Gradient overlay on photo edge */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              width: '120px',
+              display: 'flex',
+              background: 'linear-gradient(90deg, #060606, transparent)',
+              zIndex: 2,
+            }}
+          />
+          {/* Bottom fade */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '160px',
+              display: 'flex',
+              background: 'linear-gradient(0deg, #060606, transparent)',
+              zIndex: 2,
+            }}
+          />
+          {/* Top fade */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '80px',
+              display: 'flex',
+              background: 'linear-gradient(180deg, #060606 0%, transparent 100%)',
+              zIndex: 2,
+            }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://minamankarious.com/headshot.jpg"
+            alt=""
+            width={420}
+            height={630}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+            }}
+          />
         </div>
-      </DarkShell>
+      </div>
     ),
     { width: 1200, height: 630, fonts: darkFonts }
   );

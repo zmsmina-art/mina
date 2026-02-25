@@ -44,12 +44,12 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   title: {
-    default: 'Mina Mankarious | Founder & CEO, Olunix',
+    default: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth, Toronto',
     template: '%s | Mina Mankarious',
   },
-  applicationName: 'Mina Mankarious Portfolio',
+  applicationName: 'Mina Mankarious',
   description:
-    'Founder and CEO of Olunix. Mina Mankarious helps AI startups with positioning, marketing systems, and practical growth strategy from Toronto, Canada.',
+    'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
   keywords: [
     'Mina Mankarious',
     'Olunix',
@@ -66,9 +66,9 @@ export const metadata: Metadata = {
   classification: 'Portfolio',
   referrer: 'strict-origin-when-cross-origin',
   openGraph: {
-    title: 'Mina Mankarious | Founder & CEO, Olunix',
+    title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth, Toronto',
     description:
-      'Founder and CEO of Olunix. Helping AI startups with strategic marketing and growth systems.',
+      'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
     url: 'https://minamankarious.com',
     siteName: 'Mina Mankarious',
     locale: 'en_US',
@@ -85,9 +85,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mina Mankarious | Founder & CEO, Olunix',
+    title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth',
     description:
-      'Helping AI startups with positioning, marketing systems, and practical growth strategy.',
+      'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
     site: '@minamnkarious',
     images: [
       {
@@ -136,6 +136,7 @@ export default function RootLayout({
     name: 'Mina Mankarious',
     givenName: 'Mina',
     familyName: 'Mankarious',
+    alternateName: 'Mina M. Mankarious',
     url: 'https://minamankarious.com',
     mainEntityOfPage: 'https://minamankarious.com',
     image: [
@@ -159,7 +160,15 @@ export default function RootLayout({
     ],
     jobTitle: 'Founder & CEO',
     description:
-      'Founder and CEO of Olunix, a Toronto-based marketing and consulting firm helping AI startups with strategic growth.',
+      'Mina Mankarious is the Founder and CEO of Olunix, a Toronto-based marketing and consulting firm helping AI startups with positioning, growth systems, and founder-led marketing.',
+    nationality: {
+      '@type': 'Country',
+      name: 'Canada',
+    },
+    birthPlace: {
+      '@type': 'Place',
+      name: 'Egypt',
+    },
     worksFor: {
       '@type': 'Organization',
       '@id': 'https://olunix.com/#organization',
@@ -183,11 +192,23 @@ export default function RootLayout({
     },
     alumniOf: [
       {
-        '@type': 'EducationalOrganization',
+        '@type': 'CollegeOrUniversity',
         name: 'McMaster University',
         url: 'https://www.mcmaster.ca',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Hamilton',
+          addressRegion: 'Ontario',
+          addressCountry: 'CA',
+        },
       },
     ],
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: 'Chief Executive Officer',
+      occupationalCategory: 'Management',
+      description: 'Founder and CEO leading AI startup growth strategy and marketing consulting',
+    },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Toronto',
@@ -200,7 +221,10 @@ export default function RootLayout({
       'Business Consulting',
       'Startup Growth',
       'Founder-Led Marketing',
+      'AI Startup Marketing',
+      'Positioning Strategy',
       'Automotive Engineering',
+      'Growth Systems',
     ],
     knowsLanguage: [
       {
@@ -222,6 +246,7 @@ export default function RootLayout({
       'https://www.youtube.com/@minamankarious',
       'https://www.crunchbase.com/person/mina-mankarious',
       'https://mankarious.medium.com',
+      'https://www.wikidata.org/wiki/Q138001904',
     ],
   };
 
@@ -231,12 +256,16 @@ export default function RootLayout({
     '@id': 'https://minamankarious.com/#website',
     url: 'https://minamankarious.com',
     name: 'Mina Mankarious',
-    alternateName: 'Mina Mankarious Portfolio',
-    description: 'Official website of Mina Mankarious.',
+    alternateName: ['Mina Mankarious Portfolio', 'minamankarious.com'],
+    description: 'Official website of Mina Mankarious, Founder and CEO of Olunix.',
     publisher: {
       '@id': 'https://minamankarious.com/#person',
     },
     inLanguage: 'en-US',
+    copyrightHolder: {
+      '@id': 'https://minamankarious.com/#person',
+    },
+    copyrightYear: 2024,
   };
 
   const profilePageSchema = {
@@ -250,7 +279,7 @@ export default function RootLayout({
       '@id': 'https://minamankarious.com/#person',
     },
     dateCreated: '2024-09-01T00:00:00Z',
-    dateModified: '2026-02-14T00:00:00Z',
+    dateModified: '2026-02-25T00:00:00Z',
     isPartOf: {
       '@id': 'https://minamankarious.com/#website',
     },
@@ -271,6 +300,7 @@ export default function RootLayout({
         <link rel="me" href="https://www.youtube.com/@minamankarious" />
         <link rel="me" href="https://mankarious.medium.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
+        <link rel="me" href="https://www.wikidata.org/wiki/Q138001904" />
       </head>
       <body className="antialiased">
         <script
