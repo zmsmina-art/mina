@@ -482,21 +482,21 @@ export async function GET(request: NextRequest) {
                 width: 28,
                 height: '1px',
                 display: 'flex',
-                background: 'rgba(176,137,255,0.8)',
+                background: '#ffffff',
               }}
             />
             <div
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
                 letterSpacing: '0.18em',
-                color: 'rgba(176,137,255,0.9)',
+                color: '#ffffff',
                 display: 'flex',
                 textTransform: 'uppercase',
               }}
             >
-              Founder & CEO
+              Founder & CEO of Olunix
             </div>
           </div>
 
@@ -510,7 +510,7 @@ export async function GET(request: NextRequest) {
           >
             <div
               style={{
-                fontSize: 72,
+                fontSize: 84,
                 fontFamily: 'Cormorant',
                 fontWeight: 600,
                 color: '#ffffff',
@@ -523,7 +523,7 @@ export async function GET(request: NextRequest) {
             </div>
             <div
               style={{
-                fontSize: 72,
+                fontSize: 84,
                 fontFamily: 'Cormorant',
                 fontWeight: 600,
                 color: '#ffffff',
@@ -542,7 +542,7 @@ export async function GET(request: NextRequest) {
               width: 48,
               height: '1px',
               display: 'flex',
-              background: 'linear-gradient(90deg, rgba(255,255,255,0.5), rgba(176,137,255,0.4))',
+              background: '#ffffff',
               marginTop: 28,
               marginBottom: 24,
             }}
@@ -551,12 +551,12 @@ export async function GET(request: NextRequest) {
           {/* Description */}
           <div
             style={{
-              fontSize: 20,
+              fontSize: 24,
               fontFamily: 'Cormorant',
               fontWeight: 400,
-              color: 'rgba(255,255,255,0.7)',
+              color: '#ffffff',
               lineHeight: 1.5,
-              maxWidth: 440,
+              maxWidth: 480,
               display: 'flex',
             }}
           >
@@ -574,10 +574,10 @@ export async function GET(request: NextRequest) {
           >
             <div
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.4)',
+                color: '#ffffff',
                 display: 'flex',
                 letterSpacing: '0.06em',
               }}
@@ -586,19 +586,19 @@ export async function GET(request: NextRequest) {
             </div>
             <div
               style={{
-                width: 3,
-                height: 3,
+                width: 4,
+                height: 4,
                 display: 'flex',
                 borderRadius: '50%',
-                background: 'rgba(255,255,255,0.25)',
+                background: '#ffffff',
               }}
             />
             <div
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
-                color: 'rgba(255,255,255,0.4)',
+                color: '#ffffff',
                 display: 'flex',
                 letterSpacing: '0.06em',
               }}
