@@ -22,6 +22,23 @@ export default function Home() {
   const allArticles = getArticleSummaries();
   const displayedArticles = allArticles.slice(0, 3);
 
+  const profilePageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': 'https://minamankarious.com/#profilepage',
+    url: 'https://minamankarious.com',
+    name: 'Mina Mankarious - Portfolio',
+    description: 'Professional portfolio and writing by Mina Mankarious.',
+    mainEntity: {
+      '@id': 'https://minamankarious.com/#person',
+    },
+    dateCreated: '2024-09-01T00:00:00Z',
+    dateModified: '2026-02-25T00:00:00Z',
+    isPartOf: {
+      '@id': 'https://minamankarious.com/#website',
+    },
+  };
+
   const homeBreadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -37,6 +54,10 @@ export default function Home() {
 
   return (
     <div className="relative z-[3]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeBreadcrumbJsonLd) }}

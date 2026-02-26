@@ -58,11 +58,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
-    {
-      url: "https://minamankarious.com/fan-controller/index.html",
-      lastModified: new Date("2026-02-10"),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
   ];
 }

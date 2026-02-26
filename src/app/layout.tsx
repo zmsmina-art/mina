@@ -269,26 +269,9 @@ export default function RootLayout({
     copyrightYear: 2024,
   };
 
-  const profilePageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    '@id': 'https://minamankarious.com/#profilepage',
-    url: 'https://minamankarious.com',
-    name: 'Mina Mankarious - Portfolio',
-    description: 'Professional portfolio and writing by Mina Mankarious.',
-    mainEntity: {
-      '@id': 'https://minamankarious.com/#person',
-    },
-    dateCreated: '2024-09-01T00:00:00Z',
-    dateModified: '2026-02-25T00:00:00Z',
-    isPartOf: {
-      '@id': 'https://minamankarious.com/#website',
-    },
-  };
-
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [personSchema, websiteSchema, profilePageSchema],
+    '@graph': [personSchema, websiteSchema],
   };
 
   return (

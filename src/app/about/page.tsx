@@ -49,6 +49,23 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const profilePageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': 'https://minamankarious.com/about#profilepage',
+    url: 'https://minamankarious.com/about',
+    name: 'About Mina Mankarious',
+    description: 'Professional profile of Mina Mankarious, Founder & CEO of Olunix.',
+    mainEntity: {
+      '@id': 'https://minamankarious.com/#person',
+    },
+    dateCreated: '2024-09-01T00:00:00Z',
+    dateModified: '2026-02-25T00:00:00Z',
+    isPartOf: {
+      '@id': 'https://minamankarious.com/#website',
+    },
+  };
+
   const aboutJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'AboutPage',
@@ -94,6 +111,10 @@ export default function AboutPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
