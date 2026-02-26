@@ -6,7 +6,7 @@ const navigationLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Work', href: '/work' },
-  { label: 'GTM Diagnostic', href: '/diagnostic' },
+
   { label: 'Articles', href: '/articles' },
   { label: 'Newsletter', href: '/newsletter' },
   { label: 'Book a Call', href: '/book' },

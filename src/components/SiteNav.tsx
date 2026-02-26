@@ -15,7 +15,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { label: 'About', href: '/about', kind: 'route' },
   { label: 'Work', href: '/work', kind: 'route' },
-  { label: 'Diagnostic', href: '/diagnostic', kind: 'route' },
+
   { label: 'Authority', href: '#experience', kind: 'hash' },
   { label: 'Operating Model', href: '#work-with-me', kind: 'hash' },
   { label: 'Writing', href: '#articles', kind: 'hash' },

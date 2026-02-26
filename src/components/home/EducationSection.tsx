@@ -29,9 +29,9 @@ export default function EducationSection() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-[clamp(1.35rem,3.2vw,1.95rem)] leading-tight text-[var(--text-primary)]">
+                  <h2 className="text-[clamp(1.35rem,3.2vw,1.95rem)] leading-tight text-[var(--text-primary)]">
                     McMaster University
-                  </h3>
+                  </h2>
                   <p className="mt-1 text-sm lowercase tracking-[0.12em] text-[var(--accent-oxide)]">
                     Automotive Engineering Technology
                   </p>

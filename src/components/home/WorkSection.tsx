@@ -21,9 +21,9 @@ export default function WorkSection() {
                   <Fan size={18} />
                 </div>
                 <div>
-                  <h3 className="text-[clamp(1.4rem,4vw,2rem)] leading-tight text-[var(--text-primary)]">
+                  <h2 className="text-[clamp(1.4rem,4vw,2rem)] leading-tight text-[var(--text-primary)]">
                     Engine Cooling Fan Controller
-                  </h3>
+                  </h2>
                   <p className="mt-2 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Embedded Systems / CAN Bus / Simulator</p>
                 </div>
               </div>
@@ -70,7 +70,7 @@ export default function WorkSection() {
                     />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-xl text-[var(--text-primary)]">Product Collaborator</h3>
+                    <h2 className="text-xl text-[var(--text-primary)]">Product Collaborator</h2>
                     <p className="mt-0.5 text-sm lowercase tracking-[0.12em] text-[var(--accent-oxide)]">Habits Together</p>
                     <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Collaborative habit-tracking app work focused on accountability loops and consistent team execution.</p>
                   </div>

@@ -2,14 +2,14 @@ import { getAllArticlesSorted } from "@/data/articles";
 
 const baseUrl = "https://minamankarious.com";
 
-const homepageImages = [
-  "/headshot.webp",
-  "/olunix.svg",
-  "/boardy-logo.png",
-  "/habits-together-logo.png",
-  "/hope-logo.webp",
-  "/toyota-logo.png",
-  "/mcmaster-logo.png",
+const homepageImages: { path: string; caption: string }[] = [
+  { path: "/headshot.webp", caption: "Mina Mankarious - Founder and CEO of Olunix" },
+  { path: "/olunix.svg", caption: "Olunix logo - marketing consulting agency in Toronto" },
+  { path: "/boardy-logo.png", caption: "Boardy AI logo - AI networking platform" },
+  { path: "/habits-together-logo.png", caption: "Habits Together logo - collaborative habit tracking app" },
+  { path: "/hope-logo.webp", caption: "Hope logo" },
+  { path: "/toyota-logo.png", caption: "Toyota logo - automotive engineering experience" },
+  { path: "/mcmaster-logo.png", caption: "McMaster University logo - engineering education" },
 ];
 
 export async function GET() {
@@ -19,8 +19,8 @@ export async function GET() {
     <loc>${baseUrl}/</loc>
 ${homepageImages
   .map(
-    (p) =>
-      `    <image:image><image:loc>${baseUrl}${p}</image:loc></image:image>`
+    (img) =>
+      `    <image:image><image:loc>${baseUrl}${img.path}</image:loc><image:caption>${img.caption}</image:caption></image:image>`
   )
   .join("\n")}
   </url>`;
@@ -32,10 +32,10 @@ ${homepageImages
   </url>`;
 
   // Map article slugs to their inline images for the image sitemap
-  const articleImages: Record<string, string[]> = {
+  const articleImages: Record<string, { path: string; caption: string }[]> = {
     "hi-im-mina": [
-      "/mina-mankarious-headshot.webp",
-      "/mcmaster-university-crest.png",
+      { path: "/mina-mankarious-headshot.webp", caption: "Mina Mankarious headshot - founder introduction" },
+      { path: "/mcmaster-university-crest.png", caption: "McMaster University crest - engineering education" },
     ],
   };
 
@@ -43,11 +43,11 @@ ${homepageImages
     .map(
       (article) => `  <url>
     <loc>${baseUrl}/articles/${article.slug}</loc>
-    <image:image><image:loc>${baseUrl}/api/og?title=${encodeURIComponent(article.title)}&amp;excerpt=${encodeURIComponent(article.excerpt)}</image:loc></image:image>
+    <image:image><image:loc>${baseUrl}/api/og?title=${encodeURIComponent(article.title)}&amp;excerpt=${encodeURIComponent(article.excerpt)}</image:loc><image:caption>${article.title} - article by Mina Mankarious</image:caption></image:image>
 ${(articleImages[article.slug] || [])
   .map(
-    (p) =>
-      `    <image:image><image:loc>${baseUrl}${p}</image:loc></image:image>`
+    (img) =>
+      `    <image:image><image:loc>${baseUrl}${img.path}</image:loc><image:caption>${img.caption}</image:caption></image:image>`
   )
   .join("\n")}
   </url>`
