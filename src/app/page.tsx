@@ -45,10 +45,10 @@ export default function Home() {
       <main id="main-content" className="page-enter marketing-main site-theme pt-20">
         <HomeHero />
         <AuthoritySection />
+        <WritingSection displayedArticles={displayedArticles} totalArticles={allArticles.length} />
         <WorkSection />
         <EducationSection />
         <ServiceSection />
-        <WritingSection displayedArticles={displayedArticles} totalArticles={allArticles.length} />
         <ContactSection />
       </main>
     </div>
