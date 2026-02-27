@@ -12,7 +12,7 @@ import { NewsletterCTA } from '@/components/NewsletterModal';
 import TableOfContents from '@/components/TableOfContents';
 import InlineNewsletterCTA from '@/components/InlineNewsletterCTA';
 import TweetableQuote from '@/components/TweetableQuote';
-import ViewCounter from '@/components/ViewCounter';
+import SilentViewTracker from '@/components/SilentViewTracker';
 import type { Article, ArticleSummary } from '@/data/articles';
 import { extractHeadings, splitContentAfterH2 } from '@/lib/article-headings';
 import { motionDelay } from '@/lib/utils';
@@ -139,7 +139,7 @@ export default function ArticlePageClient({
                 <Clock size={14} />
                 {article.readingTime}
               </span>
-              <ViewCounter slug={article.slug} />
+              <SilentViewTracker slug={article.slug} />
             </div>
           </header>
 
