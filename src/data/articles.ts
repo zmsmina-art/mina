@@ -16,6 +16,8 @@ export const articles: Article[] = [
     excerpt:
       "Everyone\u2019s waiting for the moment it all clicks. The breakthrough, the turning point, the dramatic shift. That\u2019s not how it works. Here\u2019s what actually pulls you through \u2014 and why the season you\u2019re in right now might be building more than you think.",
     content: `
+![Toronto at night](/toronto-night.webp)
+
 I need to be upfront: this article is going to be different from what I usually write. I\u2019ve laid the foundation on the marketing side and I\u2019ll keep delivering there, but something about this section of the site is resonating in a way I didn\u2019t expect, and I think it\u2019s because people are tired of polished. They want real. So here\u2019s real.
 
 ## The Lie Nobody Corrects
