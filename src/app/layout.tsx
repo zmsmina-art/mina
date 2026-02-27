@@ -130,8 +130,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationSchema = {
+    '@type': 'Organization',
+    '@id': 'https://olunix.com/#organization',
+    name: 'Olunix',
+    url: 'https://olunix.com',
+    description: 'Marketing and consulting firm helping AI startups with strategic growth',
+    foundingDate: '2024-09',
+    founder: {
+      '@id': 'https://minamankarious.com/#person',
+    },
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://minamankarious.com/olunix.svg',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Toronto',
+      addressRegion: 'Ontario',
+      addressCountry: 'CA',
+    },
+    sameAs: ['https://olunix.com', 'https://www.crunchbase.com/organization/olunix'],
+  };
+
   const personSchema = {
-    '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': 'https://minamankarious.com/#person',
     name: 'Mina Mankarious',
@@ -170,27 +192,15 @@ export default function RootLayout({
       '@type': 'Place',
       name: 'Egypt',
     },
-    worksFor: {
-      '@type': 'Organization',
-      '@id': 'https://olunix.com/#organization',
-      name: 'Olunix',
-      url: 'https://olunix.com',
-      description: 'Marketing and consulting firm helping AI startups with strategic growth',
-      foundingDate: '2024-09',
-      founder: {
-        '@id': 'https://minamankarious.com/#person',
+    worksFor: [
+      { '@id': 'https://olunix.com/#organization' },
+      {
+        '@type': 'Organization',
+        name: 'Boardy',
+        url: 'https://boardy.com',
+        description: 'AI-powered networking platform for founders',
       },
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://minamankarious.com/olunix.svg',
-      },
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Toronto',
-        addressRegion: 'Ontario',
-        addressCountry: 'CA',
-      },
-    },
+    ],
     alumniOf: [
       {
         '@type': 'CollegeOrUniversity',
@@ -204,12 +214,34 @@ export default function RootLayout({
         },
       },
     ],
-    hasOccupation: {
-      '@type': 'Occupation',
-      name: 'Chief Executive Officer',
-      occupationalCategory: 'Management',
-      description: 'Founder and CEO leading AI startup growth strategy and marketing consulting',
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'degree',
+      educationalLevel: 'Bachelor',
+      about: {
+        '@type': 'DefinedTerm',
+        name: 'Automotive Engineering Technology',
+      },
+      recognizedBy: {
+        '@type': 'CollegeOrUniversity',
+        name: 'McMaster University',
+        url: 'https://www.mcmaster.ca',
+      },
     },
+    hasOccupation: [
+      {
+        '@type': 'Occupation',
+        name: 'Chief Executive Officer',
+        occupationalCategory: 'Management',
+        description: 'Founder and CEO leading AI startup growth strategy and marketing consulting',
+      },
+      {
+        '@type': 'Occupation',
+        name: 'Deal Partner',
+        occupationalCategory: 'Business Development',
+        description: 'Building founder connections and business development pathways at Boardy',
+      },
+    ],
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Toronto',
@@ -252,7 +284,6 @@ export default function RootLayout({
   };
 
   const websiteSchema = {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': 'https://minamankarious.com/#website',
     url: 'https://minamankarious.com',
@@ -267,11 +298,19 @@ export default function RootLayout({
       '@id': 'https://minamankarious.com/#person',
     },
     copyrightYear: 2024,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://minamankarious.com/articles?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
   };
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [personSchema, websiteSchema],
+    '@graph': [organizationSchema, personSchema, websiteSchema],
   };
 
   return (
@@ -306,7 +345,7 @@ export default function RootLayout({
           {children}
           <SiteFooter />
         </div>
-        <Analytics />
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

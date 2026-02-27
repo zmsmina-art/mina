@@ -66,6 +66,52 @@
   will-change: transform, opacity;
 }
 
+/* CSS-only hero reveal: paints hero content at FCP without waiting for JS hydration.
+   This makes the large hero heading the LCP element instead of the tiny nav brand mark. */
+.section-hero [data-motion] {
+  animation: hero-auto-reveal var(--motion-md, 0.65s) var(--ease-cinematic, ease) forwards;
+  animation-delay: var(--motion-delay, 0ms);
+}
+
+.section-hero .hero-line span {
+  animation: hero-text-slide var(--motion-md, 0.65s) var(--ease-out-expo, ease) forwards;
+  animation-delay: var(--motion-delay, 0ms);
+}
+
+@keyframes hero-auto-reveal {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-text-slide {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-hero [data-motion] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-hero .hero-line span {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Private interactive pages should not rely on motion runtime to reveal content. */
+main[data-static-motion='true'] [data-motion] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  filter: none !important;
+}
+
 [data-motion].is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);

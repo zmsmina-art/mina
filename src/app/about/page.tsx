@@ -49,101 +49,99 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const profilePageJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    '@id': 'https://minamankarious.com/about#profilepage',
-    url: 'https://minamankarious.com/about',
-    name: 'About Mina Mankarious',
-    description: 'Professional profile of Mina Mankarious, Founder & CEO of Olunix.',
-    mainEntity: {
-      '@id': 'https://minamankarious.com/#person',
-    },
-    dateCreated: '2024-09-01T00:00:00Z',
-    dateModified: '2026-02-25T00:00:00Z',
-    isPartOf: {
-      '@id': 'https://minamankarious.com/#website',
-    },
-  };
-
   const aboutJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    '@id': 'https://minamankarious.com/about#aboutpage',
-    url: 'https://minamankarious.com/about',
-    name: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
-    description:
-      'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix, a marketing and consulting firm based in Toronto, Ontario.',
-    inLanguage: 'en-US',
-    primaryImageOfPage: {
-      '@type': 'ImageObject',
-      url: 'https://minamankarious.com/api/og',
-      width: 1200,
-      height: 630,
-    },
-    dateModified: '2026-02-25',
-    mainEntity: {
-      '@id': 'https://minamankarious.com/#person',
-    },
-    isPartOf: {
-      '@id': 'https://minamankarious.com/#website',
-    },
-  };
-
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
+    '@graph': [
       {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://minamankarious.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'About',
-        item: 'https://minamankarious.com/about',
-      },
-    ],
-  };
-
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Who is Mina Mankarious?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Mina Mankarious is a Canadian entrepreneur and the Founder & CEO of Olunix, a marketing and consulting firm based in Toronto that helps AI startups with positioning, growth systems, and founder-led marketing.',
+        '@type': 'ProfilePage',
+        '@id': 'https://minamankarious.com/about#profilepage',
+        url: 'https://minamankarious.com/about',
+        name: 'About Mina Mankarious',
+        description: 'Professional profile of Mina Mankarious, Founder & CEO of Olunix.',
+        mainEntity: {
+          '@id': 'https://minamankarious.com/#person',
+        },
+        dateCreated: '2024-09-01T00:00:00Z',
+        dateModified: '2026-02-27T00:00:00Z',
+        isPartOf: {
+          '@id': 'https://minamankarious.com/#website',
         },
       },
       {
-        '@type': 'Question',
-        name: 'What does Olunix do?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Olunix helps AI startups turn technical products into clear market narratives, build founder-led demand engines, and create marketing operating systems that compound. Services include positioning strategy, content systems, and growth consulting.',
+        '@type': 'AboutPage',
+        '@id': 'https://minamankarious.com/about#aboutpage',
+        url: 'https://minamankarious.com/about',
+        name: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
+        description:
+          'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix, a marketing and consulting firm based in Toronto, Ontario.',
+        inLanguage: 'en-US',
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: 'https://minamankarious.com/api/og',
+          width: 1200,
+          height: 630,
+        },
+        dateModified: '2026-02-27',
+        mainEntity: {
+          '@id': 'https://minamankarious.com/#person',
+        },
+        isPartOf: {
+          '@id': 'https://minamankarious.com/#website',
         },
       },
       {
-        '@type': 'Question',
-        name: 'What industries does Mina Mankarious work with?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Mina primarily works with AI and technology startups at the seed to growth stage, helping them build marketing systems that scale. His background in engineering brings a systems-thinking approach to startup growth.',
-        },
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://minamankarious.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'About',
+            item: 'https://minamankarious.com/about',
+          },
+        ],
       },
       {
-        '@type': 'Question',
-        name: 'Where is Mina Mankarious based?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Mina is based in Toronto, Ontario, Canada. Olunix serves clients across North America and Europe.',
-        },
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Who is Mina Mankarious?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Mina Mankarious is a Canadian entrepreneur and the Founder & CEO of Olunix, a marketing and consulting firm based in Toronto that helps AI startups with positioning, growth systems, and founder-led marketing.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What does Olunix do?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Olunix helps AI startups turn technical products into clear market narratives, build founder-led demand engines, and create marketing operating systems that compound. Services include positioning strategy, content systems, and growth consulting.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What industries does Mina Mankarious work with?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Mina primarily works with AI and technology startups at the seed to growth stage, helping them build marketing systems that scale. His background in engineering brings a systems-thinking approach to startup growth.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Where is Mina Mankarious based?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Mina is based in Toronto, Ontario, Canada. Olunix serves clients across North America and Europe.',
+            },
+          },
+        ],
       },
     ],
   };
@@ -152,19 +150,7 @@ export default function AboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <AboutPageContent />
     </>
