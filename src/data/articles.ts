@@ -11,6 +11,117 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "what-is-marketing-systems-engineering",
+    title: "What Is Marketing Systems Engineering? The Framework That Changes How Startups Grow",
+    excerpt:
+      "Marketing systems engineering is the discipline of applying engineering principles to marketing strategy. Here's the framework I use at Olunix to build growth systems that actually scale.",
+    content: `
+Most marketing advice sounds like this: "Create great content. Be authentic. Post consistently." And it's not wrong. It's just incomplete. It's like telling an engineer to "build something strong." Without a framework, without systems thinking, you're guessing.
+
+That's why I've spent the last few years developing what I call **marketing systems engineering** — a discipline that applies engineering principles to the way startups build, measure, and scale their marketing.
+
+This isn't a buzzword. It's a methodology. And it's how we approach every engagement at Olunix.
+
+## What Is Marketing Systems Engineering?
+
+Marketing systems engineering is the practice of designing marketing strategies as integrated systems rather than isolated campaigns. It borrows directly from systems engineering — the interdisciplinary field focused on designing and managing complex systems over their life cycles.
+
+In traditional systems engineering, you don't just build a component. You design the entire system: inputs, processes, outputs, feedback loops, failure modes, and optimization cycles. You think about how every part interacts with every other part.
+
+**Marketing systems engineering applies exactly the same thinking to growth.**
+
+Instead of asking "What content should we post this week?" a marketing systems engineer asks:
+
+- What are the inputs to our growth system? (Traffic sources, lead magnets, brand awareness)
+- What are the processes? (Nurture sequences, sales conversations, onboarding flows)
+- What are the outputs? (Revenue, retention, referrals)
+- Where are the feedback loops? (Customer interviews, analytics, A/B tests)
+- Where are the failure points? (Drop-off stages, misaligned messaging, channel dependency)
+
+When you look at marketing this way, you stop treating it as a creative exercise and start treating it as an engineering problem. And engineering problems have engineering solutions: systematic, measurable, repeatable.
+
+## Why This Matters for Startups
+
+Most startups fail at marketing not because they lack creativity, but because they lack systems.
+
+I've seen this pattern dozens of times. A founder hires a freelancer to run ads. The ads generate some clicks but no conversions. They try content marketing. Get some traffic but no leads. They hire an agency. Spend $10,000/month and can't tell you what's working. Each tactic exists in isolation. Nothing connects. Nothing compounds.
+
+The marketing systems engineering approach solves this by forcing you to design the entire system before optimizing any individual component. You wouldn't build an engine by perfecting the pistons before designing the combustion chamber. Why would you perfect your ad copy before designing your conversion system?
+
+## The Marketing Systems Engineering Framework
+
+Here's the actual framework I use with startups at Olunix. It has five layers, and they must be built in order.
+
+### Layer 1: System Architecture
+
+Before you do anything, map your growth system end-to-end. This means documenting:
+
+- **Customer journey stages** — not a generic funnel, but the actual steps your specific customers take from "never heard of you" to "paying customer" to "referring others"
+- **Touchpoints** — every place a potential customer interacts with your brand
+- **Data flows** — what information moves between stages, and where it gets lost
+- **Dependencies** — which components depend on which other components
+
+This is the blueprint. You can't optimize what you haven't mapped.
+
+### Layer 2: Instrumentation
+
+Engineers don't guess whether a system is working. They measure it. Marketing systems engineering requires the same rigor.
+
+At this layer, you define:
+
+- **Leading indicators** for each stage (not just lagging metrics like revenue)
+- **Conversion benchmarks** between each stage
+- **Attribution models** that tell you which inputs drive which outputs
+- **Alerting thresholds** — at what point does a metric indicate a systemic problem?
+
+Most startups skip this entirely. They have Google Analytics installed and think they're data-driven. That's like putting a speedometer on a car and thinking you've built a telemetry system.
+
+### Layer 3: Channel Engineering
+
+Only after you've mapped the system and instrumented it do you start selecting and building channels. And you approach channels like an engineer, not a marketer:
+
+- **Hypothesis-driven selection** — "We believe LinkedIn outbound will convert at 3% for our ICP because [specific reasoning]"
+- **Minimum viable tests** — run the smallest possible test that produces statistically meaningful data
+- **Kill criteria** — define in advance what "failure" looks like so you don't waste months on a channel that isn't working
+- **Scaling protocols** — if a channel works, what does the scaling plan look like? What breaks at 2x volume? 10x?
+
+This is where [most startups waste money on marketing](/articles/why-most-startups-waste-money-on-marketing) — they skip straight to channel execution without the systems thinking.
+
+### Layer 4: Optimization Loops
+
+This is where engineering and marketing truly converge. You build systematic optimization into every part of the system:
+
+- **Weekly experiment cycles** — every week, you're testing something. Subject lines, landing pages, ad audiences, pricing presentation. Small, controlled experiments.
+- **Root cause analysis** — when something underperforms, don't just tweak it. Ask why. Then ask why again. Get to the root cause, not the symptom.
+- **System-level optimization** — sometimes the best way to improve conversion isn't to optimize the conversion step. It's to change who enters the funnel. Think holistically.
+
+### Layer 5: Scaling & Resilience
+
+Once your system is working, you engineer it for scale and resilience:
+
+- **Channel diversification** — no more than 40% of growth should depend on any single channel
+- **Automation** — what manual processes can be systematized?
+- **Documentation** — can someone else operate this system if the current team changes?
+- **Stress testing** — what happens if your best channel's cost doubles? If a platform changes its algorithm? Build contingency into the system.
+
+## The Engineering Mindset Is the Advantage
+
+I [studied Automotive Engineering at McMaster](/articles/from-engineering-to-marketing-why-systems-thinking-matters) before building Olunix. People used to ask how engineering relates to marketing. Now they don't. The companies I work with, mostly [AI startups and technical founders](/articles/how-ai-startups-should-think-about-marketing), get it immediately. They think in systems. They expect their marketing partner to think the same way.
+
+Marketing systems engineering isn't about removing creativity from marketing. It's about giving creativity a structure to operate within. The best engineers are deeply creative. They just channel that creativity through rigorous frameworks. Marketing should work the same way.
+
+If you're a founder who's frustrated with marketing that feels random and unmeasurable, it's because you've been doing marketing without engineering. Try building the system first. Then optimize.
+
+The results speak for themselves.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-26",
+    updatedAt: "2026-02-26",
+    readingTime: "9 min read",
+    tags: ["Marketing", "Engineering", "Strategy", "Startups"],
+  },
+  {
     slug: "how-to-position-your-ai-startup-when-everything-sounds-the-same",
     title: "How to Position Your AI Startup When Everything Sounds the Same",
     excerpt:
@@ -1307,15 +1418,40 @@ If you're on the fence, just start. The worst thing that happens is you learn mo
   },
   {
     slug: "marketing-vs-consulting-what-startups-need",
-    title: "Marketing vs. Consulting: What Early-Stage Startups Actually Need",
+    title: "Consulting vs. Marketing: What Early-Stage Startups Actually Need",
     excerpt:
-      "Agency, consultant, or in-house? The answer depends on your stage, your budget, and what problem you're actually trying to solve.",
+      "Consulting vs. marketing — agency, consultant, or in-house? The answer depends on your stage, your budget, and what problem you're actually trying to solve.",
     content: `
 One of the most common questions I get from founders is some version of: "Should we hire a marketing agency, bring someone in-house, or just get a consultant?"
 
 My answer is always the same: it depends on where you are.
 
 I know that's unsatisfying. So let me break down what I actually mean, based on what I've seen work (and not work) across dozens of early-stage companies.
+
+## Consulting vs. Marketing: They're Not the Same Thing
+
+Before we talk about what to hire, let's clear up something most founders get wrong: **consulting and marketing are fundamentally different functions**, and confusing them is one of the most expensive mistakes a startup can make.
+
+**Marketing** is about execution and distribution — getting your message in front of the right people through the right channels. Ad campaigns, content, SEO, social media, email. The output is visibility, leads, and pipeline.
+
+**Consulting** is about strategy and diagnosis — figuring out *what* to say, *who* to say it to, and *why* your current approach isn't working. The output is clarity, direction, and a plan.
+
+Here's a quick way to think about consulting vs. marketing:
+
+| | Marketing | Consulting |
+|---|---|---|
+| **Primary function** | Execution & distribution | Strategy & diagnosis |
+| **Core question** | "How do we reach more customers?" | "Are we targeting the right customers?" |
+| **Output** | Campaigns, content, leads | Frameworks, positioning, roadmaps |
+| **When you need it** | You know what works, need to scale it | You don't know what works yet |
+| **Risk if you skip it** | Nobody hears about you | You spend money reaching the wrong people |
+| **Typical engagement** | Ongoing retainer | Project-based or fractional |
+
+The mistake I see most often: founders hire for marketing (execution) when they actually need consulting (strategy). They start running ads before they've figured out their positioning. They hire a content writer before they know what story to tell. They engage an agency before understanding their customer.
+
+This is why so many startups [waste money on marketing](/articles/why-most-startups-waste-money-on-marketing). They're solving the wrong problem.
+
+**The right sequence is always: consulting first, marketing second.** Get the strategy right, then scale it.
 
 ## The Real Difference Between Agencies, Consultants, and Consulting Firms
 
@@ -1330,6 +1466,20 @@ These three get lumped together constantly, but they serve fundamentally differe
 Here's the key distinction: **Agencies answer "How do we execute this?" Consultants answer "What should we do?" Consulting firms answer "Why should we do it?"**
 
 At Olunix, we've intentionally built something that sits across these lines, because most startups need a partner who can think strategically *and* execute. But more on that later.
+
+## A Real Example: When Consulting vs. Marketing Gets Confused
+
+I'll share a real scenario without naming the company. A B2B SaaS founder came to me after spending $40,000 over four months with a marketing agency. The agency had done exactly what they were hired to do: run LinkedIn ads, publish blog posts, manage email campaigns. Professional work. Good creative.
+
+The problem? Almost zero pipeline. The founder was ready to conclude that "marketing doesn't work for us."
+
+When I looked at their setup, the issue was obvious. They were targeting mid-market CFOs with messaging about "streamlining workflows." But their actual best customers — the ones who renewed and referred others — were operations managers at companies with 50-200 employees who cared about reducing manual errors.
+
+They didn't have a marketing problem. They had a consulting problem. The targeting, messaging, and positioning were all wrong. No amount of ad spend was going to fix that.
+
+We spent six weeks on strategy — customer interviews, competitive analysis, positioning work — before touching a single campaign. When they relaunched with the right strategy, their cost per qualified lead dropped by 60%.
+
+That's the difference between consulting and marketing. And that's why sequence matters.
 
 ## What You Need at Each Stage
 
@@ -1388,9 +1538,9 @@ Hire based on where you actually are, what you actually need, and what you can a
 *- MM*
     `,
     publishedAt: "2026-02-03",
-    updatedAt: "2026-02-08",
-    readingTime: "6 min read",
-    tags: ["Marketing", "Startups", "Consulting"],
+    updatedAt: "2026-02-26",
+    readingTime: "9 min read",
+    tags: ["Marketing", "Consulting", "Startups", "Strategy"],
   },
   {
     slug: "from-engineering-to-marketing-why-systems-thinking-matters",
@@ -1464,6 +1614,8 @@ Every engagement at Olunix starts with systems thinking. Before we touch creativ
 
 Then we build. Test. Measure. Iterate. It's not glamorous. But it works.
 
+I've since formalized this into a full methodology I call [marketing systems engineering](/articles/what-is-marketing-systems-engineering) — a five-layer framework that treats growth like an engineering discipline. If this idea resonates with you, that article goes deeper into the practical framework.
+
 The companies we partner with, mostly [AI startups](/articles/how-ai-startups-should-think-about-marketing), appreciate this approach because they think the same way. They're building technical products. They expect their marketing partner to be equally rigorous.
 
 ## Why This Matters for the Future of Marketing
@@ -1479,7 +1631,7 @@ The best marketing doesn't feel like marketing. It feels like engineering applie
 *- MM*
     `,
     publishedAt: "2026-02-02",
-    updatedAt: "2026-02-08",
+    updatedAt: "2026-02-26",
     readingTime: "7 min read",
     tags: ["Marketing", "Engineering", "Personal"],
   },
