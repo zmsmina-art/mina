@@ -11,6 +11,101 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "the-pursuit-of-something-better",
+    title: "The Pursuit of Something Better",
+    excerpt:
+      "Everyone\u2019s waiting for the moment it all clicks. The breakthrough, the turning point, the dramatic shift. That\u2019s not how it works. Here\u2019s what actually pulls you through \u2014 and why the season you\u2019re in right now might be building more than you think.",
+    content: `
+I need to be upfront: this article is going to be different from what I usually write. I\u2019ve laid the foundation on the marketing side and I\u2019ll keep delivering there, but something about this section of the site is resonating in a way I didn\u2019t expect, and I think it\u2019s because people are tired of polished. They want real. So here\u2019s real.
+
+## The Lie Nobody Corrects
+
+There\u2019s a narrative that gets sold constantly, in podcasts, in interviews, in every \u201chow I made it\u201d story you\u2019ve ever heard. It goes like this: things were bad, then something happened, and now things are great.
+
+The \u201csomething happened\u201d part is always dramatic. A chance encounter. A single decision. A moment of clarity at 3 AM that rewired everything. And it makes for a great story. But it\u2019s a lie. Not intentionally \u2014 most people genuinely believe their own turning point narrative. But when you actually break it down, the \u201cmoment\u201d they point to was just the first time they noticed something that had been building for months.
+
+**Nobody gets saved by a moment. You get saved by a pattern.**
+
+I know this because I lived the opposite of that narrative. And I want to tell you about it honestly, not because my story is special, but because I think the honest version is more useful than the cinematic one.
+
+## Two Summers Ago
+
+I\u2019ve [written before](/articles/you-are-not-too-far-gone) about the COVID season \u2014 the period where I was doing nothing with my life and had to claw my way out. But here\u2019s the thing nobody tells you about clawing your way out: it doesn\u2019t mean you stay out.
+
+Two summers ago, I was back in a version of that place. Different circumstances, same weight. School wasn\u2019t going well. Not the kind of \u201cnot well\u201d where you fail a class and figure it out \u2014 the kind where you sit in a lecture and genuinely cannot connect what you\u2019re doing to anything that matters to you. The kind where you start to wonder if the problem isn\u2019t the situation but you.
+
+And maybe worse than feeling it myself, I could tell the people around me felt the exact same way about me. That\u2019s the part that doesn\u2019t get talked about enough. **When the people who love you start looking at you like they\u2019re worried \u2014 that changes the way you see yourself.** You start viewing yourself through their concern. And that concern becomes a mirror you can\u2019t stop looking into.
+
+There was one song I played on repeat during that time. The whole message was just \u201cit gets better.\u201d Over and over. I wanted so badly to believe it. But I can vividly remember sitting in one of our campus library basements, headphones in, trying to let those words land \u2014 and they just wouldn\u2019t. The gap between hearing \u201cit gets better\u201d and actually feeling it was the widest distance I\u2019ve ever experienced.
+
+## Why \u201cIt Gets Better\u201d Isn\u2019t Enough
+
+Here\u2019s my issue with that phrase, and with most of the advice people give when you\u2019re in a hard season: it\u2019s passive. \u201cIt gets better\u201d implies that you wait, and eventually the weather changes. Like you\u2019re standing in the rain and someone tells you the sun is coming.
+
+That\u2019s not how it works. It doesn\u2019t just \u201cget\u201d better. **You make it better. In increments so small they feel like nothing.**
+
+And I know \u2014 I *know* \u2014 that\u2019s not the answer you want when you\u2019re sitting in the basement. You want the lightning bolt. You want the one conversation, the one realization, the one decision that flips everything. I wanted that too. It didn\u2019t come.
+
+What came instead was a Tuesday where I studied for 20 more minutes than the day before. A Wednesday where I went to the gym instead of staying in bed. A Thursday where I had an honest conversation I\u2019d been avoiding for weeks. None of those things felt significant. None of them felt like progress. They felt like survival.
+
+But here\u2019s what I\u2019ve come to understand, and this is the thing I wish someone had told me when I was in it: **survival IS the progress.** The days where all you did was not quit? Those are the days that built the foundation for everything that came after. You just can\u2019t see the foundation while you\u2019re still pouring it.
+
+## The Compound Effect Nobody Talks About
+
+People love talking about compound interest when it comes to money or business. Small investments, consistent deposits, exponential growth over time. Everyone gets that.
+
+But nobody applies the same logic to their own life when they\u2019re struggling.
+
+Every day you choose to keep going \u2014 even poorly, even slowly, even when it feels pointless \u2014 you\u2019re making a deposit. And just like compound interest, the early deposits feel worthless. You put in effort and see nothing. You make a change and feel no different. You push through a hard day and wake up the next morning to the same problems.
+
+**That\u2019s not failure. That\u2019s the accumulation phase.** And the accumulation phase is where most people quit, because the returns are invisible.
+
+I almost quit. More than once. Not in the dramatic way \u2014 I wasn\u2019t going to do anything drastic. In the quiet way, where you just slowly stop trying and convince yourself that coasting is fine. That mediocrity is acceptable. That \u201cgood enough\u201d is good enough.
+
+It\u2019s not. And deep down, if you\u2019re reading this, you know it\u2019s not. The fact that the gap between where you are and where you want to be *bothers* you is the single greatest indicator that you\u2019re not done. Apathy is the real enemy. Not struggle. If you still care, you still have everything you need.
+
+## What Actually Pulled Me Through
+
+I want to be honest about something that I know not everyone will relate to, but I\u2019d be dishonest if I left it out.
+
+My faith carried me through the parts that discipline couldn\u2019t. There were mornings where the only reason I got up was a conviction that I was put here to do something that I hadn\u2019t done yet. Not a feeling \u2014 feelings were unreliable during that season. A conviction. The kind that sits underneath your emotions, quieter than them, but stronger.
+
+I\u2019m not going to tell you what to believe. That\u2019s not what this is. But I will tell you that every person I\u2019ve ever met who made it through a genuinely dark season had something anchoring them that went deeper than logic. For me, it was God. For you, it might be family, or a promise you made to yourself, or a version of your future that you refuse to let go of.
+
+Whatever it is \u2014 **hold onto it with everything you have.** Because the world will give you a thousand rational reasons to quit. You need at least one irrational reason to keep going.
+
+## The Thing Nobody Tells You About the Other Side
+
+Here\u2019s what I want you to know, from someone who\u2019s standing on the other side of the season you might be in right now.
+
+When you get through it \u2014 and you will \u2014 you won\u2019t just feel relief. You\u2019ll feel something deeper than that. You\u2019ll feel a quiet, unshakeable confidence that comes from knowing you\u2019ve already survived the thing you were most afraid of. And that confidence doesn\u2019t go away. It becomes the foundation for everything you build next.
+
+The [company I\u2019m building](/articles/hi-im-mina), the [work I\u2019m doing with startups](/articles/how-ai-startups-should-think-about-marketing), the fact that I can sit here and write this at all \u2014 none of it exists without that library basement. Not because the suffering was some romantic prerequisite. But because the decision to keep going *inside* the suffering is what built the person capable of doing all of this.
+
+You don\u2019t become who you\u2019re meant to be by avoiding the hard seasons. You become that person by refusing to stop moving through them.
+
+## If You\u2019re in It Right Now
+
+I\u2019m not going to give you a five-step framework. I\u2019m not going to tell you to journal or meditate or \u201creframe your mindset.\u201d You\u2019ve heard all of that. Here\u2019s what I\u2019ll actually say:
+
+Do one thing today that your future self will thank you for. Just one. It doesn\u2019t have to be big. It doesn\u2019t have to feel meaningful. It just has to be slightly better than doing nothing.
+
+And then do it again tomorrow.
+
+That\u2019s it. That\u2019s the whole strategy. It\u2019s not sexy. It\u2019s not viral. It doesn\u2019t fit on a motivational poster. But it\u2019s the truth. And it\u2019s the thing that actually works when nothing else does.
+
+You are not behind. You are not broken. You are in the accumulation phase of a life that hasn\u2019t shown its returns yet. Keep depositing.
+
+You are loved. And the fact that you\u2019re still here, still reading, still caring \u2014 that tells me everything I need to know about where you\u2019re headed.
+
+*- MM*
+    `,
+    publishedAt: "2026-02-27",
+    updatedAt: "2026-02-27",
+    readingTime: "7 min read",
+    tags: ["Personal", "Entrepreneurship", "Faith"],
+  },
+  {
     slug: "what-is-marketing-systems-engineering",
     title: "What Is Marketing Systems Engineering? The Framework That Changes How Startups Grow",
     excerpt:
