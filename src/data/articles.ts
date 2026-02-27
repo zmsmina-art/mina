@@ -92,7 +92,7 @@ Do one thing today that your future self will thank you for. Just one. It doesn\
 
 And then do it again tomorrow.
 
-That\u2019s it. That\u2019s the whole strategy. It\u2019s not sexy. It\u2019s not viral. It doesn\u2019t fit on a motivational poster. But it\u2019s the truth. And it\u2019s the thing that actually works when nothing else does.
+That\u2019s it. That\u2019s the whole strategy. It\u2019s not viral. It doesn\u2019t fit on a motivational poster. But it\u2019s the truth. And it\u2019s the thing that actually works when nothing else does.
 
 You are not behind. You are not broken. You are in the accumulation phase of a life that hasn\u2019t shown its returns yet. Keep depositing.
 
