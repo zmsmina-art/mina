@@ -4,6 +4,16 @@ import type { NextRequest } from "next/server";
 const ADMIN_PREFIX = "/admin";
 const AUTH_REALM = "Admin";
 
+/** Constant-time string comparison to prevent timing attacks. */
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 function unauthorized() {
   return new NextResponse("Authentication required", {
     status: 401,
@@ -57,7 +67,7 @@ export function middleware(request: NextRequest) {
   const username = separator === -1 ? decodedCredentials : decodedCredentials.slice(0, separator);
   const password = separator === -1 ? "" : decodedCredentials.slice(separator + 1);
 
-  if (username !== expectedUsername || password !== expectedPassword) {
+  if (!safeEqual(username, expectedUsername) || !safeEqual(password, expectedPassword)) {
     return unauthorized();
   }
 

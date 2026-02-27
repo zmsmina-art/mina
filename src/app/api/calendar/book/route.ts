@@ -56,6 +56,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (typeof name !== 'string' || name.length > 200 ||
+      typeof email !== 'string' || email.length > 254 ||
+      (company && (typeof company !== 'string' || company.length > 200)) ||
+      (companyStage && (typeof companyStage !== 'string' || companyStage.length > 100)) ||
+      (context && (typeof context !== 'string' || context.length > 5000))) {
+    return NextResponse.json(
+      { error: 'One or more fields exceed the allowed length.' },
+      { status: 400 },
+    );
+  }
+
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return NextResponse.json(
       { error: 'Invalid date format (expected YYYY-MM-DD)' },

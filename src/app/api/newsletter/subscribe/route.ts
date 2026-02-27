@@ -23,8 +23,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
+  }
+
+  if (tag && (typeof tag !== 'string' || tag.length > 100)) {
+    return NextResponse.json({ error: 'Invalid tag.' }, { status: 400 });
   }
 
   try {

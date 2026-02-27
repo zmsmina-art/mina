@@ -16,7 +16,7 @@ export default function AdminViewsPage() {
   const [totalViews, setTotalViews] = useState(0);
 
   useEffect(() => {
-    fetch('/api/views/all')
+    fetch('/admin/api/views')
       .then((res) => res.json())
       .then((data) => {
         setArticles(data.articles);
