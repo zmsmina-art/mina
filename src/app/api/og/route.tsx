@@ -204,7 +204,7 @@ export async function GET(request: NextRequest) {
 
   /* ---- Article OG — light editorial style ---- */
   if (title) {
-    const displayTitle = (title.length > 68 ? title.slice(0, 68) + '\u2026' : title).toLowerCase();
+    const displayTitle = (title.length > 55 ? title.slice(0, 55) + '\u2026' : title).toLowerCase();
     const displayExcerpt = excerpt
       ? excerpt.length > 100
         ? excerpt.slice(0, 100) + '\u2026'
@@ -224,6 +224,34 @@ export async function GET(request: NextRequest) {
             background: 'linear-gradient(135deg, #e4e0dc 0%, #d8d0e0 50%, #c8b8db 100%)',
           }}
         >
+          {/* Top accent line — purple-to-gold gradient */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              display: 'flex',
+              background:
+                'linear-gradient(90deg, transparent 5%, rgba(122,64,242,0.7) 30%, rgba(212,175,55,0.6) 70%, transparent 95%)',
+            }}
+          />
+
+          {/* Bottom accent bar */}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '3px',
+              display: 'flex',
+              background:
+                'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.4) 40%, rgba(122,64,242,0.5) 70%, transparent 90%)',
+            }}
+          />
+
           {/* Decorative large "mm" watermark — right side */}
           <div
             style={{
@@ -274,7 +302,7 @@ export async function GET(request: NextRequest) {
             {/* Title — bold black sans-serif */}
             <div
               style={{
-                fontSize: 64,
+                fontSize: 72,
                 fontFamily: 'DMSans',
                 fontWeight: 900,
                 color: '#111111',
@@ -291,7 +319,7 @@ export async function GET(request: NextRequest) {
             {displayExcerpt && (
               <div
                 style={{
-                  fontSize: 22,
+                  fontSize: 24,
                   fontFamily: 'CormorantItalic',
                   fontWeight: 400,
                   fontStyle: 'italic',

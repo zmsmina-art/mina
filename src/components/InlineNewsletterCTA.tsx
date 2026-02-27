@@ -27,12 +27,12 @@ export default function InlineNewsletterCTA() {
               placeholder="your@email.com"
               value={email}
               onChange={(e) => handleEmailChange(e.target.value)}
-              className="min-w-0 flex-1 rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-canvas)]/60 px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] focus:border-[var(--accent-purple-soft)] focus:outline-none"
+              className="min-w-0 flex-1 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
             />
             <button
               type="submit"
               disabled={state === 'loading'}
-              className="shrink-0 rounded-lg bg-[var(--accent-purple-soft)] px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+              className="shrink-0 rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-5 py-2.5 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)] disabled:opacity-60"
             >
               {state === 'loading' ? 'Subscribing...' : 'Subscribe'}
             </button>

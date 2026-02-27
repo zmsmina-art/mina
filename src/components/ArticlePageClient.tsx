@@ -11,6 +11,8 @@ import CardGlow from '@/components/ui/card-glow';
 import { NewsletterCTA } from '@/components/NewsletterModal';
 import TableOfContents from '@/components/TableOfContents';
 import InlineNewsletterCTA from '@/components/InlineNewsletterCTA';
+import TweetableQuote from '@/components/TweetableQuote';
+import ViewCounter from '@/components/ViewCounter';
 import type { Article, ArticleSummary } from '@/data/articles';
 import { extractHeadings, splitContentAfterH2 } from '@/lib/article-headings';
 import { motionDelay } from '@/lib/utils';
@@ -38,6 +40,45 @@ export default function ArticlePageClient({
 
   const headings = extractHeadings(article.content);
   const split = splitContentAfterH2(article.content, 1);
+
+  const markdownComponents = {
+    blockquote: ({ children }: { children?: React.ReactNode }) => {
+      // Check if this is a testimonial (has attribution starting with "—")
+      const childArray = Array.isArray(children) ? children : [children];
+      const isTestimonial = childArray.some((child) => {
+        if (!child || typeof child !== 'object' || !('props' in child)) return false;
+        const inner = child.props?.children;
+        if (!inner) return false;
+        const flat = Array.isArray(inner) ? inner : [inner];
+        return flat.some((node: unknown) => {
+          if (typeof node === 'object' && node !== null && 'props' in node) {
+            const el = node as { type?: string; props?: { children?: string } };
+            if (el.type === 'strong' || (el.props?.children && typeof el.props.children === 'string' && el.props.children.startsWith('—'))) {
+              return typeof el.props?.children === 'string' && el.props.children.startsWith('—');
+            }
+          }
+          return false;
+        });
+      });
+
+      if (isTestimonial) {
+        return <blockquote>{children}</blockquote>;
+      }
+
+      // Extract text content for the tweet
+      const extractText = (node: React.ReactNode): string => {
+        if (typeof node === 'string') return node;
+        if (typeof node === 'number') return String(node);
+        if (!node || typeof node !== 'object') return '';
+        if (Array.isArray(node)) return node.map(extractText).join('');
+        if ('props' in node) return extractText((node as { props?: { children?: React.ReactNode } }).props?.children);
+        return '';
+      };
+
+      const quoteText = extractText(children).trim();
+      return <TweetableQuote quote={quoteText} />;
+    },
+  };
 
   return (
     <main
@@ -98,6 +139,7 @@ export default function ArticlePageClient({
                 <Clock size={14} />
                 {article.readingTime}
               </span>
+              <ViewCounter slug={article.slug} />
             </div>
           </header>
 
@@ -117,7 +159,7 @@ export default function ArticlePageClient({
                 data-motion="rise"
                 style={motionDelay(160)}
               >
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]} components={markdownComponents}>
                   {split[0]}
                 </ReactMarkdown>
               </div>
@@ -125,7 +167,7 @@ export default function ArticlePageClient({
               <InlineNewsletterCTA />
 
               <div className="article-prose text-[0.98rem] sm:text-[1.03rem]">
-                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]} components={markdownComponents}>
                   {split[1]}
                 </ReactMarkdown>
               </div>
@@ -136,7 +178,7 @@ export default function ArticlePageClient({
               data-motion="rise"
               style={motionDelay(160)}
             >
-              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]} components={markdownComponents}>
                 {article.content}
               </ReactMarkdown>
             </div>
