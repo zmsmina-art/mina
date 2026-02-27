@@ -1061,6 +1061,33 @@ a {
   pointer-events: none;
 }
 
+/* ── Table of contents ── */
+
+.toc-link {
+  display: block;
+  padding: 0.3rem 0 0.3rem 1rem;
+  border-left: 2px solid transparent;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.toc-link:hover {
+  color: var(--text-muted);
+}
+
+.toc-link--active {
+  color: var(--text-primary);
+  border-left-color: var(--accent-purple-soft);
+}
+
+.toc-link--h3 {
+  padding-left: 1.75rem;
+  font-size: 0.78rem;
+}
+
 /* ── Fan controller mini ── */
 
 .mini-fan-sim {
