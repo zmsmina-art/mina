@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getAllArticlesSorted } from "@/data/articles";
+import { getAllArticlesSorted, getAllTags, slugifyTag } from "@/data/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticlesSorted();
@@ -46,6 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...articleEntries,
+    ...getAllTags().map((tag) => ({
+      url: `https://minamankarious.com/articles/tag/${slugifyTag(tag)}`,
+      lastModified: siteLastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    })),
     {
       url: "https://minamankarious.com/book",
       lastModified: new Date("2026-02-05"),

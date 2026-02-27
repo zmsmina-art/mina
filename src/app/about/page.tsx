@@ -109,6 +109,45 @@ export default function AboutPage() {
     ],
   };
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Who is Mina Mankarious?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Mina Mankarious is a Canadian entrepreneur and the Founder & CEO of Olunix, a marketing and consulting firm based in Toronto that helps AI startups with positioning, growth systems, and founder-led marketing.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does Olunix do?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Olunix helps AI startups turn technical products into clear market narratives, build founder-led demand engines, and create marketing operating systems that compound. Services include positioning strategy, content systems, and growth consulting.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What industries does Mina Mankarious work with?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Mina primarily works with AI and technology startups at the seed to growth stage, helping them build marketing systems that scale. His background in engineering brings a systems-thinking approach to startup growth.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Where is Mina Mankarious based?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Mina is based in Toronto, Ontario, Canada. Olunix serves clients across North America and Europe.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -122,6 +161,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <AboutPageContent />
     </>

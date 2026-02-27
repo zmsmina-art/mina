@@ -1736,6 +1736,26 @@ export function getArticleSummaries(): ArticleSummary[] {
   return getAllArticlesSorted().map(({ content, ...rest }) => rest);
 }
 
+export function getAllTags(): string[] {
+  const tags = new Set<string>();
+  articles.forEach((a) => a.tags.forEach((t) => tags.add(t)));
+  return Array.from(tags).sort();
+}
+
+export function slugifyTag(tag: string): string {
+  return tag.toLowerCase().replace(/\s+/g, '-');
+}
+
+export function getTagFromSlug(slug: string): string | undefined {
+  return getAllTags().find((t) => slugifyTag(t) === slug);
+}
+
+export function getArticlesByTag(tag: string): ArticleSummary[] {
+  return getArticleSummaries().filter((a) =>
+    a.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+  );
+}
+
 export function getRelatedArticles(slug: string, count: number = 3): ArticleSummary[] {
   const current = articles.find((a) => a.slug === slug);
   if (!current) return [];

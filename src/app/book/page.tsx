@@ -59,11 +59,46 @@ export default function BookPage() {
     ],
   };
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'How long is the strategy call?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The initial strategy call with Mina Mankarious is 30 minutes. It covers your current positioning, growth challenges, and potential next steps for your AI startup.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is the strategy call free?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, the initial 30-minute strategy call is complimentary. It is designed to help you understand how Olunix can help your AI startup grow.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What should I prepare before the call?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Come with a clear picture of your current product, target market, and the growth challenges you are facing. The more context you share, the more actionable the conversation will be.',
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <BookingPageClient />
     </>

@@ -23,12 +23,12 @@ export default function HomeHero() {
           </p>
 
           <h1 className="hero-wordmark-stack mt-5">
-            <div className="hero-line hero-wordmark-row hero-wordmark-row--top" data-motion="wordmark" style={motionDelay(130)}>
+            <span className="hero-line hero-wordmark-row hero-wordmark-row--top" data-motion="wordmark" style={motionDelay(130)}>
               <span className="masthead">mina</span>
-            </div>
-            <div className="hero-line hero-wordmark-row hero-wordmark-row--bottom" data-motion="wordmark" style={motionDelay(220)}>
+            </span>
+            <span className="hero-line hero-wordmark-row hero-wordmark-row--bottom" data-motion="wordmark" style={motionDelay(220)}>
               <span className="masthead">mankarious</span>
-            </div>
+            </span>
           </h1>
 
           <p className="hero-role mt-6 text-xs lowercase tracking-[0.2em] text-[var(--text-muted)] md:mt-8 md:text-sm" data-motion="rise" style={motionDelay(320)}>
