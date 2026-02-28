@@ -1,3 +1,9 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const isDev = process.env.NODE_ENV !== 'production';
 
 const cspDirectives = [
@@ -57,6 +63,8 @@ const nextConfig = {
   // Keep dev and prod build artifacts separate to avoid chunk corruption
   // when `next dev` and `next build` are run in the same workspace.
   distDir: isDev ? '.next-dev' : '.next',
+  // Avoid workspace root inference issues when parent directories contain lockfiles.
+  outputFileTracingRoot: __dirname,
   images: {
     formats: ['image/avif', 'image/webp'],
   },

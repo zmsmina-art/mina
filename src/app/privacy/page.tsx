@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Privacy Policy | Mina Mankarious',
     description: 'Privacy policy for minamankarious.com.',
-    site: '@minamnkarious',
-    creator: '@minamnkarious',
+    site: '@olmnix',
+    creator: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og',

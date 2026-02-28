@@ -446,6 +446,136 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  /* ---- Positioning Grader OG ---- */
+  if (type === 'positioning') {
+    const grade = searchParams.get('grade') ?? 'B';
+    const score = searchParams.get('score') ?? '70';
+    const name = searchParams.get('name') ?? 'Your Startup';
+    const tier = searchParams.get('tier') ?? 'Getting Warmer';
+    const dimensionsParam = searchParams.get('d') ?? '';
+
+    const dims = dimensionsParam.split(',').map((pair) => {
+      const [key, val] = pair.split(':');
+      return { key: key ?? '', score: parseInt(val ?? '0', 10) || 0 };
+    }).filter((d) => d.key);
+
+    const dimLabels: Record<string, string> = {
+      clarity: 'Clarity',
+      specificity: 'Specificity',
+      differentiation: 'Differentiation',
+      brevity: 'Brevity',
+      value_clarity: 'Value',
+    };
+
+    function barColor(s: number) {
+      if (s >= 80) return '#22c55e';
+      if (s >= 60) return '#b089ff';
+      if (s >= 40) return '#f59e0b';
+      return '#ef4444';
+    }
+
+    function letterColor(g: string) {
+      if (g.startsWith('A')) return '#22c55e';
+      if (g.startsWith('B')) return '#b089ff';
+      if (g.startsWith('C')) return '#f59e0b';
+      return '#ef4444';
+    }
+
+    return new ImageResponse(
+      (
+        <DarkShell footerLeft="minamankarious.com/positioning-grader" footerRight="GRADE YOURS">
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 48 }}>
+            {/* Left: Grade */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 200 }}>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  letterSpacing: '0.08em',
+                  color: 'rgba(255,255,255,0.55)',
+                  display: 'flex',
+                  marginBottom: 12,
+                }}
+              >
+                Positioning Grade
+              </div>
+              <div
+                style={{
+                  fontSize: 120,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 600,
+                  color: letterColor(grade),
+                  lineHeight: 1,
+                  display: 'flex',
+                }}
+              >
+                {grade}
+              </div>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: '#b089ff',
+                  letterSpacing: '0.06em',
+                  marginTop: 8,
+                  display: 'flex',
+                }}
+              >
+                {tier}
+              </div>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  marginTop: 8,
+                  display: 'flex',
+                }}
+              >
+                {score}/100
+              </div>
+              <div
+                style={{
+                  fontSize: 18,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.4)',
+                  marginTop: 12,
+                  display: 'flex',
+                }}
+              >
+                {name}
+              </div>
+            </div>
+
+            {/* Right: Dimension bars */}
+            {dims.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: 16, justifyContent: 'center', paddingTop: 32 }}>
+                {dims.map((d) => (
+                  <div key={d.key} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <div style={{ width: 100, fontSize: 14, fontFamily: 'Cormorant', fontWeight: 400, color: 'rgba(255,255,255,0.5)', textAlign: 'right', display: 'flex', justifyContent: 'flex-end' }}>
+                      {dimLabels[d.key] ?? d.key}
+                    </div>
+                    <div style={{ flex: 1, height: 10, borderRadius: 5, background: 'rgba(255,255,255,0.08)', display: 'flex', overflow: 'hidden' }}>
+                      <div style={{ width: `${d.score}%`, height: '100%', borderRadius: 5, background: barColor(d.score) }} />
+                    </div>
+                    <div style={{ width: 32, fontSize: 14, fontFamily: 'Cormorant', fontWeight: 400, color: 'rgba(255,255,255,0.6)', display: 'flex' }}>
+                      {d.score}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </DarkShell>
+      ),
+      { width: 1200, height: 630, fonts: darkFonts }
+    );
+  }
+
   /* ---- Default / Profile OG ---- */
   return new ImageResponse(
     (

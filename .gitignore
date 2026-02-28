@@ -51,3 +51,4 @@ next-env.d.ts
 # Audit / analysis tools
 .unlighthouse/
 .unlighthouse-reports/
+docs/lighthouse/

@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
   { label: 'Authority', href: '#experience', kind: 'hash' },
   { label: 'Operating Model', href: '#work-with-me', kind: 'hash' },
   { label: 'Writing', href: '#articles', kind: 'hash' },
+  { label: 'Grader', href: '/positioning-grader', kind: 'route' },
   { label: 'Newsletter', href: '/newsletter', kind: 'route' },
   { label: 'Contact', href: '#contact', kind: 'hash' },
 ];

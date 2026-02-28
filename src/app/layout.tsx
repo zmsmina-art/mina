@@ -89,14 +89,14 @@ export const metadata: Metadata = {
     title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth',
     description:
       'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
-    site: '@minamnkarious',
+    site: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious - Founder and CEO of Olunix',
       },
     ],
-    creator: '@minamnkarious',
+    creator: '@olmnix',
   },
   robots: {
     index: true,
@@ -273,7 +273,7 @@ export default function RootLayout({
     ],
     sameAs: [
       'https://www.linkedin.com/in/mina-mankarious',
-      'https://x.com/minamnkarious',
+      'https://x.com/olmnix',
       'https://olunix.com',
       'https://github.com/zmsmina-art',
       'https://www.youtube.com/@Mankariouss',
@@ -318,7 +318,7 @@ export default function RootLayout({
       <head>
         <link rel="preload" href="/fonts/switzer-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
-        <link rel="me" href="https://x.com/minamnkarious" />
+        <link rel="me" href="https://x.com/olmnix" />
         <link rel="me" href="https://github.com/zmsmina-art" />
         <link rel="me" href="https://www.youtube.com/@Mankariouss" />
         <link rel="me" href="https://mankarious.medium.com" />

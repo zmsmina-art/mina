@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     title: 'Newsletter | Mina Mankarious',
     description:
       'Essays on entrepreneurship, marketing strategy, and building businesses worth talking about.',
-    site: '@minamnkarious',
-    creator: '@minamnkarious',
+    site: '@olmnix',
+    creator: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og?type=newsletter',

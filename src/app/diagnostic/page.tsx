@@ -36,8 +36,8 @@ export const metadata: Metadata = {
     title: 'AI Startup GTM Diagnostic | Mina Mankarious',
     description:
       'Score your startup GTM system and get a practical 90-day action brief.',
-    creator: '@minamnkarious',
-    site: '@minamnkarious',
+    creator: '@olmnix',
+    site: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og',

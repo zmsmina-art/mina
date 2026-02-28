@@ -53,6 +53,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     })),
     {
+      url: "https://minamankarious.com/positioning-grader",
+      lastModified: new Date("2026-02-28"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: "https://minamankarious.com/book",
       lastModified: new Date("2026-02-05"),
       changeFrequency: "monthly",

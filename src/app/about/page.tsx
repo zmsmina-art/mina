@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
     description:
       'Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
-    site: '@minamnkarious',
+    site: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious - Founder & CEO of Olunix | Toronto Entrepreneur',
       },
     ],
-    creator: '@minamnkarious',
+    creator: '@olmnix',
   },
 };
 

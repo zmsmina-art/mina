@@ -3,7 +3,7 @@
 export default function TweetableQuote({ quote }: { quote: string }) {
   const handleShare = () => {
     const url = window.location.href;
-    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)}&url=${encodeURIComponent(url)}&via=minamnkarious`;
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)}&url=${encodeURIComponent(url)}&via=olmnix`;
     window.open(tweetUrl, '_blank', 'noopener,noreferrer,width=550,height=420');
   };
 
