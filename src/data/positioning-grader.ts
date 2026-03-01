@@ -321,7 +321,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: 'How does the positioning grader score my headline?',
-    answer: 'The grader analyzes your headline across 5 dimensions: Clarity, Specificity, Differentiation, Brevity, and Value Clarity. Each dimension is scored using linguistic heuristics — word count, syllable complexity, buzzword detection, audience signals, and outcome language. All scoring happens instantly in your browser with no AI API calls.',
+    answer: 'The grader analyzes your headline across 5 dimensions: Clarity, Specificity, Differentiation, Brevity, and Value Clarity. Each dimension is scored by Gemini 2.0 Flash AI, which evaluates your specific headline contextually — not just pattern-matching keywords. The AI provides personalized feedback and rewrites unique to your positioning. If the AI is unavailable, the grader falls back to instant local heuristics so you always get a result.',
   },
   {
     question: 'What makes good AI startup positioning?',
@@ -333,7 +333,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
   {
     question: 'Is my data stored or shared?',
-    answer: 'No. All analysis runs entirely in your browser. Your headline and startup name are never sent to any server. The only data transmitted is anonymous analytics events (e.g., "grader completed") to help us improve the tool.',
+    answer: 'Your headline is sent to Google\u2019s Gemini API for AI-powered analysis, but it is not stored by us or by Google beyond the request. No account or personal information is collected. The only other data transmitted is anonymous analytics events (e.g., "grader completed") to help us improve the tool.',
   },
   {
     question: 'How can I improve my positioning score?',

@@ -202,6 +202,10 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
   const [competitorError, setCompetitorError] = useState('');
   const [competitorResult, setCompetitorResult] = useState<CompetitorResult | null>(null);
 
+  // Loading states for API calls
+  const [rewriteLoading, setRewriteLoading] = useState(false);
+  const [competitorLoading, setCompetitorLoading] = useState(false);
+
   // Email capture
   const { email: nlEmail, state: nlState, errorMsg: nlError, handleEmailChange: nlHandleEmail, submit: nlSubmit } =
     useNewsletterSubscribe('positioning-grader');
@@ -245,7 +249,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
     setInput((prev) => ({ ...prev, [field]: value }));
   }, []);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (!input.startupName.trim()) { setError('Enter your startup name.'); return; }
     if (!input.headline.trim()) { setError('Enter your headline or tagline.'); return; }
 
@@ -260,28 +264,46 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
       analyzeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
-    setTimeout(() => {
-      const nextResult = computePositioningResult({
-        startupName: input.startupName.trim(),
-        headline: input.headline.trim(),
-        oneLiner: input.oneLiner.trim(),
-        targetAudience: input.targetAudience.trim(),
-      });
-      setResult(nextResult);
-      setPhase('result');
-      setCopied(false);
-      sessionStorage.removeItem(SESSION_KEY);
+    const trimmedInput = {
+      startupName: input.startupName.trim(),
+      headline: input.headline.trim(),
+      oneLiner: input.oneLiner.trim(),
+      targetAudience: input.targetAudience.trim(),
+    };
 
-      requestAnimationFrame(() => {
-        setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
-      });
+    const minDelay = new Promise((r) => setTimeout(r, ANALYZE_DURATION_MS));
 
-      safeTrack('positioning_grader_completed', {
-        score: nextResult.overallScore,
-        grade: nextResult.grade.letter,
-        tier: nextResult.grade.name,
-      });
-    }, ANALYZE_DURATION_MS);
+    let nextResult: PositioningResult;
+    try {
+      const [res] = await Promise.all([
+        fetch('/api/positioning-grader', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(trimmedInput),
+        }),
+        minDelay,
+      ]);
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      nextResult = await res.json() as PositioningResult;
+    } catch {
+      await minDelay;
+      nextResult = computePositioningResult(trimmedInput);
+    }
+
+    setResult(nextResult);
+    setPhase('result');
+    setCopied(false);
+    sessionStorage.removeItem(SESSION_KEY);
+
+    requestAnimationFrame(() => {
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+    });
+
+    safeTrack('positioning_grader_completed', {
+      score: nextResult.overallScore,
+      grade: nextResult.grade.letter,
+      tier: nextResult.grade.name,
+    });
   }, [input]);
 
   const handleReset = useCallback(() => {
@@ -343,21 +365,38 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
     safeTrack('positioning_grader_rewrite_opened');
   }, [result]);
 
-  const handleRewriteScore = useCallback(() => {
+  const handleRewriteScore = useCallback(async () => {
     if (!result || !rewriteHeadline.trim()) return;
 
     const validationError = validateInput({ headline: rewriteHeadline.trim(), startupName: result.input.startupName });
     if (validationError) { setRewriteError(validationError); return; }
 
     setRewriteError('');
-    const rewriteResult = computePositioningResult({
+    setRewriteLoading(true);
+
+    const rewriteInput = {
       startupName: result.input.startupName,
       headline: rewriteHeadline.trim(),
       oneLiner: result.input.oneLiner,
       targetAudience: result.input.targetAudience,
-    });
+    };
+
+    let rewriteResult: PositioningResult;
+    try {
+      const res = await fetch('/api/positioning-grader', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rewriteInput),
+      });
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      rewriteResult = await res.json() as PositioningResult;
+    } catch {
+      rewriteResult = computePositioningResult(rewriteInput);
+    }
+
     const comp = compareResults(result, rewriteResult);
     setComparison(comp);
+    setRewriteLoading(false);
 
     safeTrack('positioning_grader_rewrite_compared', {
       original_score: result.overallScore,
@@ -369,21 +408,38 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
 
   // ── Competitor handlers ───────────────────────────────────────────
 
-  const handleCompetitorCompare = useCallback(() => {
+  const handleCompetitorCompare = useCallback(async () => {
     if (!result || !competitorName.trim() || !competitorHeadline.trim()) return;
 
     const validationError = validateInput({ headline: competitorHeadline.trim(), startupName: competitorName.trim() });
     if (validationError) { setCompetitorError(validationError); return; }
 
     setCompetitorError('');
-    const compResult = computePositioningResult({
+    setCompetitorLoading(true);
+
+    const compInput = {
       startupName: competitorName.trim(),
       headline: competitorHeadline.trim(),
       oneLiner: '',
       targetAudience: '',
-    });
+    };
+
+    let compResult: PositioningResult;
+    try {
+      const res = await fetch('/api/positioning-grader', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(compInput),
+      });
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      compResult = await res.json() as PositioningResult;
+    } catch {
+      compResult = computePositioningResult(compInput);
+    }
+
     const comp = compareWithCompetitor(result, compResult);
     setCompetitorResult(comp);
+    setCompetitorLoading(false);
 
     safeTrack('positioning_grader_competitor_compared', {
       user_score: result.overallScore,
@@ -780,8 +836,9 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
                       type="button"
                       className="ghost-btn px-4 py-2 text-sm"
                       onClick={handleCompetitorCompare}
-                      disabled={!competitorName.trim() || !competitorHeadline.trim()}
+                      disabled={!competitorName.trim() || !competitorHeadline.trim() || competitorLoading}
                     >
+                      {competitorLoading && <Loader2 size={14} className="animate-spin" />}
                       Compare
                     </button>
 
@@ -939,8 +996,9 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
                       type="button"
                       className="accent-btn"
                       onClick={handleRewriteScore}
-                      disabled={!rewriteHeadline.trim()}
+                      disabled={!rewriteHeadline.trim() || rewriteLoading}
                     >
+                      {rewriteLoading && <Loader2 size={14} className="animate-spin" />}
                       Re-score
                     </button>
                     <button
@@ -1024,7 +1082,7 @@ function SEOContent({ openFaq, setOpenFaq }: { openFaq: number | null; setOpenFa
               Strong positioning answers three questions instantly: <em>What do you do?</em> <em>Who is it for?</em> and <em>Why should I care?</em> When your headline nails all three, buyers self-select in seconds. When it doesn&apos;t, you lose them to a competitor who communicates more clearly.
             </p>
             <p>
-              This free positioning grader analyzes your headline across five evidence-based dimensions — clarity, specificity, differentiation, brevity, and value clarity — and returns an instant scored assessment with actionable suggestions. All scoring runs locally in your browser. No API calls, no data stored, no signup required.
+              This free positioning grader analyzes your headline across five evidence-based dimensions — clarity, specificity, differentiation, brevity, and value clarity — and returns an instant scored assessment with actionable suggestions. Your headline is analyzed by AI (Gemini 2.0 Flash) for personalized feedback. No data is stored, no signup required.
             </p>
           </div>
         </div>
