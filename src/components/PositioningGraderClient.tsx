@@ -14,7 +14,6 @@ import {
   compareWithCompetitor,
   computePositioningResult,
   decodeResult,
-  encodeResult,
   getSmartCTA,
   validateInput,
   type ComparisonResult,
@@ -22,7 +21,6 @@ import {
   type EncodedResult,
   type PositioningResult,
 } from '@/lib/positioning-grader';
-import { useNewsletterSubscribe } from '@/hooks/useNewsletterSubscribe';
 import { cn, motionDelay } from '@/lib/utils';
 
 // ── Types ────────────────────────────────────────────────────────────
@@ -206,9 +204,6 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
   const [rewriteLoading, setRewriteLoading] = useState(false);
   const [competitorLoading, setCompetitorLoading] = useState(false);
 
-  // Email capture
-  const { email: nlEmail, state: nlState, errorMsg: nlError, handleEmailChange: nlHandleEmail, submit: nlSubmit } =
-    useNewsletterSubscribe('positioning-grader');
 
   const sharedResult = useMemo<EncodedResult | null>(() => {
     if (!sharedParam) return null;
@@ -326,14 +321,11 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
     safeTrack('positioning_grader_reset');
   }, []);
 
-  const shareUrl = useMemo(() => {
-    if (!result) return '';
-    return `https://minamankarious.com/positioning-grader?r=${encodeResult(result)}`;
-  }, [result]);
+  const shareUrl = 'https://minamankarious.com/positioning-grader';
 
   const handleShareX = useCallback(() => {
     if (!result) return;
-    const text = `My startup positioning just got graded: ${result.grade.letter} (${result.overallScore}/100) — better than ${result.percentile}% of AI startup headlines\n\nGrade yours free:\n${shareUrl}\n\n@olmnix`;
+    const text = `My startup positioning just got graded: ${result.grade.letter} (${result.overallScore}/100)\n\nGrade yours free:\n${shareUrl}\n\n@olmnix`;
     window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
     safeTrack('positioning_grader_shared_x', { grade: result.grade.letter });
   }, [result, shareUrl]);
@@ -447,15 +439,6 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
       winner: result.overallScore > compResult.overallScore ? 'user' : result.overallScore < compResult.overallScore ? 'competitor' : 'tie',
     });
   }, [result, competitorName, competitorHeadline]);
-
-  // ── Email capture handler ─────────────────────────────────────────
-
-  const handleEmailSubmit = useCallback((e: React.FormEvent) => {
-    if (result) {
-      safeTrack('positioning_grader_email_captured', { grade: result.grade.letter, score: result.overallScore });
-    }
-    nlSubmit(e);
-  }, [result, nlSubmit]);
 
   const bookHref = result
     ? `/book?source=positioning-grader&score=${result.overallScore}&grade=${encodeURIComponent(result.grade.letter)}`
@@ -884,47 +867,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
               </article>
             </Reveal>
 
-            {/* 8. Email My Report (soft gate) */}
-            <Reveal delay={STAGGER * 13}>
-              <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-5">
-                {nlState === 'success' ? (
-                  <div className="flex items-center gap-3 text-center">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[rgba(255,255,255,0.28)] bg-[rgba(255,255,255,0.08)]">
-                      <Check size={14} className="text-[#22c55e]" />
-                    </div>
-                    <p className="text-sm text-[var(--text-muted)]">Check your inbox — and welcome to the newsletter.</p>
-                  </div>
-                ) : (
-                  <>
-                    <p className="command-label mb-1">Get your full report emailed to you</p>
-                    <p className="mb-3 text-sm text-[var(--text-muted)]">We&apos;ll send your results plus actionable positioning tips. You&apos;ll also join the newsletter (unsubscribe anytime).</p>
-                    <form onSubmit={handleEmailSubmit} className="flex gap-2.5">
-                      <input
-                        type="email"
-                        value={nlEmail}
-                        onChange={(e) => nlHandleEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        required
-                        disabled={nlState === 'loading'}
-                        className="min-w-0 flex-1 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none disabled:opacity-50"
-                      />
-                      <button
-                        type="submit"
-                        disabled={nlState === 'loading' || !nlEmail.trim()}
-                        className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-4 py-2.5 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)] disabled:pointer-events-none disabled:opacity-40"
-                      >
-                        {nlState === 'loading' ? <Loader2 size={14} className="animate-spin" /> : 'Email my report'}
-                      </button>
-                    </form>
-                    {nlState === 'error' && nlError && (
-                      <p className="mt-2 text-xs text-red-400/90">{nlError}</p>
-                    )}
-                  </>
-                )}
-              </article>
-            </Reveal>
-
-            {/* 9. Smart CTA (dynamic) */}
+            {/* 8. Smart CTA (dynamic) */}
             {smartCTA && (
               <Reveal delay={STAGGER * 14}>
                 <article className="rounded-2xl border p-6 text-center" style={{ borderColor: smartCTA.borderColor, backgroundColor: `color-mix(in srgb, ${smartCTA.borderColor} 8%, transparent)` }}>
