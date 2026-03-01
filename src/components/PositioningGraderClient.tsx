@@ -448,7 +448,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
 
   if (sharedResult && !result) {
     return (
-      <main id="main-content" className="page-enter marketing-main site-theme pt-20">
+      <main id="main-content" className="page-enter marketing-main site-theme pt-20" data-static-motion="true">
         <section className="command-section page-gutter pt-8 pb-6 md:pt-12 md:pb-8">
           <div className="mx-auto w-full max-w-3xl">
             <Link
@@ -508,7 +508,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
   // ── Main View ──────────────────────────────────────────────────────
 
   return (
-    <main id="main-content" className="page-enter marketing-main site-theme pt-20">
+    <main id="main-content" className="page-enter marketing-main site-theme pt-20" data-static-motion="true">
       {/* Hero */}
       <section className="command-section page-gutter pt-8 pb-6 md:pt-12 md:pb-8" data-section-theme="positioning-hero">
         <div className="mx-auto w-full max-w-3xl">

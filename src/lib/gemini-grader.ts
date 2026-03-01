@@ -83,7 +83,9 @@ For each dimension, provide:
 - "feedback": 1-2 sentences analyzing THIS headline specifically. Reference actual words from the headline.
 - "suggestion": 1 actionable sentence to improve THIS dimension. Be specific, not generic.
 
-IMPORTANT: All feedback must be specific to the actual headline submitted. Never use template responses like "Your headline reads clearly" — always reference the actual text.`;
+IMPORTANT: All feedback must be specific to the actual headline submitted. Never use template responses like "Your headline reads clearly" — always reference the actual text.
+
+When a one-liner description is provided, factor it into your Specificity, Value Clarity, and Differentiation scores — it provides additional context about the product's positioning. The headline is still the primary input being graded.`;
 
 // ── Response Schema ──────────────────────────────────────────────────
 
