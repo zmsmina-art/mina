@@ -453,9 +453,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
           <div className="mx-auto w-full max-w-3xl">
             <Link
               href={personaOverrides?.backLink?.href ?? '/'}
-              className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
-              data-motion="rise"
-              style={motionDelay(60)}
+              className="mb-8 flex w-fit items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
             >
               <ArrowLeft size={14} />
               {personaOverrides?.backLink?.text ?? 'Back home'}
@@ -463,8 +461,6 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
 
             <article
               className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-6 text-center sm:p-8"
-              data-motion="rise"
-              style={motionDelay(140)}
             >
               <p className="command-label mb-1">Positioning Grade</p>
               <p className="text-[clamp(3.5rem,10vw,6rem)] font-semibold leading-none" style={{ color: gradeColor(sharedResult.g), fontFamily: 'var(--font-cormorant)' }}>
@@ -514,23 +510,21 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
         <div className="mx-auto w-full max-w-3xl">
           <Link
             href={personaOverrides?.backLink?.href ?? '/'}
-            className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
-            data-motion="rise"
-            style={motionDelay(60)}
+            className="mb-8 flex w-fit items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <ArrowLeft size={14} />
             {personaOverrides?.backLink?.text ?? 'Back home'}
           </Link>
 
-          <p className="command-label mb-2" data-motion="rise" style={motionDelay(100)}>
+          <p className="command-label mb-2">
             Positioning Grader
           </p>
 
-          <h1 className="home-heading-xl max-w-3xl" data-motion="rise" style={motionDelay(160)}>
+          <h1 className="home-heading-xl max-w-3xl">
             {personaOverrides?.heading ?? 'Grade your AI startup\u2019s positioning in seconds.'}
           </h1>
 
-          <p className="mt-3 max-w-2xl text-[var(--text-muted)]" data-motion="rise" style={motionDelay(220)}>
+          <p className="mt-3 max-w-2xl text-[var(--text-muted)]">
             {personaOverrides?.subheading ?? 'Paste your headline and get a scored assessment across clarity, specificity, differentiation, brevity, and value clarity.'}
           </p>
         </div>
