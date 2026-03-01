@@ -136,9 +136,6 @@ export function validateInput(input: { headline: string; startupName: string }):
   if (isGibberish(input.headline)) {
     return 'Your headline doesn\u2019t appear to contain coherent text. Please enter a real headline or tagline.';
   }
-  if (isGibberish(input.startupName)) {
-    return 'Your startup name doesn\u2019t appear to be valid. Please enter a real name.';
-  }
   return null;
 }
 
