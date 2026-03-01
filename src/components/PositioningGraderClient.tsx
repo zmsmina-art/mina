@@ -21,6 +21,8 @@ import {
   type EncodedResult,
   type PositioningResult,
 } from '@/lib/positioning-grader';
+import { buildChatContext } from '@/lib/positioning-chat';
+import PositioningChat from '@/components/PositioningChat';
 import { cn, motionDelay } from '@/lib/utils';
 
 // ── Types ────────────────────────────────────────────────────────────
@@ -231,6 +233,11 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
   const smartCTA = useMemo(() => {
     if (!result) return null;
     return getSmartCTA(result.overallScore);
+  }, [result]);
+
+  const chatContext = useMemo(() => {
+    if (!result) return null;
+    return buildChatContext(result);
   }, [result]);
 
   // Track smart CTA shown
@@ -746,8 +753,15 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
               </article>
             </Reveal>
 
+            {/* 5.5. Inline Chat */}
+            {chatContext && (
+              <Reveal delay={STAGGER * 10.5}>
+                <PositioningChat result={result} chatContext={chatContext} bookHref={bookHref} />
+              </Reveal>
+            )}
+
             {/* 6. Rewrite Templates */}
-            <Reveal delay={STAGGER * 11}>
+            <Reveal delay={STAGGER * 11.5}>
               <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5">
                 <p className="command-label mb-3">Rewrite Templates</p>
                 <div className="space-y-3">
