@@ -36,6 +36,18 @@ type FormInput = {
 
 type Phase = 'form' | 'analyzing' | 'result';
 
+export type PersonaOverrides = {
+  heading?: string;
+  subheading?: string;
+  placeholders?: {
+    startupName?: string;
+    targetAudience?: string;
+    headline?: string;
+    oneLiner?: string;
+  };
+  backLink?: { href: string; text: string };
+};
+
 // ── Constants ────────────────────────────────────────────────────────
 
 const INITIAL_INPUT: FormInput = {
@@ -167,7 +179,7 @@ function MiniGradeCard({ result, label }: { result: PositioningResult; label: st
 
 // ── Component ────────────────────────────────────────────────────────
 
-export default function PositioningGraderClient({ sharedParam }: { sharedParam: string | null }) {
+export default function PositioningGraderClient({ sharedParam, personaOverrides }: { sharedParam: string | null; personaOverrides?: PersonaOverrides }) {
   const [input, setInput] = useState<FormInput>(() => loadSession(SESSION_KEY, INITIAL_INPUT));
   const [result, setResult] = useState<PositioningResult | null>(null);
   const [phase, setPhase] = useState<Phase>('form');
@@ -401,13 +413,13 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
         <section className="command-section page-gutter pt-8 pb-6 md:pt-12 md:pb-8">
           <div className="mx-auto w-full max-w-3xl">
             <Link
-              href="/"
+              href={personaOverrides?.backLink?.href ?? '/'}
               className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
               data-motion="rise"
               style={motionDelay(60)}
             >
               <ArrowLeft size={14} />
-              Back home
+              {personaOverrides?.backLink?.text ?? 'Back home'}
             </Link>
 
             <article
@@ -465,13 +477,13 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
       <section className="command-section page-gutter pt-8 pb-6 md:pt-12 md:pb-8" data-section-theme="positioning-hero">
         <div className="mx-auto w-full max-w-3xl">
           <Link
-            href="/"
+            href={personaOverrides?.backLink?.href ?? '/'}
             className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
             data-motion="rise"
             style={motionDelay(60)}
           >
             <ArrowLeft size={14} />
-            Back home
+            {personaOverrides?.backLink?.text ?? 'Back home'}
           </Link>
 
           <p className="command-label mb-2" data-motion="rise" style={motionDelay(100)}>
@@ -479,11 +491,11 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
           </p>
 
           <h1 className="home-heading-xl max-w-3xl" data-motion="rise" style={motionDelay(160)}>
-            Grade your AI startup&apos;s positioning in seconds.
+            {personaOverrides?.heading ?? 'Grade your AI startup\u2019s positioning in seconds.'}
           </h1>
 
           <p className="mt-3 max-w-2xl text-[var(--text-muted)]" data-motion="rise" style={motionDelay(220)}>
-            Paste your headline and get a scored assessment across clarity, specificity, differentiation, brevity, and value clarity.
+            {personaOverrides?.subheading ?? 'Paste your headline and get a scored assessment across clarity, specificity, differentiation, brevity, and value clarity.'}
           </p>
         </div>
       </section>
@@ -499,7 +511,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
                   type="text"
                   value={input.startupName}
                   onChange={(e) => updateField('startupName', e.target.value)}
-                  placeholder="e.g. Acme AI"
+                  placeholder={personaOverrides?.placeholders?.startupName ?? 'e.g. Acme AI'}
                   className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                 />
               </label>
@@ -509,7 +521,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
                   type="text"
                   value={input.targetAudience}
                   onChange={(e) => updateField('targetAudience', e.target.value)}
-                  placeholder="e.g. Series A SaaS founders"
+                  placeholder={personaOverrides?.placeholders?.targetAudience ?? 'e.g. Series A SaaS founders'}
                   className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
                 />
               </label>
@@ -520,7 +532,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               <textarea
                 value={input.headline}
                 onChange={(e) => updateField('headline', e.target.value)}
-                placeholder="e.g. AI-powered analytics for modern teams"
+                placeholder={personaOverrides?.placeholders?.headline ?? 'e.g. AI-powered analytics for modern teams'}
                 rows={2}
                 className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none resize-none"
               />
@@ -531,7 +543,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               <textarea
                 value={input.oneLiner}
                 onChange={(e) => updateField('oneLiner', e.target.value)}
-                placeholder="e.g. We help SaaS founders close deals faster by auto-generating personalized proposals."
+                placeholder={personaOverrides?.placeholders?.oneLiner ?? 'e.g. We help SaaS founders close deals faster by auto-generating personalized proposals.'}
                 rows={2}
                 className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none resize-none"
               />
