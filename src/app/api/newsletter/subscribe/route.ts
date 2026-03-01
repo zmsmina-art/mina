@@ -51,8 +51,8 @@ export async function POST(request: Request) {
     // Buttondown returns structured errors
     const data = await res.json().catch(() => null);
 
-    // 409 = already subscribed — treat as success
-    if (res.status === 409) {
+    // Already subscribed — treat as success regardless of status code
+    if (res.status === 409 || String(data?.detail ?? '').toLowerCase().includes('already subscribed')) {
       return NextResponse.json({ success: true, alreadySubscribed: true });
     }
 
