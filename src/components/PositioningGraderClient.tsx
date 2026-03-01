@@ -489,9 +489,6 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
               </p>
               <p className="mt-1 text-sm uppercase tracking-[0.14em] text-[var(--accent-purple-soft)]">{sharedResult.t}</p>
               <p className="mt-1 text-xl text-[var(--text-primary)]">{sharedResult.s}<span className="ml-1 text-sm text-[var(--text-dim)]">/100</span></p>
-              {sharedResult.p != null && (
-                <p className="mt-1 text-sm text-[var(--text-muted)]">Better than {sharedResult.p}% of AI startup headlines</p>
-              )}
               <p className="mt-3 text-base italic text-[var(--text-muted)]">&ldquo;{sharedResult.h}&rdquo;</p>
               <p className="mt-1 text-sm text-[var(--text-dim)]">{sharedResult.n}</p>
 
@@ -677,11 +674,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
                   <span className="ml-1 text-sm text-[var(--text-dim)]">/100</span>
                 </p>
 
-                <p className="mt-1 text-sm text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 520ms both', opacity: 0 }}>
-                  Better than <Counter target={result.percentile} duration={700} delay={520} />% of AI startup headlines
-                </p>
-
-                <p className="mt-3 text-base italic text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 580ms both', opacity: 0 }}>
+                <p className="mt-3 text-base italic text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 520ms both', opacity: 0 }}>
                   &ldquo;{result.input.headline}&rdquo;
                 </p>
 
