@@ -308,9 +308,24 @@ export default function RootLayout({
     },
   };
 
+  const siteNavigationElements = [
+    { name: 'About', url: 'https://minamankarious.com/about', description: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix' },
+    { name: 'Work', url: 'https://minamankarious.com/work', description: 'Case studies by Mina Mankarious & Olunix' },
+    { name: 'Articles', url: 'https://minamankarious.com/articles', description: 'Essays on AI startup marketing, entrepreneurship, and growth strategy' },
+    { name: 'Positioning Grader', url: 'https://minamankarious.com/positioning-grader', description: 'Grade your AI startup positioning — free tool' },
+    { name: 'Newsletter', url: 'https://minamankarious.com/newsletter', description: 'Subscribe to essays on entrepreneurship, marketing, and growth' },
+    { name: 'Book a Call', url: 'https://minamankarious.com/book', description: 'Schedule a free strategy call with Mina Mankarious' },
+  ].map((item, i) => ({
+    '@type': 'SiteNavigationElement',
+    position: i + 1,
+    name: item.name,
+    description: item.description,
+    url: item.url,
+  }));
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [organizationSchema, personSchema, websiteSchema],
+    '@graph': [organizationSchema, personSchema, websiteSchema, ...siteNavigationElements],
   };
 
   return (
