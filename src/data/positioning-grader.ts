@@ -58,6 +58,64 @@ export type RewriteTemplate = {
   example: string;
 };
 
+export type SmartCTA = {
+  id: string;
+  minScore: number;
+  maxScore: number;
+  headline: string;
+  subtext: string;
+  primaryAction: 'book' | 'share';
+  borderColor: string;
+};
+
+// ── Benchmark Config ────────────────────────────────────────────────
+
+export const BENCHMARK_CONFIG = {
+  mean: 52,
+  stdDev: 15,
+} as const;
+
+// ── Smart CTAs ──────────────────────────────────────────────────────
+
+export const SMART_CTAS: SmartCTA[] = [
+  {
+    id: 'df',
+    minScore: 0,
+    maxScore: 34,
+    headline: 'Your positioning is invisible to buyers. Let\u2019s fix it together.',
+    subtext: 'Book a free positioning call. We\u2019ll rebuild your messaging from scratch.',
+    primaryAction: 'book',
+    borderColor: '#ef4444',
+  },
+  {
+    id: 'c',
+    minScore: 35,
+    maxScore: 64,
+    headline: 'You\u2019re close but blending in. A 30-minute call could unlock 20+ points.',
+    subtext: 'Book a free positioning call. We\u2019ll audit your messaging and sharpen the angle.',
+    primaryAction: 'book',
+    borderColor: '#f59e0b',
+  },
+  {
+    id: 'b',
+    minScore: 65,
+    maxScore: 84,
+    headline: 'Good foundation. Let\u2019s sharpen this to an A.',
+    subtext: 'Book a free positioning call. We\u2019ll turn good positioning into great positioning.',
+    primaryAction: 'book',
+    borderColor: 'var(--accent-purple-soft)',
+  },
+  {
+    id: 'a',
+    minScore: 85,
+    maxScore: 100,
+    headline: 'Your positioning stands out. Share your result.',
+    subtext: 'Great positioning deserves an audience. Share your grade, or book a call to refine further.',
+    primaryAction: 'share',
+    borderColor: '#22c55e',
+  },
+];
+
 // ── Dimensions ───────────────────────────────────────────────────────
 
 export const POSITIONING_DIMENSIONS: PositioningDimension[] = [

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 export type SubscribeState = 'idle' | 'loading' | 'success' | 'error';
 
-export function useNewsletterSubscribe() {
+export function useNewsletterSubscribe(tag: string = 'website') {
   const [email, setEmail] = useState('');
   const [state, setState] = useState<SubscribeState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -27,7 +27,7 @@ export function useNewsletterSubscribe() {
         const res = await fetch('/api/newsletter/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email.trim(), tag: 'website' }),
+          body: JSON.stringify({ email: email.trim(), tag }),
         });
 
         const data = await res.json().catch(() => null);
@@ -43,7 +43,7 @@ export function useNewsletterSubscribe() {
         setErrorMsg('Unable to connect. Please try again.');
       }
     },
-    [email, state]
+    [email, state, tag]
   );
 
   const reset = useCallback(() => {

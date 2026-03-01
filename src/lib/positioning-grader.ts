@@ -3,6 +3,7 @@
 /* ------------------------------------------------------------------ */
 
 import {
+  BENCHMARK_CONFIG,
   CONTRAST_WORDS,
   CUSTOMER_CENTRIC_WORDS,
   FEEDBACK_TEMPLATES,
@@ -13,6 +14,7 @@ import {
   POSITIONING_DIMENSIONS,
   REWRITE_TEMPLATES,
   SELF_REFERENTIAL_WORDS,
+  SMART_CTAS,
   SPECIFICITY_INDICATORS,
   VAGUE_WORDS,
   type GradeTier,
@@ -20,6 +22,7 @@ import {
   type PositioningInput,
   type RedFlag,
   type RewriteTemplate,
+  type SmartCTA,
 } from '@/data/positioning-grader';
 
 // ── Result types ─────────────────────────────────────────────────────
@@ -36,6 +39,7 @@ export type DimensionResult = {
 
 export type PositioningResult = {
   overallScore: number;
+  percentile: number;
   grade: GradeTier;
   dimensions: DimensionResult[];
   redFlags: RedFlag[];
@@ -43,6 +47,31 @@ export type PositioningResult = {
   rewrites: string[];
   input: PositioningInput;
   completedAt: string;
+};
+
+// ── Comparison types ────────────────────────────────────────────────
+
+export type DimensionDelta = {
+  id: PositioningDimensionId;
+  label: string;
+  originalScore: number;
+  rewriteScore: number;
+  delta: number;
+};
+
+export type ComparisonResult = {
+  original: PositioningResult;
+  rewrite: PositioningResult;
+  overallDelta: number;
+  dimensionDeltas: DimensionDelta[];
+};
+
+export type CompetitorResult = {
+  user: PositioningResult;
+  competitor: PositioningResult;
+  userWins: string[];
+  competitorWins: string[];
+  ties: string[];
 };
 
 // ── Gibberish Detection ──────────────────────────────────────────────
@@ -387,6 +416,7 @@ export type EncodedResult = {
   t: string;        // tier name
   d: string;        // dimensions: "clarity:78,specificity:65,..."
   h: string;        // headline (truncated)
+  p?: number;       // percentile
 };
 
 export function encodeResult(result: PositioningResult): string {
@@ -397,6 +427,7 @@ export function encodeResult(result: PositioningResult): string {
     t: result.grade.name,
     d: result.dimensions.map((d) => `${d.id}:${d.score}`).join(','),
     h: result.input.headline.slice(0, 80),
+    p: result.percentile,
   };
   try {
     return btoa(encodeURIComponent(JSON.stringify(payload)));
@@ -414,6 +445,72 @@ export function decodeResult(encoded: string): EncodedResult | null {
   } catch {
     return null;
   }
+}
+
+// ── Percentile (Abramowitz & Stegun CDF approximation) ──────────────
+
+export function computePercentile(score: number): number {
+  const z = (score - BENCHMARK_CONFIG.mean) / BENCHMARK_CONFIG.stdDev;
+  // Approximation constants
+  const a1 = 0.254829592;
+  const a2 = -0.284496736;
+  const a3 = 1.421413741;
+  const a4 = -1.453152027;
+  const a5 = 1.061405429;
+  const p = 0.3275911;
+
+  const sign = z < 0 ? -1 : 1;
+  const absZ = Math.abs(z);
+  const t = 1.0 / (1.0 + p * absZ);
+  const y = 1.0 - ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t * Math.exp(-absZ * absZ / 2);
+  const cdf = 0.5 * (1.0 + sign * y);
+  return clamp(Math.round(cdf * 100), 1, 99);
+}
+
+// ── Smart CTA Selection ─────────────────────────────────────────────
+
+export function getSmartCTA(score: number): SmartCTA {
+  return SMART_CTAS.find((cta) => score >= cta.minScore && score <= cta.maxScore) ?? SMART_CTAS[0];
+}
+
+// ── Result Comparison (Before/After Rewrite) ────────────────────────
+
+export function compareResults(original: PositioningResult, rewrite: PositioningResult): ComparisonResult {
+  const dimensionDeltas: DimensionDelta[] = original.dimensions.map((origDim, i) => {
+    const rewriteDim = rewrite.dimensions[i];
+    return {
+      id: origDim.id,
+      label: origDim.label,
+      originalScore: origDim.score,
+      rewriteScore: rewriteDim.score,
+      delta: rewriteDim.score - origDim.score,
+    };
+  });
+
+  return {
+    original,
+    rewrite,
+    overallDelta: rewrite.overallScore - original.overallScore,
+    dimensionDeltas,
+  };
+}
+
+// ── Competitor Comparison ───────────────────────────────────────────
+
+export function compareWithCompetitor(user: PositioningResult, competitor: PositioningResult): CompetitorResult {
+  const userWins: string[] = [];
+  const competitorWins: string[] = [];
+  const ties: string[] = [];
+
+  user.dimensions.forEach((userDim, i) => {
+    const compDim = competitor.dimensions[i];
+    const diff = userDim.score - compDim.score;
+    if (diff > 3) userWins.push(userDim.label);
+    else if (diff < -3) competitorWins.push(userDim.label);
+    else ties.push(userDim.label);
+  });
+
+  return { user, competitor, userWins, competitorWins, ties };
 }
 
 // ── Main Scoring Function ────────────────────────────────────────────
@@ -456,8 +553,11 @@ export function computePositioningResult(input: PositioningInput): PositioningRe
   const quickWins = generateQuickWins(dimensions, input);
   const rewrites = generateRewrites(input);
 
+  const percentile = computePercentile(overallScore);
+
   return {
     overallScore,
+    percentile,
     grade,
     dimensions,
     redFlags,

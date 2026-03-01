@@ -3,20 +3,26 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { track } from '@vercel/analytics/react';
-import { ArrowLeft, ArrowUpRight, Check, ChevronDown, Copy, RefreshCw } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check, ChevronDown, Copy, Loader2, Pencil, RefreshCw } from 'lucide-react';
 import {
   FAQ_ITEMS,
   POSITIONING_DIMENSIONS,
   REWRITE_TEMPLATES,
 } from '@/data/positioning-grader';
 import {
+  compareResults,
+  compareWithCompetitor,
   computePositioningResult,
   decodeResult,
   encodeResult,
+  getSmartCTA,
   validateInput,
+  type ComparisonResult,
+  type CompetitorResult,
   type EncodedResult,
   type PositioningResult,
 } from '@/lib/positioning-grader';
+import { useNewsletterSubscribe } from '@/hooks/useNewsletterSubscribe';
 import { cn, motionDelay } from '@/lib/utils';
 
 // ── Types ────────────────────────────────────────────────────────────
@@ -142,6 +148,23 @@ function Reveal({ children, delay = 0, className = '' }: { children: React.React
   );
 }
 
+// ── Mini Grade Card (used in comparisons) ────────────────────────────
+
+function MiniGradeCard({ result, label }: { result: PositioningResult; label: string }) {
+  return (
+    <div className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-4 text-center">
+      <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-dim)]">{label}</p>
+      <p className="mt-1 text-[clamp(2rem,6vw,3rem)] font-semibold leading-none" style={{ color: gradeColor(result.grade.letter), fontFamily: 'var(--font-cormorant)' }}>
+        {result.grade.letter}
+      </p>
+      <p className="mt-1 text-lg text-[var(--text-primary)]">
+        {result.overallScore}<span className="ml-0.5 text-xs text-[var(--text-dim)]">/100</span>
+      </p>
+      <p className="mt-1 text-xs italic text-[var(--text-muted)] line-clamp-2">&ldquo;{result.input.headline}&rdquo;</p>
+    </div>
+  );
+}
+
 // ── Component ────────────────────────────────────────────────────────
 
 export default function PositioningGraderClient({ sharedParam }: { sharedParam: string | null }) {
@@ -153,6 +176,23 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const resultRef = useRef<HTMLElement>(null);
   const analyzeRef = useRef<HTMLElement>(null);
+
+  // Rewrite mode state
+  const [rewriteMode, setRewriteMode] = useState(false);
+  const [rewriteHeadline, setRewriteHeadline] = useState('');
+  const [rewriteError, setRewriteError] = useState('');
+  const [comparison, setComparison] = useState<ComparisonResult | null>(null);
+
+  // Competitor comparison state
+  const [competitorOpen, setCompetitorOpen] = useState(false);
+  const [competitorName, setCompetitorName] = useState('');
+  const [competitorHeadline, setCompetitorHeadline] = useState('');
+  const [competitorError, setCompetitorError] = useState('');
+  const [competitorResult, setCompetitorResult] = useState<CompetitorResult | null>(null);
+
+  // Email capture
+  const { email: nlEmail, state: nlState, errorMsg: nlError, handleEmailChange: nlHandleEmail, submit: nlSubmit } =
+    useNewsletterSubscribe('positioning-grader');
 
   const sharedResult = useMemo<EncodedResult | null>(() => {
     if (!sharedParam) return null;
@@ -176,6 +216,18 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
   useEffect(() => {
     safeTrack('positioning_grader_viewed', { shared: !!sharedParam });
   }, [sharedParam]);
+
+  const smartCTA = useMemo(() => {
+    if (!result) return null;
+    return getSmartCTA(result.overallScore);
+  }, [result]);
+
+  // Track smart CTA shown
+  useEffect(() => {
+    if (smartCTA && result) {
+      safeTrack('positioning_grader_smart_cta_shown', { cta_id: smartCTA.id, grade: result.grade.letter, score: result.overallScore });
+    }
+  }, [smartCTA, result]);
 
   const updateField = useCallback((field: keyof FormInput, value: string) => {
     setInput((prev) => ({ ...prev, [field]: value }));
@@ -226,6 +278,15 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
     setPhase('form');
     setError('');
     setCopied(false);
+    setRewriteMode(false);
+    setRewriteHeadline('');
+    setRewriteError('');
+    setComparison(null);
+    setCompetitorOpen(false);
+    setCompetitorName('');
+    setCompetitorHeadline('');
+    setCompetitorError('');
+    setCompetitorResult(null);
     sessionStorage.removeItem(SESSION_KEY);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     safeTrack('positioning_grader_reset');
@@ -238,7 +299,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
 
   const handleShareX = useCallback(() => {
     if (!result) return;
-    const text = `My startup positioning just got graded: ${result.grade.letter} (${result.overallScore}/100) — "${result.grade.name}"\n\nGrade yours free:\n${shareUrl}\n\n@olmnix`;
+    const text = `My startup positioning just got graded: ${result.grade.letter} (${result.overallScore}/100) — better than ${result.percentile}% of AI startup headlines\n\nGrade yours free:\n${shareUrl}\n\n@olmnix`;
     window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
     safeTrack('positioning_grader_shared_x', { grade: result.grade.letter });
   }, [result, shareUrl]);
@@ -258,6 +319,75 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
       safeTrack('positioning_grader_shared_copy');
     } catch { setCopied(false); }
   }, [shareUrl]);
+
+  // ── Rewrite handlers ──────────────────────────────────────────────
+
+  const handleOpenRewrite = useCallback(() => {
+    if (!result) return;
+    setRewriteMode(true);
+    setRewriteHeadline(result.input.headline);
+    setRewriteError('');
+    setComparison(null);
+    safeTrack('positioning_grader_rewrite_opened');
+  }, [result]);
+
+  const handleRewriteScore = useCallback(() => {
+    if (!result || !rewriteHeadline.trim()) return;
+
+    const validationError = validateInput({ headline: rewriteHeadline.trim(), startupName: result.input.startupName });
+    if (validationError) { setRewriteError(validationError); return; }
+
+    setRewriteError('');
+    const rewriteResult = computePositioningResult({
+      startupName: result.input.startupName,
+      headline: rewriteHeadline.trim(),
+      oneLiner: result.input.oneLiner,
+      targetAudience: result.input.targetAudience,
+    });
+    const comp = compareResults(result, rewriteResult);
+    setComparison(comp);
+
+    safeTrack('positioning_grader_rewrite_compared', {
+      original_score: result.overallScore,
+      rewrite_score: rewriteResult.overallScore,
+      delta: comp.overallDelta,
+      improved: comp.overallDelta > 0,
+    });
+  }, [result, rewriteHeadline]);
+
+  // ── Competitor handlers ───────────────────────────────────────────
+
+  const handleCompetitorCompare = useCallback(() => {
+    if (!result || !competitorName.trim() || !competitorHeadline.trim()) return;
+
+    const validationError = validateInput({ headline: competitorHeadline.trim(), startupName: competitorName.trim() });
+    if (validationError) { setCompetitorError(validationError); return; }
+
+    setCompetitorError('');
+    const compResult = computePositioningResult({
+      startupName: competitorName.trim(),
+      headline: competitorHeadline.trim(),
+      oneLiner: '',
+      targetAudience: '',
+    });
+    const comp = compareWithCompetitor(result, compResult);
+    setCompetitorResult(comp);
+
+    safeTrack('positioning_grader_competitor_compared', {
+      user_score: result.overallScore,
+      competitor_score: compResult.overallScore,
+      winner: result.overallScore > compResult.overallScore ? 'user' : result.overallScore < compResult.overallScore ? 'competitor' : 'tie',
+    });
+  }, [result, competitorName, competitorHeadline]);
+
+  // ── Email capture handler ─────────────────────────────────────────
+
+  const handleEmailSubmit = useCallback((e: React.FormEvent) => {
+    if (result) {
+      safeTrack('positioning_grader_email_captured', { grade: result.grade.letter, score: result.overallScore });
+    }
+    nlSubmit(e);
+  }, [result, nlSubmit]);
 
   const bookHref = result
     ? `/book?source=positioning-grader&score=${result.overallScore}&grade=${encodeURIComponent(result.grade.letter)}`
@@ -291,6 +421,9 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               </p>
               <p className="mt-1 text-sm uppercase tracking-[0.14em] text-[var(--accent-purple-soft)]">{sharedResult.t}</p>
               <p className="mt-1 text-xl text-[var(--text-primary)]">{sharedResult.s}<span className="ml-1 text-sm text-[var(--text-dim)]">/100</span></p>
+              {sharedResult.p != null && (
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Better than {sharedResult.p}% of AI startup headlines</p>
+              )}
               <p className="mt-3 text-base italic text-[var(--text-muted)]">&ldquo;{sharedResult.h}&rdquo;</p>
               <p className="mt-1 text-sm text-[var(--text-dim)]">{sharedResult.n}</p>
 
@@ -458,7 +591,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
         <section ref={resultRef} className="command-section page-gutter pb-20 md:pb-24" data-section-theme="positioning-result">
           <div className="mx-auto w-full max-w-3xl space-y-6">
 
-            {/* Grade Card */}
+            {/* 1. Grade Card (with benchmark percentile) */}
             <Reveal delay={0}>
               <article className="relative overflow-hidden rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-6 text-center sm:p-8">
                 <p className="command-label mb-1">Positioning Grade</p>
@@ -476,28 +609,32 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
                   <span className="ml-1 text-sm text-[var(--text-dim)]">/100</span>
                 </p>
 
-                <p className="mt-3 text-base italic text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 540ms both', opacity: 0 }}>
+                <p className="mt-1 text-sm text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 520ms both', opacity: 0 }}>
+                  Better than <Counter target={result.percentile} duration={700} delay={520} />% of AI startup headlines
+                </p>
+
+                <p className="mt-3 text-base italic text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 580ms both', opacity: 0 }}>
                   &ldquo;{result.input.headline}&rdquo;
                 </p>
 
                 <div className="mx-auto mt-5 grid max-w-sm gap-2">
                   {result.dimensions.map((dim, i) => (
-                    <div key={dim.id} className="flex items-center gap-3" style={{ animation: `pg-in 250ms ease ${620 + i * 70}ms both`, opacity: 0 }}>
+                    <div key={dim.id} className="flex items-center gap-3" style={{ animation: `pg-in 250ms ease ${660 + i * 70}ms both`, opacity: 0 }}>
                       <span className="w-24 text-right text-xs text-[var(--text-dim)]">{dim.label}</span>
-                      <AnimatedBar score={dim.score} delay={700 + i * 100} />
+                      <AnimatedBar score={dim.score} delay={740 + i * 100} />
                       <span className="w-7 text-xs text-[var(--text-muted)]">{dim.score}</span>
                     </div>
                   ))}
                 </div>
 
-                <p className="mt-3 text-sm text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 1000ms both', opacity: 0 }}>
+                <p className="mt-3 text-sm text-[var(--text-muted)]" style={{ animation: 'pg-in 350ms ease 1040ms both', opacity: 0 }}>
                   {result.grade.summary}
                 </p>
                 <p className="mt-4 text-xs text-[var(--text-dim)]">minamankarious.com/positioning-grader</p>
               </article>
             </Reveal>
 
-            {/* Share */}
+            {/* 2. Share */}
             <Reveal delay={STAGGER * 2}>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <button type="button" className="accent-btn" onClick={handleShareX}>Share on X<ArrowUpRight size={15} /></button>
@@ -509,7 +646,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               </div>
             </Reveal>
 
-            {/* Dimension Breakdown */}
+            {/* 3. Dimension Breakdown */}
             <Reveal delay={STAGGER * 3}>
               <div className="space-y-3">
                 <p className="command-label">Dimension Breakdown</p>
@@ -534,7 +671,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               </div>
             </Reveal>
 
-            {/* Red Flags */}
+            {/* 4. Red Flags */}
             {result.redFlags.length > 0 && (
               <Reveal delay={STAGGER * 9}>
                 <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5">
@@ -561,7 +698,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               </Reveal>
             )}
 
-            {/* Quick Wins */}
+            {/* 5. Quick Wins */}
             <Reveal delay={STAGGER * 10}>
               <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5">
                 <p className="command-label mb-3">Quick Wins</p>
@@ -571,7 +708,7 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               </article>
             </Reveal>
 
-            {/* Rewrite Templates */}
+            {/* 6. Rewrite Templates */}
             <Reveal delay={STAGGER * 11}>
               <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5">
                 <p className="command-label mb-3">Rewrite Templates</p>
@@ -587,29 +724,263 @@ export default function PositioningGraderClient({ sharedParam }: { sharedParam: 
               </article>
             </Reveal>
 
-            {/* CTA */}
+            {/* 7. Competitor Comparison (collapsible) */}
             <Reveal delay={STAGGER * 12}>
-              <article className="rounded-2xl border border-[var(--accent-purple)] bg-[rgba(122,64,242,0.08)] p-6 text-center">
-                <p className="text-base text-[var(--text-primary)]">Want positioning that actually converts?</p>
-                <p className="mt-1.5 text-sm text-[var(--text-muted)]">
-                  Book a free positioning call. We&apos;ll audit your messaging and build a headline that lands.
-                </p>
-                <Link href={bookHref} className="accent-btn mt-4 inline-flex" onClick={() => safeTrack('positioning_grader_book_click', { grade: result.grade.letter, score: result.overallScore })}>
-                  Book a positioning call
-                  <ArrowUpRight size={15} />
-                </Link>
+              <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)]">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between p-5 text-left transition-colors hover:bg-[rgba(255,255,255,0.02)]"
+                  onClick={() => {
+                    const willOpen = !competitorOpen;
+                    setCompetitorOpen(willOpen);
+                    if (willOpen) safeTrack('positioning_grader_competitor_opened');
+                  }}
+                >
+                  <p className="command-label">Compare with a competitor</p>
+                  <ChevronDown size={16} className={cn('shrink-0 text-[var(--text-dim)] transition-transform duration-200', competitorOpen && 'rotate-180')} />
+                </button>
+                <div className="overflow-hidden transition-all duration-300" style={{ maxHeight: competitorOpen ? '800px' : '0px', opacity: competitorOpen ? 1 : 0 }}>
+                  <div className="space-y-4 px-5 pb-5">
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <label className="flex flex-col gap-1.5">
+                        <span className="text-site-kicker text-[var(--text-dim)]">Competitor Name</span>
+                        <input
+                          type="text"
+                          value={competitorName}
+                          onChange={(e) => { setCompetitorName(e.target.value); setCompetitorError(''); }}
+                          placeholder="e.g. Rival AI"
+                          className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
+                        />
+                      </label>
+                      <label className="flex flex-col gap-1.5">
+                        <span className="text-site-kicker text-[var(--text-dim)]">Competitor Headline</span>
+                        <input
+                          type="text"
+                          value={competitorHeadline}
+                          onChange={(e) => { setCompetitorHeadline(e.target.value); setCompetitorError(''); }}
+                          placeholder="e.g. AI-powered automation for teams"
+                          className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none"
+                        />
+                      </label>
+                    </div>
+                    {competitorError && <p className="text-sm text-red-400">{competitorError}</p>}
+                    <button
+                      type="button"
+                      className="ghost-btn px-4 py-2 text-sm"
+                      onClick={handleCompetitorCompare}
+                      disabled={!competitorName.trim() || !competitorHeadline.trim()}
+                    >
+                      Compare
+                    </button>
+
+                    {competitorResult && (
+                      <div className="space-y-4 pt-2">
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <MiniGradeCard result={competitorResult.user} label="You" />
+                          <MiniGradeCard result={competitorResult.competitor} label={competitorName || 'Competitor'} />
+                        </div>
+
+                        {/* Per-dimension bar comparison */}
+                        <div className="space-y-2">
+                          {result.dimensions.map((userDim, i) => {
+                            const compDim = competitorResult.competitor.dimensions[i];
+                            return (
+                              <div key={userDim.id} className="space-y-1">
+                                <div className="flex items-center justify-between text-xs text-[var(--text-dim)]">
+                                  <span>{userDim.label}</span>
+                                  <span>{userDim.score} vs {compDim.score}</span>
+                                </div>
+                                <div className="flex gap-1">
+                                  <div className="h-1.5 flex-1 rounded-full bg-[rgba(255,255,255,0.1)] overflow-hidden">
+                                    <div className="h-full rounded-full" style={{ width: `${userDim.score}%`, background: scoreColor(userDim.score), transition: 'width 500ms ease' }} />
+                                  </div>
+                                  <div className="h-1.5 flex-1 rounded-full bg-[rgba(255,255,255,0.1)] overflow-hidden">
+                                    <div className="h-full rounded-full" style={{ width: `${compDim.score}%`, background: scoreColor(compDim.score), transition: 'width 500ms ease' }} />
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* Win/loss summary */}
+                        <div className="space-y-1.5 text-sm">
+                          {competitorResult.userWins.length > 0 && (
+                            <p className="text-[#22c55e]">You win on: {competitorResult.userWins.join(', ')}</p>
+                          )}
+                          {competitorResult.competitorWins.length > 0 && (
+                            <p className="text-[#ef4444]">They beat you on: {competitorResult.competitorWins.join(', ')}</p>
+                          )}
+                          {competitorResult.ties.length > 0 && (
+                            <p className="text-[var(--text-dim)]">Tied on: {competitorResult.ties.join(', ')}</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </article>
             </Reveal>
 
-            {/* Reset */}
+            {/* 8. Email My Report (soft gate) */}
             <Reveal delay={STAGGER * 13}>
-              <div className="text-center">
+              <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-5">
+                {nlState === 'success' ? (
+                  <div className="flex items-center gap-3 text-center">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[rgba(255,255,255,0.28)] bg-[rgba(255,255,255,0.08)]">
+                      <Check size={14} className="text-[#22c55e]" />
+                    </div>
+                    <p className="text-sm text-[var(--text-muted)]">Check your inbox — and welcome to the newsletter.</p>
+                  </div>
+                ) : (
+                  <>
+                    <p className="command-label mb-1">Get your full report emailed to you</p>
+                    <p className="mb-3 text-sm text-[var(--text-muted)]">We&apos;ll send your results plus actionable positioning tips. You&apos;ll also join the newsletter (unsubscribe anytime).</p>
+                    <form onSubmit={handleEmailSubmit} className="flex gap-2.5">
+                      <input
+                        type="email"
+                        value={nlEmail}
+                        onChange={(e) => nlHandleEmail(e.target.value)}
+                        placeholder="your@email.com"
+                        required
+                        disabled={nlState === 'loading'}
+                        className="min-w-0 flex-1 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.05)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none disabled:opacity-50"
+                      />
+                      <button
+                        type="submit"
+                        disabled={nlState === 'loading' || !nlEmail.trim()}
+                        className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-4 py-2.5 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)] disabled:pointer-events-none disabled:opacity-40"
+                      >
+                        {nlState === 'loading' ? <Loader2 size={14} className="animate-spin" /> : 'Email my report'}
+                      </button>
+                    </form>
+                    {nlState === 'error' && nlError && (
+                      <p className="mt-2 text-xs text-red-400/90">{nlError}</p>
+                    )}
+                  </>
+                )}
+              </article>
+            </Reveal>
+
+            {/* 9. Smart CTA (dynamic) */}
+            {smartCTA && (
+              <Reveal delay={STAGGER * 14}>
+                <article className="rounded-2xl border p-6 text-center" style={{ borderColor: smartCTA.borderColor, backgroundColor: `color-mix(in srgb, ${smartCTA.borderColor} 8%, transparent)` }}>
+                  <p className="text-base text-[var(--text-primary)]">{smartCTA.headline}</p>
+                  <p className="mt-1.5 text-sm text-[var(--text-muted)]">{smartCTA.subtext}</p>
+                  <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                    {smartCTA.primaryAction === 'share' ? (
+                      <>
+                        <button type="button" className="accent-btn" onClick={handleShareX}>
+                          Share on X
+                          <ArrowUpRight size={15} />
+                        </button>
+                        <Link href={bookHref} className="ghost-btn px-4 py-2 text-sm" onClick={() => safeTrack('positioning_grader_book_click', { grade: result.grade.letter, score: result.overallScore })}>
+                          Book a call
+                          <ArrowUpRight size={15} />
+                        </Link>
+                      </>
+                    ) : (
+                      <Link href={bookHref} className="accent-btn inline-flex" onClick={() => safeTrack('positioning_grader_book_click', { grade: result.grade.letter, score: result.overallScore })}>
+                        Book a positioning call
+                        <ArrowUpRight size={15} />
+                      </Link>
+                    )}
+                  </div>
+                </article>
+              </Reveal>
+            )}
+
+            {/* 10. Reset + Try a Rewrite */}
+            <Reveal delay={STAGGER * 15}>
+              <div className="flex flex-wrap items-center justify-center gap-3">
                 <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleReset}>
                   <RefreshCw size={14} />
                   Grade another headline
                 </button>
+                {!rewriteMode && (
+                  <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleOpenRewrite}>
+                    <Pencil size={14} />
+                    Try a rewrite
+                  </button>
+                )}
               </div>
             </Reveal>
+
+            {/* Rewrite Mode (inline editor + comparison) */}
+            {rewriteMode && (
+              <Reveal delay={0}>
+                <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-5 space-y-4">
+                  <p className="command-label">Rewrite &amp; Re-score</p>
+                  <label className="flex flex-col gap-1.5">
+                    <span className="text-site-kicker text-[var(--text-dim)]">Your rewritten headline</span>
+                    <textarea
+                      value={rewriteHeadline}
+                      onChange={(e) => { setRewriteHeadline(e.target.value); setRewriteError(''); }}
+                      rows={2}
+                      className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] transition-colors focus:border-[rgba(255,255,255,0.4)] focus:outline-none resize-none"
+                    />
+                  </label>
+                  {rewriteError && <p className="text-sm text-red-400">{rewriteError}</p>}
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      className="accent-btn"
+                      onClick={handleRewriteScore}
+                      disabled={!rewriteHeadline.trim()}
+                    >
+                      Re-score
+                    </button>
+                    <button
+                      type="button"
+                      className="ghost-btn px-4 py-2 text-sm"
+                      onClick={() => { setRewriteMode(false); setComparison(null); }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+
+                  {/* Comparison view */}
+                  {comparison && (
+                    <div className="space-y-4 pt-2">
+                      <div className="grid gap-3 md:grid-cols-2">
+                        <MiniGradeCard result={comparison.original} label="Original" />
+                        <MiniGradeCard result={comparison.rewrite} label="Rewrite" />
+                      </div>
+
+                      {/* Overall delta */}
+                      <div className="text-center">
+                        <span className={cn(
+                          'inline-block rounded-full px-4 py-1.5 text-lg font-semibold',
+                          comparison.overallDelta > 0 && 'bg-[rgba(34,197,94,0.15)] text-[#22c55e]',
+                          comparison.overallDelta < 0 && 'bg-[rgba(239,68,68,0.15)] text-[#ef4444]',
+                          comparison.overallDelta === 0 && 'bg-[rgba(255,255,255,0.08)] text-[var(--text-muted)]',
+                        )}>
+                          {comparison.overallDelta > 0 ? '+' : ''}{comparison.overallDelta} points
+                        </span>
+                      </div>
+
+                      {/* Per-dimension deltas */}
+                      <div className="space-y-1.5">
+                        {comparison.dimensionDeltas.map((dd) => (
+                          <div key={dd.id} className="flex items-center justify-between text-sm">
+                            <span className="text-[var(--text-dim)]">{dd.label}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-[var(--text-muted)]">{dd.originalScore} &rarr; {dd.rewriteScore}</span>
+                              {dd.delta !== 0 && (
+                                <span className={dd.delta > 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}>
+                                  {dd.delta > 0 ? '\u2191' : '\u2193'}{Math.abs(dd.delta)}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </article>
+              </Reveal>
+            )}
           </div>
 
           <style>{`
