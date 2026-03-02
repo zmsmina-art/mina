@@ -1,8 +1,6 @@
 /* ── Components: Nav, cards, timeline, footer, forms, article prose, fan controller, loader, about ── */
 
 .command-brand,
-.command-link,
-.command-mobile-link,
 .footer-heading,
 .footer-link,
 .loader-kicker,
@@ -25,22 +23,10 @@
   text-shadow: none;
 }
 
-.command-link {
-  font-size: 1.12rem;
-  letter-spacing: 0.028em;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.command-link:hover,
-.command-link--active,
 .footer-link:hover {
   color: var(--accent-gold-soft);
 }
 
-.command-mobile-link {
-  font-size: clamp(2rem, 8.4vw, 2.7rem);
-  letter-spacing: 0.018em;
-}
 
 .footer-heading {
   font-size: 1rem;
@@ -90,7 +76,6 @@
 .command-label,
 .command-kicker,
 .command-brand,
-.command-link,
 .stat-label,
 .footer-heading,
 .tag-chip,
@@ -594,108 +579,93 @@ a {
   vertical-align: baseline;
 }
 
-.command-link-rail {
-  position: relative;
-}
+/* ── Tubelight nav pill ── */
 
-.command-link-indicator {
-  position: absolute;
-  left: var(--nav-indicator-left, 0);
-  width: var(--nav-indicator-width, 0);
-  top: 50%;
-  height: 36px;
+.tubelight-pill {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
   border-radius: 999px;
-  transform: translateY(-50%);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.07));
-  box-shadow: 0 12px 22px rgba(5, 5, 5, 0.24), 0 0 0 1px rgba(246, 246, 246, 0.04);
-  transition:
-    left var(--motion-sm) var(--ease-out-expo),
-    width var(--motion-sm) var(--ease-out-expo),
-    opacity var(--motion-xs) ease;
-  pointer-events: none;
+  border: 1px solid var(--stroke-soft);
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: blur(12px);
 }
 
-.command-link {
+.tubelight-pill--mobile {
+  gap: 4px;
+  padding: 6px;
+}
+
+.tubelight-item {
   position: relative;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 0 0.72rem;
-  border: 1px solid transparent;
+  min-height: 36px;
+  padding: 0 0.82rem;
   border-radius: 999px;
-  font-size: 1.12rem;
-  letter-spacing: 0.028em;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
   color: var(--text-muted);
-  transition: color 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+  text-decoration: none;
+  transition: color 0.25s ease;
 }
 
-.command-link:hover {
+.tubelight-item:hover {
   color: var(--text-primary);
-  border-color: var(--stroke-soft);
-  background: rgba(160, 160, 160, 0.07);
 }
 
-.command-link--active {
-  color: var(--accent-gold-soft);
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.14);
+.tubelight-item--active {
+  color: #ffffff;
 }
 
-.command-menu-btn {
-  width: 42px;
-  height: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  border: 1px solid var(--stroke-soft);
-  color: var(--text-primary);
-  background: rgba(11, 11, 11, 0.8);
-  transition: border-color 0.28s ease, color 0.28s ease;
+.tubelight-item--icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
 }
 
-.command-menu-btn:hover {
-  color: var(--accent-gold-soft);
-  border-color: rgba(255, 255, 255, 0.4);
+.tubelight-label {
+  position: relative;
+  z-index: 2;
 }
 
-.command-mobile-panel {
-  position: fixed;
+.tubelight-glow-bar {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: var(--accent-purple, #7a40f2);
+  box-shadow: 0 0 8px var(--accent-purple-glow, rgba(176, 118, 255, 0.34));
+}
+
+.tubelight-glow-spread {
+  position: absolute;
   inset: 0;
-  z-index: 95;
+  border-radius: 999px;
+  background: rgba(122, 64, 242, 0.12);
+  z-index: 0;
+}
+
+.tubelight-mobile-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   pointer-events: none;
-  opacity: 0;
-  background:
-    radial-gradient(110% 80% at 12% 0%, rgba(122, 64, 242, 0.2), transparent 46%),
-    linear-gradient(180deg, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0.98));
-  transition: opacity 0.4s ease;
 }
 
-.command-mobile-panel.is-open {
+.tubelight-mobile-dock .tubelight-pill {
   pointer-events: auto;
-  opacity: 1;
-}
-
-.command-mobile-link {
-  width: 100%;
-  border-bottom: 1px solid var(--stroke-soft);
-  padding-bottom: 0.78rem;
-  font-family: var(--font-cormorant, 'Cormorant Garamond'), Georgia, serif;
-  font-size: clamp(2.1rem, 9vw, 2.8rem);
-  line-height: 1.05;
-  color: var(--text-primary);
-  transition: color 0.3s ease;
-}
-
-.command-mobile-link:hover {
-  color: var(--accent-gold-soft);
-}
-
-.command-mobile-link--active {
-  color: var(--accent-gold-soft);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
 }
 
 .site-footer {

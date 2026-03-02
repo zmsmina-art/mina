@@ -1,297 +1,135 @@
 'use client';
 
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import type { LucideIcon } from 'lucide-react';
+import { User, Briefcase, BarChart3, Mail } from 'lucide-react';
 
 type NavItem = {
   label: string;
   href: string;
-  kind: 'route' | 'hash';
+  icon: LucideIcon;
 };
 
 const navItems: NavItem[] = [
-  { label: 'About', href: '/about', kind: 'route' },
-  { label: 'Work', href: '/work', kind: 'route' },
-
-  { label: 'Authority', href: '#experience', kind: 'hash' },
-  { label: 'Operating Model', href: '#work-with-me', kind: 'hash' },
-  { label: 'Writing', href: '#articles', kind: 'hash' },
-  { label: 'Grader', href: '/positioning-grader', kind: 'route' },
-  { label: 'Newsletter', href: '/newsletter', kind: 'route' },
-  { label: 'Contact', href: '#contact', kind: 'hash' },
+  { label: 'About', href: '/about', icon: User },
+  { label: 'Work', href: '/work', icon: Briefcase },
+  { label: 'Grader', href: '/positioning-grader', icon: BarChart3 },
+  { label: 'Newsletter', href: '/newsletter', icon: Mail },
 ];
 
-const sectionAnchors = ['#experience', '#work-with-me', '#articles', '#contact'];
-
-type IndicatorState = {
-  left: number;
-  width: number;
-  opacity: number;
-};
+const springTransition = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
 export default function SiteNav() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(pathname !== '/');
-  const [activeHash, setActiveHash] = useState('');
-  const [indicatorState, setIndicatorState] = useState<IndicatorState>({ left: 0, width: 0, opacity: 0 });
-  const desktopRailRef = useRef<HTMLDivElement | null>(null);
-  const linkRefs = useRef<Record<string, HTMLElement | null>>({});
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
-  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    // Focus first link when menu opens
-    const timer = setTimeout(() => {
-      const firstLink = mobileMenuRef.current?.querySelector<HTMLElement>('a, button');
-      firstLink?.focus();
-    }, 100);
-
-    // Escape to close
-    const handleEscape = (e: globalThis.KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    window.addEventListener('keydown', handleEscape);
-
-    return () => {
-      clearTimeout(timer);
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleEscape);
-    };
-  }, [isOpen]);
-
-  const handleMobileKeyDown = useCallback(
-    (e: ReactKeyboardEvent) => {
-      if (e.key !== 'Tab' || !mobileMenuRef.current) return;
-      const focusable = mobileMenuRef.current.querySelectorAll<HTMLElement>(
-        'a, button, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    },
-    []
+  const isActive = useCallback(
+    (href: string) => pathname === href || pathname.startsWith(href + '/'),
+    [pathname]
   );
 
   useEffect(() => {
     if (pathname !== '/') {
       setIsScrolled(true);
-      setActiveHash('');
       return;
     }
 
-    const updateScrolledState = () => {
-      setIsScrolled(window.scrollY > 24);
-    };
-
-    const updateActiveHash = () => {
-      const markerY = 170;
-      const best = sectionAnchors.find((anchor) => {
-        const section = document.querySelector(anchor);
-        if (!section) return false;
-        const rect = section.getBoundingClientRect();
-        return rect.top <= markerY && rect.bottom > markerY;
-      });
-
-      if (best) {
-        setActiveHash(best);
-      } else if (window.scrollY < 120) {
-        setActiveHash('');
-      }
-    };
-
-    let scrollRaf = 0;
-    const onScroll = () => {
-      if (!scrollRaf) {
-        scrollRaf = requestAnimationFrame(() => {
-          scrollRaf = 0;
-          updateScrolledState();
-          updateActiveHash();
-        });
-      }
-    };
-
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateActiveHash);
-
-    const hash = window.location.hash;
-    if (sectionAnchors.includes(hash)) {
-      setActiveHash(hash);
-    }
-
-    updateScrolledState();
-    updateActiveHash();
-
-    return () => {
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', updateActiveHash);
-    };
+    return () => window.removeEventListener('scroll', onScroll);
   }, [pathname]);
-
-  const resolvedItems = useMemo(() => {
-    return navItems.map((item) => {
-      if (item.kind === 'route') {
-        return {
-          ...item,
-          resolvedHref: item.href,
-          active: pathname === item.href,
-        };
-      }
-
-      const resolvedHref = pathname === '/' ? item.href : `/${item.href}`;
-      const active = pathname === '/' && activeHash === item.href;
-      return { ...item, resolvedHref, active };
-    });
-  }, [pathname, activeHash]);
-
-  const syncIndicator = useCallback(() => {
-    const rail = desktopRailRef.current;
-    if (!rail) return;
-
-    const activeItem = resolvedItems.find((item) => item.active);
-    if (!activeItem) {
-      setIndicatorState((prev) => ({ ...prev, opacity: 0 }));
-      return;
-    }
-
-    const activeNode = linkRefs.current[activeItem.label];
-    if (!activeNode) return;
-
-    const railRect = rail.getBoundingClientRect();
-    const activeRect = activeNode.getBoundingClientRect();
-
-    setIndicatorState({
-      left: activeRect.left - railRect.left,
-      width: activeRect.width,
-      opacity: 1,
-    });
-  }, [resolvedItems]);
-
-  useEffect(() => {
-    syncIndicator();
-    window.addEventListener('resize', syncIndicator);
-    return () => window.removeEventListener('resize', syncIndicator);
-  }, [syncIndicator]);
-
-  const indicatorStyle = ({
-    '--nav-indicator-left': `${indicatorState.left}px`,
-    '--nav-indicator-width': `${indicatorState.width}px`,
-    opacity: indicatorState.opacity,
-  } as CSSProperties);
 
   return (
     <>
-      <nav className={`command-nav ${isScrolled ? 'command-nav--scrolled' : ''}`}>
+      {/* ── Desktop + mobile top bar ── */}
+      <nav
+        className={`command-nav ${isScrolled ? 'command-nav--scrolled' : ''}`}
+        aria-label="Main navigation"
+      >
         <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
-          <Link prefetch={false} href="/" aria-label="mm. Mina Mankarious — Home" className="command-brand brand-mark">
+          {/* Brand mark */}
+          <Link
+            prefetch={false}
+            href="/"
+            aria-label="mm. Mina Mankarious — Home"
+            className="command-brand brand-mark"
+          >
             mm.
           </Link>
 
-          <div ref={desktopRailRef} className="command-link-rail hidden items-center gap-2 md:flex">
-            <span className="command-link-indicator" aria-hidden="true" style={indicatorStyle} />
-            {resolvedItems.map((item) => {
-              const className = `command-link ${item.active ? 'command-link--active' : ''}`;
-              return item.kind === 'route' ? (
+          {/* Desktop tubelight pill */}
+          <div className="tubelight-pill hidden md:flex" role="navigation" aria-label="Site sections">
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+              return (
                 <Link
                   key={item.label}
                   prefetch={false}
-                  href={item.resolvedHref}
-                  className={className}
-                  ref={(node) => {
-                    linkRefs.current[item.label] = node;
-                  }}
+                  href={item.href}
+                  className={`tubelight-item ${active ? 'tubelight-item--active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
                 >
-                  {item.label}
+                  <span className="tubelight-label">{item.label}</span>
+                  {active && (
+                    <>
+                      <motion.div
+                        className="tubelight-glow-bar"
+                        layoutId="tubelight-bar"
+                        transition={springTransition}
+                      />
+                      <motion.div
+                        className="tubelight-glow-spread"
+                        layoutId="tubelight-spread"
+                        transition={springTransition}
+                      />
+                    </>
+                  )}
                 </Link>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.resolvedHref}
-                  className={className}
-                  ref={(node) => {
-                    linkRefs.current[item.label] = node;
-                  }}
-                >
-                  {item.label}
-                </a>
               );
             })}
           </div>
-
-          <button
-            ref={menuButtonRef}
-            type="button"
-            className="command-menu-btn md:hidden"
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isOpen}
-            aria-controls="mobile-nav"
-            onClick={() => setIsOpen((value) => !value)}
-          >
-            {isOpen ? <X size={19} /> : <Menu size={19} />}
-          </button>
         </div>
       </nav>
 
+      {/* ── Mobile bottom pill ── */}
       <div
-        ref={mobileMenuRef}
-        id="mobile-nav"
-        role="dialog"
-        aria-modal={isOpen ? true : undefined}
-        aria-label="Navigation menu"
-        {...(!isOpen ? { inert: true } : {})}
-        onKeyDown={isOpen ? handleMobileKeyDown : undefined}
-        className={`command-mobile-panel ${isOpen ? 'is-open mobile-nav-open' : ''}`}
-        style={{
-          paddingTop: 'max(6.2rem, env(safe-area-inset-top))',
-          paddingBottom: 'max(2rem, env(safe-area-inset-bottom))',
-          paddingLeft: 'max(var(--page-gutter-mobile), env(safe-area-inset-left))',
-          paddingRight: 'max(var(--page-gutter-mobile), env(safe-area-inset-right))',
-        }}
+        className="tubelight-mobile-dock md:hidden"
+        role="navigation"
+        aria-label="Site sections"
       >
-        <div className="mx-auto flex w-full max-w-sm flex-col items-start gap-4">
-          {resolvedItems.map((item) => {
-            const className = `command-mobile-link ${item.active ? 'command-mobile-link--active' : ''}`;
-            return item.kind === 'route' ? (
+        <div className="tubelight-pill tubelight-pill--mobile">
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+            const Icon = item.icon;
+            return (
               <Link
                 key={item.label}
                 prefetch={false}
-                href={item.resolvedHref}
-                onClick={() => setIsOpen(false)}
-                className={className}
+                href={item.href}
+                className={`tubelight-item tubelight-item--icon ${active ? 'tubelight-item--active' : ''}`}
+                aria-label={item.label}
+                aria-current={active ? 'page' : undefined}
               >
-                {item.label}
+                <Icon size={18} />
+                {active && (
+                  <>
+                    <motion.div
+                      className="tubelight-glow-bar"
+                      layoutId="tubelight-bar-mobile"
+                      transition={springTransition}
+                    />
+                    <motion.div
+                      className="tubelight-glow-spread"
+                      layoutId="tubelight-spread-mobile"
+                      transition={springTransition}
+                    />
+                  </>
+                )}
               </Link>
-            ) : (
-              <a
-                key={item.label}
-                href={item.resolvedHref}
-                onClick={() => setIsOpen(false)}
-                className={className}
-              >
-                {item.label}
-              </a>
             );
           })}
         </div>
