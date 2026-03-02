@@ -582,6 +582,7 @@ a {
 /* ── Tubelight nav pill ── */
 
 .tubelight-pill {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 2px;
@@ -597,12 +598,55 @@ a {
   padding: 6px;
 }
 
+.tubelight-indicator {
+  position: absolute;
+  z-index: 0;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / var(--tubelight-count));
+  border-radius: 999px;
+  transform: translateX(calc(var(--tubelight-index) * 100%));
+  transition: transform var(--motion-sm, 0.3s) var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  pointer-events: none;
+}
+
+/* Glow bar on top edge */
+.tubelight-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: var(--accent-purple, #7a40f2);
+  box-shadow: 0 0 8px var(--accent-purple-glow, rgba(176, 118, 255, 0.34));
+}
+
+/* Background spread */
+.tubelight-indicator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: rgba(122, 64, 242, 0.12);
+}
+
+.tubelight-pill--mobile .tubelight-indicator {
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: calc((100% - 12px) / var(--tubelight-count));
+}
+
 .tubelight-item {
   position: relative;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 1 1 0%;
   min-height: 36px;
   padding: 0 0.82rem;
   border-radius: 999px;
@@ -625,30 +669,13 @@ a {
   width: 44px;
   height: 44px;
   padding: 0;
+  flex: 0 0 44px;
 }
 
 .tubelight-label {
   position: relative;
   z-index: 2;
-}
-
-.tubelight-glow-bar {
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 3px;
-  border-radius: 0 0 999px 999px;
-  background: var(--accent-purple, #7a40f2);
-  box-shadow: 0 0 8px var(--accent-purple-glow, rgba(176, 118, 255, 0.34));
-}
-
-.tubelight-glow-spread {
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: rgba(122, 64, 242, 0.12);
-  z-index: 0;
+  white-space: nowrap;
 }
 
 .tubelight-mobile-dock {

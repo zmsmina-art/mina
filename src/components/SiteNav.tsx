@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { User, Briefcase, BarChart3, Mail } from 'lucide-react';
 
@@ -20,16 +19,16 @@ const navItems: NavItem[] = [
   { label: 'Newsletter', href: '/newsletter', icon: Mail },
 ];
 
-const springTransition = { type: 'spring' as const, stiffness: 300, damping: 30 };
+function getActiveIndex(pathname: string): number {
+  return navItems.findIndex(
+    (item) => pathname === item.href || pathname.startsWith(item.href + '/')
+  );
+}
 
 export default function SiteNav() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(pathname !== '/');
-
-  const isActive = useCallback(
-    (href: string) => pathname === href || pathname.startsWith(href + '/'),
-    [pathname]
-  );
+  const activeIndex = getActiveIndex(pathname);
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -51,7 +50,6 @@ export default function SiteNav() {
         aria-label="Main navigation"
       >
         <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
-          {/* Brand mark */}
           <Link
             prefetch={false}
             href="/"
@@ -62,35 +60,28 @@ export default function SiteNav() {
           </Link>
 
           {/* Desktop tubelight pill */}
-          <div className="tubelight-pill hidden md:flex" role="navigation" aria-label="Site sections">
-            {navItems.map((item) => {
-              const active = isActive(item.href);
-              return (
-                <Link
-                  key={item.label}
-                  prefetch={false}
-                  href={item.href}
-                  className={`tubelight-item ${active ? 'tubelight-item--active' : ''}`}
-                  aria-current={active ? 'page' : undefined}
-                >
-                  <span className="tubelight-label">{item.label}</span>
-                  {active && (
-                    <>
-                      <motion.div
-                        className="tubelight-glow-bar"
-                        layoutId="tubelight-bar"
-                        transition={springTransition}
-                      />
-                      <motion.div
-                        className="tubelight-glow-spread"
-                        layoutId="tubelight-spread"
-                        transition={springTransition}
-                      />
-                    </>
-                  )}
-                </Link>
-              );
-            })}
+          <div className="tubelight-pill hidden md:flex" aria-label="Site sections">
+            {activeIndex >= 0 && (
+              <span
+                className="tubelight-indicator"
+                aria-hidden="true"
+                style={{
+                  '--tubelight-index': activeIndex,
+                  '--tubelight-count': navItems.length,
+                } as React.CSSProperties}
+              />
+            )}
+            {navItems.map((item, i) => (
+              <Link
+                key={item.label}
+                prefetch={false}
+                href={item.href}
+                className={`tubelight-item ${i === activeIndex ? 'tubelight-item--active' : ''}`}
+                aria-current={i === activeIndex ? 'page' : undefined}
+              >
+                <span className="tubelight-label">{item.label}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </nav>
@@ -98,37 +89,31 @@ export default function SiteNav() {
       {/* ── Mobile bottom pill ── */}
       <div
         className="tubelight-mobile-dock md:hidden"
-        role="navigation"
         aria-label="Site sections"
       >
         <div className="tubelight-pill tubelight-pill--mobile">
-          {navItems.map((item) => {
-            const active = isActive(item.href);
+          {activeIndex >= 0 && (
+            <span
+              className="tubelight-indicator"
+              aria-hidden="true"
+              style={{
+                '--tubelight-index': activeIndex,
+                '--tubelight-count': navItems.length,
+              } as React.CSSProperties}
+            />
+          )}
+          {navItems.map((item, i) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.label}
                 prefetch={false}
                 href={item.href}
-                className={`tubelight-item tubelight-item--icon ${active ? 'tubelight-item--active' : ''}`}
+                className={`tubelight-item tubelight-item--icon ${i === activeIndex ? 'tubelight-item--active' : ''}`}
                 aria-label={item.label}
-                aria-current={active ? 'page' : undefined}
+                aria-current={i === activeIndex ? 'page' : undefined}
               >
                 <Icon size={18} />
-                {active && (
-                  <>
-                    <motion.div
-                      className="tubelight-glow-bar"
-                      layoutId="tubelight-bar-mobile"
-                      transition={springTransition}
-                    />
-                    <motion.div
-                      className="tubelight-glow-spread"
-                      layoutId="tubelight-spread-mobile"
-                      transition={springTransition}
-                    />
-                  </>
-                )}
               </Link>
             );
           })}
