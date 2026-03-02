@@ -648,22 +648,18 @@ a {
   align-items: center;
   justify-content: center;
   flex: 1 1 0%;
-  min-height: 38px;
-  padding: 0 1rem;
+  min-height: 36px;
+  padding: 0 0.82rem;
   border-radius: 999px;
-  font-family: var(--royal-name-script, 'Playfair Display'), var(--royal-display, 'Cormorant Garamond'), 'EB Garamond', Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
-  color: var(--text-dim);
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.28s ease, text-shadow 0.28s ease;
+  transition: color 0.25s ease;
 }
 
 .tubelight-item:hover {
   color: var(--text-primary);
-  text-shadow: 0 0 18px rgba(183, 148, 255, 0.35), 0 0 40px rgba(122, 64, 242, 0.15);
 }
 
 .tubelight-item--active {
