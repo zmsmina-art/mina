@@ -585,7 +585,7 @@ a {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 0;
   padding: 4px;
   border-radius: 999px;
   border: 1px solid var(--stroke-soft);
@@ -594,8 +594,7 @@ a {
 }
 
 .tubelight-pill--mobile {
-  gap: 4px;
-  padding: 6px;
+  padding: 5px;
 }
 
 .tubelight-indicator {
@@ -615,13 +614,15 @@ a {
 .tubelight-indicator::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 3px;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  height: 2px;
   border-radius: 0 0 999px 999px;
   background: var(--accent-purple, #7a40f2);
-  box-shadow: 0 0 8px var(--accent-purple-glow, rgba(176, 118, 255, 0.34));
+  box-shadow:
+    0 0 6px var(--accent-purple-glow, rgba(176, 118, 255, 0.34)),
+    0 0 20px rgba(122, 64, 242, 0.2);
 }
 
 /* Background spread */
@@ -630,14 +631,14 @@ a {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: rgba(122, 64, 242, 0.12);
+  background: rgba(122, 64, 242, 0.1);
 }
 
 .tubelight-pill--mobile .tubelight-indicator {
-  top: 6px;
-  bottom: 6px;
-  left: 6px;
-  width: calc((100% - 12px) / var(--tubelight-count));
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc((100% - 10px) / var(--tubelight-count));
 }
 
 .tubelight-item {
@@ -647,18 +648,22 @@ a {
   align-items: center;
   justify-content: center;
   flex: 1 1 0%;
-  min-height: 36px;
-  padding: 0 0.82rem;
+  min-height: 38px;
+  padding: 0 1rem;
   border-radius: 999px;
-  font-size: 0.92rem;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
+  font-family: var(--royal-name-script, 'Playfair Display'), var(--royal-display, 'Cormorant Garamond'), 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  color: var(--text-dim);
   text-decoration: none;
-  transition: color 0.25s ease;
+  transition: color 0.28s ease, text-shadow 0.28s ease;
 }
 
 .tubelight-item:hover {
   color: var(--text-primary);
+  text-shadow: 0 0 18px rgba(183, 148, 255, 0.35), 0 0 40px rgba(122, 64, 242, 0.15);
 }
 
 .tubelight-item--active {
@@ -670,6 +675,13 @@ a {
   height: 44px;
   padding: 0;
   flex: 0 0 44px;
+  font-style: normal;
+  transition: color 0.28s ease, filter 0.28s ease;
+}
+
+.tubelight-item--icon:hover {
+  text-shadow: none;
+  filter: drop-shadow(0 0 6px rgba(183, 148, 255, 0.5));
 }
 
 .tubelight-label {
