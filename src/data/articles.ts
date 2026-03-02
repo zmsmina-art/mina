@@ -11,6 +11,139 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "the-marketing-consulting-playbook-nobody-will-publish",
+    title: "The Marketing Consulting Playbook Nobody Will Publish",
+    excerpt:
+      "I\u2019m going to walk you through the exact playbook most marketing consulting firms use \u2014 the pricing tricks, the dependency loops, the recycled strategies. I know it because I was taught it. Here\u2019s why I stopped using it.",
+    content: `
+I\u2019m about to describe the exact playbook that most marketing consulting firms run on. Step by step. The pricing. The psychology. The moves designed to keep you paying without ever making you independent. I know this playbook because I was taught it, watched people around me execute it, and eventually decided I couldn\u2019t do it anymore.
+
+This will probably upset some people in the industry. Good.
+
+## The Real Economics of Marketing Consulting
+
+Let\u2019s start with the part nobody publishes: how marketing consulting firms actually make money.
+
+The standard model works like this. A firm charges between $150\u2013$400/hour, or $5,000\u2013$25,000/month on retainer, depending on the size of the client and the prestige of the firm. That sounds reasonable until you look at what\u2019s happening behind the curtain.
+
+Most marketing consulting firms staff a senior partner on the pitch call and a junior associate on the actual work. The senior partner bills at $350/hour. The junior associate costs the firm $35/hour. **The client is paying for expertise they\u2019re not receiving.** The person who sold you on the vision is not the person executing it.
+
+This isn\u2019t a secret. Anyone who\u2019s worked inside a consulting firm knows this is standard. But nobody says it publicly because the entire business model depends on the client not examining the labor economics too closely.
+
+And here\u2019s where it gets worse. The most profitable client in marketing consulting isn\u2019t the one who gets great results. It\u2019s the one who stays the longest. That creates a structural incentive to *not* solve the problem too quickly. If a marketing consultant builds you a system that runs without them in month two, they just lost ten months of revenue.
+
+I\u2019m not saying every firm thinks this way consciously. But the incentive is baked into the model. And incentives shape behavior whether you\u2019re aware of them or not.
+
+## The Audit-to-Retainer Pipeline
+
+Here\u2019s how most marketing consulting engagements actually start. It\u2019s a four-stage pipeline, and once you see it, you\u2019ll recognize it everywhere.
+
+**Stage 1: The Free Audit.** A marketing consultant offers to review your current marketing for free. Sounds generous. It\u2019s not. The audit is designed to do one thing: identify enough problems to justify a paid engagement. The report will always find issues. That\u2019s the point. Nobody closes a free audit with "actually, you\u2019re doing fine."
+
+**Stage 2: The Discovery Phase.** You\u2019re now paying $10,000\u2013$20,000 for a "deep dive" into your business. This typically involves interviewing your team, reviewing your analytics, and analyzing your competitive landscape. The deliverable is a strategy deck. The real function of this phase isn\u2019t to learn about your business \u2014 it\u2019s to create enough intellectual property that you feel dependent on the firm to interpret it.
+
+**Stage 3: The Strategy Deck.** This is the crown jewel of marketing consulting. A 40\u201380 slide presentation with frameworks, recommendations, timelines, and priorities. It looks impressive. It probably has your brand colors on it. But here\u2019s the part [I\u2019ve written about before](/articles/what-nobody-tells-you-before-you-hire-a-marketing-consultant): **most strategy decks are not designed to be self-executable.** They\u2019re designed to require the firm\u2019s continued involvement to implement.
+
+**Stage 4: The Implementation Retainer.** Having created a strategy you can\u2019t run without them, the firm now offers to help you execute it. For $15,000/month. This is where the real revenue lives. And it\u2019s where most clients get stuck for 6\u201318 months, paying for execution that they could eventually do themselves if anyone had bothered to teach them.
+
+The total spend? Anywhere from $50,000 to $300,000 depending on the firm and the scope. The amount of infrastructure that survives after the engagement ends? In most cases, almost none.
+
+## The Template Problem
+
+Here\u2019s something that would be career-ending if more people talked about it: **a significant percentage of marketing consulting deliverables are templated.**
+
+I\u2019ve seen it firsthand. The same positioning framework applied to a B2B SaaS company, a DTC brand, and a healthcare startup. The same channel strategy recommended to companies in completely different markets. The same "content pillars" exercise \u2014 authority, education, entertainment, promotion \u2014 recycled so many times that it\u2019s lost any connection to the specific business.
+
+The marketing consulting industry calls these "proprietary frameworks." What they actually are is a reusable template with the client\u2019s name swapped in.
+
+Does this mean every framework is useless? No. Good frameworks are genuinely valuable. But there\u2019s a difference between a framework that\u2019s been pressure-tested against your specific market, product, and customer \u2014 and one that was designed to be flexible enough to apply to *any* company. The first is consulting. The second is a product being sold as consulting.
+
+The tell? Ask your marketing consultant what they\u2019d recommend differently for your company versus your closest competitor. If the answer is basically the same strategy with different messaging, you\u2019re paying for a template.
+
+## The Vanity Metrics Game
+
+This one drives me insane.
+
+Marketing consulting firms need to show results to justify their retainer. But real results \u2014 revenue growth, customer acquisition cost reduction, pipeline velocity \u2014 take months to materialize and are influenced by dozens of variables the consultant doesn\u2019t control.
+
+So what do they do? They report on vanity metrics.
+
+"We increased your social media engagement by 340%." Okay. How much revenue did that generate? Silence.
+
+"Your website traffic is up 200% month-over-month." Great. Is any of it converting? Let\u2019s talk about that next quarter.
+
+"We generated 500 marketing qualified leads." What\u2019s the close rate on those leads? We\u2019ll need to check with sales.
+
+**The consulting marketing playbook is designed to show activity, not outcomes.** Dashboards get built. Reports get delivered. Monthly calls happen. Everyone nods along. But the connection between the work being done and the revenue being generated is deliberately kept vague, because clarity would expose the gap.
+
+I know this because I almost fell into this trap myself when I started Olunix. It\u2019s easy to report on impressions because impressions always go up if you\u2019re spending money. It\u2019s hard to report on revenue because revenue requires the entire system to work, not just the marketing layer. [The engineering approach](/articles/what-is-marketing-systems-engineering) demands you measure what matters. Most marketing consulting firms measure what\u2019s easiest to defend.
+
+## The Dependency Loop
+
+This is the most insidious part of the playbook, and the reason I ultimately rejected it.
+
+Good marketing consulting should make the client stronger. Every engagement should leave the company more capable than it was before. The ideal outcome is a client who doesn\u2019t need you anymore \u2014 one who\u2019s internalized the strategy, built the systems, and can operate independently.
+
+**The standard marketing consulting model optimizes for the exact opposite.**
+
+The strategy is delivered in the consultant\u2019s framework, not the client\u2019s language. The tools are the consultant\u2019s tools, not systems the client owns. The knowledge lives in the consultant\u2019s head, not in the client\u2019s documentation. When the engagement ends, the client is left with slides they can\u2019t action, data they can\u2019t interpret, and a gap they can only fill by hiring... another consultant.
+
+This isn\u2019t marketing *for* consulting firms. It\u2019s consulting designed to perpetuate consulting.
+
+I worked with a founder last year who\u2019d been through three different marketing and consulting engagements in 18 months. Combined spend: north of $80,000. What he had to show for it: a Google Drive folder with 200+ slides across multiple decks, two Notion workspaces nobody used, and a team that was more confused about their marketing strategy than when they started.
+
+That\u2019s not a failure of individual consultants. It\u2019s a failure of the model.
+
+## Why I\u2019m Publishing This
+
+I know what you might be thinking. "You\u2019re in marketing consulting yourself. Isn\u2019t this just a long pitch for Olunix?"
+
+Fair question. Let me be honest.
+
+Yes, I run a firm that does marketing and consulting for startups. And yes, publishing an article that exposes the industry\u2019s worst practices is, among other things, a positioning play. I\u2019m aware of the irony.
+
+But here\u2019s what I know: [I\u2019ve built Olunix specifically to be the opposite of what I\u2019m describing.](/articles/why-i-dont-sell-hard) We don\u2019t do free audits designed to manufacture urgency. We don\u2019t create dependency loops. We don\u2019t deliver strategy decks that require our ongoing involvement to execute. We build systems the client owns, teach the client to operate them, and measure ourselves by business outcomes, not vanity metrics.
+
+Is our model perfect? No. [I\u2019ve been open about the lessons I\u2019ve learned.](/articles/what-i-learned-from-my-first-10-clients) But the principle is non-negotiable: **the best marketing consultant is one who makes themselves unnecessary.**
+
+And frankly, I\u2019m tired of watching founders get burned. The startup founders I work with are [building real things with real potential](/articles/most-ai-startups-will-die-with-great-products), and they deserve partners who are invested in their growth, not their dependency.
+
+## What Should Replace the Old Playbook
+
+If I were hiring a marketing consultant today \u2014 knowing everything I know about how the industry operates \u2014 here\u2019s the playbook I\u2019d demand instead:
+
+**1. Transparent economics.** I want to know who\u2019s doing the work, what their experience level is, and how the hours are allocated. If a senior strategist sells the engagement but a junior associate executes it, I want that disclosed upfront.
+
+**2. Ownership transfer by design.** Every deliverable should be built in the client\u2019s tools, documented in the client\u2019s language, and designed to be operated by the client\u2019s team. If the strategy requires the consultant to interpret it, it\u2019s not a strategy. It\u2019s a hostage situation.
+
+**3. Outcome-based measurement.** I want to know how marketing consulting is contributing to revenue. Not impressions. Not engagement. Not "brand lift." Revenue. Pipeline. Customer acquisition cost. Retention. The metrics the CEO actually cares about.
+
+**4. Defined exit criteria.** Before the engagement starts, agree on what "done" looks like. What capabilities will the client have when the engagement ends? What systems will be running independently? What does success look like in terms the client can verify without the consultant\u2019s interpretation?
+
+**5. Skin in the game.** The best marketing consulting relationships I\u2019ve seen tie compensation to results. Not entirely \u2014 that creates its own problems. But some component of the fee should be at risk based on whether the agreed-upon outcomes are achieved. If the consultant won\u2019t put skin in the game, ask yourself why.
+
+This isn\u2019t radical. It\u2019s just honest. And the fact that it feels radical says everything about where the marketing consulting industry currently is.
+
+## The Bottom Line
+
+The marketing consulting industry isn\u2019t going to reform itself. The economics don\u2019t reward reform. The firms making the most money are the ones executing the playbook I just described, and they have no incentive to stop.
+
+So the reform has to come from the buyers. From founders and executives who stop accepting vague deliverables, opaque economics, and vanity metrics. From clients who demand ownership, transparency, and accountability.
+
+And from the small number of people inside the industry who are willing to say what everyone already knows but nobody will publish.
+
+This is me saying it.
+
+If you\u2019re a founder who\u2019s been through this \u2014 who\u2019s spent the money, sat through the decks, and walked away wondering what you actually got \u2014 you\u2019re not the problem. The model is. And you deserve better than what the industry is currently offering.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-02",
+    updatedAt: "2026-03-02",
+    readingTime: "9 min read",
+    tags: ["Marketing", "Consulting", "Business", "Startups"],
+  },
+  {
     slug: "the-pursuit-of-something-better",
     title: "The Pursuit of Something Better",
     excerpt:
