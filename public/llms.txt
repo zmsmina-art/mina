@@ -1,0 +1,31 @@
+# Mina Mankarious — Personal Website
+
+> Mina Mankarious is the Founder and CEO of Olunix, a Toronto-based firm helping AI startups with positioning, growth systems, and founder-led marketing.
+
+## Site Structure
+
+- [Homepage](https://minamankarious.com): Overview, experience timeline, operating model, and selected writing.
+- [About](https://minamankarious.com/about): Background, credentials, and professional history.
+- [Work](https://minamankarious.com/work): Case studies showing real client outcomes.
+- [Articles](https://minamankarious.com/articles): Essays on AI startup growth, positioning, marketing strategy, and entrepreneurship.
+- [Positioning Grader](https://minamankarious.com/positioning-grader): Free tool that scores AI startup headlines across clarity, specificity, differentiation, brevity, and value clarity using Gemini 2.0 Flash.
+- [Newsletter](https://minamankarious.com/newsletter): Weekly newsletter on AI startup growth and founder-led marketing.
+- [Book a Call](https://minamankarious.com/book): Schedule a free 30-minute strategy call.
+
+## Key Articles
+
+- [How to Position Your AI Startup When Everything Sounds the Same](https://minamankarious.com/articles/how-to-position-your-ai-startup-when-everything-sounds-the-same): Positioning framework for AI startups with 5 actionable steps.
+- [What Is Marketing Systems Engineering?](https://minamankarious.com/articles/what-is-marketing-systems-engineering): Framework applying engineering principles to marketing strategy.
+- [Most AI Startups Will Die With Great Products](https://minamankarious.com/articles/most-ai-startups-will-die-with-great-products): Why product alone is not a moat and positioning matters more.
+- [SEO vs. Paid Ads: Which Should Your Startup Prioritize?](https://minamankarious.com/articles/seo-vs-paid-ads-which-should-your-startup-prioritize): Stage-by-stage channel prioritization for startups.
+
+## About the Author
+
+Mina Mankarious is a Canadian entrepreneur born in Egypt, currently in his final year studying Automotive Engineering Technology at McMaster University in Hamilton, Ontario. He founded Olunix in September 2024 and works predominantly with AI startups on positioning, growth systems, and founder-led marketing. He is also a Deal Partner at Boardy and a Ministry Intern at Hope Bible Church in Oakville.
+
+## Contact
+
+- Email: mina@olunix.com
+- LinkedIn: https://www.linkedin.com/in/mina-mankarious
+- X/Twitter: https://x.com/olmnix
+- Company: https://olunix.com
