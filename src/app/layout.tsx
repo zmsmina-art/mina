@@ -327,9 +327,52 @@ export default function RootLayout({
     url: item.url,
   }));
 
+  const serviceSchema = {
+    '@type': 'Service',
+    '@id': 'https://minamankarious.com/#services',
+    name: 'Olunix Consulting Services',
+    provider: { '@id': 'https://olunix.com/#organization' },
+    areaServed: ['US', 'CA'],
+    serviceType: 'Marketing Consulting',
+    description:
+      'Structured strategy for technical founders who need commercial traction. Positioning, founder-led growth, and marketing systems for AI startups.',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Consulting Services',
+      itemListElement: [
+        {
+          '@type': 'OfferCatalog',
+          name: 'Positioning & Messaging',
+          description:
+            'Clarify category, ICP, and value narrative so buyers understand your advantage quickly.',
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Founder-Led Growth',
+          description:
+            'Build a trust engine around founder voice, strategic content, and high-signal relationships.',
+        },
+        {
+          '@type': 'OfferCatalog',
+          name: 'Marketing Systems',
+          description:
+            'Design execution cadence, ownership, and channel priorities tied to pipeline outcomes.',
+        },
+      ],
+    },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'AI Startups',
+      geographicArea: {
+        '@type': 'AdministrativeArea',
+        name: 'North America',
+      },
+    },
+  };
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [organizationSchema, personSchema, websiteSchema, ...siteNavigationElements],
+    '@graph': [organizationSchema, personSchema, websiteSchema, serviceSchema, ...siteNavigationElements],
   };
 
   return (
