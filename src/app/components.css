@@ -1844,6 +1844,36 @@ a {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.48);
 }
 
+.roast-hero-footer {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.roast-hero-scoregroup {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.375rem;
+}
+
+.roast-hero-favicon {
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+  margin-bottom: 0.08rem;
+}
+
+@media (min-width: 768px) {
+  .roast-hero-favicon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+}
+
 @keyframes roast-glow-breathe {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }

@@ -425,6 +425,12 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                   </div>
                 ))}
               </div>
+
+              <p className="mt-4 text-xs text-[var(--text-dim)]">
+                <Link href="/articles/why-i-built-a-startup-roaster" className="underline decoration-[var(--text-dim)] underline-offset-2 transition-colors hover:text-[var(--text-muted)]">
+                  Read the story behind the roaster
+                </Link>
+              </p>
             </div>
           </div>
         </section>
@@ -458,36 +464,37 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 {result.roastLine}
               </p>
 
-              <div className="relative mt-8 inline-flex items-baseline justify-center gap-1.5">
-                <p
-                  className="roast-hero-score text-[clamp(2.8rem,9vw,4.5rem)] leading-none"
-                  style={{ color: scoreColor(result.score), fontFamily: 'var(--font-cormorant)' }}
-                >
-                  {result.score}
-                </p>
-                <p className="text-base text-[var(--text-dim)]">/100</p>
-                <p className={`roast-hero-verdict ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{resultVerdict}</p>
-              </div>
+              <div className="roast-hero-footer mt-8">
+                <div className="roast-hero-scoregroup">
+                  <p
+                    className="roast-hero-score text-[clamp(2.8rem,9vw,4.5rem)] leading-none"
+                    style={{ color: scoreColor(result.score), fontFamily: 'var(--font-cormorant)' }}
+                  >
+                    {result.score}
+                  </p>
+                  <p className="text-base text-[var(--text-dim)]">/100</p>
+                  <p className={`roast-hero-verdict ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{resultVerdict}</p>
+                </div>
 
-              {/* Company favicon – bottom-right corner */}
-              <img
-                src={`https://www.google.com/s2/favicons?domain=${encodeURIComponent(result.domain)}&sz=64`}
-                alt=""
-                width={32}
-                height={32}
-                className="absolute bottom-4 right-4 opacity-0 transition-opacity duration-300"
-                onLoad={(e: SyntheticEvent<HTMLImageElement>) => {
-                  const img = e.currentTarget;
-                  // Google returns a 16x16 default globe for missing favicons;
-                  // naturalWidth > 16 means we got a real icon.
-                  if (img.naturalWidth > 16) {
-                    img.classList.replace('opacity-0', 'opacity-60');
-                  }
-                }}
-                onError={(e: SyntheticEvent<HTMLImageElement>) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
+                <img
+                  src={`https://www.google.com/s2/favicons?domain=${encodeURIComponent(result.domain)}&sz=64`}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="roast-hero-favicon opacity-0 transition-opacity duration-300"
+                  onLoad={(e: SyntheticEvent<HTMLImageElement>) => {
+                    const img = e.currentTarget;
+                    // Google returns a 16x16 default globe for missing favicons;
+                    // naturalWidth > 16 means we got a real icon.
+                    if (img.naturalWidth > 16) {
+                      img.classList.replace('opacity-0', 'opacity-60');
+                    }
+                  }}
+                  onError={(e: SyntheticEvent<HTMLImageElement>) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              </div>
 
             </article>
 
@@ -579,6 +586,18 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 </button>
               </div>
             </article>
+
+            {/* ── Go Deeper ── */}
+            <Link
+              href="/articles/why-i-built-a-startup-roaster"
+              className="flex items-center justify-between rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5 transition-colors hover:border-[rgba(255,255,255,0.15)]"
+            >
+              <div>
+                <p className="text-site-kicker text-[var(--text-dim)]">Go Deeper</p>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Learn the positioning framework behind every roast.</p>
+              </div>
+              <ArrowUpRight size={16} className="flex-shrink-0 text-[var(--text-dim)]" />
+            </Link>
           </div>
         </section>
       )}

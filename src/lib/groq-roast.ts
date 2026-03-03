@@ -42,7 +42,7 @@ Label mapping by total score:
 
 Output content requirements:
 - Roast line: exactly 2 short sentences, witty but intelligent, slightly ruthless, no emojis.
-- Roast line must reference the specific company/domain and include at least one exact quoted phrase from the supplied copy in double quotes.
+- Roast line must reference the specific company/domain and feel natural (no formulaic template endings).
 - Do not start roastLine with a domain/URL prefix (e.g., "example.com:").
 - Summary: concise paragraph explaining why the score was given.
 - Summary must include at least one exact quoted phrase from the supplied copy in double quotes.
@@ -171,11 +171,11 @@ function ensureSpecificRoastLine(params: {
   if (sentences.length >= 2) {
     twoSentenceRoast = `${sentences[0]} ${sentences[1]}`;
   } else {
-    twoSentenceRoast = `${sentences[0]} The phrase "${quote}" still sounds generic instead of ownable.`;
+    twoSentenceRoast = `${sentences[0]} It still blurs who this is for and what outcome it creates.`;
   }
 
-  if (!hasQuotedPhrase(twoSentenceRoast)) {
-    twoSentenceRoast = `${twoSentenceRoast.replace(/[.!?]+\s*$/, '')}. "${quote}" is where the specificity gap shows up.`;
+  if (!hasQuotedPhrase(twoSentenceRoast) && quote !== 'your homepage copy') {
+    twoSentenceRoast = `${twoSentenceRoast.replace(/[.!?]+\s*$/, '')} "${quote}".`;
   }
 
   // Remove leading domain/url prefix if the model emits it (e.g., "chatbase.co: ...").

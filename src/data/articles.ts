@@ -11,6 +11,97 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "why-i-built-a-startup-roaster",
+    title: "Why I Built a Tool That Roasts Your Startup's Positioning",
+    excerpt:
+      "Most startup homepages sound identical. I got tired of explaining the same positioning problems on calls, so I built a tool that does it in 10 seconds. Here\u2019s the thinking behind the roast.",
+    content: `
+Most startup homepages sound identical.
+
+I don\u2019t mean similar. I mean if you stripped the logos off the top 50 results for "AI platform for teams," you could not tell them apart. Same hero headline structure. Same vague value prop. Same "trusted by" badge row. Same nothing.
+
+I know this because I spend a disproportionate amount of my week reviewing startup messaging. On positioning calls, in teardowns for clients, in late-night rabbit holes where I open 30 competitor homepages and screenshot the ones that actually say something. The screenshot folder is always thin.
+
+So I built a tool that automates the brutal first impression. [The Positioning Roaster](/roast) reads your homepage copy and tells you, in 10 seconds, whether your messaging would survive contact with a real buyer. It scores you, roasts you, and gives you a fix list.
+
+Here\u2019s why I built it that way.
+
+## The Problem This Solves
+
+Founders don\u2019t realize their messaging is generic until someone tells them.
+
+That\u2019s not a criticism. It\u2019s a structural blind spot. When you\u2019ve spent months building a product, you\u2019re so close to it that everything feels specific. You know the nuance. You know what makes your approach different. The problem is that **none of that nuance made it to the homepage.**
+
+What made it to the homepage is the version that got approved by three co-founders, reviewed by an advisor, softened to avoid offending any potential buyer persona, and ultimately compressed into something that could apply to literally any company in the category.
+
+I was having the same conversation on every positioning call: "Your copy says you do X for Y, but so does everyone else. What do you actually do differently?" And then we\u2019d spend 45 minutes excavating the real positioning that was hiding underneath the safe version.
+
+The roaster automates that first question. It\u2019s the brutal first impression you\u2019re not getting from your team, your investors, or your mom.
+
+## How the Scoring Works
+
+The tool evaluates your positioning across four dimensions:
+
+**Clarity** \u2014 Can a stranger understand what you do in 5 seconds? Not what category you\u2019re in. What you *do*. For whom. With what outcome. Most startups score high on category and low on specifics, which means a visitor knows you\u2019re an "AI platform" but has no idea why they should care.
+
+**Specificity** \u2014 Does your copy name a real audience, a real pain, or a real outcome? Or is it written for "businesses" who want to "streamline operations"? [I\u2019ve written about this before](/articles/how-to-position-your-ai-startup-when-everything-sounds-the-same) \u2014 specificity is the sharpest weapon in positioning. The more specific your language, the fewer people it applies to, and paradoxically, the more it converts.
+
+**Differentiation** \u2014 If I pasted your headline onto a competitor\u2019s site, would anyone notice? This is the dimension most startups fail. Not because they\u2019re not different, but because their copy doesn\u2019t reflect the difference. They write for the category instead of writing for the wedge.
+
+**Value Clarity** \u2014 Does the visitor know what they get? Not features. Outcomes. "Automates your invoice processing" is a feature. "Close your books in 2 days instead of 12" is value clarity. The gap between those two statements is the gap between a bounce and a signup.
+
+These four dimensions aren\u2019t arbitrary. They\u2019re the lenses I use in every positioning engagement. If you score above 70 on all four, your messaging is in fighting shape. If any single dimension drops below 40, you have a positioning leak that\u2019s costing you conversions whether you know it or not.
+
+## What the AI Actually Evaluates
+
+The roaster reads exactly two things: your headline and your meta description.
+
+That\u2019s it. Not your features page. Not your pricing. Not your about section. Just the copy a buyer sees in the first 5 seconds \u2014 the positioning surface area that matters most.
+
+> The first 5 seconds of your homepage carry more weight than the entire rest of the site combined.
+
+Why? Because buyers don\u2019t read your website. They scan your homepage, decide if you\u2019re relevant, and either stay or bounce. The average time-on-page for a startup homepage is under 30 seconds. If your headline doesn\u2019t land in that window, nothing else you\u2019ve built matters.
+
+This is why I intentionally limited the tool\u2019s input. I don\u2019t want it to give you credit for having a good features page or a compelling case study buried three clicks deep. I want it to answer the only question that matters: **does your homepage earn the next click?**
+
+## Why Roasting Works Better Than a Checklist
+
+I could have built this as a positioning checklist. Score yourself 1\u20135 on clarity. Rate your differentiation. Fill out this worksheet.
+
+Nobody would have used it.
+
+Checklists get bookmarked and forgotten. They\u2019re homework. A roast is an event. A score plus a roast line is memorable and shareable. Founders actually send their results to co-founders. They post them on X. They screenshot the scorecard and put it in Slack.
+
+**The roast is the distribution mechanism.** It\u2019s the thing that makes someone engage with positioning feedback they would have otherwise ignored. I\u2019ve seen founders get a score of 34 and immediately rewrite their homepage \u2014 not because a consultant told them to, but because the roast made it feel urgent and real.
+
+That\u2019s the psychology. Positioning advice is valuable but boring. Positioning *feedback* with a specific score and a specific burn is neither boring nor ignorable.
+
+## The Real Goal
+
+The roast is the hook. The improvement plan is the payload.
+
+Every result comes with three to five actionable fixes \u2014 not generic advice like "be more specific," but targeted suggestions based on what the AI actually read in your copy. It tells you what\u2019s weak, why it\u2019s weak, and what a stronger version would look like.
+
+The goal isn\u2019t humiliation. It\u2019s clarity. [Most AI startups will die with great products](/articles/most-ai-startups-will-die-with-great-products) because they never figured out how to communicate what makes them worth choosing. The roaster is designed to compress that realization into 10 seconds so founders can actually do something about it.
+
+If you score below 65, the tool suggests booking a positioning call. Not as a hard sell \u2014 as a triage response. If your homepage is leaking trust at that level, a rewrite from a checklist isn\u2019t going to cut it. You need someone to help you find the angle.
+
+If you score above 65, it points you to the headline grader to keep sharpening. Because good positioning isn\u2019t a one-time event. It\u2019s an ongoing refinement.
+
+## Try It
+
+[Roast your startup\u2019s positioning.](/roast) It takes 10 seconds, it\u2019s free, and it\u2019s more honest than anyone on your team will be.
+
+If you want the full positioning framework behind every score, start with [how to position your AI startup when everything sounds the same](/articles/how-to-position-your-ai-startup-when-everything-sounds-the-same). That\u2019s the long version of what the roaster does in a flash.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-03",
+    updatedAt: "2026-03-03",
+    readingTime: "7 min read",
+    tags: ["AI", "Startups", "Marketing", "Positioning"],
+  },
+  {
     slug: "the-marketing-consulting-playbook-nobody-will-publish",
     title: "The Marketing Consulting Playbook Nobody Will Publish",
     excerpt:
