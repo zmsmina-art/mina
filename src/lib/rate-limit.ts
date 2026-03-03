@@ -53,3 +53,9 @@ export const availabilityLimiter = rateLimit({ limit: 30, windowMs: 60_000 });
 
 /** Rate limiter for the booking endpoint: 5 requests per minute per IP */
 export const bookingLimiter = rateLimit({ limit: 5, windowMs: 60_000 });
+
+/** Rate limiter for the newsletter subscribe endpoint: 5 requests per minute per IP */
+export const subscribeLimiter = rateLimit({ limit: 5, windowMs: 60_000 });
+
+/** Rate limiter for the roast endpoint: 5 requests per minute per IP */
+export const roastLimiter = rateLimit({ limit: 5, windowMs: 60_000 });

@@ -34,10 +34,28 @@ async function getSentEmailSubjects(): Promise<Set<string>> {
   return subjects;
 }
 
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) {
+    // Constant-time: compare a against itself to avoid timing leak
+    let r = 0;
+    for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ a.charCodeAt(i);
+    void r;
+    return false;
+  }
+  let result = 0;
+  for (let i = 0; i < a.length; i++) result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return result === 0;
+}
+
 export async function GET(request: Request) {
+  // Guard: CRON_SECRET must be configured
+  if (!CRON_SECRET) {
+    return NextResponse.json({ error: 'Cron endpoint not configured' }, { status: 503 });
+  }
+
   // Authenticate: Vercel cron sends Authorization: Bearer <CRON_SECRET>
-  const authHeader = request.headers.get('authorization');
-  if (authHeader !== `Bearer ${CRON_SECRET}`) {
+  const authHeader = request.headers.get('authorization') ?? '';
+  if (!safeEqual(authHeader, `Bearer ${CRON_SECRET}`)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -92,8 +110,8 @@ export async function GET(request: Request) {
     const error = await res.json().catch(() => null);
     console.error('[newsletter/send] Failed to send email:', res.status, error);
     return NextResponse.json(
-      { error: 'Failed to send newsletter', detail: error },
-      { status: res.status }
+      { error: 'Failed to send newsletter' },
+      { status: 500 }
     );
   }
 

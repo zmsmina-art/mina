@@ -924,6 +924,45 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
               </Reveal>
             )}
 
+            {/* 9b. Newsletter Capture */}
+            <Reveal delay={STAGGER * 14 + 0.1}>
+              <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6">
+                <p className="text-site-kicker text-[var(--text-dim)]">Stay sharp</p>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">Weekly positioning breakdowns, grading insights, and frameworks for AI startup founders.</p>
+                <form
+                  className="mt-4 flex gap-2"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    const form = e.target as HTMLFormElement;
+                    const emailInput = form.elements.namedItem('nl_email') as HTMLInputElement;
+                    const email = emailInput?.value?.trim();
+                    if (!email) return;
+                    try {
+                      const res = await fetch('/api/newsletter/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, tag: 'grader-tool' }),
+                      });
+                      if (res.ok) {
+                        safeTrack('newsletter_subscribe', { source: 'grader-result' });
+                        emailInput.value = '';
+                        emailInput.placeholder = 'You\u2019re in!';
+                      }
+                    } catch { /* silent */ }
+                  }}
+                >
+                  <input
+                    name="nl_email"
+                    type="email"
+                    required
+                    placeholder="you@startup.com"
+                    className="flex-1 rounded-lg border border-[var(--stroke-soft)] bg-transparent px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                  />
+                  <button type="submit" className="accent-btn whitespace-nowrap text-sm">Subscribe</button>
+                </form>
+              </article>
+            </Reveal>
+
             {/* 10. Reset + Try a Rewrite */}
             <Reveal delay={STAGGER * 15}>
               <div className="flex flex-wrap items-center justify-center gap-3">

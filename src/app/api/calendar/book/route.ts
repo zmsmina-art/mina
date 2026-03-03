@@ -56,8 +56,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
+  }
+
   if (typeof name !== 'string' || name.length > 200 ||
-      typeof email !== 'string' || email.length > 254 ||
+      email.length > 254 ||
       (company && (typeof company !== 'string' || company.length > 200)) ||
       (companyStage && (typeof companyStage !== 'string' || companyStage.length > 100)) ||
       (context && (typeof context !== 'string' || context.length > 5000))) {

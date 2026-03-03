@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server';
+import { subscribeLimiter } from '@/lib/rate-limit';
 
 const BUTTONDOWN_API_KEY = process.env.BUTTONDOWN_API_KEY;
 const BUTTONDOWN_API_URL = 'https://api.buttondown.com/v1/subscribers';
 
 export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (!subscribeLimiter.check(ip)) {
+    return NextResponse.json({ error: 'Too many requests. Please try again shortly.' }, { status: 429 });
+  }
+
   if (!BUTTONDOWN_API_KEY) {
     console.error('[newsletter] BUTTONDOWN_API_KEY is not set');
     return NextResponse.json(
@@ -58,8 +64,8 @@ export async function POST(request: Request) {
 
     console.error('[newsletter] Buttondown API error:', res.status, data);
     return NextResponse.json(
-      { error: data?.detail || 'Subscription failed. Please try again.' },
-      { status: res.status }
+      { error: 'Subscription failed. Please try again.' },
+      { status: 500 }
     );
   } catch (err) {
     console.error('[newsletter] Network error:', err);

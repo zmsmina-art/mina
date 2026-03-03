@@ -168,18 +168,23 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
 
   const smartCta = useMemo(() => {
     if (!result) return null;
+    const bookHref = `/book?source=roast&score=${result.score}&verdict=${encodeURIComponent(result.verdict)}`;
     if (result.score < 65) {
       return {
-        href: `/book?source=roast&score=${result.score}&verdict=${encodeURIComponent(result.verdict)}`,
+        href: bookHref,
         label: 'Book a positioning call',
         helper: 'Your messaging is leaking trust. Rebuild the angle before your next pitch.',
+        secondaryHref: '/positioning-grader?source=roast',
+        secondaryLabel: 'Run the headline grader',
       };
     }
 
     return {
-      href: '/positioning-grader?source=roast',
-      label: 'Run the headline grader',
-      helper: 'You survived the roast. Now sharpen your headline and push the score higher.',
+      href: bookHref,
+      label: 'Book a positioning call',
+      helper: 'You survived the roast. Want to go from good to category-defining?',
+      secondaryHref: '/positioning-grader?source=roast',
+      secondaryLabel: 'Run the headline grader',
     };
   }, [result]);
 
@@ -581,10 +586,53 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                   {smartCta.label}
                   <ArrowUpRight size={15} />
                 </Link>
+                {smartCta.secondaryHref && (
+                  <Link href={smartCta.secondaryHref} className="ghost-btn px-4 py-2 text-sm">
+                    {smartCta.secondaryLabel}
+                    <ArrowUpRight size={14} />
+                  </Link>
+                )}
                 <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={reset}>
                   Roast another startup
                 </button>
               </div>
+            </article>
+
+            {/* ── Newsletter Capture ── */}
+            <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6">
+              <p className="text-site-kicker text-[var(--text-dim)]">Stay sharp</p>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">Weekly positioning breakdowns, roast recaps, and frameworks for AI startup founders.</p>
+              <form
+                className="mt-4 flex gap-2"
+                onSubmit={async (e: SyntheticEvent) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const emailInput = form.elements.namedItem('nl_email') as HTMLInputElement;
+                  const email = emailInput?.value?.trim();
+                  if (!email) return;
+                  try {
+                    const res = await fetch('/api/newsletter/subscribe', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ email, tag: 'roast-tool' }),
+                    });
+                    if (res.ok) {
+                      track('newsletter_subscribe', { source: 'roast-result' });
+                      emailInput.value = '';
+                      emailInput.placeholder = 'You\u2019re in!';
+                    }
+                  } catch { /* silent */ }
+                }}
+              >
+                <input
+                  name="nl_email"
+                  type="email"
+                  required
+                  placeholder="you@startup.com"
+                  className="flex-1 rounded-lg border border-[var(--stroke-soft)] bg-transparent px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-dim)] focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                />
+                <button type="submit" className="accent-btn whitespace-nowrap text-sm">Subscribe</button>
+              </form>
             </article>
 
             {/* ── Go Deeper ── */}

@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { groqRoast } from '@/lib/groq-roast';
 import { openRouterRoast } from '@/lib/openrouter-roast';
 import { scrapeUrl, ScrapeError } from '@/lib/scrape-url';
+import { roastLimiter } from '@/lib/rate-limit';
 
 type RoastRequestBody = {
   url: string;
@@ -36,6 +37,11 @@ function toScrapeResponse(error: unknown): NextResponse {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (!roastLimiter.check(ip)) {
+    return NextResponse.json({ error: 'Too many requests. Please try again shortly.' }, { status: 429 });
+  }
+
   if (csrfRejected(request)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
