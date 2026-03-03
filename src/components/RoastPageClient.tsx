@@ -380,23 +380,21 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 {result.domain}
               </p>
               <p
-                className="relative mt-5 text-[clamp(1.25rem,4vw,1.75rem)] leading-snug text-[var(--text-primary)]"
+                className="relative mt-6 text-[clamp(1.5rem,4.5vw,2.15rem)] font-semibold leading-tight text-white"
                 style={{ fontFamily: 'var(--font-cormorant, Cormorant Garamond, Georgia, serif)' }}
               >
                 &ldquo;{result.roastLine}&rdquo;
               </p>
 
-              <div className="relative mt-6 flex items-center justify-center gap-3">
+              <div className="relative mt-8 inline-flex items-baseline justify-center gap-1.5">
                 <p
                   className="text-[clamp(2.8rem,9vw,4.5rem)] leading-none"
                   style={{ color: scoreColor(result.score), fontFamily: 'var(--font-cormorant)' }}
                 >
                   {result.score}
                 </p>
-                <div className="text-left">
-                  <p className="text-sm text-[var(--text-dim)]">/100</p>
-                  <p className={`text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
-                </div>
+                <p className="text-base text-[var(--text-dim)]">/100</p>
+                <p className={`ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
               </div>
 
               {/* ── Share row — compact, no URL displayed ── */}
