@@ -289,7 +289,7 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
         <div className="mx-auto w-full max-w-4xl">
           <Link
             href="/positioning-grader"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+            className="mb-8 flex w-fit items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <ArrowLeft size={14} />
             Back to grader
@@ -371,47 +371,40 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
       {phase === 'result' && result && smartCta && (
         <section ref={resultRef} className="command-section page-gutter pb-20 md:pb-24" data-section-theme="roast-result">
           <div className="mx-auto w-full max-w-4xl space-y-6">
-            <article className="relative overflow-hidden rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
-              <div className="pointer-events-none absolute right-4 top-4 text-[10px] tracking-[0.16em] text-[var(--text-dim)]">
-                SHAREABLE SCORECARD
-              </div>
 
-              <div className="flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <p className="command-label mb-2">Roast Score</p>
-                  <p
-                    className="text-[clamp(3rem,10vw,5.4rem)] leading-none"
-                    style={{ color: scoreColor(result.score), fontFamily: 'var(--font-cormorant)' }}
-                  >
-                    {result.score}
-                    <span className="ml-2 text-base text-[var(--text-dim)]">/100</span>
-                  </p>
-                  <p className={`mt-2 text-sm uppercase tracking-[0.14em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
-                  <p className="mt-1 text-xs text-[var(--text-dim)]">{result.domain} • grade {result.grade.letter}</p>
-                </div>
-                <p className="text-xs text-[var(--text-dim)]">minamankarious.com/roast</p>
-              </div>
+            {/* ── THE ROAST — hero moment ── */}
+            <article className="roast-hero-card relative overflow-hidden rounded-2xl border border-[var(--stroke-soft)] p-8 sm:p-10 text-center">
+              <div className="roast-hero-glow" aria-hidden="true" />
 
-              <p className="mt-4 text-[clamp(1.05rem,3vw,1.35rem)] italic leading-relaxed text-[var(--text-primary)]">
+              <p className="relative text-xs uppercase tracking-[0.18em] text-[var(--text-dim)]">
+                {result.domain}
+              </p>
+              <p
+                className="relative mt-5 text-[clamp(1.25rem,4vw,1.75rem)] leading-snug text-[var(--text-primary)]"
+                style={{ fontFamily: 'var(--font-cormorant, Cormorant Garamond, Georgia, serif)' }}
+              >
                 &ldquo;{result.roastLine}&rdquo;
               </p>
-            </article>
 
-            <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6">
-              <p className="command-label">Share this roast</p>
-              <p className="mt-2 text-sm text-[var(--text-muted)]">
-                Share this scorecard on X, LinkedIn, or in your founder chat. Anyone opening it sees this exact result.
-              </p>
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <p className="min-w-0 flex-1 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-3 py-2 text-xs text-[var(--text-dim)]">
-                  <span className="break-all">{shareUrl}</span>
+              <div className="relative mt-6 flex items-center justify-center gap-3">
+                <p
+                  className="text-[clamp(2.8rem,9vw,4.5rem)] leading-none"
+                  style={{ color: scoreColor(result.score), fontFamily: 'var(--font-cormorant)' }}
+                >
+                  {result.score}
                 </p>
+                <div className="text-left">
+                  <p className="text-sm text-[var(--text-dim)]">/100</p>
+                  <p className={`text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
+                </div>
+              </div>
+
+              {/* ── Share row — compact, no URL displayed ── */}
+              <div className="relative mt-7 flex flex-wrap items-center justify-center gap-2">
                 <button type="button" className="accent-btn whitespace-nowrap" onClick={handleCopyShare}>
                   {copied ? <Check size={14} /> : <Copy size={14} />}
-                  {copied ? 'Copied' : 'Copy link'}
+                  {copied ? 'Link copied!' : 'Copy scorecard link'}
                 </button>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2">
                 <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleShareX}>
                   Share on X
                   <ArrowUpRight size={14} />
@@ -423,14 +416,15 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
               </div>
             </article>
 
-            <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6">
-              <h2 className="text-lg text-[var(--text-primary)]">But seriously, here&apos;s how you can improve it:</h2>
-              <p className="mt-3 text-sm text-[var(--text-muted)]">
+            {/* ── THE VALUE — analysis & fixes ── */}
+            <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6 sm:p-8">
+              <h2 className="text-lg text-[var(--text-primary)]">OK but seriously &mdash; here&apos;s how to fix it</h2>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">
                 {result.analysis?.summary || 'Tighten your positioning with clearer audience language, stronger differentiation, and explicit outcomes.'}
               </p>
 
               {result.analysis?.dimensions?.length ? (
-                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                   {result.analysis.dimensions.map((dimension) => (
                     <div
                       key={dimension.id}
@@ -446,7 +440,21 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 </div>
               ) : null}
 
-              <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <ol className="mt-5 space-y-3 pl-0 text-sm leading-relaxed text-[var(--text-muted)]">
+                {result.tips.map((tip, i) => (
+                  <li key={tip} className="flex gap-3">
+                    <span
+                      className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs"
+                      style={{ background: 'rgba(122, 64, 242, 0.15)', color: 'var(--accent-purple-soft)' }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="pt-0.5">{tip}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="mt-6 grid gap-3 md:grid-cols-2">
                 <div className="rounded-xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-4">
                   <p className="text-site-kicker text-[var(--text-dim)]">Headline judged</p>
                   <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{result.judged.headline}</p>
@@ -456,14 +464,9 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                   <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{result.judged.description}</p>
                 </div>
               </div>
-
-              <ol className="mt-5 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--text-muted)]">
-                {result.tips.map((tip) => (
-                  <li key={tip}>{tip}</li>
-                ))}
-              </ol>
             </article>
 
+            {/* ── CTA ── */}
             <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6 text-center">
               <p className="text-base text-[var(--text-primary)]">{smartCta.helper}</p>
               <div className="mt-4 flex flex-wrap items-center justify-center gap-3">

@@ -29,6 +29,8 @@ export default function SiteNav() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(pathname !== '/');
   const activeIndex = getActiveIndex(pathname);
+  // Switch to 'command-nav--desktop-editorial' for the stronger tab treatment.
+  const desktopVariantClass = 'command-nav--desktop-minimal';
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -46,12 +48,11 @@ export default function SiteNav() {
     <>
       {/* ── Desktop + mobile top bar ── */}
       <nav
-        className={`command-nav ${isScrolled ? 'command-nav--scrolled' : ''}`}
+        className={`command-nav ${desktopVariantClass} ${isScrolled ? 'command-nav--scrolled' : ''}`}
         aria-label="Main navigation"
       >
         <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
           <Link
-            prefetch={false}
             href="/"
             aria-label="mm. Mina Mankarious — Home"
             className="command-brand brand-mark"
@@ -74,7 +75,6 @@ export default function SiteNav() {
             {navItems.map((item, i) => (
               <Link
                 key={item.label}
-                prefetch={false}
                 href={item.href}
                 className={`tubelight-item ${i === activeIndex ? 'tubelight-item--active' : ''}`}
                 aria-current={i === activeIndex ? 'page' : undefined}
@@ -107,7 +107,6 @@ export default function SiteNav() {
             return (
               <Link
                 key={item.label}
-                prefetch={false}
                 href={item.href}
                 className={`tubelight-item tubelight-item--icon ${i === activeIndex ? 'tubelight-item--active' : ''}`}
                 aria-label={item.label}
