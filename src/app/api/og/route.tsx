@@ -834,20 +834,23 @@ export async function GET(request: NextRequest) {
           height: '100%',
           width: '100%',
           display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
           background: '#111114',
         }}
       >
-        {/* Background atmosphere */}
+        {/* Background atmosphere — centered */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             display: 'flex',
             background:
-              'radial-gradient(ellipse 90% 80% at 30% 50%, rgba(255,255,255,0.06), transparent 70%), ' +
-              'radial-gradient(ellipse 60% 90% at 85% 30%, rgba(176,137,255,0.12), transparent 60%)',
+              'radial-gradient(ellipse 80% 90% at 50% 40%, rgba(176,137,255,0.14), transparent 65%), ' +
+              'radial-gradient(ellipse 100% 80% at 50% 50%, rgba(255,255,255,0.05), transparent 70%)',
           }}
         />
 
@@ -865,60 +868,113 @@ export async function GET(request: NextRequest) {
           }}
         />
 
-        {/* Left column — text content */}
+        {/* Decorative vertical line — left */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '48px',
+            left: '72px',
+            width: '1px',
+            height: '100px',
+            display: 'flex',
+            background:
+              'linear-gradient(180deg, rgba(255,255,255,0.35), rgba(176,137,255,0.2), transparent)',
+          }}
+        />
+
+        {/* Decorative corner — bottom right */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '48px',
+            right: '72px',
+            width: '60px',
+            height: '60px',
+            display: 'flex',
+            borderRight: '1px solid rgba(255,255,255,0.12)',
+            borderBottom: '1px solid rgba(255,255,255,0.12)',
+          }}
+        />
+
+        {/* Center content */}
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            flex: 1,
-            padding: '72px 0 72px 80px',
+            alignItems: 'center',
+            gap: 56,
             position: 'relative',
           }}
         >
-          {/* Kicker */}
+          {/* Headshot — circular */}
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              marginBottom: 28,
+              width: 220,
+              height: 220,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '3px solid rgba(176,137,255,0.35)',
+              flexShrink: 0,
             }}
           >
-            <div
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://minamankarious.com/headshot.jpg"
+              alt=""
+              width={220}
+              height={220}
               style={{
-                width: 28,
-                height: '1px',
-                display: 'flex',
-                background: '#ffffff',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center top',
               }}
             />
-            <div
-              style={{
-                fontSize: 16,
-                fontFamily: 'Cormorant',
-                fontWeight: 400,
-                letterSpacing: '0.18em',
-                color: '#ffffff',
-                display: 'flex',
-                textTransform: 'uppercase',
-              }}
-            >
-              Founder & CEO of Olunix
-            </div>
           </div>
 
-          {/* Name — two lines */}
+          {/* Text block */}
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 0,
             }}
           >
+            {/* Kicker */}
             <div
               style={{
-                fontSize: 84,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                marginBottom: 16,
+              }}
+            >
+              <div
+                style={{
+                  width: 24,
+                  height: '1px',
+                  display: 'flex',
+                  background: 'rgba(176,137,255,0.6)',
+                }}
+              />
+              <div
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  letterSpacing: '0.16em',
+                  color: 'rgba(255,255,255,0.6)',
+                  display: 'flex',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Founder & CEO of Olunix
+              </div>
+            </div>
+
+            {/* Name */}
+            <div
+              style={{
+                fontSize: 72,
                 fontFamily: 'Cormorant',
                 fontWeight: 600,
                 color: '#ffffff',
@@ -927,143 +983,81 @@ export async function GET(request: NextRequest) {
                 display: 'flex',
               }}
             >
-              Mina
+              Mina Mankarious
             </div>
+
+            {/* Separator */}
             <div
               style={{
-                fontSize: 84,
-                fontFamily: 'Cormorant',
-                fontWeight: 600,
-                color: '#ffffff',
-                lineHeight: 1.0,
-                letterSpacing: '-0.01em',
+                width: 48,
+                height: '1px',
                 display: 'flex',
-              }}
-            >
-              Mankarious
-            </div>
-          </div>
-
-          {/* Separator */}
-          <div
-            style={{
-              width: 48,
-              height: '1px',
-              display: 'flex',
-              background: '#ffffff',
-              marginTop: 28,
-              marginBottom: 24,
-            }}
-          />
-
-          {/* Description */}
-          <div
-            style={{
-              fontSize: 24,
-              fontFamily: 'Cormorant',
-              fontWeight: 400,
-              color: '#ffffff',
-              lineHeight: 1.5,
-              maxWidth: 480,
-              display: 'flex',
-            }}
-          >
-            Helping AI startups with positioning, growth systems, and founder-led marketing.
-          </div>
-
-          {/* Bottom meta */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              marginTop: 36,
-            }}
-          >
-            <div
-              style={{
-                fontSize: 16,
-                fontFamily: 'Cormorant',
-                fontWeight: 400,
-                color: '#ffffff',
-                display: 'flex',
-                letterSpacing: '0.06em',
-              }}
-            >
-              minamankarious.com
-            </div>
-            <div
-              style={{
-                width: 4,
-                height: 4,
-                display: 'flex',
-                borderRadius: '50%',
-                background: '#ffffff',
+                background: 'rgba(255,255,255,0.3)',
+                marginTop: 20,
+                marginBottom: 18,
               }}
             />
+
+            {/* Description */}
             <div
               style={{
-                fontSize: 16,
+                fontSize: 22,
                 fontFamily: 'Cormorant',
                 fontWeight: 400,
-                color: '#ffffff',
+                color: 'rgba(255,255,255,0.7)',
+                lineHeight: 1.45,
+                maxWidth: 520,
                 display: 'flex',
-                letterSpacing: '0.06em',
               }}
             >
-              Toronto, Canada
+              Helping AI startups with positioning, growth systems, and founder-led marketing.
             </div>
           </div>
         </div>
 
-        {/* Right column — headshot */}
+        {/* Bottom meta */}
         <div
           style={{
             display: 'flex',
-            width: '420px',
+            alignItems: 'center',
+            gap: 16,
+            marginTop: 40,
             position: 'relative',
-            overflow: 'hidden',
           }}
         >
-          {/* Gradient overlay on photo edge */}
           <div
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              bottom: 0,
-              width: '80px',
+              fontSize: 15,
+              fontFamily: 'Cormorant',
+              fontWeight: 400,
+              color: 'rgba(255,255,255,0.4)',
               display: 'flex',
-              background: 'linear-gradient(90deg, #111114, transparent)',
-              zIndex: 2,
+              letterSpacing: '0.06em',
             }}
-          />
-          {/* Bottom fade */}
+          >
+            minamankarious.com
+          </div>
           <div
             style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: '100px',
+              width: 4,
+              height: 4,
               display: 'flex',
-              background: 'linear-gradient(0deg, #111114, transparent)',
-              zIndex: 2,
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.3)',
             }}
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://minamankarious.com/headshot.jpg"
-            alt=""
-            width={420}
-            height={630}
+          <div
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center top',
+              fontSize: 15,
+              fontFamily: 'Cormorant',
+              fontWeight: 400,
+              color: 'rgba(255,255,255,0.4)',
+              display: 'flex',
+              letterSpacing: '0.06em',
             }}
-          />
+          >
+            Toronto, Canada
+          </div>
         </div>
       </div>
     ),
