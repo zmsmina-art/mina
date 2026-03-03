@@ -1,10 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { rateLimit } from '@/lib/rate-limit';
-import { callGeminiRoast, mapGeminiRoastToResult } from '@/lib/gemini-roast';
-import { computeHeuristicRoast } from '@/lib/roast';
+import { groqRoast } from '@/lib/groq-roast';
+import { openRouterRoast } from '@/lib/openrouter-roast';
 import { scrapeUrl, ScrapeError } from '@/lib/scrape-url';
-
-const limiter = rateLimit({ limit: 5, windowMs: 60_000 });
 
 type RoastRequestBody = {
   url: string;
@@ -24,12 +21,6 @@ function csrfRejected(request: NextRequest): boolean {
   }
 
   return !origin || !allowedOrigins.includes(origin);
-}
-
-function extractIp(request: NextRequest): string {
-  return request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    ?? request.headers.get('x-real-ip')
-    ?? 'unknown';
 }
 
 function toScrapeResponse(error: unknown): NextResponse {
@@ -68,17 +59,39 @@ export async function POST(request: NextRequest) {
     return toScrapeResponse(error);
   }
 
-  const canUseGemini = limiter.check(extractIp(request)) && !!process.env.GEMINI_API_KEY;
+  // Try Groq first, then OpenRouter. Both must fail before we 503.
+  const errors: string[] = [];
 
-  if (!canUseGemini) {
-    return NextResponse.json(computeHeuristicRoast(scraped));
+  if (process.env.GROQ_API_KEY) {
+    try {
+      const result = await groqRoast(scraped);
+      return NextResponse.json(result);
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      errors.push(`Groq: ${msg}`);
+      console.error('[roast] Groq failed, trying OpenRouter:', msg);
+    }
+  } else {
+    errors.push('Groq: GROQ_API_KEY not set');
   }
 
-  try {
-    const geminiResponse = await callGeminiRoast(scraped);
-    return NextResponse.json(mapGeminiRoastToResult(geminiResponse, scraped));
-  } catch (error) {
-    console.error('[roast] Gemini failed, using heuristic fallback:', error);
-    return NextResponse.json(computeHeuristicRoast(scraped));
+  if (process.env.OPENROUTER_API_KEY) {
+    try {
+      const result = await openRouterRoast(scraped);
+      return NextResponse.json(result);
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      errors.push(`OpenRouter: ${msg}`);
+      console.error('[roast] OpenRouter also failed:', msg);
+    }
+  } else {
+    errors.push('OpenRouter: OPENROUTER_API_KEY not set');
   }
+
+  // Both providers failed — return a clear error instead of a silent heuristic downgrade
+  console.error('[roast] All AI providers failed:', errors.join(' | '));
+  return NextResponse.json(
+    { error: 'Our AI is temporarily unavailable. Please try again in a moment.' },
+    { status: 503 },
+  );
 }
