@@ -17,6 +17,7 @@ const navigationLinks = [
 const networkLinks = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mina-mankarious' },
   { label: 'X', href: 'https://x.com/olmnix' },
+  { label: 'Substack', href: 'https://minamankarious.substack.com' },
   { label: 'GitHub', href: 'https://github.com/zmsmina-art' },
   { label: 'Olunix', href: 'https://olunix.com' },
 ];

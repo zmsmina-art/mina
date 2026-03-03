@@ -283,6 +283,7 @@ export default function RootLayout({
       'https://www.youtube.com/@Mankariouss',
       'https://www.crunchbase.com/person/mina-mankarious',
       'https://mankarious.medium.com',
+      'https://minamankarious.substack.com',
       'https://www.wikidata.org/wiki/Q138001904',
     ],
   };
@@ -388,6 +389,7 @@ export default function RootLayout({
         <link rel="me" href="https://github.com/zmsmina-art" />
         <link rel="me" href="https://www.youtube.com/@Mankariouss" />
         <link rel="me" href="https://mankarious.medium.com" />
+        <link rel="me" href="https://minamankarious.substack.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
         <link rel="me" href="https://www.wikidata.org/wiki/Q138001904" />
       </head>
