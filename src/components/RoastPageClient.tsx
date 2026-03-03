@@ -380,10 +380,10 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 {result.domain}
               </p>
               <p
-                className="relative mt-6 text-[clamp(1.5rem,4.5vw,2.15rem)] font-semibold leading-tight text-white"
+                className="relative mt-6 text-[clamp(2.5rem,7vw,4rem)] font-semibold leading-tight text-white"
                 style={{ fontFamily: 'var(--font-cormorant, Cormorant Garamond, Georgia, serif)' }}
               >
-                &ldquo;{result.roastLine}&rdquo;
+                {result.roastLine}
               </p>
 
               <div className="relative mt-8 inline-flex items-baseline justify-center gap-1.5">
