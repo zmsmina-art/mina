@@ -302,9 +302,6 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
           <p className="mt-3 max-w-2xl text-[var(--text-muted)]">
             Paste your URL. Get a funny positioning roast, a shareable scorecard, and practical fixes.
           </p>
-          <p className="mt-3 inline-flex rounded-full border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-3 py-1 text-xs text-[var(--text-dim)]">
-            {SOCIAL_PROOF_LINE}
-          </p>
         </div>
       </section>
 
@@ -397,22 +394,15 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 <p className={`ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
               </div>
 
-              {/* ── Share row — compact, no URL displayed ── */}
-              <div className="relative mt-7 flex flex-wrap items-center justify-center gap-2">
-                <button type="button" className="accent-btn whitespace-nowrap" onClick={handleCopyShare}>
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                  {copied ? 'Link copied!' : 'Copy scorecard link'}
-                </button>
-                <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleShareX}>
-                  Share on X
-                  <ArrowUpRight size={14} />
-                </button>
-                <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleShareLinkedIn}>
-                  Share on LinkedIn
-                  <ArrowUpRight size={14} />
-                </button>
-              </div>
             </article>
+
+            {/* ── Share — just a copy button ── */}
+            <div className="flex justify-center">
+              <button type="button" className="accent-btn whitespace-nowrap" onClick={handleCopyShare}>
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+                {copied ? 'Link copied!' : 'Copy scorecard link'}
+              </button>
+            </div>
 
             {/* ── THE VALUE — analysis & fixes ── */}
             <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6 sm:p-8">
