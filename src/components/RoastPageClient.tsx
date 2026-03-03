@@ -18,8 +18,60 @@ const ANALYSIS_STEPS = [
 const SOCIAL_PROOF_LINE = '1,000+ founders already got roasted and lived to tell the tale.';
 const FORM_BENEFITS = [
   'Brutal scorecard in seconds',
-  '3 clear fixes you can ship today',
+  '3-5 clear fixes you can ship today',
   'Shareable result link for X and LinkedIn',
+];
+const GENERIC_BLOB_VARIANTS = [
+  'Generic Blob',
+  'Category Oatmeal',
+  'Buzzword Soup',
+  'Vague by Design',
+  'Copycat Copy',
+  'Blended In',
+  'Positioning Beige',
+  'Safe and Forgettable',
+  'Corporate Plain Toast',
+  'Too Broad to Stick',
+  'Everyone and No One',
+  'Same as the Rest',
+  'Vanilla Positioning',
+  'All Noise No Edge',
+  'Commodity Copy',
+  'Buzzword Blanket',
+  'Middle of the Pack',
+  'Nothing to Own',
+  'Signal Too Faint',
+  'Template Level Messaging',
+  'Generic SaaS Fog',
+  'Category Echo',
+  'Broad and Blurry',
+  'Differentiation Missing',
+  'Promise Without Proof',
+  'Positioning by Committee',
+  'Copy With No Teeth',
+  'Safe but Soft',
+  'Beige Value Prop',
+  'Familiar to a Fault',
+  'Same Song New Logo',
+  'Sounds Like Everyone',
+  'All Category No Claim',
+  'Forgettable Framing',
+  'Low Contrast Messaging',
+  'No Sharp Angle',
+  'Generic Market Chatter',
+  'Mild Positioning Energy',
+  'Blunt Instrument Copy',
+  'No Defensible Wedge',
+  'Positioning in Soft Focus',
+  'Big Words Thin Meaning',
+  'Polished but Interchangeable',
+  'Category Filler Copy',
+  'All Platform No Point',
+  'Undercooked Positioning',
+  'Generic Pitch Deck Voice',
+  'Blends Into the Feed',
+  'Same Promise Different Skin',
+  'Crowd Noise Messaging',
 ];
 
 function safeTrack(name: string, properties?: Record<string, string | number | boolean>) {
@@ -45,6 +97,9 @@ function scoreColor(score: number): string {
 }
 
 function verdictTone(verdict: string): string {
+  if (verdict === 'Positioning Weapon' || verdict === 'Clear Contender') return 'text-[#22c55e]';
+  if (verdict === 'Promising but Fuzzy' || verdict === 'Generic Blob') return 'text-[var(--accent-purple-soft)]';
+  // Backward compatibility for previously shared labels.
   if (verdict === 'Category Flame' || verdict === 'Crispy Clean') return 'text-[#22c55e]';
   if (verdict === 'Almost There' || verdict === 'Needs Seasoning') return 'text-[var(--accent-purple-soft)]';
   return 'text-[#ef4444]';
@@ -56,6 +111,20 @@ function splitTips(value: string): string[] {
     .map((tip) => tip.trim())
     .filter(Boolean)
     .slice(0, 3);
+}
+
+function hashSeed(value: string): number {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = ((hash << 5) - hash + value.charCodeAt(i)) | 0;
+  }
+  return hash;
+}
+
+function displayVerdict(verdict: string, seed: string): string {
+  if (verdict !== 'Generic Blob') return verdict;
+  const index = Math.abs(hashSeed(seed)) % GENERIC_BLOB_VARIANTS.length;
+  return GENERIC_BLOB_VARIANTS[index] ?? verdict;
 }
 
 export default function RoastPageClient({ sharedParam }: { sharedParam: string | null }) {
@@ -112,6 +181,11 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
       label: 'Run the headline grader',
       helper: 'You survived the roast. Now sharpen your headline and push the score higher.',
     };
+  }, [result]);
+
+  const resultVerdict = useMemo(() => {
+    if (!result) return '';
+    return displayVerdict(result.verdict, `${result.domain}|${result.score}|${result.roastLine}`);
   }, [result]);
 
   const reset = useCallback(() => {
@@ -216,6 +290,7 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
 
   if (shared && !result) {
     const tips = splitTips(shared.p);
+    const sharedVerdict = displayVerdict(shared.v, `${shared.d}|${shared.s}|${shared.r}`);
     return (
       <main id="main-content" className="page-enter marketing-main site-theme pt-20" data-static-motion="true">
         <section className="command-section page-gutter section-block">
@@ -239,7 +314,7 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                     {shared.s}
                     <span className="ml-2 text-base text-[var(--text-dim)]">/100</span>
                   </p>
-                  <p className={`mt-2 text-sm uppercase tracking-[0.14em] ${verdictTone(shared.v)}`}>{shared.v}</p>
+                  <p className={`mt-2 text-sm uppercase tracking-[0.14em] ${verdictTone(shared.v)}`}>{sharedVerdict}</p>
                   <p className="mt-1 text-xs text-[var(--text-dim)]">{shared.d}</p>
                 </div>
                 <p className="text-xs text-[var(--text-dim)]">minamankarious.com/roast</p>
@@ -288,11 +363,11 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
       <section className="command-section page-gutter pt-8 pb-6 md:pt-12 md:pb-8" data-section-theme="roast-hero">
         <div className="mx-auto w-full max-w-4xl">
           <Link
-            href="/positioning-grader"
+            href="/"
             className="mb-8 flex w-fit items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <ArrowLeft size={14} />
-            Back to grader
+            Back home
           </Link>
 
           <p className="command-label mb-2">Roast My Startup</p>
@@ -373,11 +448,11 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
             <article className="roast-hero-card relative overflow-hidden rounded-2xl border border-[var(--stroke-soft)] p-8 sm:p-10 text-center">
               <div className="roast-hero-glow" aria-hidden="true" />
 
-              <p className="relative text-xs uppercase tracking-[0.18em] text-[var(--text-dim)]">
+              <p className="roast-hero-domain relative text-xs uppercase tracking-[0.18em] text-[var(--text-dim)]">
                 {result.domain}
               </p>
               <p
-                className="relative mt-6 text-[clamp(2.5rem,7vw,4rem)] font-semibold leading-tight text-white"
+                className="roast-hero-line relative mt-6 text-[clamp(2.5rem,7vw,4rem)] font-bold leading-tight text-white"
                 style={{ fontFamily: 'var(--font-cormorant, Cormorant Garamond, Georgia, serif)' }}
               >
                 {result.roastLine}
@@ -385,13 +460,13 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
 
               <div className="relative mt-8 inline-flex items-baseline justify-center gap-1.5">
                 <p
-                  className="text-[clamp(2.8rem,9vw,4.5rem)] leading-none"
+                  className="roast-hero-score text-[clamp(2.8rem,9vw,4.5rem)] leading-none"
                   style={{ color: scoreColor(result.score), fontFamily: 'var(--font-cormorant)' }}
                 >
                   {result.score}
                 </p>
                 <p className="text-base text-[var(--text-dim)]">/100</p>
-                <p className={`ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
+                <p className={`roast-hero-verdict ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{resultVerdict}</p>
               </div>
 
               {/* Company favicon – bottom-right corner */}
@@ -472,6 +547,23 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                   <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{result.judged.description}</p>
                 </div>
               </div>
+
+              {(result.improvedHeadline || result.improvedMetaDescription) ? (
+                <div className="mt-3 grid gap-3 md:grid-cols-2">
+                  <div className="rounded-xl border border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.06)] p-4">
+                    <p className="text-site-kicker text-[var(--text-dim)]">Improved headline</p>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--text-primary)]">
+                      {result.improvedHeadline}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.06)] p-4">
+                    <p className="text-site-kicker text-[var(--text-dim)]">Improved meta description</p>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--text-primary)]">
+                      {result.improvedMetaDescription}
+                    </p>
+                  </div>
+                </div>
+              ) : null}
             </article>
 
             {/* ── CTA ── */}

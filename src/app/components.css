@@ -1821,6 +1821,29 @@ a {
   animation: roast-glow-breathe 4s ease-in-out infinite;
 }
 
+.roast-hero-domain {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.84);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.46);
+}
+
+.roast-hero-line {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.98);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 12px rgba(0, 0, 0, 0.58);
+  text-wrap: balance;
+}
+
+.roast-hero-score {
+  font-weight: 700;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.52);
+}
+
+.roast-hero-verdict {
+  font-weight: 700;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.48);
+}
+
 @keyframes roast-glow-breathe {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
