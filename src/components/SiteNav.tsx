@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { User, Briefcase, BarChart3, Mail } from 'lucide-react';
+import { User, Briefcase, Flame, Mail } from 'lucide-react';
 
 type NavItem = {
   label: string;
@@ -15,7 +15,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { label: 'About', href: '/about', icon: User },
   { label: 'Work', href: '/work', icon: Briefcase },
-  { label: 'Grader', href: '/positioning-grader', icon: BarChart3 },
+  { label: 'Roast', href: '/roast', icon: Flame },
   { label: 'Newsletter', href: '/newsletter', icon: Mail },
 ];
 
