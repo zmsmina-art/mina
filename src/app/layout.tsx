@@ -11,7 +11,7 @@ const cormorant = Cormorant_Garamond({
   weight: ['400', '600'],
   style: ['normal', 'italic'],
   display: 'swap',
-  preload: false,
+  preload: true,
   variable: '--font-cormorant',
 });
 
@@ -136,13 +136,15 @@ export default function RootLayout({
     name: 'Olunix',
     url: 'https://olunix.com',
     description: 'Marketing and consulting firm helping AI startups with strategic growth',
-    foundingDate: '2024-09',
+    foundingDate: '2024-09-01',
     founder: {
       '@id': 'https://minamankarious.com/#person',
     },
     logo: {
       '@type': 'ImageObject',
       url: 'https://minamankarious.com/olunix.svg',
+      width: 200,
+      height: 200,
     },
     address: {
       '@type': 'PostalAddress',
@@ -161,7 +163,9 @@ export default function RootLayout({
     familyName: 'Mankarious',
     alternateName: 'Mina M. Mankarious',
     url: 'https://minamankarious.com',
-    mainEntityOfPage: 'https://minamankarious.com',
+    mainEntityOfPage: {
+      '@id': 'https://minamankarious.com',
+    },
     image: [
       {
         '@type': 'ImageObject',

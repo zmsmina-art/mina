@@ -44,6 +44,7 @@ next-env.d.ts
 # Dev artifacts
 *.md
 !README.md
+!seo-audit/*.md
 *.jpg
 *.jpeg
 *.screenshot*

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AboutPageContent from '@/components/AboutPageContent';
+import AboutChoreography from '@/components/AboutChoreography';
 
 export const metadata: Metadata = {
   title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
@@ -152,6 +153,7 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
       />
+      <AboutChoreography />
       <AboutPageContent />
     </>
   );

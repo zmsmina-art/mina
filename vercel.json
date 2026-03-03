@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "www.minamankarious.com" }],
+      "destination": "https://minamankarious.com/:path",
+      "permanent": true
+    }
+  ],
   "crons": [
     {
       "path": "/api/newsletter/send",

@@ -3,6 +3,7 @@ import { ArrowDown, MapPin } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
 import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
+import HeroTimeline from '@/components/home/HeroTimeline';
 
 const heroStats = [
   { label: 'Current Firm', value: 'Olunix' },
@@ -14,6 +15,7 @@ const heroStats = [
 export default function HomeHero() {
   return (
     <section id="hero" data-section-theme="hero" className="section-hero page-gutter command-section">
+      <HeroTimeline />
       <div className="command-grid" aria-hidden="true" />
 
       <div className="mx-auto grid min-h-[calc(100vh-86px)] w-full max-w-7xl grid-cols-1 gap-10 py-14 md:grid-cols-12 md:items-center md:gap-8 md:py-16 lg:gap-12">

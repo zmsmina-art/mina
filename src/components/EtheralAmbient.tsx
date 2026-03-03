@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useGSAPContext } from '@/components/motion/GSAPProvider';
 
 export default function EtheralAmbient() {
   const [enabled, setEnabled] = useState(false);
@@ -11,6 +12,7 @@ export default function EtheralAmbient() {
   const current = useRef({ y: 0, rotation: 0 });
   const target = useRef({ y: 0, rotation: 0 });
   const idle = useRef(false);
+  const { ready, gsap, ScrollTrigger } = useGSAPContext();
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20,6 +22,56 @@ export default function EtheralAmbient() {
     setEnabled(true);
   }, []);
 
+  // GSAP scroll-linked layer morphs
+  useEffect(() => {
+    if (!enabled || !ready || !gsap || !ScrollTrigger) return;
+    if (!wrap1.current || !wrap2.current || !wrap3.current) return;
+
+    const ctx = gsap.context(() => {
+      // Layer 1: scroll-linked position + opacity morph
+      gsap.to(wrap1.current, {
+        y: '-8%',
+        opacity: 0.7,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: document.body,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1,
+        },
+      });
+
+      // Layer 2: counter-direction movement
+      gsap.to(wrap2.current, {
+        y: '12%',
+        opacity: 0.5,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: document.body,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.5,
+        },
+      });
+
+      // Layer 3: subtle shift
+      gsap.to(wrap3.current, {
+        y: '-5%',
+        opacity: 0.6,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: document.body,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 2,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, [enabled, ready, gsap, ScrollTrigger]);
+
+  // Keep the manual scroll parallax as additional layer
   useEffect(() => {
     if (!enabled) return;
 
@@ -92,6 +144,40 @@ export default function EtheralAmbient() {
     };
   }, [enabled]);
 
+  // Smooth section theme transitions for ambient tokens
+  useEffect(() => {
+    if (!enabled || !ready || !gsap) return;
+
+    const html = document.documentElement;
+    let prevTheme = html.getAttribute('data-section-theme') || '';
+
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === 'data-section-theme') {
+          const newTheme = html.getAttribute('data-section-theme') || '';
+          if (newTheme !== prevTheme) {
+            prevTheme = newTheme;
+            // Smooth tween the layer opacities during theme transition
+            const layers = [wrap1.current, wrap2.current, wrap3.current].filter(Boolean) as HTMLElement[];
+            layers.forEach((layer, i) => {
+              gsap.to(layer, {
+                opacity: 0.85 - i * 0.1,
+                duration: 0.8,
+                ease: 'power2.inOut',
+                yoyo: true,
+                repeat: 1,
+              });
+            });
+          }
+        }
+      }
+    });
+
+    observer.observe(html, { attributes: true, attributeFilter: ['data-section-theme'] });
+
+    return () => observer.disconnect();
+  }, [enabled, ready, gsap]);
+
   if (!enabled) return null;
 
   return (
@@ -105,8 +191,6 @@ export default function EtheralAmbient() {
         pointerEvents: 'none',
       }}
     >
-      {/* Outer wrappers: JS scroll parallax (transform)
-          Inner layers: CSS satin drift animation (transform) */}
       <div ref={wrap1} style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
         <div className="etheral-layer-primary" style={{ position: 'absolute', inset: 0 }} />
       </div>

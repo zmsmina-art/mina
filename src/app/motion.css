@@ -398,3 +398,125 @@ main[data-static-motion='true'] [data-motion] {
     transform: scaleY(1);
   }
 }
+
+/* ── Custom cursor ── */
+
+.custom-cursor-enabled,
+.custom-cursor-enabled a,
+.custom-cursor-enabled button,
+.custom-cursor-enabled [role="button"],
+.custom-cursor-enabled input,
+.custom-cursor-enabled textarea,
+.custom-cursor-enabled select,
+.custom-cursor-enabled summary {
+  cursor: none !important;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: -4px;
+  left: -4px;
+  z-index: 9999;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  z-index: 9998;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  will-change: transform;
+  transition:
+    width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease,
+    background 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* Interactive hover: scale up with fill */
+.cursor-ring--active {
+  width: 52px;
+  height: 52px;
+  top: -26px;
+  left: -26px;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Button hover: bigger ring with semi-transparent fill */
+.cursor-ring--button {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: -30px;
+  border-color: rgba(183, 148, 255, 0.5);
+  background: rgba(183, 148, 255, 0.08);
+}
+
+/* Link hover: squished to oval */
+.cursor-ring--link {
+  width: 48px;
+  height: 32px;
+  top: -16px;
+  left: -24px;
+  border-radius: 16px;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Card hover: expanded + rounded */
+.cursor-ring--card {
+  width: 56px;
+  height: 56px;
+  top: -28px;
+  left: -28px;
+  border-radius: 14px;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Pressed state */
+.cursor-ring--pressed {
+  transform: scale(0.88) !important;
+  border-color: rgba(183, 148, 255, 0.6);
+}
+
+/* ── GSAP split text helpers ── */
+
+.split-char,
+.split-word,
+.split-line {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ── Enhanced section reveal keyframes ── */
+
+@keyframes glow-bloom {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.12), 0 0 60px rgba(183, 148, 255, 0.08);
+  }
+}
+
+@keyframes clip-wipe-right {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}

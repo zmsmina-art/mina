@@ -95,9 +95,15 @@ export default async function ArticlePage({ params }: Props) {
       url: 'https://minamankarious.com',
     },
     publisher: {
-      '@type': 'Person',
-      '@id': 'https://minamankarious.com/#person',
-      name: 'Mina Mankarious',
+      '@type': 'Organization',
+      '@id': 'https://olunix.com/#organization',
+      name: 'Olunix',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://minamankarious.com/olunix.svg',
+        width: 200,
+        height: 200,
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

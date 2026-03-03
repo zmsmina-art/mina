@@ -93,6 +93,7 @@ export default function WorkPage() {
         position: i + 1,
         name: study.title,
         description: study.result,
+        url: `https://minamankarious.com/work#${study.slug}`,
       })),
     },
   };
