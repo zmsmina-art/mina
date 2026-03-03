@@ -23,12 +23,14 @@ export type RoastResult = {
   roastLine: string;
   tips: string[];
   analysis?: RoastAnalysis;
+  improvedHeadline?: string;
+  improvedMetaDescription?: string;
   judged: {
     headline: string;
     description: string;
   };
   domain: string;
-  source: 'gemini' | 'heuristic';
+  source: 'gemini' | 'groq' | 'openrouter' | 'heuristic';
   completedAt: string;
 };
 
@@ -115,12 +117,11 @@ export function normalizeJudgedCopy(scraped: ScrapedData): { headline: string; d
 }
 
 export function resolveVerdict(score: number): string {
-  if (score < 20) return 'Invisible';
-  if (score < 38) return 'Generic Blob';
-  if (score < 56) return 'Needs Seasoning';
-  if (score < 74) return 'Almost There';
-  if (score < 90) return 'Crispy Clean';
-  return 'Category Flame';
+  if (score <= 40) return 'Positioning Fog';
+  if (score <= 60) return 'Generic Blob';
+  if (score <= 75) return 'Promising but Fuzzy';
+  if (score <= 90) return 'Clear Contender';
+  return 'Positioning Weapon';
 }
 
 function resolveGrade(score: number): GradeTier {
