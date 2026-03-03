@@ -79,6 +79,16 @@ export type DiagnosticResult = {
   alignmentChecklist: string[];
 };
 
+export type EncodedDiagnosticShare = {
+  s: number;
+  u: number;
+  t: string;
+  i: DiagnosticTier['id'];
+  st: string;
+  b: string;
+  d: string;
+};
+
 function resolveTier(overallScore: number): DiagnosticTier {
   if (overallScore < 40) return DIAGNOSTIC_TIERS[0];
   if (overallScore < 60) return DIAGNOSTIC_TIERS[1];
@@ -323,6 +333,44 @@ export function computeDiagnosticResult(params: {
     operatingCadence,
     alignmentChecklist,
   };
+}
+
+export function encodeDiagnosticShare(result: DiagnosticResult): string {
+  const payload: EncodedDiagnosticShare = {
+    s: result.overallScore,
+    u: result.unweightedScore,
+    t: result.tier.label,
+    i: result.tier.id,
+    st: result.stageKey,
+    b: result.bottlenecks.map((dimension) => dimension.id).join(','),
+    d: result.dimensions.map((dimension) => `${dimension.id}:${dimension.percentage}`).join(','),
+  };
+  try {
+    return btoa(encodeURIComponent(JSON.stringify(payload)));
+  } catch {
+    return '';
+  }
+}
+
+export function decodeDiagnosticShare(encoded: string): EncodedDiagnosticShare | null {
+  try {
+    const json = decodeURIComponent(atob(encoded));
+    const parsed = JSON.parse(json) as EncodedDiagnosticShare;
+    if (
+      typeof parsed.s !== 'number' ||
+      typeof parsed.u !== 'number' ||
+      typeof parsed.t !== 'string' ||
+      typeof parsed.i !== 'string' ||
+      typeof parsed.st !== 'string' ||
+      typeof parsed.b !== 'string' ||
+      typeof parsed.d !== 'string'
+    ) {
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
 }
 
 function resolveProfileLabel(value: string, list: Array<{ value: string; label: string }>): string {

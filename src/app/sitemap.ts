@@ -59,6 +59,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: "https://minamankarious.com/roast",
+      lastModified: new Date("2026-03-02"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     ...getAllPersonas().map((persona) => ({
       url: `https://minamankarious.com/positioning-grader/${persona.slug}`,
       lastModified: new Date("2026-03-01"),

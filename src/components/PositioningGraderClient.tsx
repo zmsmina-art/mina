@@ -14,6 +14,7 @@ import {
   compareWithCompetitor,
   computePositioningResult,
   decodeResult,
+  encodeResult,
   getSmartCTA,
   validateInput,
   type ComparisonResult,
@@ -21,8 +22,6 @@ import {
   type EncodedResult,
   type PositioningResult,
 } from '@/lib/positioning-grader';
-import { buildChatContext } from '@/lib/positioning-chat';
-import PositioningChat from '@/components/PositioningChat';
 import { cn, motionDelay } from '@/lib/utils';
 
 // ── Types ────────────────────────────────────────────────────────────
@@ -60,6 +59,7 @@ const INITIAL_INPUT: FormInput = {
 const SESSION_KEY = 'positioning_grader_input';
 const ANALYZE_DURATION_MS = 1600;
 const STAGGER = 100;
+const SHARE_BASE_URL = 'https://minamankarious.com/positioning-grader';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -230,14 +230,18 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
     safeTrack('positioning_grader_viewed', { shared: !!sharedParam });
   }, [sharedParam]);
 
+  useEffect(() => {
+    if (!sharedResult || result) return;
+    safeTrack('positioning_grader_share_visit', {
+      grade: sharedResult.g,
+      score: sharedResult.s,
+      tier: sharedResult.t,
+    });
+  }, [sharedResult, result]);
+
   const smartCTA = useMemo(() => {
     if (!result) return null;
     return getSmartCTA(result.overallScore);
-  }, [result]);
-
-  const chatContext = useMemo(() => {
-    if (!result) return null;
-    return buildChatContext(result);
   }, [result]);
 
   // Track smart CTA shown
@@ -328,30 +332,32 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
     safeTrack('positioning_grader_reset');
   }, []);
 
-  const shareUrl = 'https://minamankarious.com/positioning-grader';
-
-  const handleShareX = useCallback(() => {
-    if (!result) return;
-    const text = `My startup positioning just got graded: ${result.grade.letter} (${result.overallScore}/100)\n\nGrade yours free:\n${shareUrl}\n\n@olmnix`;
-    window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
-    safeTrack('positioning_grader_shared_x', { grade: result.grade.letter });
-  }, [result, shareUrl]);
-
-  const handleShareLinkedIn = useCallback(() => {
-    if (!result) return;
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
-    safeTrack('positioning_grader_shared_linkedin', { grade: result.grade.letter });
-  }, [result, shareUrl]);
+  const shareUrl = useMemo(() => {
+    if (!result) return SHARE_BASE_URL;
+    const encoded = encodeResult(result);
+    if (!encoded) return SHARE_BASE_URL;
+    return `${SHARE_BASE_URL}?r=${encodeURIComponent(encoded)}`;
+  }, [result]);
 
   const handleCopyLink = useCallback(async () => {
-    if (!shareUrl) return;
+    if (!result || !shareUrl) return;
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      safeTrack('positioning_grader_shared_copy');
+      safeTrack('positioning_grader_share_clicked', {
+        channel: 'copy',
+        score: result.overallScore,
+        grade: result.grade.letter,
+        tier: result.grade.name,
+      });
+      safeTrack('positioning_grader_unique_link_copied', {
+        score: result.overallScore,
+        grade: result.grade.letter,
+      });
+      safeTrack('positioning_grader_shared_copy', { score: result.overallScore });
     } catch { setCopied(false); }
-  }, [shareUrl]);
+  }, [result, shareUrl]);
 
   // ── Rewrite handlers ──────────────────────────────────────────────
 
@@ -534,6 +540,17 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
           <p className="mt-3 max-w-2xl text-[var(--text-muted)]">
             {personaOverrides?.subheading ?? 'Paste your headline and get a scored assessment across clarity, specificity, differentiation, brevity, and value clarity.'}
           </p>
+
+          <div className="mt-5">
+            <Link
+              href="/roast"
+              className="ghost-btn px-4 py-2 text-sm"
+              onClick={() => safeTrack('positioning_grader_to_roast_click')}
+            >
+              Want the viral version? Roast your startup URL
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -679,16 +696,26 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
               </article>
             </Reveal>
 
-            {/* 2. Share */}
+            {/* 2. Unique Link */}
             <Reveal delay={STAGGER * 2}>
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <button type="button" className="accent-btn" onClick={handleShareX}>Share on X<ArrowUpRight size={15} /></button>
-                <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleShareLinkedIn}>LinkedIn</button>
-                <button type="button" className="ghost-btn px-4 py-2 text-sm" onClick={handleCopyLink}>
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                  {copied ? 'Copied' : 'Copy link'}
-                </button>
-              </div>
+              <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5">
+                <p className="command-label">Unique result link</p>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                  This link is unique to your scorecard. Anyone you send it to will see this exact result and can run their own grade.
+                </p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <p className="w-full min-w-0 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-3 py-2 text-xs text-[var(--text-dim)] sm:flex-1">
+                    <span className="break-all">{shareUrl}</span>
+                  </p>
+                  <button type="button" className="accent-btn whitespace-nowrap" onClick={handleCopyLink}>
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                    {copied ? 'Unique link copied' : 'Copy unique link'}
+                  </button>
+                </div>
+                <p className="mt-2 text-xs text-[var(--text-dim)]">
+                  Tip: paste it in iMessage, email, WhatsApp, or Slack.
+                </p>
+              </article>
             </Reveal>
 
             {/* 3. Dimension Breakdown */}
@@ -753,15 +780,8 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
               </article>
             </Reveal>
 
-            {/* 5.5. Inline Chat */}
-            {chatContext && (
-              <Reveal delay={STAGGER * 10.5}>
-                <PositioningChat result={result} chatContext={chatContext} bookHref={bookHref} />
-              </Reveal>
-            )}
-
             {/* 6. Rewrite Templates */}
-            <Reveal delay={STAGGER * 11.5}>
+            <Reveal delay={STAGGER * 11}>
               <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-5">
                 <p className="command-label mb-3">Rewrite Templates</p>
                 <div className="space-y-3">
@@ -884,9 +904,9 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
                   <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
                     {smartCTA.primaryAction === 'share' ? (
                       <>
-                        <button type="button" className="accent-btn" onClick={handleShareX}>
-                          Share on X
-                          <ArrowUpRight size={15} />
+                        <button type="button" className="accent-btn" onClick={handleCopyLink}>
+                          {copied ? <Check size={14} /> : <Copy size={14} />}
+                          {copied ? 'Unique link copied' : 'Copy unique result link'}
                         </button>
                         <Link href={bookHref} className="ghost-btn px-4 py-2 text-sm" onClick={() => safeTrack('positioning_grader_book_click', { grade: result.grade.letter, score: result.overallScore })}>
                           Book a call

@@ -15,7 +15,10 @@ import {
 import {
   buildAlignmentBriefMarkdown,
   computeDiagnosticResult,
+  decodeDiagnosticShare,
+  encodeDiagnosticShare,
   type DiagnosticAnswers,
+  type EncodedDiagnosticShare,
   type DiagnosticProfile,
   type DiagnosticResult,
 } from '@/lib/diagnostic';
@@ -32,6 +35,7 @@ const SESSION_KEYS = {
   answers: 'diagnostic_answers',
   hasStarted: 'diagnostic_hasStarted',
 } as const;
+const SHARE_BASE_URL = 'https://minamankarious.com/diagnostic';
 
 function loadSession<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback;
@@ -51,14 +55,48 @@ function safeTrack(name: string, properties?: Record<string, string | number | b
   }
 }
 
-export default function DiagnosticPageClient() {
+export default function DiagnosticPageClient({ sharedParam }: { sharedParam: string | null }) {
   const [profile, setProfile] = useState<DiagnosticProfile>(() => loadSession(SESSION_KEYS.profile, INITIAL_PROFILE));
   const [answers, setAnswers] = useState<DiagnosticAnswers>(() => loadSession(SESSION_KEYS.answers, {}));
   const [result, setResult] = useState<DiagnosticResult | null>(null);
   const [error, setError] = useState('');
   const [hasStarted, setHasStarted] = useState(() => loadSession(SESSION_KEYS.hasStarted, false));
-  const [copied, setCopied] = useState(false);
+  const [briefCopied, setBriefCopied] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
   const resultRef = useRef<HTMLElement>(null);
+
+  const sharedResult = useMemo<EncodedDiagnosticShare | null>(() => {
+    if (!sharedParam) return null;
+    return decodeDiagnosticShare(sharedParam);
+  }, [sharedParam]);
+
+  const sharedDimensionScores = useMemo(() => {
+    if (!sharedResult?.d) return [];
+    const scoreById = new Map<string, number>();
+    sharedResult.d.split(',').forEach((pair) => {
+      const [id, score] = pair.split(':');
+      if (!id || !score) return;
+      scoreById.set(id, Number.parseInt(score, 10) || 0);
+    });
+    return DIAGNOSTIC_DIMENSIONS.map((dimension) => ({
+      id: dimension.id,
+      label: dimension.label,
+      score: scoreById.get(dimension.id) ?? 0,
+    }));
+  }, [sharedResult]);
+
+  const sharedBottlenecks = useMemo(() => {
+    if (!sharedResult?.b) return [];
+    return sharedResult.b.split(',').filter(Boolean).map((id) => {
+      const dimension = DIAGNOSTIC_DIMENSIONS.find((item) => item.id === id);
+      return dimension?.label ?? id.replaceAll('_', ' ');
+    });
+  }, [sharedResult]);
+
+  const sharedStageLabel = useMemo(() => {
+    if (!sharedResult?.st) return '';
+    return STAGE_OPTIONS.find((option) => option.value === sharedResult.st)?.label ?? sharedResult.st.replaceAll('_', ' ');
+  }, [sharedResult]);
 
   useEffect(() => {
     sessionStorage.setItem(SESSION_KEYS.profile, JSON.stringify(profile));
@@ -71,6 +109,19 @@ export default function DiagnosticPageClient() {
   useEffect(() => {
     sessionStorage.setItem(SESSION_KEYS.hasStarted, JSON.stringify(hasStarted));
   }, [hasStarted]);
+
+  useEffect(() => {
+    safeTrack('diagnostic_viewed', { shared: !!sharedParam });
+  }, [sharedParam]);
+
+  useEffect(() => {
+    if (!sharedResult || result) return;
+    safeTrack('diagnostic_share_visit', {
+      score: sharedResult.s,
+      tier: sharedResult.i,
+      stage: sharedResult.st,
+    });
+  }, [sharedResult, result]);
 
   const groupedQuestions = useMemo(
     () =>
@@ -148,7 +199,8 @@ export default function DiagnosticPageClient() {
     const nextResult = computeDiagnosticResult({ answers, profile });
     setResult(nextResult);
     setError('');
-    setCopied(false);
+    setBriefCopied(false);
+    setShareCopied(false);
 
     Object.values(SESSION_KEYS).forEach((key) => sessionStorage.removeItem(key));
 
@@ -201,16 +253,40 @@ export default function DiagnosticPageClient() {
 
     try {
       await navigator.clipboard.writeText(markdown);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
+      setBriefCopied(true);
+      window.setTimeout(() => setBriefCopied(false), 1800);
       safeTrack('diagnostic_brief_copied', {
         score: result.overallScore,
         tier: result.tier.id,
       });
     } catch {
-      setCopied(false);
+      setBriefCopied(false);
     }
   };
+
+  const shareUrl = useMemo(() => {
+    if (!result) return SHARE_BASE_URL;
+    const encoded = encodeDiagnosticShare(result);
+    if (!encoded) return SHARE_BASE_URL;
+    return `${SHARE_BASE_URL}?r=${encodeURIComponent(encoded)}`;
+  }, [result]);
+
+  const handleCopyShareLink = useCallback(async () => {
+    if (!result) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setShareCopied(true);
+      window.setTimeout(() => setShareCopied(false), 1800);
+      safeTrack('diagnostic_share_clicked', {
+        channel: 'copy',
+        score: result.overallScore,
+        tier: result.tier.id,
+        stage: result.stageKey,
+      });
+    } catch {
+      setShareCopied(false);
+    }
+  }, [result, shareUrl]);
 
   const resetDiagnostic = useCallback(() => {
     setProfile(INITIAL_PROFILE);
@@ -218,7 +294,8 @@ export default function DiagnosticPageClient() {
     setResult(null);
     setError('');
     setHasStarted(false);
-    setCopied(false);
+    setBriefCopied(false);
+    setShareCopied(false);
     Object.values(SESSION_KEYS).forEach((key) => sessionStorage.removeItem(key));
     window.scrollTo({ top: 0, behavior: 'smooth' });
     safeTrack('diagnostic_reset');
@@ -227,6 +304,75 @@ export default function DiagnosticPageClient() {
   const bookHref = result
     ? `/book?source=diagnostic&score=${result.overallScore}&tier=${encodeURIComponent(result.tier.id)}`
     : '/book?source=diagnostic';
+
+  if (sharedResult && !result) {
+    return (
+      <main id="main-content" className="page-enter marketing-main site-theme pt-20" data-section-theme="diagnostic">
+        <section className="command-section page-gutter section-block">
+          <div className="mx-auto w-full max-w-4xl">
+            <Link
+              href="/"
+              className="mb-10 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+            >
+              <ArrowLeft size={14} />
+              Back home
+            </Link>
+
+            <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] p-6 text-center sm:p-8">
+              <p className="command-label mb-2">Shared GTM Diagnostic</p>
+              <p className="text-[clamp(2.8rem,9vw,5rem)] leading-none text-[var(--text-primary)]">
+                {sharedResult.s}
+                <span className="ml-2 text-base text-[var(--text-dim)]">/100</span>
+              </p>
+              <p className="mt-2 text-sm uppercase tracking-[0.14em] text-[var(--text-dim)]">{sharedResult.t}</p>
+              <p className="mt-3 text-sm text-[var(--text-muted)]">Stage benchmark: {sharedStageLabel}</p>
+
+              {sharedBottlenecks.length > 0 ? (
+                <div className="mt-5">
+                  <p className="text-site-kicker text-[var(--text-dim)]">Primary Bottlenecks</p>
+                  <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
+                    {sharedBottlenecks.map((item, index) => (
+                      <span
+                        key={`${item}-${index}`}
+                        className="rounded-full border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-3 py-1 text-xs text-[var(--text-muted)]"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {sharedDimensionScores.length > 0 ? (
+                <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {sharedDimensionScores.map((dimension) => (
+                    <div
+                      key={dimension.id}
+                      className="rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-3 text-left"
+                    >
+                      <p className="text-site-kicker text-[var(--text-dim)]">{dimension.label}</p>
+                      <p className="mt-1 text-lg text-[var(--text-primary)]">{dimension.score}%</p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </article>
+
+            <div className="mt-6 text-center">
+              <Link
+                href="/diagnostic"
+                className="accent-btn"
+                onClick={() => safeTrack('diagnostic_share_run_clicked', { source: 'shared_result' })}
+              >
+                Run your own diagnostic
+                <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main id="main-content" className="page-enter marketing-main site-theme pt-20" data-section-theme="diagnostic">
@@ -540,6 +686,22 @@ export default function DiagnosticPageClient() {
               </article>
             ) : null}
 
+            <article className="rounded-2xl border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.02)] p-6">
+              <p className="command-label">Unique diagnostic link</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                Share this exact scorecard with your team. Recipients can view the same result and run their own diagnostic.
+              </p>
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <p className="w-full min-w-0 rounded-lg border border-[var(--stroke-soft)] bg-[rgba(255,255,255,0.03)] px-3 py-2 text-xs text-[var(--text-dim)] sm:flex-1">
+                  <span className="break-all">{shareUrl}</span>
+                </p>
+                <button type="button" className="accent-btn whitespace-nowrap" onClick={handleCopyShareLink}>
+                  {shareCopied ? <Check size={14} /> : <Copy size={14} />}
+                  {shareCopied ? 'Unique link copied' : 'Copy unique link'}
+                </button>
+              </div>
+            </article>
+
             <div className="flex flex-wrap items-center gap-3">
               <button type="button" className="ghost-btn" onClick={resetDiagnostic}>
                 <ArrowLeft size={15} />
@@ -552,8 +714,8 @@ export default function DiagnosticPageClient() {
               </button>
 
               <button type="button" className="ghost-btn" onClick={handleCopyBrief}>
-                {copied ? <Check size={15} /> : <Copy size={15} />}
-                {copied ? 'Brief copied' : 'Copy brief'}
+                {briefCopied ? <Check size={15} /> : <Copy size={15} />}
+                {briefCopied ? 'Brief copied' : 'Copy brief'}
               </button>
 
               <Link

@@ -1,0 +1,215 @@
+# Weekly GTM Operating System (Client Command Center)
+
+## 1) Why This Feature
+
+### Problem
+Most startup teams do not fail from lack of strategy. They fail from weak weekly execution:
+- Priorities change too often.
+- Teams run activity without clear ownership.
+- Reporting is reactive instead of operational.
+- Founders cannot see bottlenecks early enough to fix them.
+
+### Opportunity
+Build a weekly GTM operating layer that converts strategy into predictable execution:
+- Monday: align priorities.
+- Daily: execute and track blockers.
+- Friday: review outcomes and reset next week.
+
+This creates ongoing client value and improves retention by making results visible, measurable, and repeatable.
+
+## 2) Goals
+
+### Business Goals
+- Increase client retention through operational stickiness.
+- Improve campaign and pipeline outcomes through consistent weekly execution.
+- Create a structured advisory workflow that scales across clients.
+- Generate higher-quality case studies from measurable process improvements.
+
+### User Goals
+- Know the top 3 GTM priorities every week.
+- Assign clear owners and deadlines for critical actions.
+- Track leading indicators before revenue issues appear.
+- Finish each week with a clear next-step plan.
+
+## 3) Scope
+
+### In Scope (V1)
+- Weekly planning board (Top 3 priorities).
+- Action cards with owner, due date, and expected impact.
+- KPI panel with weekly deltas.
+- Blocker log with severity and owner.
+- Monday plan generator.
+- Friday review summary.
+- Downloadable weekly brief (Markdown/PDF-ready).
+- Client-facing dashboard page.
+- Event instrumentation.
+
+### Out of Scope (V1)
+- Full CRM synchronization.
+- Multi-workspace enterprise admin controls.
+- Automated Slack/Email notifications.
+- AI-generated recommendations based on external tools.
+
+## 4) Information Architecture
+
+### Route Map
+- `/ops` (operating system landing page)
+- `/ops/[client]` (client command center)
+- `/ops/[client]/week/[yyyy-ww]` (weekly view)
+- `/book` (upsell or advisory support endpoint)
+
+### In-Page IA (`/ops/[client]/week/[yyyy-ww]`)
+1. Week header and status
+2. Top 3 weekly priorities
+3. Action plan board
+4. KPI delta scorecard
+5. Blocker and risk register
+6. Monday brief
+7. Friday review
+8. Next-week reset actions
+
+## 5) UX and Interaction Design
+
+### UX Principles
+- Keep planning to under 15 minutes on Monday.
+- Keep daily updates to under 5 minutes.
+- Keep Friday review to under 10 minutes.
+- Make blockers and owner accountability explicit.
+
+### Core Flows
+1. User opens weekly workspace.
+2. User sets top priorities and owners.
+3. Team executes and updates progress during week.
+4. User logs blockers and mitigation actions.
+5. User completes Friday review and next-week carryover.
+
+## 6) Data Model
+
+### Key Entities
+- `OpsWorkspace`
+- `OpsWeek`
+- `PriorityItem`
+- `ActionCard`
+- `KPIRecord`
+- `Blocker`
+- `WeeklyBrief`
+
+### KPI Categories (V1)
+- Demand: sessions, qualified leads, CTR.
+- Pipeline: SQLs, meetings booked, stage conversion.
+- Revenue signal: opportunity value, close velocity.
+- Delivery signal: on-time execution rate.
+
+### Weekly Status Logic
+- `On Track`: >= 70% of actions on schedule and no high-severity blocker unresolved.
+- `At Risk`: < 70% on schedule or one unresolved high-severity blocker.
+- `Off Track`: repeated slip + KPI decline two consecutive weeks.
+
+## 7) Recommendation and Review Logic
+
+### Monday Planning Logic
+- Require top 3 priorities.
+- Each priority must have one owner and one measurable outcome.
+- Each priority maps to a KPI category.
+
+### Friday Review Logic
+- Mark each priority as `Done`, `Partial`, or `Missed`.
+- Capture reason code for partial/missed.
+- Auto-generate carryover list for next week.
+
+### Insight Layer
+- Flag recurring blockers.
+- Highlight priorities that lacked KPI movement.
+- Surface "execution risk score" for next week.
+
+## 8) Component Architecture
+
+### New Routes
+- `src/app/ops/page.tsx`
+- `src/app/ops/[client]/page.tsx`
+- `src/app/ops/[client]/week/[week]/page.tsx`
+
+### New Components
+- `src/components/ops/WeeklyHeader.tsx`
+- `src/components/ops/PriorityBoard.tsx`
+- `src/components/ops/ActionCards.tsx`
+- `src/components/ops/KPIDeltaPanel.tsx`
+- `src/components/ops/BlockerRegister.tsx`
+- `src/components/ops/WeeklyReview.tsx`
+
+### New Data/Logic Modules
+- `src/data/ops.ts`
+- `src/lib/ops/status.ts`
+- `src/lib/ops/review.ts`
+- `src/lib/ops/brief.ts`
+
+## 9) Analytics and Success Measurement
+
+### Event Taxonomy
+- `ops_week_started`
+- `ops_priority_created`
+- `ops_action_completed`
+- `ops_blocker_logged`
+- `ops_friday_review_completed`
+- `ops_weekly_brief_downloaded`
+
+### Event Properties
+- `client_id`
+- `week_id`
+- `priority_count`
+- `on_time_rate`
+- `blocker_count`
+- `week_status`
+
+### Primary KPI
+- Weekly completion rate: `ops_friday_review_completed / ops_week_started`
+
+### Secondary KPIs
+- Priority completion rate.
+- Action on-time rate.
+- Blocker resolution time.
+- Week-over-week KPI delta consistency.
+
+## 10) SEO and Positioning (Optional Public Layer)
+
+### Internal Client Value
+Primary value is operational, not search-facing.
+
+### Optional Public Derivative
+Publish anonymized "What High-Performing Teams Did This Week" insights:
+- Strengthens authority.
+- Generates trust with prospects.
+- Converts process into social proof.
+
+## 11) Rollout Plan
+
+### Phase A: Internal Pilot (2-3 clients)
+- Validate weekly workflow and UX friction.
+- Calibrate status logic and reason-code taxonomy.
+
+### Phase B: Select Client Rollout (5-10 clients)
+- Standardize weekly rhythm templates.
+- Capture baseline completion and KPI movement.
+
+### Phase C: Full Program
+- Deploy across active retainers.
+- Add benchmarking across client cohorts.
+- Package into premium operating advisory.
+
+## 12) Risks and Mitigations
+
+- **Risk:** Teams do not update consistently.
+  - **Mitigation:** lightweight daily interactions and weekly rhythm templates.
+- **Risk:** Tool becomes task-heavy.
+  - **Mitigation:** cap weekly priorities at 3 and minimize required fields.
+- **Risk:** KPI interpretation varies by client.
+  - **Mitigation:** stage-specific KPI presets and clear metric definitions.
+- **Risk:** Clients focus on activity over outcomes.
+  - **Mitigation:** require measurable outcomes per priority and Friday result classification.
+
+## 13) Success Criteria (First 8 Weeks)
+
+- >= 75% weekly review completion.
+- >= 70% on-time action completion.
+- >= 20% reduction in recurring blocker count.
+- Positive KPI movement in at least 2 of 4 KPI categories per client.

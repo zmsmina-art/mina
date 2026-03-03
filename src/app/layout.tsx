@@ -329,7 +329,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${cormorant.variable} ${ebGaramond.variable} ${playfair.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${cormorant.variable} ${ebGaramond.variable} ${playfair.variable}`}
+    >
       <head>
         <link rel="preload" href="/fonts/switzer-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />

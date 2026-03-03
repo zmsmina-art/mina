@@ -15,7 +15,7 @@ const elsewhereLinks = [
 ];
 
 const milestones = [
-  { year: '2016', text: 'First marketing projects in high school' },
+  { year: '2019', text: 'First marketing projects in high school' },
   { year: '2020', text: 'E-commerce work during COVID' },
   { year: '2022', text: 'Joined Toyota, two years in frontline operations' },
   { year: '2024', text: 'Founded Olunix (originally GrowByte Media)' },
@@ -126,7 +126,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* ── The Story ── */}
-      <section className="command-section page-gutter section-block" data-section-theme="about-story">
+      <section className="command-section page-gutter pt-12 pb-10 md:pt-16 md:pb-14" data-section-theme="about-story">
         <div className="mx-auto w-full max-w-3xl">
 
           <article
@@ -200,7 +200,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* ── Timeline ── */}
-      <section className="command-section page-gutter section-block" data-section-theme="about-timeline">
+      <section className="command-section page-gutter pt-10 pb-12 md:pt-14 md:pb-16" data-section-theme="about-timeline">
         <div className="mx-auto w-full max-w-3xl">
           <p className="command-label mb-8" data-motion="rise" style={motionDelay(540)}>
             Timeline

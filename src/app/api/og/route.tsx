@@ -576,6 +576,256 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  /* ---- GTM Diagnostic OG ---- */
+  if (type === 'diagnostic') {
+    const score = searchParams.get('score') ?? '72';
+    const tier = searchParams.get('tier') ?? 'Growth Ready';
+    const stage = (searchParams.get('stage') ?? 'seed').replaceAll('_', ' ');
+    const bottlenecksParam = searchParams.get('b') ?? '';
+
+    const dimensionLabels: Record<string, string> = {
+      positioning: 'Positioning Clarity',
+      icp: 'ICP Precision',
+      proof: 'Proof Assets',
+      demand: 'Demand Engine',
+      funnel: 'Funnel Conversion',
+      operating_system: 'GTM Operating System',
+    };
+
+    const bottlenecks = bottlenecksParam
+      .split(',')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((id) => dimensionLabels[id] ?? id.replaceAll('_', ' '));
+
+    return new ImageResponse(
+      (
+        <DarkShell footerLeft="minamankarious.com/diagnostic" footerRight="RUN DIAGNOSTIC">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 48 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 260 }}>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  letterSpacing: '0.08em',
+                  color: 'rgba(255,255,255,0.55)',
+                  display: 'flex',
+                  marginBottom: 10,
+                }}
+              >
+                GTM Diagnostic Score
+              </div>
+              <div
+                style={{
+                  fontSize: 110,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  lineHeight: 1,
+                  display: 'flex',
+                }}
+              >
+                {score}
+              </div>
+              <div
+                style={{
+                  fontSize: 22,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: '#b089ff',
+                  marginTop: 4,
+                  display: 'flex',
+                }}
+              >
+                {tier}
+              </div>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.45)',
+                  marginTop: 14,
+                  display: 'flex',
+                }}
+              >
+                Stage benchmark: {stage}
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: 16 }}>
+              <div
+                style={{
+                  fontSize: 19,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: '#ffffff',
+                  lineHeight: 1.35,
+                  display: 'flex',
+                }}
+              >
+                Diagnose your AI startup&apos;s GTM system in 10 minutes.
+              </div>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.5)',
+                  display: 'flex',
+                }}
+              >
+                Top bottlenecks
+              </div>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                {(bottlenecks.length > 0 ? bottlenecks : ['Positioning Clarity', 'GTM Operating System']).map((item) => (
+                  <div
+                    key={item}
+                    style={{
+                      display: 'flex',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      borderRadius: 999,
+                      padding: '8px 14px',
+                      fontSize: 14,
+                      fontFamily: 'Cormorant',
+                      fontWeight: 400,
+                      color: 'rgba(255,255,255,0.75)',
+                    }}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </DarkShell>
+      ),
+      { width: 1200, height: 630, fonts: darkFonts }
+    );
+  }
+
+  /* ---- Roast OG ---- */
+  if (type === 'roast') {
+    const score = Number.parseInt(searchParams.get('score') ?? '42', 10) || 42;
+    const grade = searchParams.get('grade') ?? 'C';
+    const verdict = searchParams.get('verdict') ?? 'Generic Blob';
+    const domain = searchParams.get('domain') ?? 'startup.com';
+    const roast = searchParams.get('roast') ?? 'Your positioning is readable, but still sounds like startup oatmeal.';
+
+    const scoreColor = score >= 80
+      ? '#22c55e'
+      : score >= 60
+        ? '#b089ff'
+        : score >= 40
+          ? '#f59e0b'
+          : '#ef4444';
+
+    return new ImageResponse(
+      (
+        <DarkShell footerLeft="minamankarious.com/roast" footerRight="ROAST YOURS">
+          <div style={{ display: 'flex', gap: 46, alignItems: 'stretch' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', minWidth: 290 }}>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  letterSpacing: '0.08em',
+                  color: 'rgba(255,255,255,0.55)',
+                  display: 'flex',
+                  marginBottom: 10,
+                }}
+              >
+                Roast Score
+              </div>
+              <div
+                style={{
+                  fontSize: 108,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 600,
+                  color: scoreColor,
+                  lineHeight: 1,
+                  display: 'flex',
+                }}
+              >
+                {score}
+              </div>
+              <div
+                style={{
+                  fontSize: 22,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.88)',
+                  marginTop: 4,
+                  display: 'flex',
+                }}
+              >
+                Grade {grade}
+              </div>
+              <div
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  letterSpacing: '0.12em',
+                  color: 'rgba(255,255,255,0.55)',
+                  marginTop: 10,
+                  textTransform: 'uppercase',
+                  display: 'flex',
+                }}
+              >
+                {verdict}
+              </div>
+              <div
+                style={{
+                  marginTop: 14,
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  color: 'rgba(255,255,255,0.46)',
+                  display: 'flex',
+                }}
+              >
+                {domain}
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', gap: 18 }}>
+              <div
+                style={{
+                  fontSize: 16,
+                  fontFamily: 'Cormorant',
+                  fontWeight: 400,
+                  letterSpacing: '0.08em',
+                  color: 'rgba(255,255,255,0.55)',
+                  display: 'flex',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Roast line
+              </div>
+              <div
+                style={{
+                  fontSize: 38,
+                  lineHeight: 1.22,
+                  fontFamily: 'Cormorant',
+                  fontStyle: 'italic',
+                  fontWeight: 400,
+                  color: '#ffffff',
+                  display: 'flex',
+                }}
+              >
+                “{roast.length > 190 ? `${roast.slice(0, 189)}…` : roast}”
+              </div>
+            </div>
+          </div>
+        </DarkShell>
+      ),
+      { width: 1200, height: 630, fonts: darkFonts },
+    );
+  }
+
   /* ---- Default / Profile OG ---- */
   return new ImageResponse(
     (

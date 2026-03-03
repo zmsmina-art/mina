@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type SyntheticEvent } from 'react';
 import { track } from '@vercel/analytics/react';
 import { ArrowLeft, ArrowUpRight, Check, Copy, Flame, Loader2 } from 'lucide-react';
 import { decodeRoast, encodeRoast, type RoastResult } from '@/lib/roast';
@@ -393,6 +393,26 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                 <p className="text-base text-[var(--text-dim)]">/100</p>
                 <p className={`ml-2 text-sm uppercase tracking-[0.12em] ${verdictTone(result.verdict)}`}>{result.verdict}</p>
               </div>
+
+              {/* Company favicon – bottom-right corner */}
+              <img
+                src={`https://www.google.com/s2/favicons?domain=${encodeURIComponent(result.domain)}&sz=64`}
+                alt=""
+                width={32}
+                height={32}
+                className="absolute bottom-4 right-4 opacity-0 transition-opacity duration-300"
+                onLoad={(e: SyntheticEvent<HTMLImageElement>) => {
+                  const img = e.currentTarget;
+                  // Google returns a 16x16 default globe for missing favicons;
+                  // naturalWidth > 16 means we got a real icon.
+                  if (img.naturalWidth > 16) {
+                    img.classList.replace('opacity-0', 'opacity-60');
+                  }
+                }}
+                onError={(e: SyntheticEvent<HTMLImageElement>) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
 
             </article>
 

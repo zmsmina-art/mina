@@ -1,0 +1,267 @@
+# AI Startup Growth Index (Founder Circle Beta)
+
+## 1) Why This Feature
+
+### Problem
+Early-stage founders are forced to make GTM decisions with low-quality benchmarks:
+- Public benchmark reports are too broad and usually not AI-specific.
+- Most founders cannot tell if they have a "channel problem," "narrative problem," or "conversion problem."
+- Teams optimize vanity metrics because there is no stage-specific comparison baseline.
+
+### Opportunity
+Create a founder-only benchmark product that turns private cohort data into:
+- Clear stage-adjusted percentiles.
+- Actionable weekly priorities.
+- A repeatable GTM operating rhythm.
+
+This gives selected founders direct strategic value while creating a durable authority asset for Mina's long-term knowledge and trust goals.
+
+## 2) Goals
+
+### Business Goals
+- Position Mina as a data-backed GTM operator for AI startups.
+- Increase qualified strategy calls from founders that match ideal client profile.
+- Generate original benchmark IP that compounds quarterly.
+- Build a private founder cohort product that can later expand into paid advisory.
+
+### User Goals
+- Understand where they stand versus relevant AI startup peers.
+- Identify highest-leverage fixes for the next 30-90 days.
+- Leave with a practical operator brief they can execute with their team.
+
+## 3) Audience and Access Model
+
+### Target Users (Beta)
+- Founder/CEO or GTM owner at AI startups (pre-seed to Series A).
+- Teams with early traction and active GTM motion.
+- Invited via direct link or access code.
+
+### Access Rules (V1)
+- Invite-only onboarding.
+- No anonymous public benchmarking dashboard.
+- Public-facing report pages show only aggregated cohort insights.
+
+## 4) Scope
+
+### In Scope (V1)
+- Founder intake form (company stage, segment, GTM model, team size, geography).
+- Metric submission flow with strict definitions.
+- Stage- and model-adjusted benchmarking engine.
+- Percentile output by GTM dimension.
+- "What to fix next" recommendation layer.
+- Downloadable founder brief (Markdown/PDF).
+- Quarterly public report page with anonymized insights.
+- Event instrumentation and completion analytics.
+
+### Out of Scope (V1)
+- Full CRM integration.
+- Multi-user workspace collaboration.
+- API access for external analytics tools.
+- Real-time continuous benchmark refresh.
+- Paid plan and billing logic.
+
+## 5) Core Value Proposition
+
+Founders get:
+- A private GTM scorecard built from peer data.
+- Immediate prioritization (not generic advice).
+- A 30/60/90-day execution lens.
+
+Mina gets:
+- Repeated high-intent founder touchpoints.
+- Proprietary benchmark dataset.
+- Strong authority signals through recurring public reports.
+
+## 6) Information Architecture
+
+### Route Map
+- `/growth-index` (public feature landing page)
+- `/growth-index/app` (invite gate + submission flow)
+- `/growth-index/results` (private benchmark output)
+- `/growth-index/report/[quarter]` (public quarterly report)
+- `/book` (strategy call conversion endpoint)
+
+### In-Page IA (`/growth-index/app`)
+1. Invite verification
+2. Founder/company profile
+3. Metric definition checklist
+4. Metric input by GTM dimension
+5. Data validation + quality checks
+6. Benchmark generation
+7. Results, priorities, and CTA
+
+## 7) UX and Interaction Design
+
+### UX Principles
+- Keep completion under 12 minutes.
+- Eliminate ambiguity with metric definition tooltips.
+- Show confidence and data quality level with each result.
+- Translate percentiles into concrete weekly operating actions.
+
+### Core Flows
+1. Founder accesses invite link.
+2. Founder confirms profile and stage.
+3. Founder submits standardized metrics.
+4. System validates quality and computes benchmarks.
+5. Founder receives scorecard + priority actions + downloadable brief.
+6. Founder can book a strategy session from results screen.
+
+## 8) Data Model
+
+### Key Entities
+- `FounderProfile`
+- `CompanyProfile`
+- `MetricDefinition`
+- `MetricSubmission`
+- `Cohort`
+- `BenchmarkResult`
+- `ActionRecommendation`
+- `QuarterlySnapshot`
+
+### GTM Dimensions
+- Positioning Clarity
+- ICP Precision
+- Demand Capture
+- Funnel Conversion
+- Pipeline Efficiency
+- Revenue Quality
+- Operating Cadence
+
+### Scoring and Percentiles
+- Raw metrics are normalized by stage and GTM model.
+- Each dimension receives a 0-100 score.
+- Overall score is weighted by stage.
+- Percentile bands:
+  - `0-24`: At Risk
+  - `25-49`: Below Cohort
+  - `50-74`: Competitive
+  - `75-100`: Outperforming
+
+## 9) Data Trust, Privacy, and Guardrails
+
+### Data Quality
+- Reject incomplete submissions.
+- Validate units/ranges before scoring.
+- Flag outliers for manual review.
+
+### Privacy and Publication Rules
+- Never expose company-identifiable raw metrics publicly.
+- Public report requires minimum cohort size threshold (ex: n >= 7 per segment).
+- Aggregate and anonymize all public insight blocks.
+- Allow founders to opt out of future aggregated reporting.
+
+## 10) Recommendation Logic
+
+### Output Structure
+- Top 2 bottlenecks (lowest percentile dimensions).
+- Top 2 strengths (highest percentile dimensions).
+- 3 immediate actions for next 14 days.
+- 30/60/90-day execution sequence.
+- KPI watchlist with leading indicators.
+
+### Action Mapping
+- Low Positioning + low conversion -> narrative + proof system sprint.
+- Good demand + weak close rate -> sales process and objection architecture sprint.
+- Weak cadence -> weekly GTM operating system and KPI ownership sprint.
+
+## 11) Component Architecture
+
+### New Routes
+- `src/app/growth-index/page.tsx`
+- `src/app/growth-index/app/page.tsx`
+- `src/app/growth-index/results/page.tsx`
+- `src/app/growth-index/report/[quarter]/page.tsx`
+
+### New Components
+- `src/components/growth-index/InviteGate.tsx`
+- `src/components/growth-index/MetricIntakeForm.tsx`
+- `src/components/growth-index/BenchmarkResults.tsx`
+- `src/components/growth-index/PriorityActions.tsx`
+- `src/components/growth-index/QuarterlyReport.tsx`
+
+### New Data/Logic Modules
+- `src/data/growth-index.ts`
+- `src/lib/growth-index/scoring.ts`
+- `src/lib/growth-index/validation.ts`
+- `src/lib/growth-index/recommendations.ts`
+
+## 12) Analytics and Conversion Instrumentation
+
+### Event Taxonomy
+- `growth_index_invite_verified`
+- `growth_index_started`
+- `growth_index_metric_submitted`
+- `growth_index_completed`
+- `growth_index_report_downloaded`
+- `growth_index_book_click`
+
+### Event Properties
+- `stage`
+- `segment`
+- `team_size`
+- `overall_score`
+- `primary_bottleneck`
+- `data_quality_tier`
+- `entry_source`
+
+### Primary KPI
+- `growth_index_book_click / growth_index_completed`
+
+### Secondary KPIs
+- Completion rate.
+- Invite acceptance rate.
+- Repeat submission rate by founder.
+- Report download rate.
+
+## 13) SEO and Schema (Public Surfaces)
+
+### Public Pages
+- `/growth-index`
+- `/growth-index/report/[quarter]`
+
+### Structured Data
+- `BreadcrumbList`
+- `Dataset` (for quarterly benchmark report data package)
+- `Article` or `Report`-style metadata for analysis page
+- `Person` references to Mina as analyst/author
+
+### Search Value
+- Establishes recurring original data publication.
+- Increases citation potential from third-party operators/newsletters.
+- Reinforces entity authority through consistent, data-backed publishing.
+
+## 14) Rollout Plan (Founder-Only)
+
+### Phase A: Private Alpha (10-15 founders)
+- Manual invite list.
+- Validate metric definitions and completion UX.
+- Calibrate scoring and recommendation quality.
+
+### Phase B: Closed Beta (25-40 founders)
+- Launch quarterly report v1 from anonymized dataset.
+- Add quality confidence indicators and clearer action cards.
+- Track conversion and call quality.
+
+### Phase C: Controlled Expansion
+- Expand invite volume by segment.
+- Add follow-up submission cadence (quarterly re-benchmark).
+- Evaluate monetization paths (advisory tier or premium benchmark access).
+
+## 15) Risks and Mitigations
+
+- **Risk:** Founders submit inconsistent data.
+  - **Mitigation:** strict metric definitions, validation checks, outlier handling.
+- **Risk:** Not enough cohort density for useful percentiles.
+  - **Mitigation:** stage/segment gating and minimum sample thresholds before publishing.
+- **Risk:** Results feel abstract.
+  - **Mitigation:** convert each weak dimension into owner-assigned weekly actions.
+- **Risk:** Privacy concerns reduce participation.
+  - **Mitigation:** explicit anonymization policy and opt-out controls.
+
+## 16) Success Criteria (First 90 Days)
+
+- 20+ completed founder submissions.
+- >= 60% completion rate from verified invites.
+- >= 20% results-to-booking click-through.
+- 1 public quarterly benchmark report published.
+- At least 3 external mentions/citations of the report.
