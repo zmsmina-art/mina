@@ -11,6 +11,115 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "your-marketing-isnt-broken-it-was-never-engineered",
+    title: "Your Marketing Isn't Broken. It Was Never Engineered.",
+    excerpt:
+      "Most startups treat marketing like a creative exercise — then wonder why nothing compounds. The problem isn't your copy, your channels, or your budget. It's that you never engineered the system in the first place.",
+    content: `
+Every few weeks, a founder sends me the same message. The words change but the shape is identical: "We've tried everything. SEO, ads, content, LinkedIn. Nothing's working. What are we doing wrong?"
+
+My answer is almost always the same. You're not doing the wrong things. You're doing the right things without a system. And marketing without a system isn't marketing. It's expensive guessing.
+
+This is the core insight behind what I call **marketing systems engineering** — and it starts with recognizing that most marketing doesn't fail because of bad execution. It fails because it was never engineered to succeed in the first place.
+
+## The Symptom Everyone Treats as the Disease
+
+Here's the pattern I see over and over.
+
+A startup launches. The founders know they need "marketing." So they hire someone — a freelancer, an agency, an in-house generalist. That person starts doing things. They post on LinkedIn. They launch a Google Ads campaign. They write a few blog posts. Maybe they build an email list.
+
+Three months later, the founders look at the numbers and see… nothing coherent. Traffic is up a little. A few leads came in, but nobody can trace them to a specific action. The ad spend produced clicks but no conversions. The blog posts got some views but no pipeline.
+
+So what do they do? They fire the marketer. Hire a different one. Try different channels. New tactics. Same result.
+
+**The problem was never the marketer. The problem was the absence of a system.**
+
+It's the equivalent of hiring a mechanic, handing them a pile of parts, and saying "make it go fast" — without a blueprint, without knowing what vehicle you're building, without even agreeing on what "fast" means. No mechanic on earth can make that work. But that's exactly what startups ask marketers to do every day.
+
+## Three Signs Your Marketing Was Never Engineered
+
+After working with dozens of startups — mostly [AI companies and technical founders](/articles/how-ai-startups-should-think-about-marketing) — I've learned to spot the un-engineered marketing system in about fifteen minutes. Here's what it looks like.
+
+### 1. You Can't Trace Revenue to Its Source
+
+I ask every new client the same question in our first call: "Which of your marketing activities produced your last five paying customers?"
+
+The silence that follows tells me everything.
+
+Most startups can tell me their total revenue. Some can tell me their MRR growth rate. Almost none can connect a specific dollar to a specific marketing action. They don't know if it was the LinkedIn post from three weeks ago, the Google ad, the conference they attended, or just someone who found them organically.
+
+This isn't a data problem. It's a system design problem. In engineering, you wouldn't build a circuit without knowing which inputs produce which outputs. That would be insane. But in marketing, it's normal. Companies spend $10,000 a month on activities they can't attribute. [This is why most startups waste money on marketing](/articles/why-most-startups-waste-money-on-marketing) — not because the money is going to the wrong places, but because nobody designed the system to track where it goes at all.
+
+### 2. Every Channel Exists in Isolation
+
+Ads don't talk to content. Content doesn't feed email. Email doesn't inform sales. Each channel operates as its own fiefdom with its own metrics, its own goals, and its own definition of success.
+
+This is what happens when you build marketing by stacking tactics instead of designing a system. You end up with a collection of disconnected activities that don't compound. Your blog generates traffic that never converts because there's no nurture path. Your ads drive signups that never activate because onboarding isn't connected to the acquisition message. Your social presence builds awareness that never translates to pipeline because there's no mechanism to move a follower from "I've heard of you" to "I need to talk to you."
+
+In systems engineering, this is called a failure of integration. The individual components might work fine in isolation. But the system fails because nobody designed the interfaces between them. Marketing systems engineering solves this by designing the connections first and the components second. You start with the flow, not the parts.
+
+### 3. You Optimize Tactics Instead of the System
+
+This is the subtlest and most expensive mistake. A startup sees that their ad click-through rate is low, so they test new headlines. It goes up. They celebrate. But conversions don't change. So they optimize the landing page. Conversion rate ticks up. But revenue doesn't move. Why?
+
+Because the bottleneck was never the ad or the landing page. It was the fact that they were targeting the wrong audience. Or the positioning was off. Or the sales handoff was broken. Or the pricing page created friction that killed 60% of qualified prospects.
+
+When you optimize a single component without understanding the system, you create what engineers call **local optima** — you make one part perfect while the whole system stays broken. Marketing systems engineering forces you to diagnose at the system level first. Ask where the bottleneck actually is before touching anything. Sometimes the best way to improve ad performance is to rewrite your positioning. Sometimes the best way to increase conversions is to fix what happens after someone converts.
+
+## Why This Keeps Happening
+
+If un-engineered marketing is so common and so obviously broken, why does every startup keep falling into the same trap?
+
+Three reasons.
+
+**Marketing is taught as a creative discipline, not an engineering one.** Every marketing course, every guru, every Twitter thread focuses on tactics and creativity. Write better hooks. Make better content. Run better ads. Nobody teaches you to design the system those tactics operate within. It's like teaching someone to play individual notes without ever teaching them music theory. You can make sounds, but you can't compose anything.
+
+**The marketing industry profits from complexity, not clarity.** [I've written about this before](/articles/the-marketing-consulting-playbook-nobody-will-publish). Agencies and consultants have a structural incentive to keep things opaque. If you understood the system, you'd need them less. So they sell you activities instead of architecture. Deliverables instead of design. And you keep buying because you don't know there's another way.
+
+**Technical founders don't realize they already have the skills.** This is the part that kills me. I work with founders who build complex distributed systems for a living. They architect microservices, design data pipelines, think in systems every single day. Then they walk into a marketing meeting and forget everything they know. They accept "let's try LinkedIn and see what happens" from their marketing team when they'd never accept "let's deploy this service and see what happens" from their engineering team.
+
+The engineering mindset you already have is the thing your marketing is missing. You just haven't applied it yet.
+
+## What Engineered Marketing Actually Looks Like
+
+The shift from un-engineered to engineered marketing isn't about doing different things. It's about designing before executing.
+
+**You start with architecture, not tactics.** Before you post a single piece of content or spend a dollar on ads, you map the entire system. How does a stranger become aware of you? What moves them from awareness to consideration? From consideration to purchase? From purchase to referral? What data flows between each stage? Where are the dependencies? This is [Layer 1 of the marketing systems engineering framework](/articles/what-is-marketing-systems-engineering) — and it's the step that 90% of startups skip entirely.
+
+**You instrument everything.** Not vanity metrics. Leading indicators at every stage. You know your conversion rate between every step. You know which inputs drive which outputs. You have thresholds that tell you when something is broken before it costs you three months and $30,000.
+
+**You build in feedback loops.** Not quarterly reviews. Weekly. You run experiments, read the data, and adjust. Every week you're asking: what did we learn? What does the system-level data say? Where is the real bottleneck? This is how engineering teams build reliable software, and it's how marketing should work too.
+
+**You kill what doesn't work — fast.** Engineers have kill criteria. If a test doesn't hit the threshold, you shut it down. Most marketing teams let failing campaigns run for months because nobody defined what failure looks like. Engineered marketing has explicit criteria: if this channel doesn't produce X result in Y timeframe, we stop and reallocate.
+
+## The Compounding Effect
+
+Here's the part that makes marketing systems engineering worth every minute of upfront design work: **engineered systems compound.**
+
+When your content feeds your email list, and your email list nurtures prospects into sales conversations, and those conversations are informed by the content the prospect already consumed — every piece of the system makes every other piece more effective. Your cost per acquisition drops over time. Your conversion rates improve as the system learns. Your growth becomes more predictable, more scalable, and more defensible.
+
+Un-engineered marketing can't do this. It's linear. You put effort in, you get a result out, and the two are barely connected. Engineered marketing is exponential. The system gets smarter and more efficient the longer it runs.
+
+This is why I tell founders: the time you spend engineering your marketing system before you execute will pay for itself ten times over. [The companies that figure this out](/articles/most-ai-startups-will-die-with-great-products) are the ones that survive the next shakeout. The ones that keep guessing are the ones that run out of money wondering why nothing worked.
+
+## Start With the System
+
+If your marketing feels broken, it probably isn't. It was probably never engineered.
+
+That's not a criticism. It's a diagnosis. And the good news is that the engineering framework exists. I wrote the full five-layer methodology in [What Is Marketing Systems Engineering?](/articles/what-is-marketing-systems-engineering) — it's the practical playbook for building a marketing system that actually works.
+
+But the first step isn't reading a framework. It's accepting that marketing is an engineering problem. Once you make that mental shift, everything else falls into place.
+
+Stop hiring people to do marketing. Start hiring people to engineer growth.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-04",
+    updatedAt: "2026-03-04",
+    readingTime: "9 min read",
+    tags: ["Marketing", "Engineering", "Strategy", "Startups"],
+  },
+  {
     slug: "why-i-built-a-startup-roaster",
     title: "Why I Built a Tool That Roasts Your Startup's Positioning",
     excerpt:
