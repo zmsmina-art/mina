@@ -22,6 +22,8 @@ My answer is almost always the same. You're not doing the wrong things. You're d
 
 This is the core insight behind what I call **marketing systems engineering** — and it starts with recognizing that most marketing doesn't fail because of bad execution. It fails because it was never engineered to succeed in the first place.
 
+![A confused businessman surrounded by chaos — everyone's busy, nothing's connected](/marketing-not-engineered.png)
+
 ## The Symptom Everyone Treats as the Disease
 
 Here's the pattern I see over and over.
