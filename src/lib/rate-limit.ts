@@ -59,6 +59,3 @@ export const subscribeLimiter = rateLimit({ limit: 5, windowMs: 60_000 });
 
 /** Rate limiter for the roast endpoint: 5 requests per minute per IP */
 export const roastLimiter = rateLimit({ limit: 5, windowMs: 60_000 });
-
-/** Rate limiter for the lab agent: 30 messages per day per workspace */
-export const labAgentLimiter = rateLimit({ limit: 30, windowMs: 86_400_000 });
