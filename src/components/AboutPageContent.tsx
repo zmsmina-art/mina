@@ -164,9 +164,6 @@ export default function AboutPageContent() {
                 className="w-full h-auto"
                 sizes="280px"
               />
-              <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)]">
-                Somewhere between engineering and storytelling.
-              </figcaption>
             </figure>
 
             <p>
@@ -203,9 +200,6 @@ export default function AboutPageContent() {
                 className="w-full h-auto"
                 sizes="512px"
               />
-              <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)]">
-                Building connections at the intersection of AI and growth.
-              </figcaption>
             </figure>
 
             <p>
