@@ -155,6 +155,20 @@ export default function AboutPageContent() {
               </p>
             </blockquote>
 
+            <figure data-motion="rise" style={motionDelay(500)}>
+              <Image
+                src="/mina-candid-thinking.webp"
+                alt="Mina in a candid moment — moody blue lighting, thoughtful gaze"
+                width={478}
+                height={888}
+                className="w-full h-auto"
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+              <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)]">
+                Somewhere between engineering and storytelling.
+              </figcaption>
+            </figure>
+
             <p>
               I&apos;m currently in my final year studying <strong>Automotive Engineering Technology</strong> at{' '}
               <a href="https://mcmaster.ca" target="_blank" rel="noopener noreferrer">McMaster University</a>.
@@ -179,6 +193,20 @@ export default function AboutPageContent() {
               the future, and our job is to help them get the right message in front of the right people
               at the right time. It&apos;s strategic. It&apos;s technical. And it&apos;s deeply human.
             </p>
+
+            <figure data-motion="rise" style={motionDelay(520)}>
+              <Image
+                src="/mina-networking-event.webp"
+                alt="Mina at a networking event, in conversation with fellow founders"
+                width={2048}
+                height={1366}
+                className="w-full h-auto"
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+              <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)]">
+                Building connections at the intersection of AI and growth.
+              </figcaption>
+            </figure>
 
             <p>
               Before Olunix, I spent two years at{' '}
