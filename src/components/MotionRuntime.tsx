@@ -97,9 +97,9 @@ export default function MotionRuntime() {
               scale: 1,
               rotateX: 0,
               rotateY: 0,
-              duration: 0.4,
+              duration: 0.3,
               ease: 'power3.out',
-              stagger: 0.04,
+              stagger: 0.03,
               overwrite: 'auto',
               onComplete: function () {
                 // Add is-visible so CSS :has() selectors still work (e.g., footer line-draw)

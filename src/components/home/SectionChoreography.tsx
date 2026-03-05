@@ -44,7 +44,7 @@ export default function SectionChoreography() {
         // Timeline cards: slide from right with stagger
         const timelineCards = authoritySection.querySelectorAll('.timeline-item');
         if (timelineCards.length) {
-          gsap.set(timelineCards, { opacity: 0, x: 25, y: 0 });
+          gsap.set(timelineCards, { opacity: 0, x: 14, y: 0 });
           ScrollTrigger.batch(Array.from(timelineCards), {
             start: 'top 85%',
             onEnter: (batch) => {
@@ -80,11 +80,11 @@ export default function SectionChoreography() {
       if (writingSection) {
         const articleCards = writingSection.querySelectorAll('.article-card-motion, .glass-panel');
         if (articleCards.length) {
-          gsap.set(articleCards, { opacity: 0, y: 20 });
+          gsap.set(articleCards, { opacity: 0, y: 12 });
           // First card: 3D flip
           const first = articleCards[0] as HTMLElement;
           if (first) {
-            gsap.set(first, { rotateX: 8, transformPerspective: 1100, transformOrigin: '50% 0%' });
+            gsap.set(first, { rotateX: 4, transformPerspective: 1100, transformOrigin: '50% 0%' });
           }
 
           ScrollTrigger.batch(Array.from(articleCards), {
@@ -110,7 +110,7 @@ export default function SectionChoreography() {
       if (workSection) {
         const featureCards = workSection.querySelectorAll('.feature-card');
         featureCards.forEach((card) => {
-          gsap.set(card, { opacity: 0, y: 25, scale: 0.96 });
+          gsap.set(card, { opacity: 0, y: 14, scale: 0.98 });
           gsap.to(card, {
             opacity: 1,
             y: 0,
@@ -120,14 +120,6 @@ export default function SectionChoreography() {
             scrollTrigger: { trigger: card, start: 'top 84%', once: true },
             onComplete: () => {
               card.classList.add('is-visible');
-              // Glow bloom on arrival
-              gsap.fromTo(card, {
-                boxShadow: '0 24px 54px rgba(5,5,5,0.38), 0 0 0 1px rgba(255,255,255,0.12)',
-              }, {
-                boxShadow: '0 24px 54px rgba(5,5,5,0.38), 0 0 0 1px rgba(255,255,255,0.22), inset 0 1px 0 rgba(246,246,246,0.08)',
-                duration: 0.35 * d,
-                ease: 'power2.out',
-              });
             },
           });
         });
@@ -138,7 +130,7 @@ export default function SectionChoreography() {
       if (educationSection) {
         const crest = educationSection.querySelector('[data-motion="crest"]') as HTMLElement;
         if (crest && !isMobile) {
-          gsap.set(crest, { opacity: 0, rotateY: 120, scale: 0.85, transformPerspective: 800 });
+          gsap.set(crest, { opacity: 0, rotateY: 25, scale: 0.85, transformPerspective: 800 });
           gsap.to(crest, {
             opacity: 1,
             rotateY: 0,
@@ -156,7 +148,7 @@ export default function SectionChoreography() {
       if (servicesSection) {
         const serviceCards = servicesSection.querySelectorAll('.service-card-v2');
         serviceCards.forEach((card, i) => {
-          const fromX = i % 2 === 0 ? -35 : 35;
+          const fromX = i % 2 === 0 ? -18 : 18;
           gsap.set(card, { opacity: 0, x: fromX });
           gsap.to(card, {
             opacity: 1,
@@ -193,7 +185,7 @@ export default function SectionChoreography() {
       if (contactSection) {
         const panel = contactSection.querySelector('.contact-panel') as HTMLElement;
         if (panel) {
-          gsap.set(panel, { opacity: 0, y: 30, scale: 0.95 });
+          gsap.set(panel, { opacity: 0, y: 14, scale: 0.98 });
           gsap.to(panel, {
             opacity: 1,
             y: 0,
@@ -203,14 +195,6 @@ export default function SectionChoreography() {
             scrollTrigger: { trigger: panel, start: 'top 82%', once: true },
             onComplete: () => {
               panel.classList.add('is-visible');
-              // Glow bloom
-              gsap.fromTo(panel, {
-                boxShadow: '0 10px 20px rgba(5,5,5,0.2)',
-              }, {
-                boxShadow: '0 26px 48px rgba(5,5,5,0.34), 0 0 0 1px rgba(255,255,255,0.18), 0 0 42px rgba(255,255,255,0.1)',
-                duration: 0.4 * d,
-                ease: 'power2.out',
-              });
             },
           });
         }
@@ -221,7 +205,7 @@ export default function SectionChoreography() {
       if (footer) {
         const footerItems = footer.querySelectorAll('[data-motion="footer-rise"]');
         if (footerItems.length) {
-          gsap.set(footerItems, { opacity: 0, y: 18 });
+          gsap.set(footerItems, { opacity: 0, y: 10 });
           ScrollTrigger.batch(Array.from(footerItems), {
             start: 'top 92%',
             onEnter: (batch) => {

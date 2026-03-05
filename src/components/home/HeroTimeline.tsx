@@ -92,8 +92,8 @@ export default function HeroTimeline() {
         // Animate chars
         gsap.set(chars, {
           opacity: 0,
-          y: '120%',
-          rotateX: 90,
+          y: '80%',
+          rotateX: 45,
           transformPerspective: 600,
           transformOrigin: 'center bottom',
         });
@@ -159,14 +159,14 @@ export default function HeroTimeline() {
       if (ctaWrap) {
         const buttons = ctaWrap.querySelectorAll('.accent-btn, .ghost-btn');
         gsap.set(ctaWrap, { opacity: 1, y: 0 });
-        gsap.set(buttons, { opacity: 0, scale: 0.9, y: 16 });
+        gsap.set(buttons, { opacity: 0, scale: 0.95, y: 10 });
         tl.to(buttons, {
           opacity: 1,
           scale: 1,
           y: 0,
           duration: 0.45 * durationScale,
           stagger: 0.05,
-          ease: 'elastic.out(1, 0.75)',
+          ease: 'power3.out',
         }, 0.6);
       }
 
@@ -177,9 +177,9 @@ export default function HeroTimeline() {
         gsap.set(statGrid, { opacity: 1, y: 0 });
         gsap.set(cards, {
           opacity: 0,
-          y: 14,
-          rotateY: -10,
-          translateZ: -20,
+          y: 10,
+          rotateY: -5,
+          translateZ: -10,
           transformPerspective: 800,
         });
         tl.to(cards, {
@@ -198,9 +198,9 @@ export default function HeroTimeline() {
       if (aside) {
         gsap.set(aside, {
           opacity: 0,
-          x: isMobile ? 0 : 40,
+          x: isMobile ? 0 : 24,
           y: isMobile ? 20 : 0,
-          rotateY: isMobile ? 0 : -6,
+          rotateY: isMobile ? 0 : -3,
           scale: 0.96,
           transformPerspective: 800,
         });
@@ -251,7 +251,7 @@ export default function HeroTimeline() {
       // ── Headshot parallax ──
       if (aside && !isMobile) {
         gsap.to(aside, {
-          y: -40,
+          y: -24,
           ease: 'none',
           scrollTrigger: {
             trigger: hero,

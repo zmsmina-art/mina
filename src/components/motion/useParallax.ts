@@ -18,7 +18,7 @@ export default function useParallax<T extends HTMLElement = HTMLElement>(
 ) {
   const ref = useRef<T>(null);
   const { ready, gsap, ScrollTrigger } = useGSAPContext();
-  const { speed = 0.2, direction = 'vertical' } = options;
+  const { speed = 0.12, direction = 'vertical' } = options;
 
   useEffect(() => {
     const el = ref.current;

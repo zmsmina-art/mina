@@ -16,6 +16,9 @@ export default function FuturisticScrollBackdrop() {
     let pointerY = 0.45;
     let targetX = pointerX;
     let targetY = pointerY;
+    let idleTimer = 0;
+    let isIdle = false;
+    const IDLE_DELAY = 2000;
 
     const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
@@ -62,21 +65,28 @@ export default function FuturisticScrollBackdrop() {
       frame = 0;
     };
 
+    const wake = () => {
+      clearTimeout(idleTimer);
+      if (isIdle) {
+        isIdle = false;
+        lastTick = performance.now();
+        loop = requestAnimationFrame(tick);
+      }
+      idleTimer = window.setTimeout(() => { isIdle = true; }, IDLE_DELAY);
+    };
+
     const onPointerMove = (event: PointerEvent) => {
       targetX = clamp(event.clientX / Math.max(window.innerWidth, 1), 0, 1);
       targetY = clamp(event.clientY / Math.max(window.innerHeight, 1), 0, 1);
+      wake();
     };
 
     const onScroll = () => {
-      if (!frame) {
-        frame = requestAnimationFrame((t) => {
-          update(t);
-          frame = 0;
-        });
-      }
+      wake();
     };
 
     const tick = (time: number) => {
+      if (isIdle) return;
       if (coarsePointer.matches && time - lastTick < 42) {
         loop = requestAnimationFrame(tick);
         return;
@@ -88,6 +98,7 @@ export default function FuturisticScrollBackdrop() {
     update(performance.now());
     if (!reducedMotion.matches) {
       loop = requestAnimationFrame(tick);
+      idleTimer = window.setTimeout(() => { isIdle = true; }, IDLE_DELAY);
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -98,6 +109,7 @@ export default function FuturisticScrollBackdrop() {
     return () => {
       if (frame) cancelAnimationFrame(frame);
       if (loop) cancelAnimationFrame(loop);
+      clearTimeout(idleTimer);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pointermove', onPointerMove);
     };

@@ -40,13 +40,13 @@
   --motion-xxs: 100ms;
   --motion-xs: 160ms;
   --motion-sm: 240ms;
-  --motion-md: 360ms;
-  --motion-lg: 500ms;
+  --motion-md: 280ms;
+  --motion-lg: 380ms;
 
-  --motion-shift-sm: 6px;
-  --motion-shift-md: 14px;
-  --motion-shift-lg: 28px;
-  --motion-shift-xl: 44px;
+  --motion-shift-sm: 4px;
+  --motion-shift-md: 8px;
+  --motion-shift-lg: 16px;
+  --motion-shift-xl: 24px;
 
   --ambient-primary: rgba(255, 255, 255, 0.12);
   --ambient-secondary: rgba(122, 64, 242, 0.16);
