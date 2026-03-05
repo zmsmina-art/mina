@@ -155,14 +155,14 @@ export default function AboutPageContent() {
               </p>
             </blockquote>
 
-            <figure data-motion="rise" style={motionDelay(500)}>
+            <figure data-motion="rise" style={motionDelay(500)} className="mx-auto max-w-[280px]">
               <Image
                 src="/mina-candid-thinking.webp"
                 alt="Mina in a candid moment — moody blue lighting, thoughtful gaze"
                 width={478}
                 height={888}
                 className="w-full h-auto"
-                sizes="(max-width: 768px) 100vw, 768px"
+                sizes="280px"
               />
               <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)]">
                 Somewhere between engineering and storytelling.
@@ -194,14 +194,14 @@ export default function AboutPageContent() {
               at the right time. It&apos;s strategic. It&apos;s technical. And it&apos;s deeply human.
             </p>
 
-            <figure data-motion="rise" style={motionDelay(520)}>
+            <figure data-motion="rise" style={motionDelay(520)} className="mx-auto max-w-lg">
               <Image
                 src="/mina-networking-event.webp"
                 alt="Mina at a networking event, in conversation with fellow founders"
                 width={2048}
                 height={1366}
                 className="w-full h-auto"
-                sizes="(max-width: 768px) 100vw, 768px"
+                sizes="512px"
               />
               <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)]">
                 Building connections at the intersection of AI and growth.
