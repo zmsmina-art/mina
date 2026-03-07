@@ -11,6 +11,121 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "the-brain-of-a-marketer-who-built-an-app",
+    title: "The Brain of a Marketer Who Built an App",
+    excerpt:
+      "I'm a marketer. I have no business building software. But after a year and a half of watching founders who couldn't afford our help struggle alone, I couldn't not build the thing. Here's what that looked like from the inside.",
+    content: `
+I need to tell you something that still sounds weird when I say it out loud.
+
+I built an app.
+
+Me. A marketer. A guy whose entire career has been about messaging, positioning, and growth strategy — not code, not databases, not deployment pipelines. I built a full-stack, AI-powered application from scratch. And it's live. And it works.
+
+I still don't fully believe it. But let me tell you how we got here.
+
+## The Problem That Wouldn't Leave Me Alone
+
+Over the last year and a half at Olunix, we kept running into the same conversation. Founders would reach out — early-stage, usually technical, almost always brilliant — and they'd say some version of the same thing:
+
+*"We love what you do. We can see the value. But we don't have the budget right now."*
+
+And I'd watch them leave the call and go back to guessing. Back to the generic homepage. Back to the positioning that sounds like every other startup in their category. Back to burning runway on marketing that wasn't engineered to work.
+
+It ate at me.
+
+> The people who needed positioning help the most were the ones who couldn't afford it.
+
+We tried to solve it. We really did. When we were still called Growbyte, we built an entire free curriculum — the "Growbyte Media Center." Hours of content. Frameworks. Templates. The works. We thought if we couldn't serve them directly, we'd teach them to serve themselves.
+
+It didn't work. Not the way we needed it to.
+
+People consumed the content. Some of it was genuinely good. But consumption isn't transformation. Watching a video about positioning doesn't fix your positioning any more than watching a video about swimming teaches you to swim. There's a gap between knowledge and application, and we weren't bridging it.
+
+We also tried short strategy calls. Thirty minutes, quick diagnostic, a few pointed suggestions. Better than nothing. But you can't rewire a founder's entire go-to-market thinking in half an hour. You can point at the problem, but you can't walk them through the solution.
+
+So we took the media center down. Not because it was bad — because it wasn't enough. And "not enough" is worse than nothing when it gives people the illusion that they've addressed the problem.
+
+## The Idea That Wouldn't Die
+
+Around the same time, we started working more deeply with AI startups. And something clicked.
+
+I kept thinking: what if the solution isn't content? What if it isn't a call? What if it's a *tool* — something that takes a founder through the exact same process I walk clients through, step by step, but without needing me on the other end?
+
+Not a course. Not a template. A system that actually does the work with you.
+
+The marketer brain saw the problem clearly. The pain points of our clients. The pain points of the people who wanted to work with us but couldn't. The patterns in what worked and what didn't across dozens of engagements. I had the methodology. I had the frameworks. I had the understanding of what makes positioning click.
+
+What I didn't have was any idea how to build software.
+
+## Nothing. That's the Answer.
+
+My background is in marketing and engineering — the mechanical kind, not the software kind. What do I know about building apps?
+
+Nothing. Nothing's the answer.
+
+I didn't know what a framework was. I didn't know what an ORM was. I didn't know the difference between server-side and client-side rendering. I didn't know what a webhook was, what an API route was, or why anyone would need something called "middleware."
+
+I'm telling you this because I think founders — especially non-technical founders — need to hear it. The gap between "I have no idea how to do this" and "I built the thing" is not as wide as it feels. It's just dark. You can't see the other side when you're standing at the edge.
+
+> The gap between zero and one isn't talent. It's the willingness to be bad at something important for a very long time.
+
+## Chipping Away
+
+So we started. Week by week.
+
+The first few months were brutal. I asked many people for help — some underqualified, some overqualified. Developers, technical friends, freelancers, people who owed me favors. I'm thankful to each one of them. Every conversation taught me something. Every failed attempt narrowed the path.
+
+I didn't talk about it publicly. For months. I didn't post about it, didn't hint at it, didn't tease it on LinkedIn. Because honestly? I didn't know if we'd ever get it done.
+
+There were weeks where I thought we were close and turned out to be months away. There were features I thought would take a day that took three weeks. There were moments where the whole thing felt like a vanity project — a marketer playing engineer, wasting time he should've spent on client work.
+
+But the problem kept pulling me back. Every time I got on a call with a founder who couldn't afford to work with us, I thought about the tool. Every time I saw a startup with brilliant technology and invisible positioning, I thought about the tool. The problem wouldn't let me quit.
+
+Month by month, the thing started to take shape. The methodology crystallized into modules. The frameworks became interactive. The AI started doing what I do on calls — asking the right questions, pushing back on vague answers, forcing specificity.
+
+## The Marketer Brain Advantage
+
+Here's the thing nobody tells you about building a product as a marketer: **you already understand the user better than most engineers ever will.**
+
+I didn't approach this like a developer building features. I approached it like a strategist designing an experience. Every screen, every interaction, every piece of copy in the app — I thought about it the way I think about a client's homepage. What does this person need to feel right now? What's the next logical question? Where will they get stuck? What would I say to them if I were sitting across the table?
+
+That instinct — the marketer's instinct for empathy, for sequencing, for knowing when someone's attention is about to break — turns out to be insanely valuable when you're building software. Most apps are built by people who understand the technology and learn the user. I understood the user and learned the technology. I genuinely think that's the better direction.
+
+The product isn't clever because the code is clever. It's clever because the methodology is real. It comes from hundreds of positioning conversations, dozens of complete engagements, and years of watching what actually moves the needle for founders. The AI doesn't guess. It runs the same playbook I run — just faster, and available at 2 AM when a founder can't sleep because their homepage still says nothing.
+
+## It's Here
+
+We called it [Olunix Vantage](https://olunix.com).
+
+It's a positioning lab. Five modules that take you from "I don't know what to say" to "I know exactly what to say and why." You start with an audit of your current positioning. Then you lock your audience. Then you excavate the real pains. Then you map your differentiation. Then you forge headlines that actually land.
+
+It's the entire engagement I used to deliver over six weeks, compressed into a tool you can work through at your own pace. With AI that pushes back, asks better questions, and doesn't let you settle for generic.
+
+The founders who couldn't afford to work with us? This is for them. At a price point that doesn't require a budget conversation. With the same rigor we bring to our full engagements.
+
+## What I Learned
+
+Building Vantage changed how I think about everything. Not just marketing, not just technology — everything.
+
+I learned that the line between "technical" and "non-technical" is mostly a story we tell ourselves. I learned that the hardest part of building isn't the building — it's the deciding. Deciding what to cut. Deciding what matters. Deciding to keep going when the gap between where you are and where you need to be feels infinite.
+
+I learned that a marketer building an app isn't a contradiction. It might actually be an advantage. Because the best products aren't built by people who love technology. They're built by people who love the problem.
+
+And I really, genuinely love this problem.
+
+> The best products aren't built by people who love technology. They're built by people who love the problem.
+
+If you're a founder struggling with positioning — if you know your product is good but your homepage doesn't show it — [come try Vantage](https://olunix.com). It's the tool I wished existed when I started helping startups. So I built it.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-07",
+    updatedAt: "2026-03-07",
+    readingTime: "8 min read",
+    tags: ["Startups", "Building", "Marketing", "Olunix"],
+  },
+  {
     slug: "your-marketing-isnt-broken-it-was-never-engineered",
     title: "Your Marketing Isn't Broken. It Was Never Engineered.",
     excerpt:
