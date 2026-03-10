@@ -11,6 +11,93 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "olunix-vantage-is-live",
+    title: "Olunix Vantage Is Live. Here's What It Means for Founders.",
+    excerpt:
+      "After a year and a half of building, testing, and refining — Olunix Vantage is officially live. A positioning lab built for the founders who can't afford to get it wrong but couldn't afford to hire us. Here's what it is, why we built it, and what happens next.",
+    content: `
+Today, we're launching [Olunix Vantage](https://olunix.com).
+
+If you've been following this journey, you know this has been a long time coming. If you haven't — welcome. Let me catch you up.
+
+## The Short Version
+
+Olunix Vantage is a positioning lab for founders. Seven modules that take you through the exact same strategic process we use with our clients — from a brutal audit of your current positioning, through audience definition, go-to-market strategy, competitive differentiation, headline testing, brand identity, all the way to a complete messaging playbook — packaged into an AI-powered tool you can work through on your own, at your own pace, at a fraction of the cost.
+
+It's live. It works. And today, it's yours.
+
+## Why This Exists
+
+For the past year and a half, we've had a front-row seat to one of the most painful patterns in the startup world: brilliant founders with real products and zero positioning.
+
+They'd get on a call with us. They'd explain what they built. We'd immediately see the potential. And then they'd tell us they couldn't afford an engagement right now.
+
+> The founders who needed positioning the most were always the ones who couldn't afford it.
+
+We tried to solve this a dozen different ways. Free content. Short strategy calls. Frameworks and templates. None of it was enough. Knowledge isn't transformation. A PDF doesn't push back when your messaging is vague. A video can't ask you "why should anyone care?"
+
+So we built something that could.
+
+## What Vantage Actually Does
+
+Vantage is structured around seven modules — each one building on the last — that take you from "I have no idea what to say" to a complete positioning and messaging system. Here's the full sequence.
+
+**1. The Breakdown** — You paste your website URL and Vantage tears your current positioning apart. Not gently. It scores you across six dimensions, gives you a grade, tells you exactly where you're falling short, and even roasts you a little. You need to see the truth before you can fix it. This is where that starts.
+
+**2. Audience Lock** — Most founders think they know their audience. They're usually half right. This module walks you through a guided process to define your single best-fit buyer persona — their role, their company, their pain context. The AI challenges your assumptions and doesn't let you leave until your audience is locked tight.
+
+**3. Strategy** — Now that you know who you're talking to, this module helps you plan your go-to-market approach. Target audiences, marketing channels, budget allocation, execution model — in-house, outsourced, or hybrid. You walk out with a real plan, not a vague intention.
+
+**4. The Differentiator** — Saying you're "better" isn't a strategy. This module maps your competitive landscape — direct competitors, indirect alternatives, DIY solutions, even doing nothing. You add competitors, analyze their claims against yours, and identify the specific dimensions where you genuinely stand apart. Not invented differentiators — real ones.
+
+**5. Headline Forge** — Your headline is the first thing anyone reads, and most of them are terrible. This module lets you write, generate, and test headline variants. The AI scores each one on clarity, specificity, differentiation, and brevity — then compares them against your original. You leave with a headline that actually lands.
+
+**6. Brand Kit** — Powered by everything you've built in the previous modules, Vantage generates a complete visual identity system. Colors, typography, button styles, spacing, motion, effects, iconography — all derived from your positioning, not pulled from a template. Your brand should look like what your product actually is.
+
+**7. The Playbook** — This is where everything comes together. Vantage synthesizes all six previous modules into a complete messaging playbook: your positioning statement, strategic narrative, elevator pitches at three lengths, a homepage messaging blueprint, a sales pitch structure, competitive battle cards, and a brand voice guide with tone, words to use, words to avoid. One document your entire team can align around.
+
+Each module feeds the next. Data flows forward automatically. By the time you reach The Playbook, every output is grounded in the strategic work you've already done — not generated from thin air.
+
+## Who This Is For
+
+If you're a founder — especially a technical founder — and any of these sound familiar, Vantage was built for you:
+
+- Your homepage describes what your product does but not why anyone should care
+- You've rewritten your tagline six times this quarter and none of them feel right
+- You know your product is better than the competition but you can't articulate why
+- You're getting traffic but not conversions, demos but not deals
+- You've been told you need "better messaging" but nobody can tell you what that actually means
+
+Vantage isn't for everyone. It's not a magic button. It requires you to think, to be honest about your product and market, and to do the work. But if you're willing to do that, it will take you further in a few hours than most founders get in months of guessing.
+
+## What Happens Next
+
+This launch isn't the end of anything. It's the beginning.
+
+We're going to keep building. More modules. Deeper AI capabilities. Integrations that connect your positioning work directly to your website, your pitch deck, your sales conversations. Vantage today is version one — and version one is already more useful than anything else we've seen in this space.
+
+But we're not building in a vacuum. We're building with founders. Every piece of feedback, every session, every "this part confused me" — it all goes back into the product. The founders who start using Vantage today aren't just early adopters. They're co-builders.
+
+## The Bigger Picture
+
+Olunix has always been about one thing: helping founders turn great products into great businesses. Vantage doesn't replace our consulting work. It extends it. It means that every founder — regardless of budget, stage, or geography — can access real positioning methodology. Not watered-down advice. Not generic frameworks. The real thing.
+
+> Great technology deserves great positioning. Now there's no excuse not to have it.
+
+If you've been struggling with your messaging, if your product is better than your marketing suggests, if you're tired of guessing — [try Vantage today](https://olunix.com).
+
+We built this for you. Literally. Every module, every prompt, every interaction was designed with the founders we couldn't help in mind. Now we can.
+
+Let's go.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-10",
+    updatedAt: "2026-03-10",
+    readingTime: "8 min read",
+    tags: ["Olunix", "Startups", "Product Launch", "Positioning"],
+  },
+  {
     slug: "the-brain-of-a-marketer-who-built-an-app",
     title: "The Brain of a Marketer Who Built an App",
     excerpt:
