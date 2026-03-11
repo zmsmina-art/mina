@@ -275,10 +275,12 @@ export default function RootLayout({
         alternateName: 'ar',
       },
     ],
+    gender: 'Male',
     sameAs: [
       'https://www.linkedin.com/in/mina-mankarious',
       'https://x.com/olmnix',
       'https://olunix.com',
+      'https://olunix.com/founder',
       'https://github.com/zmsmina-art',
       'https://www.youtube.com/@Mankariouss',
       'https://www.crunchbase.com/person/mina-mankarious',
@@ -371,9 +373,26 @@ export default function RootLayout({
     },
   };
 
+  const vantageSchema = {
+    '@type': 'CreativeWork',
+    '@id': 'https://olunix.com/#vantage',
+    name: 'Vantage by Olunix',
+    url: 'https://olunix.com/lab',
+    description:
+      'AI-powered positioning platform for startup founders. Seven guided modules that replace what agencies charge thousands for — positioning audit, audience discovery, competitive analysis, headline testing, go-to-market strategy, brand identity, and messaging playbook.',
+    creator: {
+      '@id': 'https://minamankarious.com/#person',
+    },
+    provider: {
+      '@id': 'https://olunix.com/#organization',
+    },
+    applicationCategory: 'BusinessApplication',
+    dateCreated: '2024-09-01',
+  };
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [organizationSchema, personSchema, websiteSchema, serviceSchema, ...siteNavigationElements],
+    '@graph': [organizationSchema, personSchema, vantageSchema, websiteSchema, serviceSchema, ...siteNavigationElements],
   };
 
   return (
