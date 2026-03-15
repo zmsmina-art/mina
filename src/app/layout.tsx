@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import LayoutRuntime from '@/components/LayoutRuntime';
+import BriefGuard from '@/components/BriefGuard';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -447,14 +448,14 @@ export default function RootLayout({
         </a>
         <LayoutRuntime />
         <div className="grain-overlay" aria-hidden="true" />
-        <SiteNav />
+        <BriefGuard><SiteNav /></BriefGuard>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="page-shell">
           {children}
-          <SiteFooter />
+          <BriefGuard><SiteFooter /></BriefGuard>
         </div>
         {process.env.VERCEL && <Analytics />}
       </body>
