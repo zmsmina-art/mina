@@ -242,6 +242,9 @@ export default function BriefShell({ children }: { children: React.ReactNode }) 
           .brief-mobile-nav { display: none !important; }
           .brief-main-content { padding: 32px 32px 0 !important; }
         }
+        @media (max-width: 640px) {
+          .brief-imminent-row { flex-wrap: wrap; }
+        }
       `}</style>
     </div>
   );

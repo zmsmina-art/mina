@@ -272,14 +272,15 @@ export default function BriefPageClient({
                 {upcoming.map((event) => (
                   <div
                     key={event.id}
+                    className="brief-imminent-row"
                     style={{
                       display: 'flex',
                       alignItems: 'flex-start',
                       justifyContent: 'space-between',
-                      gap: '12px',
+                      gap: '8px',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', minWidth: 0, flex: 1 }}>
                       <Clock
                         size={14}
                         style={{ color: T.goldDim, marginTop: '2px', flexShrink: 0 }}
@@ -305,7 +306,7 @@ export default function BriefPageClient({
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '8px',
+                        gap: '6px',
                         flexShrink: 0,
                       }}
                     >
@@ -427,7 +428,7 @@ export default function BriefPageClient({
         </div>
 
         {/* Quick Actions */}
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <button
             style={{
               display: 'flex',
