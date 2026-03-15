@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import { auth } from '@/lib/auth-brief';
+import { redirect } from 'next/navigation';
 import {
   getLatestBriefing,
   getLatestPriorities,
@@ -8,7 +10,7 @@ import {
 } from '@/lib/school-events';
 import BriefPageClient from '@/components/BriefPageClient';
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Brief',
@@ -16,6 +18,9 @@ export const metadata: Metadata = {
 };
 
 export default async function BriefPage() {
+  const session = await auth();
+  if (!session) redirect('/brief/login');
+
   const [briefing, priorities, upcoming, weather, schoolEvents] = await Promise.all([
     getLatestBriefing(),
     getLatestPriorities(),

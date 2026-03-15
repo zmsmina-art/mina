@@ -1,9 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import {
-  ArrowLeft,
   BookOpen,
   AlertTriangle,
   GraduationCap,
@@ -11,8 +9,6 @@ import {
   Clock,
   Crosshair,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
-import useMotionProfile from '@/components/motion/useMotionProfile';
 import type {
   AgentReport,
   CalendarEvent,
@@ -20,20 +16,38 @@ import type {
   WeatherData,
 } from '@/lib/school-events';
 
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+/* ── MI6 Theme Tokens ─────────────────────────────────────────────── */
+const T = {
+  bg: '#0A0A0C',
+  elevated: 'rgba(255,255,255,0.025)',
+  surface: 'rgba(255,255,255,0.015)',
+  gold: '#C9A84C',
+  goldDim: '#8A7233',
+  goldBright: '#E8C65A',
+  ice: '#7EB8DA',
+  textPrimary: '#E8E4DC',
+  textSecondary: 'rgba(232,228,220,0.55)',
+  textMuted: 'rgba(232,228,220,0.30)',
+  borderDefault: 'rgba(255,255,255,0.05)',
+  borderGold: 'rgba(201,168,76,0.12)',
+  borderHover: 'rgba(201,168,76,0.25)',
+  statusRed: '#F87171',
+} as const;
+
 const URGENT_KEYWORDS = ['exam', 'midterm', 'final', 'test', 'quiz', 'due', 'deadline', 'submission'];
 
-const CATEGORY_COLORS: Record<string, string> = {
-  school: 'bg-blue-500/15 text-blue-400',
-  business: 'bg-purple-500/15 text-purple-400',
-  fitness: 'bg-green-500/15 text-green-400',
-  personal: 'bg-amber-500/15 text-amber-400',
-  admin: 'bg-gray-500/15 text-gray-400',
+const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
+  school: { bg: 'rgba(59,130,246,0.15)', text: '#60a5fa' },
+  business: { bg: 'rgba(168,85,247,0.15)', text: '#c084fc' },
+  fitness: { bg: 'rgba(74,222,128,0.15)', text: '#4ade80' },
+  personal: { bg: 'rgba(251,191,36,0.15)', text: '#fbbf24' },
+  admin: { bg: 'rgba(156,163,175,0.15)', text: '#9ca3af' },
 };
 
+/* ── Helpers ───────────────────────────────────────────────────────── */
+
 function isUrgent(title: string) {
-  const lower = title.toLowerCase();
-  return URGENT_KEYWORDS.some((kw) => lower.includes(kw));
+  return URGENT_KEYWORDS.some((kw) => title.toLowerCase().includes(kw));
 }
 
 function formatRelativeDay(date: Date): string {
@@ -67,14 +81,61 @@ function getGreeting(): string {
   return 'Good evening';
 }
 
+/* ── Inline Style Helpers ─────────────────────────────────────────── */
+
+const sectionLabel: React.CSSProperties = {
+  fontSize: '11px',
+  fontWeight: 500,
+  letterSpacing: '0.14em',
+  textTransform: 'uppercase',
+  color: T.goldDim,
+  fontFamily: "var(--font-jetbrains-mono), 'JetBrains Mono', monospace",
+  marginBottom: '12px',
+};
+
+const glassCard: React.CSSProperties = {
+  background: T.elevated,
+  border: `1px solid ${T.borderDefault}`,
+  borderRadius: '4px',
+  padding: '20px',
+};
+
+const mono: React.CSSProperties = {
+  fontFamily: "var(--font-jetbrains-mono), 'JetBrains Mono', monospace",
+};
+
+/* ── Sub-Components ───────────────────────────────────────────────── */
+
 function Countdown({ target }: { target: string }) {
   const [text, setText] = useState(timeUntil(new Date(target)));
   useEffect(() => {
     const interval = setInterval(() => setText(timeUntil(new Date(target))), 60000);
     return () => clearInterval(interval);
   }, [target]);
-  return <span className="font-mono text-xs text-amber-400">{text}</span>;
+  return <span style={{ ...mono, fontSize: '12px', color: T.gold }}>{text}</span>;
 }
+
+function CategoryBadge({ category }: { category: string }) {
+  const colors = CATEGORY_COLORS[category] ?? CATEGORY_COLORS.personal;
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        borderRadius: '9999px',
+        padding: '2px 10px',
+        fontSize: '11px',
+        fontWeight: 500,
+        background: colors.bg,
+        color: colors.text,
+      }}
+    >
+      {category}
+    </span>
+  );
+}
+
+/* ── Main Component ───────────────────────────────────────────────── */
 
 interface BriefPageProps {
   briefing: AgentReport | null;
@@ -91,18 +152,6 @@ export default function BriefPageClient({
   weather,
   schoolEvents,
 }: BriefPageProps) {
-  const motionProfile = useMotionProfile();
-  const introOffset = motionProfile.reduced ? 0 : Math.min(motionProfile.distances.enterY, 12);
-
-  const introTransitionForStep = (step: number) =>
-    motionProfile.reduced
-      ? { duration: 0 }
-      : {
-          duration: motionProfile.durations.enter,
-          delay: step * motionProfile.durations.stagger,
-          ease: EASE_OUT_EXPO,
-        };
-
   // Group school events by date
   const grouped: Record<string, SchoolEvent[]> = {};
   for (const event of schoolEvents) {
@@ -113,120 +162,158 @@ export default function BriefPageClient({
   const dateKeys = Object.keys(grouped).sort();
 
   // Parse priority lines
-  const priorityLines = priorities?.content
-    ?.split('\n')
-    .map((l) => l.trim())
-    .filter((l) => l.length > 0) ?? [];
+  const priorityLines =
+    priorities?.content
+      ?.split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.length > 0) ?? [];
 
   return (
-    <main
-      id="main-content"
-      data-section-theme="articles"
-      className="page-enter marketing-main site-theme page-gutter pb-20 pt-28 md:pb-24 md:pt-32"
+    <div
+      style={{
+        maxWidth: '960px',
+        margin: '0 auto',
+        padding: '48px 24px 80px',
+      }}
     >
-      <div className="mx-auto max-w-3xl space-y-8">
-        {/* Back link */}
-        <motion.div
-          initial={{ opacity: 0, y: introOffset }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={introTransitionForStep(1)}
-        >
-          <Link
-            href="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        {/* ── Header ────────────────────────────────────────────── */}
+        <div className="animate-fade-in-up">
+          <div style={sectionLabel}>Daily Briefing</div>
+          <h1
+            style={{
+              fontSize: '28px',
+              fontWeight: 500,
+              fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
+              color: T.textPrimary,
+              letterSpacing: '-0.01em',
+              marginTop: '8px',
+            }}
           >
-            <ArrowLeft size={14} />
-            Back home
-          </Link>
-        </motion.div>
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: introOffset }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={introTransitionForStep(2)}
-        >
-          <p className="mb-2 text-xs font-mono uppercase tracking-wider text-[var(--text-dim)]">
-            Daily Briefing
-          </p>
-          <h1 className="text-[clamp(2.1rem,9.6vw,2.7rem)] text-[var(--text-primary)] md:text-5xl">
             {getGreeting()}, Mr. Mankarious
           </h1>
           {weather && (
-            <div className="mt-2 flex items-center gap-2 text-sm text-[var(--text-dim)]">
-              <Cloud className="h-3.5 w-3.5" />
-              <span className="font-mono text-xs">
-                {weather.city} &mdash; {weather.description}, {weather.tempC}&deg;C
-                {weather.feelsLikeC && ` (feels ${weather.feelsLikeC}\u00B0C)`}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '14px',
+                color: T.textMuted,
+                marginTop: '6px',
+              }}
+            >
+              <Cloud size={14} style={{ color: T.ice }} />
+              <span style={{ ...mono, fontSize: '12px' }}>
+                {weather.city} — {weather.description}, {weather.tempC}°C
+                {weather.feelsLikeC && ` (feels ${weather.feelsLikeC}°C)`}
               </span>
             </div>
           )}
-        </motion.div>
+        </div>
 
-        {/* Divider */}
-        <motion.div
-          className="h-px bg-[var(--stroke-soft)]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={introTransitionForStep(3)}
-        />
+        {/* ── Divider ───────────────────────────────────────────── */}
+        <div style={{ height: '1px', background: T.borderGold }} />
 
-        {/* Intelligence Report */}
-        <motion.div
-          className="rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)] p-5"
-          initial={{ opacity: 0, y: introOffset }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={introTransitionForStep(4)}
+        {/* ── Intelligence Report ───────────────────────────────── */}
+        <div
+          style={{
+            ...glassCard,
+            position: 'relative',
+          }}
+          className="animate-fade-in-up"
         >
-          <h2 className="mb-3 text-xs font-mono uppercase tracking-wider text-amber-400">
-            Intelligence Report
-          </h2>
+          {/* Gold line accent */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: '12px',
+              right: '12px',
+              height: '1px',
+              background: `linear-gradient(90deg, transparent, ${T.goldDim}, transparent)`,
+              pointerEvents: 'none',
+            }}
+          />
+          <h2 style={sectionLabel}>Intelligence Report</h2>
           {briefing?.content ? (
-            <p className="text-sm leading-relaxed text-[var(--text-muted)] whitespace-pre-line italic">
+            <p
+              style={{
+                fontSize: '14px',
+                lineHeight: 1.7,
+                color: T.textSecondary,
+                whiteSpace: 'pre-line',
+                fontStyle: 'italic',
+              }}
+            >
               {briefing.content}
             </p>
           ) : (
-            <p className="text-sm text-[var(--text-dim)] italic">
+            <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
               Awaiting intelligence, sir. The synthesis operatives have not yet reported.
             </p>
           )}
-        </motion.div>
+        </div>
 
-        {/* Imminent + Standing Orders */}
-        <motion.div
-          className="grid grid-cols-1 gap-4 md:grid-cols-2"
-          initial={{ opacity: 0, y: introOffset }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={introTransitionForStep(5)}
+        {/* ── Imminent + Standing Orders ─────────────────────────── */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '16px',
+          }}
+          className="animate-fade-in-up"
         >
           {/* Imminent */}
-          <div className="rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)] p-5">
-            <h2 className="mb-3 text-xs font-mono uppercase tracking-wider text-amber-400">
-              Imminent
-            </h2>
+          <div style={glassCard}>
+            <h2 style={sectionLabel}>Imminent</h2>
             {upcoming.length === 0 ? (
-              <p className="text-sm text-[var(--text-dim)] italic">Your schedule is clear, sir.</p>
+              <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
+                Your schedule is clear, sir.
+              </p>
             ) : (
-              <div className="space-y-3">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {upcoming.map((event) => (
-                  <div key={event.id} className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-2 min-w-0">
-                      <Clock className="h-3.5 w-3.5 text-[var(--text-dim)] mt-0.5 shrink-0" />
-                      <div className="min-w-0">
-                        <p className="text-sm text-[var(--text-primary)] truncate">{event.title}</p>
-                        <p className="text-xs text-[var(--text-dim)] font-mono">
+                  <div
+                    key={event.id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between',
+                      gap: '12px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', minWidth: 0 }}>
+                      <Clock
+                        size={14}
+                        style={{ color: T.goldDim, marginTop: '2px', flexShrink: 0 }}
+                      />
+                      <div style={{ minWidth: 0 }}>
+                        <p
+                          style={{
+                            fontSize: '14px',
+                            color: T.textPrimary,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {event.title}
+                        </p>
+                        <p style={{ ...mono, fontSize: '12px', color: T.textMuted }}>
                           {formatTime(event.startTime)}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ${
-                          CATEGORY_COLORS[event.category] ?? CATEGORY_COLORS.personal
-                        }`}
-                      >
-                        {event.category}
-                      </span>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <CategoryBadge category={event.category} />
                       <Countdown target={event.startTime} />
                     </div>
                   </div>
@@ -237,15 +324,16 @@ export default function BriefPageClient({
 
           {/* Standing Orders */}
           {priorityLines.length > 0 && (
-            <div className="rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)] p-5">
-              <h2 className="mb-3 text-xs font-mono uppercase tracking-wider text-amber-400">
-                Standing Orders
-              </h2>
-              <div className="space-y-2.5">
+            <div style={glassCard}>
+              <h2 style={sectionLabel}>Standing Orders</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {priorityLines.map((line, i) => (
-                  <div key={i} className="flex items-start gap-2.5">
-                    <Crosshair className="h-3.5 w-3.5 text-amber-400 mt-0.5 shrink-0" />
-                    <p className="text-sm text-[var(--text-muted)]">
+                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                    <Crosshair
+                      size={14}
+                      style={{ color: T.gold, marginTop: '2px', flexShrink: 0 }}
+                    />
+                    <p style={{ fontSize: '14px', color: T.textSecondary }}>
                       {line.replace(/^\d+[\.\)]\s*/, '')}
                     </p>
                   </div>
@@ -253,28 +341,21 @@ export default function BriefPageClient({
               </div>
             </div>
           )}
-        </motion.div>
+        </div>
 
-        {/* Academics */}
-        <motion.div
-          className="rounded-lg border border-[var(--stroke-soft)] bg-[var(--bg-elev-1)] p-5"
-          initial={{ opacity: 0, y: introOffset }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={introTransitionForStep(6)}
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <GraduationCap className="h-4 w-4 text-[var(--text-dim)]" />
-            <h2 className="text-xs font-mono uppercase tracking-wider text-amber-400">
-              Academics
-            </h2>
+        {/* ── Academics ─────────────────────────────────────────── */}
+        <div style={glassCard} className="animate-fade-in-up">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+            <GraduationCap size={16} style={{ color: '#60a5fa' }} />
+            <h2 style={{ ...sectionLabel, marginBottom: 0 }}>Academics — Next 2 Weeks</h2>
           </div>
 
           {dateKeys.length === 0 ? (
-            <p className="text-sm text-[var(--text-dim)] italic">
+            <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
               No school commitments in the next 2 weeks, sir.
             </p>
           ) : (
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {dateKeys.map((dateKey) => {
                 const dayEvents = grouped[dateKey];
                 const dayDate = new Date(dayEvents[0].startTime);
@@ -282,37 +363,59 @@ export default function BriefPageClient({
 
                 return (
                   <div key={dateKey}>
-                    <p className="mb-1.5 text-xs font-mono uppercase tracking-wider text-[var(--text-dim)]">
+                    <p
+                      style={{
+                        ...mono,
+                        fontSize: '12px',
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        color: T.goldDim,
+                        marginBottom: '6px',
+                      }}
+                    >
                       {label}
                     </p>
-                    <div className="space-y-2">
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                       {dayEvents.map((event) => {
                         const urgent = isUrgent(event.title);
                         return (
                           <div
                             key={event.id}
-                            className={`flex items-start gap-2.5 rounded px-3 py-2 ${
-                              urgent
-                                ? 'bg-red-500/[0.06] border border-red-500/20'
-                                : 'bg-[var(--bg-elev-2)]'
-                            }`}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: '10px',
+                              borderRadius: '4px',
+                              padding: '8px 12px',
+                              background: urgent ? 'rgba(248,113,113,0.08)' : T.surface,
+                              border: urgent ? '1px solid rgba(248,113,113,0.2)' : 'none',
+                            }}
                           >
                             {urgent ? (
-                              <AlertTriangle className="h-3.5 w-3.5 text-red-400 mt-0.5 shrink-0" />
+                              <AlertTriangle
+                                size={14}
+                                style={{ color: T.statusRed, marginTop: '2px', flexShrink: 0 }}
+                              />
                             ) : (
-                              <BookOpen className="h-3.5 w-3.5 text-[var(--text-dim)] mt-0.5 shrink-0" />
+                              <BookOpen
+                                size={14}
+                                style={{ color: '#60a5fa', marginTop: '2px', flexShrink: 0 }}
+                              />
                             )}
-                            <div className="min-w-0 flex-1">
+                            <div style={{ minWidth: 0, flex: 1 }}>
                               <p
-                                className={`text-sm truncate ${
-                                  urgent
-                                    ? 'text-[var(--text-primary)] font-medium'
-                                    : 'text-[var(--text-primary)]'
-                                }`}
+                                style={{
+                                  fontSize: '14px',
+                                  color: T.textPrimary,
+                                  fontWeight: urgent ? 500 : 400,
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                }}
                               >
                                 {event.title}
                               </p>
-                              <p className="text-[11px] text-[var(--text-dim)] font-mono">
+                              <p style={{ ...mono, fontSize: '11px', color: T.textMuted }}>
                                 {event.isAllDay ? 'All day' : formatTime(event.startTime)}
                               </p>
                             </div>
@@ -325,8 +428,8 @@ export default function BriefPageClient({
               })}
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
