@@ -8,6 +8,8 @@ import {
   Cloud,
   Clock,
   Crosshair,
+  Dumbbell,
+  Lightbulb,
 } from 'lucide-react';
 import type {
   AgentReport,
@@ -169,13 +171,7 @@ export default function BriefPageClient({
       .filter((l) => l.length > 0) ?? [];
 
   return (
-    <div
-      style={{
-        maxWidth: '960px',
-        margin: '0 auto',
-        padding: '48px 24px 80px',
-      }}
-    >
+    <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
         {/* ── Header ────────────────────────────────────────────── */}
         <div className="animate-fade-in-up">
@@ -428,6 +424,50 @@ export default function BriefPageClient({
               })}
             </div>
           )}
+        </div>
+
+        {/* Quick Actions */}
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: T.elevated,
+              border: `1px solid ${T.borderDefault}`,
+              borderRadius: '4px',
+              padding: '12px 20px',
+              ...mono,
+              fontSize: '12px',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: T.textMuted,
+              cursor: 'pointer',
+            }}
+          >
+            <Dumbbell size={16} />
+            Log Training
+          </button>
+          <button
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: T.elevated,
+              border: `1px solid ${T.borderDefault}`,
+              borderRadius: '4px',
+              padding: '12px 20px',
+              ...mono,
+              fontSize: '12px',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: T.textMuted,
+              cursor: 'pointer',
+            }}
+          >
+            <Lightbulb size={16} />
+            File Intel
+          </button>
         </div>
       </div>
     </div>
