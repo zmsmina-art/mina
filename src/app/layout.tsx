@@ -153,6 +153,9 @@ export default function RootLayout({
       addressCountry: 'CA',
     },
     sameAs: ['https://olunix.com', 'https://www.crunchbase.com/organization/olunix'],
+    makesOffer: {
+      '@id': 'https://olunix.com/#vantage',
+    },
   };
 
   const personSchema = {
@@ -374,7 +377,7 @@ export default function RootLayout({
   };
 
   const vantageSchema = {
-    '@type': 'CreativeWork',
+    '@type': 'SoftwareApplication',
     '@id': 'https://olunix.com/#vantage',
     name: 'Vantage by Olunix',
     url: 'https://olunix.com/lab',
@@ -387,7 +390,28 @@ export default function RootLayout({
       '@id': 'https://olunix.com/#organization',
     },
     applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
     dateCreated: '2024-09-01',
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free',
+        price: '0',
+        priceCurrency: 'USD',
+        description: 'Includes The Breakdown — a full AI-powered positioning audit.',
+        availability: 'https://schema.org/InStock',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Pro',
+        price: '30',
+        priceCurrency: 'USD',
+        billingIncrement: 'P1M',
+        priceValidUntil: '2026-12-31',
+        description: 'All 7 modules: audit, audience discovery, competitive analysis, headline testing, GTM strategy, brand identity, and messaging playbook.',
+        availability: 'https://schema.org/InStock',
+      },
+    ],
   };
 
   const jsonLd = {
