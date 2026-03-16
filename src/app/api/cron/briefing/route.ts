@@ -309,37 +309,55 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  console.log('[briefing] Starting daily briefing generation...');
+  try {
+    console.log('[briefing] Starting daily briefing generation...');
 
-  // Fetch all data sources in parallel
-  const [weather, vercel, posthog, calendar, stripe] = await Promise.all([
-    fetchWeather(),
-    fetchVercel(),
-    fetchPostHog(),
-    fetchCalendar(),
-    fetchStripe(),
-  ]);
+    // Fetch all data sources in parallel
+    const [weather, vercel, posthog, calendar, stripe] = await Promise.all([
+      fetchWeather(),
+      fetchVercel(),
+      fetchPostHog(),
+      fetchCalendar(),
+      fetchStripe(),
+    ]);
 
-  const rawData = { weather, vercel, posthog, calendar, stripe };
+    console.log('[briefing] Data fetched:', JSON.stringify({
+      weather: 'error' in (weather as Record<string, unknown>) ? 'error' : 'ok',
+      vercel: 'error' in (vercel as Record<string, unknown>) ? 'error' : 'ok',
+      posthog: 'error' in (posthog as Record<string, unknown>) ? 'error' : 'ok',
+      calendar: 'error' in (calendar as Record<string, unknown>) ? 'error' : 'ok',
+      stripe: 'error' in (stripe as Record<string, unknown>) ? 'error' : 'ok',
+    }));
 
-  // Synthesize with AI, fall back to template
-  let briefingText = await synthesize(rawData);
-  if (!briefingText) {
-    console.log('[briefing] AI synthesis unavailable, using template');
-    briefingText = templateBriefing(rawData);
+    const rawData = { weather, vercel, posthog, calendar, stripe };
+
+    // Synthesize with AI, fall back to template
+    let briefingText = await synthesize(rawData);
+    if (!briefingText) {
+      console.log('[briefing] AI synthesis unavailable, using template');
+      briefingText = templateBriefing(rawData);
+    }
+
+    console.log('[briefing] Briefing text length:', briefingText.length);
+
+    // Write to database
+    const db = sql();
+    await db`
+      INSERT INTO agent_reports (report_type, content, created_at)
+      VALUES ('briefing', ${briefingText}, NOW())
+    `;
+
+    console.log('[briefing] Briefing saved to database');
+
+    return NextResponse.json({
+      message: 'Briefing generated and saved',
+      preview: briefingText.slice(0, 200) + '...',
+    });
+  } catch (e) {
+    console.error('[briefing] Fatal error:', e);
+    return NextResponse.json(
+      { error: 'Briefing generation failed', detail: String(e) },
+      { status: 500 }
+    );
   }
-
-  // Write to database
-  const db = sql();
-  await db`
-    INSERT INTO agent_reports (report_type, content, created_at)
-    VALUES ('briefing', ${briefingText}, NOW())
-  `;
-
-  console.log('[briefing] Briefing saved to database');
-
-  return NextResponse.json({
-    message: 'Briefing generated and saved',
-    preview: briefingText.slice(0, 200) + '...',
-  });
 }
