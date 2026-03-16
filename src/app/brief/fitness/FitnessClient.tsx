@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Flame } from 'lucide-react';
 import { T, sectionLabel, glassCard, mono, heading } from '@/lib/brief-styles';
 import type { FitnessSplit, FitnessLog } from '@/lib/school-events';
@@ -20,8 +22,39 @@ function ProgressRing({ completed, total }: { completed: number; total: number }
 }
 
 export default function FitnessClient({ splits, weekLogs, streak }: { splits: FitnessSplit[]; weekLogs: FitnessLog[]; streak: number }) {
-  const completedSplitIds = new Set(weekLogs.map((l) => l.splitId));
-  const completed = completedSplitIds.size;
+  const router = useRouter();
+  const [completedIds, setCompletedIds] = useState<Set<string>>(
+    () => new Set(weekLogs.map((l) => l.splitId))
+  );
+  const [loading, setLoading] = useState<string | null>(null);
+
+  async function toggleSplit(splitId: string) {
+    if (loading) return;
+    setLoading(splitId);
+
+    try {
+      const res = await fetch('/api/brief/fitness', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ splitId }),
+      });
+
+      if (!res.ok) return;
+
+      const { action } = await res.json();
+      setCompletedIds((prev) => {
+        const next = new Set(prev);
+        if (action === 'logged') next.add(splitId);
+        else next.delete(splitId);
+        return next;
+      });
+      router.refresh();
+    } finally {
+      setLoading(null);
+    }
+  }
+
+  const completed = completedIds.size;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -47,16 +80,35 @@ export default function FitnessClient({ splits, weekLogs, streak }: { splits: Fi
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {splits.map((split) => {
-          const done = completedSplitIds.has(split.id);
+          const done = completedIds.has(split.id);
+          const isLoading = loading === split.id;
           return (
-            <div key={split.id} style={{ ...glassCard, padding: '14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <button
+              key={split.id}
+              onClick={() => toggleSplit(split.id)}
+              disabled={isLoading}
+              style={{
+                ...glassCard,
+                padding: '14px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                cursor: isLoading ? 'wait' : 'pointer',
+                opacity: isLoading ? 0.6 : 1,
+                transition: 'opacity 0.2s, border-color 0.2s',
+                border: `1px solid ${done ? 'rgba(201,168,76,0.2)' : T.borderDefault}`,
+                background: done ? 'rgba(201,168,76,0.05)' : T.elevated,
+                width: '100%',
+                textAlign: 'left',
+              }}
+            >
               <span style={{ fontSize: '14px', color: done ? T.textMuted : T.textPrimary, textDecoration: done ? 'line-through' : 'none' }}>
                 {split.name}
               </span>
-              <span style={{ ...mono, fontSize: '11px', color: done ? T.statusGreen : T.textMuted }}>
+              <span style={{ ...mono, fontSize: '11px', color: done ? T.gold : T.textMuted }}>
                 {done ? 'COMPLETE' : 'PENDING'}
               </span>
-            </div>
+            </button>
           );
         })}
         {splits.length === 0 && (
