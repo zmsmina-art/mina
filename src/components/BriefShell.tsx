@@ -8,6 +8,7 @@ import {
   Shield,
   Dumbbell,
   Lightbulb,
+  Cpu,
   Settings,
 } from 'lucide-react';
 
@@ -27,6 +28,7 @@ const NAV_ITEMS = [
   { href: '/brief/health', label: 'Surveillance', icon: Shield, mobileLabel: 'Recon' },
   { href: '/brief/fitness', label: 'Field Readiness', icon: Dumbbell, mobileLabel: 'Field' },
   { href: '/brief/ideas', label: 'Intelligence', icon: Lightbulb, mobileLabel: 'Intel' },
+  { href: '/brief/fan-controller', label: 'Lab Ops', icon: Cpu, mobileLabel: 'Lab' },
   { href: '/brief/settings', label: 'Settings', icon: Settings, mobileLabel: 'Settings' },
 ];
 
