@@ -342,9 +342,10 @@ export async function GET(request: Request) {
 
     // Write to database
     const db = sql();
+    const id = crypto.randomUUID();
     await db`
-      INSERT INTO agent_reports (report_type, content, created_at)
-      VALUES ('briefing', ${briefingText}, NOW())
+      INSERT INTO agent_reports (id, report_type, content, created_at)
+      VALUES (${id}, 'briefing', ${briefingText}, NOW())
     `;
 
     console.log('[briefing] Briefing saved to database');
