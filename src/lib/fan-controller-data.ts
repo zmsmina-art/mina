@@ -92,7 +92,7 @@ export const PHASES: Phase[] = [
     id: 'atd-setup',
     number: 1,
     title: 'ATD Setup — Potentiometer Reading',
-    module: 'ATD0CTL2–5, ATD0DR0L (Receiver Board)',
+    module: 'Flash to RECEIVER board → CAN2_Rec_Template/Sources/main.c (ADC_Init function)',
     objectives: [
       'Power on the ATD module on the receiver board',
       'Configure 4-conversion sequence on channel AN5',
@@ -195,7 +195,7 @@ void ADC_Init (void) {
     id: 'pwm-motor',
     number: 2,
     title: 'PWM & Motor Control — Dual Fan Drive',
-    module: 'PWME, PWMPOL, PWMPRCLK, PWMPER4/7, PWMDTY4/7, PTP5/6 (Receiver Board)',
+    module: 'Flash to RECEIVER board → CAN2_Rec_Template/Sources/main.c (PWM_Init + case 0x01/0x04)',
     objectives: [
       'Configure PWM Channel 4 (PP4) and Channel 7 (PP7) for two fan motors',
       'Set prescaler using Clock B (PCKB1|PCKB2 masks)',
@@ -333,7 +333,7 @@ break;`,
     id: 'lcd-display',
     number: 3,
     title: 'LCD Display — Status Output',
-    module: 'PTS[7:4] data, PORTE BIT4 (EN), PORTE BIT7 (RS) — Controller Board',
+    module: 'Flash to CONTROLLER board → CAN2_Trans_Template/Sources/main.c (LCD_init, outcmd, output, output_string, clear)',
     objectives: [
       'Initialize HD44780 LCD in 4-bit mode via Port S (data) + Port E (control)',
       'Display CAN-received status: fan mode, direction, temperature',
@@ -504,7 +504,7 @@ void output(unsigned char op) {
     id: 'keypad-input',
     number: 4,
     title: 'Keypad Input — IRQ Interrupt Driven',
-    module: 'interrupt 6, PTS[7:4] read, DDRS, DDRE (Controller Board)',
+    module: 'Flash to CONTROLLER board → CAN2_Trans_Template/Sources/main.c (interrupt 6 void keypad)',
     objectives: [
       'Configure keypad as interrupt-driven input (IRQ vector 6)',
       'Read key value from PTS upper nibble (PTS & 0xF0)',
@@ -623,7 +623,7 @@ interrupt 6 void keypad (void) {
     id: 'can-bus',
     number: 5,
     title: 'CAN Bus — Inter-Board Communication',
-    module: 'CAN0CTL0/1, CAN0BTR0/1, CAN0IDAC, CAN0RIER (Both Boards)',
+    module: 'Flash to BOTH boards → CAN2_Trans_Template/Sources/CAN_2.c + CAN2_Rec_Template/Sources/CAN_2.c (identical files)',
     objectives: [
       'Initialize MSCAN module using bitfield-style register access',
       'Configure 8-bit acceptance filters with exact match (IDARs=0xFF, IDMRs=0x00)',
@@ -836,7 +836,7 @@ interrupt 38 void CAN_isr (void) {
     id: 'controller-main',
     number: 6,
     title: 'Controller Board — Full Main Program',
-    module: 'CAN TX + LCD + Keypad ISR (Controller Board)',
+    module: 'Flash to CONTROLLER board → CAN2_Trans_Template/Sources/main.c (complete file — includes CAN_2.c)',
     objectives: [
       'Wire keypad ISR → CAN transmit → wait for CAN response → LCD display',
       'Handle all 5 commands: driver/passenger fan speed, direction, temperature',
@@ -1056,7 +1056,7 @@ interrupt 6 void keypad (void) {
     id: 'receiver-main',
     number: 7,
     title: 'Receiver Board — Full Main Program',
-    module: 'ADC + PWM + Motor + CAN ISR (Receiver Board)',
+    module: 'Flash to RECEIVER board → CAN2_Rec_Template/Sources/main.c (complete file — includes CAN_2.c)',
     objectives: [
       'Initialize ADC, PWM, and CAN on receiver board',
       'Handle 5 CAN commands: 0x01–0x04 (fan control), 0x05 (temp request)',
@@ -1276,7 +1276,7 @@ void PWM_Init (void) {
     id: 'testing',
     number: 8,
     title: 'Testing — Dual-Board Integration',
-    module: 'All (verification only)',
+    module: 'No new code — test BOTH boards running together over CAN bus',
     objectives: [
       'Complete dual-board integration test over CAN bus',
       'Verify all 5 commands: fan speed (×2), direction (×2), temperature',
