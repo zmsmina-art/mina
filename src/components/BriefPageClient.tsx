@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   BookOpen,
   AlertTriangle,
@@ -154,6 +155,8 @@ export default function BriefPageClient({
   weather,
   schoolEvents,
 }: BriefPageProps) {
+  const router = useRouter();
+
   // Group school events by date
   const grouped: Record<string, SchoolEvent[]> = {};
   for (const event of schoolEvents) {
@@ -430,6 +433,7 @@ export default function BriefPageClient({
         {/* Quick Actions */}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <button
+            onClick={() => router.push('/brief/fitness')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -450,6 +454,7 @@ export default function BriefPageClient({
             Log Training
           </button>
           <button
+            onClick={() => router.push('/brief/ideas')}
             style={{
               display: 'flex',
               alignItems: 'center',
