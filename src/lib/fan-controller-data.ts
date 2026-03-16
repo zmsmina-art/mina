@@ -106,61 +106,73 @@ export const PHASES: Phase[] = [
       { name: 'ATD0CTL5', address: '$0085', value: '$A5', purpose: 'DJM=1 (right-justified), SCAN=1 (continuous), MULT=1 (multi-ch), Ch AN5' },
       { name: 'ATD0DR0L', address: '$0091', value: 'Read', purpose: '8-bit low byte of conversion result (0–255)' },
     ],
-    code: `// ATD Module — Potentiometer on AN5 (Receiver Board)
-// From: CAN2_Rec_Template/Sources/main.c → ADC_Init()
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Rec_Template/Sources/main.c → ADC_Init()
+// Also found in: Motors_Lab_PWM_Template/Sources/main.c → ATD_Init()
+// Both files contain identical register values.
+// ═══════════════════════════════════════════════════════════
 
 void ADC_Init (void) {
 
-ATD0CTL2 = 0x80; // TURNS ATD ON
+  ATD0CTL2 = 0x80;
+  // Register: ATD0CTL2 at $0082 — ATD Control Register 2
+  // Value 0x80 = 1000 0000 in binary
+  // bit7 ADPU = 1   → Powers ON the ATD module (must be set first)
+  // bit6 AFFC = 0   → Normal flag clearing (not fast-clear mode)
+  // bit5 AWAI = 0   → ATD continues running in wait mode
+  // bit4 ETRIGLE = 0 → External trigger level/edge: N/A
+  // bit3 ETRIGP = 0  → External trigger polarity: N/A
+  // bit2 ETRIGE = 0  → External trigger disabled
+  // bit1 ASCIE = 0   → Sequence complete interrupt DISABLED
+  // bit0 ASCIF = 0   → Sequence complete interrupt flag (read-only)
 
-//bit0 ASCIF       /* ATD 0 Sequence Complete Interrupt Flag */
-//bit1 ASCIE       /* ATD 0 Sequence Complete Interrupt Enable */
-//bit2 ETRIGE      /* External Trigger Mode enable */
-//bit3 ETRIGP      /* External Trigger Polarity */
-//bit4 ETRIGLE     /* External Trigger Level/Edge control */
-//bit5 AWAI        /* ATD Power Down in Wait Mode */
-//bit6 AFFC        /* ATD Fast Conversion Complete Flag Clear */
-//bit7 ADPU        /* ATD Disable / Power Down */
+  ATD0CTL3 = 0x20;
+  // Register: ATD0CTL3 at $0083 — ATD Control Register 3
+  // Value 0x20 = 0010 0000 in binary
+  // bit6 S8C = 0, bit5 S4C = 1, bit4 S2C = 0, bit3 S1C = 0
+  //   → Conversion sequence length = 4 conversions per sequence
+  //   (S4C=1 selects 4; this is the standard setting for HC12)
+  // bit2 FIFO = 0   → Result registers NOT in FIFO mode
+  // bit1 FRZ1 = 0, bit0 FRZ0 = 0 → Continue in background debug
 
-ATD0CTL3 = 0x20; // SETS CONVERSION LENGTH TO 4 (STANDARD FOR HC12)
+  ATD0CTL4 = 0x85;
+  // Register: ATD0CTL4 at $0084 — ATD Control Register 4
+  // Value 0x85 = 1000 0101 in binary
+  // bit7 SRES8 = 1   → 8-bit resolution mode (not 10-bit)
+  //   NOTE: Despite name, SRES8=1 means 8-bit. 0 would be 10-bit.
+  // bit6 SMP1 = 0, bit5 SMP0 = 0 → 2 ATD clock sample periods
+  // bit4-0 PRS[4:0] = 00101 = 5 → Prescaler divisor = (5+1)*2 = 12
+  //   ATD clock = bus_clk / 12 ≈ 667kHz (with 8MHz bus)
 
-//bit0 FRZ0        /* Background Debug Freeze Enable Bit 0 */
-//bit1 FRZ1        /* Background Debug Freeze Enable Bit 1 */
-//bit2 FIFO        /* Result Register FIFO Mode */
-//bit3 S1C         /* Conversion Sequence Length 1 */
-//bit4 S2C         /* Conversion Sequence Length 2 */
-//bit5 S4C         /* Conversion Sequence Length 4 */
-//bit6 S8C         /* Conversion Sequence Length 8 */
-
-ATD0CTL4 = 0x85; // SETS PRESCALER TO 5 (STANDARD SETTING AFTER RESET)
-
-//bit0 PRS0        /* ATD Clock Prescaler 0 */
-//bit1 PRS1        /* ATD Clock Prescaler 1 */
-//bit2 PRS2        /* ATD Clock Prescaler 2 */
-//bit3 PRS3        /* ATD Clock Prescaler 3 */
-//bit4 PRS4        /* ATD Clock Prescaler 4 */
-//bit5 SMP0        /* Sample Time Select 0 */
-//bit6 SMP1        /* Sample Time Select 1 */
-//bit7 SRES8       /* ATD Resolution Select */
-
-ATD0CTL5 = 0xA5;   // BITS 0-2 SELECT WHICH ANALOG CHANNEL YOU
-                   // WILL READ FROM & WE HAVE SET THE DATA TO BE
-                   // RIGHT ALIGNED, UNSIGNED, AND SINGLE SEQUENCE MODE
-
-  //bit0 CA          /* Analog Input Channel Select Code A */
-  //bit1 CB          /* Analog Input Channel Select Code B */
-  //bit2 CC          /* Analog Input Channel Select Code C */
-  //bit3
-  //bit4 MULT        /* Multi-Channel Sample Mode */
-  //bit5 SCAN        /* Continuous Conversion Sequence Mode */
-  //bit6 DSGN        /* Signed/Unsigned Result Data Mode */
-  //bit7 DJM         /* Result Register Data Justification Mode */
+  ATD0CTL5 = 0xA5;
+  // Register: ATD0CTL5 at $0085 — ATD Control Register 5
+  // Value 0xA5 = 1010 0101 in binary
+  // bit7 DJM  = 1   → Right-justified result in data register
+  // bit6 DSGN = 0   → Unsigned result data
+  // bit5 SCAN = 1   → Continuous conversion mode (auto-restarts)
+  // bit4 MULT = 0   → Single-channel mode (all 4 conversions on same ch)
+  //   NOTE: Source comment says "multi-channel" but MULT=0 means single
+  // bit2-0 CC:CB:CA = 101 = 5 → Select analog channel AN5
+  //   AN5 = PAD05 on MC9S12DG128 = EVALH1 onboard potentiometer (POT1)
+  //
+  // Writing to ATD0CTL5 also STARTS the conversion sequence.
+  // With SCAN=1, conversions repeat continuously after this write.
 
 }
 
-// Reading the ADC value (used throughout receiver main loop):
-//   PTH = ATD0DR0L;   // Display raw ADC on debug LEDs
-//   PWMDTY4 = ATD0DR0L;  // Use as PWM duty directly`,
+// ═══════════════════════════════════════════════════════════
+// Reading results — used in CAN2_Rec_Template/Sources/main.c
+// main() loop and CAN command handler:
+// ═══════════════════════════════════════════════════════════
+//
+//   PTH = ATD0DR0L;
+//   // ATD0DR0L at $0091 — low byte of first result register
+//   // Contains 8-bit conversion value (0x00–0xFF) from AN5
+//   // Written to Port H to display on EVALH1 LED1 bargraph
+//
+//   PWMDTY4 = ATD0DR0L;
+//   // Directly loads ADC reading as PWM duty cycle for channel 4
+//   // 0x00 = 0% duty, 0xFA = 100% duty (matches PWMPER4)`,
     wiring: [
       'EVALH1 onboard POT1 is already wired to AN05 (PAD05) as a voltage divider',
       'No external wiring needed for potentiometer — it is on the trainer board',
@@ -202,61 +214,95 @@ ATD0CTL5 = 0xA5;   // BITS 0-2 SELECT WHICH ANALOG CHANNEL YOU
       { name: 'PTP5', address: 'Bit', value: '0 or 1', purpose: 'Motor direction: 1=forward, 0=reverse' },
       { name: 'PTP6', address: 'Bit', value: 'Toggle', purpose: 'Motor step clock — pulse high then low to step' },
     ],
-    code: `// PWM & Motor Control (Receiver Board)
-// From: CAN2_Rec_Template/Sources/main.c → PWM_Init() + motor logic
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Rec_Template/Sources/main.c → PWM_Init()
+// Also found in: Motors_Lab_PWM_Template/Sources/main.c → PWM_Init()
+// Both files contain identical initialization code.
+// ═══════════════════════════════════════════════════════════
 
-// ── PWM Initialization ──
 void PWM_Init (void) {
-  // Initialize the PWM Module here, set the registers
-  // NOTE: By default the channels will appear on the respective
-  // Port P pin. In this case our PWM will be appearing across
-  // bit4 of Port P.
-  PWME_PWME4 = 0x10;         // 0001-0000
-  PWMPOL_PPOL4 = 0x10;       // 0001-0000
-  PWMPRCLK = 0x06|0x04;      // 0000-0110  |  0000-0100
+
+  PWME_PWME4 = 0x10;
+  // Register: PWME at $00A0 — PWM Enable Register
+  // PWME_PWME4 is a bitfield access: sets bit 4 = 1
+  // Enables PWM output on channel 4 → appears on PP4
+  // PP4 = EVALH1 H1 pin 17 = L293D MENA1 (Motor A enable)
+
+  PWMPOL_PPOL4 = 0x10;
+  // Register: PWMPOL at $00A1 — PWM Polarity Register
+  // PPOL4 bitfield: sets bit 4 = 1
+  // Polarity = 1 → output starts HIGH, goes LOW at duty count
+  // (active-high PWM waveform)
+
+  PWMPRCLK = 0x06|0x04;
+  // Register: PWMPRCLK at $00A3 — PWM Prescaler Clock Select
+  // 0x06 = 0000 0110 → PCKB[2:0] = 110 = Clock B prescaler ÷64
+  // 0x04 = 0000 0100 → PCKB2 bit set
+  // OR'd together = 0x06 → Clock B divides bus clock by 64
+  // Bus clock 8MHz / 64 = 125kHz PWM clock
+  // (Channels 4-7 use Clock B by default)
+
   PWMPER4 = 0xFA;
+  // Register: PWMPER4 at $00B8 — PWM Channel 4 Period Register
+  // Period = 250 (0xFA) → PWM frequency = 125kHz / 250 = 500Hz
+
 }
 
-// ── Runtime PWM usage (inside CAN command handler) ──
-// When command 0x01 (driver fan speed) is received:
+// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Rec_Template/Sources/main.c → second while(1)
+// switch(CAN) case 0x01 — "Driver fan speed" command handler
+// ═══════════════════════════════════════════════════════════
+
 case 0x01:
-  PWME_PWME4 = 1;
-  PWMPOL_PPOL4 = 1;
+  PWME_PWME4 = 1;           // Enable PWM channel 4 (PP4 → L293D MENA1)
+  PWMPOL_PPOL4 = 1;         // Start-high polarity for Ch4
   PWMPRCLK = PWMPRCLK_PCKB1_MASK|PWMPRCLK_PCKB2_MASK;
-  PWMPER4 = 0xFA;
-  PWMDTY4 = ATD0DR0L;        // Duty from pot position
-  PTH = ATD0DR0L;             // Debug LEDs show duty value
+                             // Set Clock B prescaler using derivative.h masks
+                             // Same as 0x06|0x04 in PWM_Init but using named masks
+  PWMPER4 = 0xFA;           // Period = 250 counts for Ch4
+  PWMDTY4 = ATD0DR0L;       // Ch4 duty = pot reading (0–255 from AN5)
+                             // Register: PWMDTY4 at $00C0
+  PTH = ATD0DR0L;           // Show duty value on LED1 bargraph (debug)
 
-  PWME_PWME7 = 1;
-  PWMPOL_PPOL7 = 1;
+  PWME_PWME7 = 1;           // Enable PWM channel 7 (PP7 → speaker/Motor B)
+  PWMPOL_PPOL7 = 1;         // Start-high polarity for Ch7
   PWMPRCLK = PWMPRCLK_PCKB1_MASK|PWMPRCLK_PCKB2_MASK;
-  PWMPER7 = 0xFA;
-  PWMDTY7 = ATD0DR0L;
-  PTH = ATD0DR0L;
+                             // Same prescaler for Ch7
+  PWMPER7 = 0xFA;           // Period = 250 counts for Ch7 ($00BB)
+  PWMDTY7 = ATD0DR0L;       // Ch7 duty = same pot reading ($00C3)
+  PTH = ATD0DR0L;           // Debug LEDs (overwrites previous PTH write)
 
-  PTP_PTP4=1;
-  transCAN(0xFF,0x01);        // Echo command back to controller
-  CAN=0;
+  PTP_PTP4 = 1;             // Set Port P bit 4 HIGH directly
+                             // (separate from PWM — raw GPIO on same pin)
+  transCAN(0xFF, 0x01);     // Echo 0x01 back to controller via CAN
+                             // Controller will display "Driver fan / speed" on LCD
+  CAN = 0;                  // Reset global CAN var → re-enter while(CAN==0) wait
 break;
 
-// ── Motor Direction Control (command 0x04) ──
-// Uses PTP5 for direction and PTP6 for step clock pulse:
+// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Rec_Template/Sources/main.c → second while(1)
+// switch(CAN) case 0x04 — "Passenger fan direction" handler
+// Uses L293D H-bridge via Port P for motor stepping:
+//   PP5 (MDIRB1) = L293D IN4 → Motor B direction
+//   PP6 (MENB1) = L293D EN34 → Motor B enable (pulsed as step)
+// ═══════════════════════════════════════════════════════════
+
 case 0x04:
-  if(x < ATD0DR0L) {
-    PTP_PTP5 = 1;             // Forward direction
-    PTP_PTP6 = 1;             // Clock high
-    for(z=0; z<20; z++);      // Brief pulse delay
-    PTP_PTP6 = 0;             // Clock low → step
-    x++;
-  } else {
-    PTP_PTP5 = 0;             // Reverse direction
-    PTP_PTP6 = 1;
-    for(z=0; z<=20; z++);
-    PTP_PTP6 = 0;
-    x--;
+  if(x < ATD0DR0L) {         // If motor position < pot target value
+    PTP_PTP5 = 1;            // PP5 = MDIRB1 → L293D IN4 → forward direction
+    PTP_PTP6 = 1;            // PP6 = MENB1 → L293D EN34 → enable HIGH
+    for(z=0; z<20; z++);     // Brief delay (~20 loop iterations) for pulse width
+    PTP_PTP6 = 0;            // EN34 LOW → motor steps one increment
+    x++;                     // Track position counter forward
+  } else {                   // Motor position >= pot target
+    PTP_PTP5 = 0;            // PP5 = MDIRB1 → reverse direction
+    PTP_PTP6 = 1;            // EN34 HIGH
+    for(z=0; z<=20; z++);    // Pulse delay
+    PTP_PTP6 = 0;            // EN34 LOW → motor steps one increment
+    x--;                     // Track position counter backward
   }
-  transCAN(0xFF,0x04);
-  CAN=0;
+  transCAN(0xFF, 0x04);      // Echo 0x04 back → controller shows "Passenger fan / direction"
+  CAN = 0;                   // Reset for next command
 break;`,
     wiring: [
       'EVALH1 has L293D dual H-bridge (U5) already wired to Port P:',
@@ -301,108 +347,131 @@ break;`,
       { name: 'PORTE_BIT4', address: 'Bit', value: 'Toggle', purpose: 'LCD Enable — pulse high→low to latch nibble' },
       { name: 'PORTE_BIT7', address: 'Bit', value: '0/1', purpose: 'LCD RS — 0=command, 1=data character' },
     ],
-    code: `// LCD Module — HD44780 in 4-bit mode (Controller Board)
-// PTS[7:4] = D4-D7, PORTE BIT4 = EN, PORTE BIT7 = RS
-// From: CAN2_Trans_Template/Sources/main.c
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/main.c
+// All 5 LCD functions below are from this single file.
+// EVALH1 wiring (from evalh1sch3.pdf & AD9S12Dpins.pdf):
+//   PS4 (H1 pin 1) → LCD DB4 (pin 11)
+//   PS5 (H1 pin 2) → LCD DB5 (pin 12)
+//   PS6 (H1 pin 3) → LCD DB6 (pin 13)
+//   PS7 (H1 pin 4) → LCD DB7 (pin 14)
+//   PE4 (H1 pin 33) → LCD Enable (pin 6)
+//   PE7 (H1 pin 43) → LCD RS (pin 4)
+// ═══════════════════════════════════════════════════════════
 
 void LCD_init (void) {
-  // The following LCD initialization commands are given
-  // by the datasheet and follow a very specific set of commands.
-
   unsigned int z;
 
-  DDRS = 0xFF;
-  DDRE = 0xFF;
-  PORTE_BIT7 = 0;
-  PTS = 0x00;
+  DDRS = 0xFF;              // Port S ($024A) all outputs → drive LCD data lines
+  DDRE = 0xFF;              // Port E ($0009) all outputs → drive EN and RS
+  PORTE_BIT7 = 0;           // RS = 0 → command mode for initialization
+  PTS = 0x00;               // Clear data lines
 
-  for (z=0;z<=33333;z++);     // 50ms wait specified by manufacturer to ensure
-  for (z=0;z<=33333;z++);     // LCD voltage level moves up to proper power level.
+  for (z=0;z<=33333;z++);   // ~50ms delay (HD44780 datasheet requirement)
+  for (z=0;z<=33333;z++);   // Wait for LCD internal voltage to stabilize
 
-  PTS = 0x30;                  // 0x30 must be sent three times to establish
-  for (z=0;z<=6666;z++);      // connection with the LCD. outcmd has not been used
-  PTS = 0x30;                  // because it will send the entire hex value 0x03 and
-  for (z=0;z<=213;z++);       // will interfere with the process.
-  PTS = 0x30;
-  for (z=0;z<=213;z++);
+  // HD44780 power-on reset sequence: send 0x3 three times
+  // Must use raw PTS writes, NOT outcmd(), because outcmd()
+  // would send both nibbles of 0x03 which corrupts the sequence
+  PTS = 0x30;               // 0x30 on PTS[7:4] = 0x3 to LCD (Function Set 8-bit)
+  for (z=0;z<=6666;z++);    // >4.1ms delay after first 0x3
+  PTS = 0x30;               // Second 0x3 (Function Set 8-bit)
+  for (z=0;z<=213;z++);     // >100us delay after second 0x3
+  PTS = 0x30;               // Third 0x3 (Function Set 8-bit)
+  for (z=0;z<=213;z++);     // >100us delay
 
-  PTS = 0x20;                  // 4 - bit initialization
-  PORTE_BIT4 = 0;             // Toggle enable to process data
-  PORTE_BIT4 = 1;
-  PORTE_BIT4 = 0;
-  for(z=0;z<=6666;z++);
+  PTS = 0x20;               // 0x20 on PTS[7:4] = 0x2 → switch to 4-bit mode
+  PORTE_BIT4 = 0;           // EN low (setup)
+  PORTE_BIT4 = 1;           // EN high → LCD reads data on rising edge
+  PORTE_BIT4 = 0;           // EN low → LCD latches data on falling edge
+  for(z=0;z<=6666;z++);     // Wait for command to execute
 
-  outcmd(0x28);                // 4-bit 2 line setup
-  outcmd(0x08);                // turn display off
-  clear();
-  outcmd(0x06);                // entry mode set to increment DDRAM address
-  outcmd(0x0F);                // Turn display/cursor/blink on
+  outcmd(0x28);             // Function Set: 4-bit mode, 2 lines, 5x8 font
+  outcmd(0x08);             // Display OFF (clear display control bits)
+  clear();                  // Clear display + return cursor home
+  outcmd(0x06);             // Entry Mode: cursor moves right, no display shift
+  outcmd(0x0F);             // Display ON, cursor ON, blink ON
 }
 
+// ── outcmd: Send a command byte to LCD in 4-bit mode ──
+// SOURCE: CAN2_Trans_Template/Sources/main.c → outcmd()
 void outcmd(unsigned char command) {
-  // Since we are using the LCD in 4-bit mode, we have to send
-  // the data one nibble at a time and toggle the enable bit
-  // directly after a nibble has been sent to the LCD.
   unsigned int z;
-  PTS = 0xF0 & command;        // Send high nibble
-  PORTE_BIT4 = 0;
-  PORTE_BIT4 = 1;
-  PORTE_BIT4 = 0;
-  PTS = 0xF0 & (command<<4);   // Send low nibble
-  PORTE_BIT4 = 0;
-  PORTE_BIT4 = 1;
-  PORTE_BIT4 = 0;
-  for(z=0;z<=6666;z++);
+
+  PTS = 0xF0 & command;     // Mask upper nibble of command → PTS[7:4] → LCD DB4-7
+  PORTE_BIT4 = 0;           // EN low (setup)
+  PORTE_BIT4 = 1;           // EN high → LCD reads upper nibble
+  PORTE_BIT4 = 0;           // EN low → latch upper nibble
+
+  PTS = 0xF0 & (command<<4); // Shift lower nibble into upper position → PTS[7:4]
+  PORTE_BIT4 = 0;           // EN low
+  PORTE_BIT4 = 1;           // EN high → LCD reads lower nibble
+  PORTE_BIT4 = 0;           // EN low → latch lower nibble
+
+  for(z=0;z<=6666;z++);     // ~1ms delay for command execution time
+  // Note: RS (PORTE_BIT7) stays 0 from LCD_init → command mode
 }
 
+// ── clear: Clear display and return cursor home ──
+// SOURCE: CAN2_Trans_Template/Sources/main.c → clear()
 void clear(void) {
-  outcmd(0x01);
-  outcmd(0x02);
+  outcmd(0x01);             // HD44780 cmd 0x01: Clear entire display, cursor to home
+  outcmd(0x02);             // HD44780 cmd 0x02: Return cursor to home position (0,0)
 }
 
+// ── output_string: Write a null-terminated string to LCD ──
+// SOURCE: CAN2_Trans_Template/Sources/main.c → output_string()
 void output_string(char *op) {
   unsigned int x;
-  PORTE_BIT7 = 1;              // RS=1 for data
-  while(*op) {
-    PTS = 0xF0 & *op;
-    PORTE_BIT4 = 0;
+
+  PORTE_BIT7 = 1;           // RS = 1 → switch to DATA mode (characters, not commands)
+  while(*op) {              // Loop until null terminator
+    PTS = 0xF0 & *op;       // Upper nibble of ASCII char → PTS[7:4] → LCD DB4-7
+    PORTE_BIT4 = 0;         // EN pulse: low → high → low (latch upper nibble)
     PORTE_BIT4 = 1;
     PORTE_BIT4 = 0;
-    for(x=0;x<=4;x++);
-    PTS = 0xF0 & (*op<<4);
-    PORTE_BIT4 = 0;
+    for(x=0;x<=4;x++);      // Brief settling delay between nibbles
+
+    PTS = 0xF0 & (*op<<4);  // Lower nibble shifted up → PTS[7:4]
+    PORTE_BIT4 = 0;         // EN pulse (latch lower nibble)
     PORTE_BIT4 = 1;
     PORTE_BIT4 = 0;
-    for(x=0;x<=6666;x++);
-    *op ++;
+    for(x=0;x<=6666;x++);   // ~1ms delay — LCD needs time to process each character
+    *op ++;                  // Advance string pointer to next character
   }
-  PORTE_BIT7 = 0;
+  PORTE_BIT7 = 0;           // RS = 0 → back to command mode
 }
 
+// ── output: Write a single ASCII character with extra delay ──
+// SOURCE: CAN2_Trans_Template/Sources/main.c → output()
+// Used for digit-by-digit temperature display — extra delays
+// prevent display corruption when writing individual chars rapidly
 void output(unsigned char op) {
-  // Single ASCII character output with debounce delay
   unsigned int x;
-  PORTE_BIT7 = 1;
-  PTS = 0xF0 & op;
-  PORTE_BIT4 = 0;
+
+  PORTE_BIT7 = 1;           // RS = 1 → data mode
+  PTS = 0xF0 & op;          // Upper nibble → LCD
+  PORTE_BIT4 = 0;           // EN pulse
   PORTE_BIT4 = 1;
   PORTE_BIT4 = 0;
-  for(x=0;x<=4;x++);
-  PTS = 0xF0 & (op<<4);
-  PORTE_BIT4 = 0;
+  for(x=0;x<=4;x++);        // Inter-nibble settling
+
+  PTS = 0xF0 & (op<<4);     // Lower nibble → LCD
+  PORTE_BIT4 = 0;           // EN pulse
   PORTE_BIT4 = 1;
   PORTE_BIT4 = 0;
+  for(x=0;x<=6666;x++);     // Standard delay + 9 extra debounce loops:
+  for(x=0;x<=6666;x++);     // These extra delays (~10ms total) ensure
+  for(x=0;x<=6666;x++);     // the LCD has fully processed the character
+  for(x=0;x<=6666;x++);     // before the next output() call.
+  for(x=0;x<=6666;x++);     // Without these, rapid single-char writes
+  for(x=0;x<=6666;x++);     // (like the temperature digit extraction)
+  for(x=0;x<=6666;x++);     // would produce garbled display output.
   for(x=0;x<=6666;x++);
   for(x=0;x<=6666;x++);
   for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  for(x=0;x<=6666;x++);
-  PORTE_BIT7 = 0;
+
+  PORTE_BIT7 = 0;           // RS = 0 → back to command mode
 }`,
     wiring: [
       'EVALH1 LCD1 connector is pre-wired via H1 header to Adapt9S12D:',
@@ -448,64 +517,84 @@ void output(unsigned char op) {
       { name: 'PTS', address: '$0248', value: 'Read & 0xF0', purpose: 'Read upper nibble for key identification' },
       { name: 'DDRH', address: '$0262', value: '$FF', purpose: 'Debug LEDs to show which key was pressed' },
     ],
-    code: `// Keypad Module — Interrupt-Driven (Controller Board)
-// From: CAN2_Trans_Template/Sources/main.c → interrupt 6
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/main.c
+// Global variable declaration + main() DDR setup + interrupt 6
+//
+// How it works (from EVALH1 schematic — evalh1sch3.pdf):
+//   1. Keypad matrix plugs into EVALH1 connector J1
+//   2. 74C922 encoder chip (U2) continuously scans the matrix
+//   3. When a key is pressed & debounced, 74C922 outputs:
+//      - 4-bit binary key code on DOA→PS4, DOB→PS5, DOC→PS6, DOD→PS7
+//      - DA* (Data Available) signal → chains to IRQ* (PE1, H1 pin 46)
+//   4. IRQ* triggers interrupt vector 6 on the MC9S12
+//   5. ISR reads PTS & 0xF0 to get the 4-bit code from upper nibble
+// ═══════════════════════════════════════════════════════════
 
-unsigned char check;           // Global — stores key command (1–5)
+unsigned char check;          // Global variable — written by ISR, read by main()
+                              // Holds key command number (1–5) or 0 (no key)
 
-// In main() setup:
-DDRH = 0xFF;
-DDRS = 0x0F;                   // Upper nibble of Port S = input
-DDRE = 0x10;                   // Needed to properly enable the keypad
+// ── DDR setup in main() before EnableInterrupts ──
+// SOURCE: CAN2_Trans_Template/Sources/main.c → main(), lines before initCAN()
+DDRH = 0xFF;                  // Port H ($0262) all outputs → LED1 bargraph for debug
+DDRS = 0x0F;                  // Port S ($024A) = 0000 1111
+                              //   bits 0-3 OUTPUT (directly drive low nibble)
+                              //   bits 4-7 INPUT (read 74C922 DOA-DOD output)
+DDRE = 0x10;                  // Port E ($0009) = 0001 0000
+                              //   bit 4 OUTPUT (PE4 — needed to enable keypad circuit)
+                              //   Source comment: "This is needed to properly enable
+                              //   the Keypad, if students fail to do this, they may
+                              //   run into keypad issues."
 
-// ── Keypad ISR (IRQ Vector 6) ──
-// This interrupt routine translates the hex values sent from
-// the keypad (buttons 1-5) and stores them in a global variable
-// to be read and interpreted within the main program.
+// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/main.c → interrupt 6
+// IRQ* vector = vector number 6 in MC9S12DG128 interrupt table
+// Fires when 74C922 DA* asserts (key pressed and debounced)
+// ═══════════════════════════════════════════════════════════
 
 interrupt 6 void keypad (void) {
   unsigned char key;
 
-  DDRH = 0xFF;
-  DDRS = 0x0F;
-  DDRE = 0x10;
+  // Re-set DDRs inside ISR to ensure keypad-mode pin directions
+  // (LCD functions may have changed them to $FF for output)
+  DDRH = 0xFF;                // Port H outputs for debug LEDs
+  DDRS = 0x0F;                // Port S: lower nibble out, upper nibble INPUT
+  DDRE = 0x10;                // Port E bit 4 out
 
-  key = PTS & 0xF0;            // Read upper nibble
+  key = PTS & 0xF0;           // Read Port S ($0248), mask upper nibble
+                               // This reads the 4-bit code from 74C922:
+                               //   DOA=PS4(bit4), DOB=PS5(bit5),
+                               //   DOC=PS6(bit6), DOD=PS7(bit7)
 
   switch (key) {
-    case 0x00:
-      check = 1;               // Key 1: Driver fan speed
-      PTH = 0x01;
+    case 0x00:                 // 74C922 output = 0000 → keypad button 1
+      check = 1;               // Store command 1 (driver fan speed)
+      PTH = 0x01;              // LED1 bargraph shows 0x01 for debug
       break;
 
-    case 0x40:
-      check = 2;               // Key 2: Passenger fan speed
+    case 0x40:                 // 74C922 output = 0100 → keypad button 2
+      check = 2;               // Store command 2 (passenger fan speed)
       PTH = 0x02;
       break;
 
-    case 0x80:
-      check = 3;               // Key 3: Driver fan direction
+    case 0x80:                 // 74C922 output = 1000 → keypad button 3
+      check = 3;               // Store command 3 (driver fan direction)
       PTH = 0x03;
       break;
 
-    case 0x10:
-      check = 4;               // Key 4: Passenger fan direction
+    case 0x10:                 // 74C922 output = 0001 → keypad button 4
+      check = 4;               // Store command 4 (passenger fan direction)
       PTH = 0x04;
       break;
 
-    case 0x50:
-      check = 5;               // Key 5: Request temperature
+    case 0x50:                 // 74C922 output = 0101 → keypad button 5
+      check = 5;               // Store command 5 (request temperature)
       PTH = 0x05;
       break;
   }
-}
-
-// Key mapping:
-// PTS & 0xF0 = 0x00 → check=1 → transCAN(0xFF, 0x01) → Driver fan speed
-// PTS & 0xF0 = 0x40 → check=2 → transCAN(0xFF, 0x02) → Passenger fan speed
-// PTS & 0xF0 = 0x80 → check=3 → transCAN(0xFF, 0x03) → Driver fan direction
-// PTS & 0xF0 = 0x10 → check=4 → transCAN(0xFF, 0x04) → Passenger fan direction
-// PTS & 0xF0 = 0x50 → check=5 → transCAN(0xFF, 0x05) → Request temperature`,
+  // After ISR returns, main() loop detects check != 0
+  // and sends transCAN(0xFF, check) to the receiver board
+}`,
     wiring: [
       'Keypad plugs into EVALH1 connector J1 (up to 16 keys)',
       'EVALH1 has 74C922 hardware encoder (U2 socket) — scans matrix automatically',
@@ -553,79 +642,173 @@ interrupt 6 void keypad (void) {
       { name: 'CAN0TXIDR0', address: 'TX buf', value: '$FF', purpose: '8-bit identifier for transmitted frame' },
       { name: 'CAN0TXDLR', address: 'TX buf', value: '$01', purpose: 'Data length = 1 byte' },
     ],
-    code: `// CAN Bus Module — Shared by Both Boards
-// From: CAN2_Trans_Template/Sources/CAN_2.c (identical on both boards)
-// Header: CAN_2.h
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/CAN_2.c
+//    AND: CAN2_Rec_Template/Sources/CAN_2.c
+// Both files are IDENTICAL — same CAN module used on both boards.
+// Header: CAN2_*/Sources/CAN_2.h
+//
+// Hardware (from AD9S12DG128sch.pdf — MCU module schematic):
+//   PM0 (MCU pin 105) = RxCAN0 → PCA82C250 transceiver RXD
+//   PM1 (MCU pin 104) = TxCAN0 → PCA82C250 transceiver TXD
+//   PCA82C250 CANH/CANL → CAN bus twisted pair
+//   120Ω termination resistors on Adapt9S12D module (R14, R15)
+// ═══════════════════════════════════════════════════════════
 
 // ── CAN_2.h ──
-#include "derivative.h"
-void initCAN(void);
-void transCAN(unsigned char id, unsigned char k);
+#include "derivative.h"       // MC9S12DG128 register definitions & bitfield macros
+void initCAN(void);           // Initialize MSCAN0 module
+void transCAN(unsigned char id, unsigned char k);  // Transmit one byte
 
-// ── initCAN() ──
+// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/CAN_2.c → initCAN()
+// ═══════════════════════════════════════════════════════════
 void initCAN(void) {
-  CAN0CTL0_INITRQ = 1;           // Enters initialization mode
 
-  while (CAN0CTL1_INITAK == 0);  // Wait for acknowledgement
+  CAN0CTL0_INITRQ = 1;
+  // CAN0CTL0 at $0140 — Control Register 0
+  // INITRQ bitfield = bit 0 → request initialization mode
+  // CAN module must be in init mode to configure timing/filters
+
+  while (CAN0CTL1_INITAK == 0);
+  // CAN0CTL1 at $0141 — Control Register 1
+  // INITAK = bit 0 → acknowledgement that init mode is active
+  // MUST wait for this before writing config registers
 
   CAN0CTL1 = CAN0CTL1_CANE_MASK;
+  // Set CANE (CAN Enable) bit → activates the MSCAN module
+  // CANE_MASK is defined in derivative.h
+
   CAN0CTL1 = CAN0CTL1_CLKSRC_MASK;
-  CAN0CTL1_LISTEN = 0;           // Enables CAN, bus clock source
+  // Set CLKSRC bit → use bus clock (8MHz) as CAN clock source
+  // NOTE: This overwrites the previous CANE write. The derivative.h
+  // masks include CANE in CLKSRC_MASK, so CAN stays enabled.
 
-  CAN0BTR0 = 0x03;               // Prescaler=4, SJW default
-                                  // TQ = fCANCLOCK / PRESCALER = 2MHz
+  CAN0CTL1_LISTEN = 0;
+  // LISTEN = bit 4 → 0 = normal mode (not listen-only)
+  // Listen-only would receive but not send ACKs or transmit
 
-  CAN0BTR1 = 0x67;               // TSEG2=7, TSEG1=8
-                                  // One bit sampling selected
+  CAN0BTR0 = 0x03;
+  // CAN0BTR0 at $0142 — Bus Timing Register 0
+  // 0x03 = 0000 0011
+  // bits 7-6: SJW[1:0] = 00 → Synchronization Jump Width = 1 Tq
+  // bits 5-0: BRP[5:0] = 000011 = 3 → Prescaler value = 3+1 = 4
+  // Time Quantum (Tq) = bus_clk / prescaler = 8MHz / 4 = 2MHz
 
-  CAN0IDAC = 0x20;               // 8-bit acceptance filters
+  CAN0BTR1 = 0x67;
+  // CAN0BTR1 at $0143 — Bus Timing Register 1
+  // 0x67 = 0110 0111
+  // bit 7: SAMP = 0 → single sample per bit (not triple)
+  // bits 6-4: TSEG2[2:0] = 110 = 6 → Time Segment 2 = 6+1 = 7 Tq
+  // bits 3-0: TSEG1[3:0] = 0111 = 7 → Time Segment 1 = 7+1 = 8 Tq
+  // Total bit time = sync(1) + TSEG1(8) + TSEG2(7) = 16 Tq
+  // Bit rate = 2MHz / 16 = 125 kbps
 
-  CAN0IDAR0 = 0xFF;              // Acceptance identifiers — all 0xFF
-  CAN0IDAR1 = 0xFF;
-  CAN0IDAR2 = 0xFF;
-  CAN0IDAR3 = 0xFF;
-  CAN0IDAR4 = 0xFF;
-  CAN0IDAR5 = 0xFF;
-  CAN0IDAR6 = 0xFF;
-  CAN0IDAR7 = 0xFF;
+  CAN0IDAC = 0x20;
+  // CAN0IDAC at $014B — Identifier Acceptance Control Register
+  // 0x20 = 0010 0000
+  // bits 5-4: IDAM[1:0] = 10 → 8-bit acceptance filter mode
+  // (4 pairs of 8-bit filters vs 2 pairs of 16-bit or 1 pair of 32-bit)
 
-  CAN0IDMR0 = 0x00;              // Mask bits — all 0x00
-  CAN0IDMR1 = 0x00;              // 0 = must match acceptance register
-  CAN0IDMR2 = 0x00;              // 1 = don't care (masked)
+  // Acceptance ID registers — set ALL to 0xFF
+  // Bank 0: CAN0IDAR0-3 at $0150-$0153
+  CAN0IDAR0 = 0xFF;          // Filter 0/1 ID byte
+  CAN0IDAR1 = 0xFF;          // Filter 0/1 ID byte
+  CAN0IDAR2 = 0xFF;          // Filter 2/3 ID byte
+  CAN0IDAR3 = 0xFF;          // Filter 2/3 ID byte
+  // Bank 1: CAN0IDAR4-7 at $0158-$015B
+  CAN0IDAR4 = 0xFF;          // Filter 4/5 ID byte
+  CAN0IDAR5 = 0xFF;          // Filter 4/5 ID byte
+  CAN0IDAR6 = 0xFF;          // Filter 6/7 ID byte
+  CAN0IDAR7 = 0xFF;          // Filter 6/7 ID byte
+
+  // Acceptance MASK registers — set ALL to 0x00
+  // 0 = bit must match, 1 = don't care
+  // All 0x00 → EVERY bit must match the IDAR value (exact match: 0xFF)
+  // Bank 0: CAN0IDMR0-3 at $0154-$0157
+  CAN0IDMR0 = 0x00;          // Mask for filter 0/1
+  CAN0IDMR1 = 0x00;
+  CAN0IDMR2 = 0x00;          // Mask for filter 2/3
   CAN0IDMR3 = 0x00;
-  CAN0IDMR4 = 0x00;
+  // Bank 1: CAN0IDMR4-7 at $015C-$015F
+  CAN0IDMR4 = 0x00;          // Mask for filter 4/5
   CAN0IDMR5 = 0x00;
-  CAN0IDMR6 = 0x00;
+  CAN0IDMR6 = 0x00;          // Mask for filter 6/7
   CAN0IDMR7 = 0x00;
+  // Result: only accepts frames with ID byte = 0xFF
+  // Both boards use transCAN(0xFF, ...) so this matches
 
-  CAN0CTL0_INITRQ = 0;           // Exit initialization mode
+  CAN0CTL0_INITRQ = 0;
+  // Clear INITRQ → request exit from initialization mode
 
-  while (CAN0CTL1_INITAK == 1);  // Wait for normal mode
+  while (CAN0CTL1_INITAK == 1);
+  // Wait until INITAK clears → module is now in normal operating mode
 
-  CAN0RIER = CAN0RIER_RXFIE_MASK; // Enable reception interrupt
+  CAN0RIER = CAN0RIER_RXFIE_MASK;
+  // CAN0RIER at $0145 — Receiver Interrupt Enable Register
+  // RXFIE bit → enable interrupt when Receive Buffer Full flag sets
+  // This triggers interrupt vector 38 (CAN_isr) on message reception
 }
 
-// ── transCAN() ──
+// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/CAN_2.c → transCAN()
+// ═══════════════════════════════════════════════════════════
 void transCAN(unsigned char id, unsigned char k) {
-  while (CAN0TFLG == 0);         // Wait for empty TX buffer
 
-  CAN0TBSEL = CAN0TFLG;          // Select empty buffer
+  while (CAN0TFLG == 0);
+  // CAN0TFLG at $0146 — Transmit Buffer Flag Register
+  // Each bit represents one of 3 TX buffers (bits 2:0)
+  // 0 = buffer busy (message pending), 1 = buffer empty
+  // Wait until at least one buffer is empty
 
-  CAN0TXIDR0 = id;               // Set 8-bit identifier
-  CAN0TXIDR1 = 0x00;             // IDE=0, RTR=0 (standard data frame)
+  CAN0TBSEL = CAN0TFLG;
+  // CAN0TBSEL at $014A — Transmit Buffer Selection Register
+  // Writing TFLG value selects the lowest-numbered empty buffer
+  // for loading with new message data
 
-  CAN0TXDSR0 = k;                // Load data byte
+  CAN0TXIDR0 = id;
+  // TX Identifier Register 0 — loaded with 'id' parameter
+  // In this project: always 0xFF (both boards send with ID=0xFF)
+  // IDR0 contains bits [10:3] of the 11-bit standard ID
 
-  CAN0TXDLR = 0x01;              // Data length = 1 byte
+  CAN0TXIDR1 = 0x00;
+  // TX Identifier Register 1
+  // bits 7-5: ID[2:0] = 000 (lower 3 bits of standard ID)
+  // bit 4: RTR = 0 → data frame (not remote request)
+  // bit 3: IDE = 0 → standard frame (11-bit ID, not extended 29-bit)
 
-  CAN0TFLG = CAN0TBSEL;          // Clear buffer → start transmission
+  CAN0TXDSR0 = k;
+  // TX Data Segment Register 0 — the actual data byte
+  // Loaded with 'k' parameter (command echo or ATD0DR0L temp value)
+
+  CAN0TXDLR = 0x01;
+  // TX Data Length Register — set to 1 byte
+  // CAN supports 0-8 bytes; this project only uses 1
+
+  CAN0TFLG = CAN0TBSEL;
+  // Writing back the selected buffer clears its flag → starts transmission
+  // The MSCAN hardware handles arbitration, bit stuffing, CRC, and ACK
 }
 
-// ── CAN RX Interrupt (Vector 38) — on BOTH boards ──
+// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/main.c (controller board)
+//    AND: CAN2_Rec_Template/Sources/main.c (receiver board)
+// Both boards have identical CAN_isr — interrupt vector 38
+// ═══════════════════════════════════════════════════════════
 interrupt 38 void CAN_isr (void) {
-  CAN = CAN0RXDSR0;              // Gather received data
-  CAN0RFLG = CAN0RFLG_RXF_MASK; // Reset RXF flag for next reception
-  PTH = CAN;                     // Display on debug LEDs
+
+  CAN = CAN0RXDSR0;
+  // Read received data byte from RX Data Segment Register 0
+  // Store in global variable 'CAN' for main() to process
+
+  CAN0RFLG = CAN0RFLG_RXF_MASK;
+  // CAN0RFLG at $0144 — Receiver Flag Register
+  // Writing 1 to RXF bit clears the Receive Buffer Full flag
+  // This releases the RX buffer for the next incoming message
+
+  PTH = CAN;
+  // Display received byte on Port H ($0260) → LED1 bargraph
+  // Visual debug: you can see the command/data value on the LEDs
 }`,
     wiring: [
       'PM1 (TxCAN0) → PCA82C250 transceiver TXD on BOTH Adapt9S12D modules',
@@ -661,129 +844,147 @@ interrupt 38 void CAN_isr (void) {
       'Display temperature with digit extraction and Celsius conversion',
     ],
     registers: [],
-    code: `// Controller Board — Full Main Program
-// From: CAN2_Trans_Template/Sources/main.c (complete file)
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Trans_Template/Sources/main.c (COMPLETE FILE)
+// This is the controller board — has keypad + LCD + CAN TX/RX
+// Flow: keypad IRQ → CAN transmit → wait CAN response → LCD
+// ═══════════════════════════════════════════════════════════
 
-#include <hidef.h>
-#include "derivative.h"
-#include "CAN_2.h"
+#include <hidef.h>              // Freescale common defines/macros
+#include "derivative.h"         // MC9S12DG128 register definitions
+#include "CAN_2.h"              // initCAN() and transCAN() prototypes
 
+// Forward declarations for LCD functions (defined later in same file)
 void outcmd(unsigned char command);
 void clear (void);
 void output(unsigned char op);
 void output_string(char *op);
 void LCD_init (void);
 
-unsigned char check;            // Key command from IRQ (1–5)
-unsigned char CAN;              // Data received from CAN ISR
+unsigned char check;            // Written by keypad ISR (interrupt 6)
+                                // Read by main() — holds command 1–5 or 0
+unsigned char CAN;              // Written by CAN ISR (interrupt 38)
+                                // Read by main() — holds response byte
 
 void main(void) {
-  unsigned char temp;
+  unsigned char temp;           // Local var for temperature digit extraction
 
-  DDRH = 0xFF;
-  DDRS = 0x0F;                  // Upper nibble input for keypad
-  DDRE = 0x10;                  // Needed for keypad enable
+  DDRH = 0xFF;                  // Port H all outputs → LED1 bargraph debug
+  DDRS = 0x0F;                  // Port S: lower nibble out, upper nibble IN
+                                // → reads 74C922 keypad encoder DOA-DOD on PS4-PS7
+  DDRE = 0x10;                  // Port E bit 4 out → enables keypad circuit
 
-  initCAN();
-  LCD_init();
-  EnableInterrupts;
+  initCAN();                    // Initialize MSCAN0 (from CAN_2.c — see Phase 5)
+  LCD_init();                   // Initialize HD44780 LCD (see Phase 3)
+  EnableInterrupts;             // Global interrupt enable — activates IRQ + CAN ISRs
 
   while(1) {
-    while(check == 0)           // Wait for keypad interrupt
-    {}
 
+    // ── STEP 1: Wait for keypad press ──
+    while(check == 0)           // Spin until keypad ISR sets check to 1–5
+    {}                          // (check is set by interrupt 6 void keypad())
+
+    // ── STEP 2: Transmit command to receiver board via CAN ──
     switch (check) {
-      case 1:
-        transCAN(0xFF,0x01);    // Driver fan speed
+      case 1:                   // Key 1 pressed → driver fan speed
+        transCAN(0xFF, 0x01);   // Send ID=0xFF, data=0x01 to receiver
+        check = 0;              // Reset so we wait for next keypress
+        break;
+      case 2:                   // Key 2 → passenger fan speed
+        transCAN(0xFF, 0x02);
         check = 0;
         break;
-      case 2:
-        transCAN(0xFF,0x02);    // Passenger fan speed
+      case 3:                   // Key 3 → driver fan direction
+        transCAN(0xFF, 0x03);
         check = 0;
         break;
-      case 3:
-        transCAN(0xFF,0x03);    // Driver fan direction
+      case 4:                   // Key 4 → passenger fan direction
+        transCAN(0xFF, 0x04);
         check = 0;
         break;
-      case 4:
-        transCAN(0xFF,0x04);    // Passenger fan direction
-        check = 0;
-        break;
-      case 5:
-        transCAN(0xFF,0x05);    // Request temperature
+      case 5:                   // Key 5 → request temperature reading
+        transCAN(0xFF, 0x05);
         check = 0;
         break;
     }
 
-    while(CAN == 0)             // Wait for CAN response
-    {}
+    // ── STEP 3: Wait for CAN response from receiver ──
+    while(CAN == 0)             // Spin until CAN ISR receives a response
+    {}                          // (CAN is set by interrupt 38 void CAN_isr())
 
+    // ── STEP 4: Display result on LCD ──
+    // CRITICAL: Must switch DDRS/DDRE to output mode before LCD writes!
+    // Keypad ISR sets DDRS=0x0F (input on upper nibble),
+    // but LCD needs DDRS=0xFF (output on all bits)
     switch(CAN) {
-      // Each case must switch DDR to LCD mode before writing
-      case 0x01:
-        DDRS = 0xFF;
-        DDRE = 0xFF;
-        clear();
-        output_string("Driver fan");
-        outcmd (0xC0);          // Move to line 2
-        output_string("speed");
-        CAN = 0;
+
+      case 0x01:                // Receiver echoed 0x01 → driver fan speed confirmed
+        DDRS = 0xFF;            // Switch Port S to all outputs for LCD
+        DDRE = 0xFF;            // Switch Port E to all outputs for LCD EN/RS
+        clear();                // Clear LCD display
+        output_string("Driver fan");  // Line 1: "Driver fan"
+        outcmd(0xC0);           // HD44780 cmd: move cursor to line 2, position 0
+        output_string("speed");       // Line 2: "speed"
+        CAN = 0;                // Reset for next response
         break;
 
-      case 0x02:
-        DDRS = 0xFF;
-        DDRE = 0xFF;
+      case 0x02:                // Receiver echoed 0x02 → passenger fan speed
+        DDRS = 0xFF;  DDRE = 0xFF;
         clear();
         output_string("Passenger fan");
-        outcmd (0xC0);
+        outcmd(0xC0);
         output_string("speed");
         CAN = 0;
         break;
 
-      case 0x03:
-        DDRS = 0xFF;
-        DDRE = 0xFF;
+      case 0x03:                // Receiver echoed 0x03 → driver fan direction
+        DDRS = 0xFF;  DDRE = 0xFF;
         clear();
         output_string("Driver fan");
-        outcmd (0xC0);
+        outcmd(0xC0);
         output_string("direction");
         CAN = 0;
         break;
 
-      case 0x04:
-        DDRS = 0xFF;
-        DDRE = 0xFF;
+      case 0x04:                // Receiver echoed 0x04 → passenger fan direction
+        DDRS = 0xFF;  DDRE = 0xFF;
         clear();
         output_string("Passenger fan");
-        outcmd (0xC0);
+        outcmd(0xC0);
         output_string("direction");
         CAN = 0;
         break;
 
       default:
-        // Temperature reading — extract digits
-        temp = CAN;
-        DDRS = 0xFF;
-        DDRE = 0xFF;
-        outcmd (0xC0);
-        output_string ("Temp: ");
-        temp = temp - 23;       // Offset calibration
+        // Any other value = temperature response from cmd 0x05
+        // Receiver sent raw ATD0DR0L value (0–255)
+        temp = CAN;             // Capture value before CAN gets overwritten
+        DDRS = 0xFF;  DDRE = 0xFF;   // Switch to LCD output mode
+        outcmd(0xC0);           // Move cursor to LCD line 2
+        output_string("Temp: ");
 
-        // Extract tens digit
+        temp = temp - 23;       // Offset calibration: raw ADC → approximate °C
+                                // (EVALH1 temp sensor U3 on AN07 outputs
+                                //  ~19.5mV/°C; 23 is a calibration offset)
+
+        // ── Tens digit extraction ──
+        // These while loops find the tens digit by range-checking
+        // and subtracting, leaving the units digit in temp
         while (temp >= 10 && temp <= 19) {
-          output ('1');
-          temp = temp - 10;
+          output('1');          // Display '1' as tens digit
+          temp = temp - 10;     // Remove tens → leaves units
         }
         while (temp >= 20 && temp <= 29) {
-          output ('2');
+          output('2');
           temp = temp - 20;
         }
         while (temp >= 30 && temp <= 39) {
-          output ('3');
+          output('3');
           temp = temp - 30;
         }
 
-        // Units digit via switch
+        // ── Units digit via switch ──
+        // After tens extraction, temp holds 0–9
         switch (temp) {
           case 0: output('0'); break;
           case 1: output('1'); break;
@@ -796,37 +997,40 @@ void main(void) {
           case 8: output('8'); break;
           case 9: output('9'); break;
         }
-        output ('C');           // Celsius
+        output('C');            // Append 'C' for Celsius
         break;
     }
+    // Loop back → wait for next keypad press
   }
 }
 
-// ── CAN RX ISR ──
+// ═══════════════════════════════════════════════════════════
+// ISRs — both in CAN2_Trans_Template/Sources/main.c
+// ═══════════════════════════════════════════════════════════
+
+// CAN receive ISR — see Phase 5 for detailed line-by-line
 interrupt 38 void CAN_isr (void) {
-  CAN = CAN0RXDSR0;
-  CAN0RFLG = CAN0RFLG_RXF_MASK;
-  PTH = CAN;
+  CAN = CAN0RXDSR0;              // Read received data byte
+  CAN0RFLG = CAN0RFLG_RXF_MASK; // Clear RX flag for next message
+  PTH = CAN;                     // Debug: show on LED1 bargraph
 }
 
-// ── Keypad ISR ──
+// Keypad ISR — see Phase 4 for detailed line-by-line
 interrupt 6 void keypad (void) {
   unsigned char key;
-  DDRH = 0xFF;
-  DDRS = 0x0F;
-  DDRE = 0x10;
-  key = PTS & 0xF0;
+  DDRH = 0xFF;  DDRS = 0x0F;  DDRE = 0x10;  // Reset DDRs to keypad mode
+  key = PTS & 0xF0;              // Read 74C922 output from PS4-PS7
   switch (key) {
-    case 0x00: check = 1; PTH = 0x01; break;
-    case 0x40: check = 2; PTH = 0x02; break;
-    case 0x80: check = 3; PTH = 0x03; break;
-    case 0x10: check = 4; PTH = 0x04; break;
-    case 0x50: check = 5; PTH = 0x05; break;
+    case 0x00: check = 1; PTH = 0x01; break;  // Button 1
+    case 0x40: check = 2; PTH = 0x02; break;  // Button 2
+    case 0x80: check = 3; PTH = 0x03; break;  // Button 3
+    case 0x10: check = 4; PTH = 0x04; break;  // Button 4
+    case 0x50: check = 5; PTH = 0x05; break;  // Button 5
   }
 }
 
-// LCD functions: LCD_init(), outcmd(), clear(),
-// output_string(), output() — see Phase 3 for full code`,
+// LCD functions: LCD_init(), outcmd(), clear(), output_string(), output()
+// Full source with line-by-line comments → see Phase 3`,
     wiring: [
       'LCD: PS4–PS7 → DB4–DB7, PE4 → EN, PE7 → RS (all via EVALH1 LCD1 connector)',
       'Keypad: J1 connector → 74C922 (U2) → DOA-DOD on PS4–PS7, DA* → IRQ* (shared with LCD!)',
@@ -860,148 +1064,187 @@ interrupt 6 void keypad (void) {
       'Control motor direction with PTP5/PTP6 stepper logic',
     ],
     registers: [],
-    code: `// Receiver Board — Full Main Program
-// From: CAN2_Rec_Template/Sources/main.c (complete file)
+    code: `// ═══════════════════════════════════════════════════════════
+// SOURCE: CAN2_Rec_Template/Sources/main.c (COMPLETE FILE)
+// This is the receiver board — has ADC + PWM + motor + CAN RX
+// Flow: CAN ISR receives command → switch handler → execute → echo back
+// ═══════════════════════════════════════════════════════════
 
-#include <hidef.h>
-#include "derivative.h"
-#include "CAN_2.h"
+#include <hidef.h>              // Freescale common defines/macros
+#include "derivative.h"         // MC9S12DG128 register definitions
+#include "CAN_2.h"              // initCAN() and transCAN() prototypes
 
-void ADC_Init (void);
-unsigned char CAN;              // Data from CAN RX interrupt
-void PWM_Init (void);
+void ADC_Init (void);           // Forward declaration (defined at bottom)
+unsigned char CAN;              // Written by CAN ISR (interrupt 38)
+                                // Read by main() — holds command byte (0x01–0x05)
+void PWM_Init (void);           // Forward declaration (defined at bottom)
 
 void main(void) {
-  unsigned int x;
-  unsigned int z;
+  unsigned int x;               // Motor position counter — tracks stepper position
+  unsigned int z;               // Loop variable for pulse delay timing
 
-  ADC_Init();                   // ADC for potentiometer
-  PWM_Init();
+  ADC_Init();                   // Configure ATD: AN5, continuous, 8-bit (see Phase 1)
+  PWM_Init();                   // Configure PWM Ch4: PP4, period 250 (see Phase 2)
 
-  EnableInterrupts;
+  EnableInterrupts;             // Global interrupt enable — activates CAN RX ISR
+                                // Source comment: "I have a feeling that this line may
+                                // be an issue many students will have. When misplaced,
+                                // their interrupts will not work."
 
-  DDRH = 0xFF;                  // Debug LEDs
-  PERT = 0xFF;
-  DDRT = 0x00;
-  DDRP = 0xFF;                  // Port P for motor control
+  DDRH = 0xFF;                  // Port H ($0262) all outputs → LED1 bargraph debug
+  PERT = 0xFF;                  // Port T ($0246) pull-up enable → all pull-ups active
+  DDRT = 0x00;                  // Port T ($0242) all inputs (timer/DIP switch on EVALH1)
+  DDRP = 0xFF;                  // Port P ($025A) all outputs → PWM + L293D motor control
+                                //   PP4 = MENA1 (Motor A enable/PWM)
+                                //   PP3 = MDIRA1 (Motor A direction)
+                                //   PP5 = MDIRB1 (Motor B direction)
+                                //   PP6 = MENB1 (Motor B enable pulse)
+                                //   PP7 = PWM Ch7 (repurposed from speaker)
 
-  initCAN();
+  initCAN();                    // Initialize MSCAN0 (from CAN_2.c — see Phase 5)
 
-  // ── First while(1): Motor position tracking loop ──
+  // ═══════════════════════════════════════════════════════════
+  // FIRST while(1): Standalone motor position tracking loop
+  // This loop runs forever — it continuously tracks the pot position
+  // and steps the motor to match. The second while(1) below is
+  // UNREACHABLE in this code as-is.
+  // (Students may comment out one loop or the other for testing)
+  // ═══════════════════════════════════════════════════════════
   while (1) {
-    PTH = ATD0DR0L;
+    PTH = ATD0DR0L;             // Display current ADC reading on LED1 bargraph
 
-    if(x <= ATD0DR0L) {
-      PTP_PTP5 = 1;             // Forward direction
-      PTP_PTP6 = 1;
-      for(z=0; z<=20; z++);
-      PTP_PTP6 = 0;
-      x++;
-    } else {
-      PTP_PTP5 = 0;             // Reverse direction
-      PTP_PTP6 = 1;
-      for(z=0; z<=20; z++);
-      PTP_PTP6 = 0;
-      x--;
+    if(x <= ATD0DR0L) {         // If position counter <= pot target
+      PTP_PTP5 = 1;             // PP5 = MDIRB1 → forward direction on L293D
+      PTP_PTP6 = 1;             // PP6 = MENB1 → enable HIGH (motor energized)
+      for(z=0; z<=20; z++);     // Brief pulse delay (~20 iterations)
+      PTP_PTP6 = 0;             // MENB1 LOW → motor steps one increment
+      x++;                      // Increment position tracker
+    } else {                    // Position counter > pot target
+      PTP_PTP5 = 0;             // MDIRB1 → reverse direction
+      PTP_PTP6 = 1;             // MENB1 HIGH
+      for(z=0; z<=20; z++);     // Pulse delay
+      PTP_PTP6 = 0;             // MENB1 LOW → motor steps backward
+      x--;                      // Decrement position tracker
     }
   }
 
-  // ── Second while(1): CAN command handler ──
+  // ═══════════════════════════════════════════════════════════
+  // SECOND while(1): CAN command handler
+  // Waits for commands from controller board and executes them.
+  // NOTE: This code is unreachable due to first while(1) above.
+  // To use this handler, comment out the first while(1) block.
+  // ═══════════════════════════════════════════════════════════
   while (1) {
-    PTH = ATD0DR0L;
+    PTH = ATD0DR0L;             // Continuously show ADC on LEDs
 
-    while(CAN == 0)             // Wait for CAN command
+    while(CAN == 0)             // Spin until CAN ISR receives a command
     {}
 
     switch(CAN) {
-      case 0x01:                // Driver fan speed
-        PWME_PWME4 = 1;
-        PWMPOL_PPOL4 = 1;
+
+      case 0x01:                // Command: Driver fan speed
+        // Enable both PWM channels with duty = pot reading
+        PWME_PWME4 = 1;        // Enable PWM Ch4 (PP4 → L293D MENA1)
+        PWMPOL_PPOL4 = 1;      // Start-high polarity
         PWMPRCLK = PWMPRCLK_PCKB1_MASK|PWMPRCLK_PCKB2_MASK;
-        PWMPER4 = 0xFA;
-        PWMDTY4 = ATD0DR0L;
-        PTH = ATD0DR0L;
-        PWME_PWME7 = 1;
-        PWMPOL_PPOL7 = 1;
+                                // Clock B prescaler (same as PWM_Init)
+        PWMPER4 = 0xFA;        // Period = 250 ($00B8)
+        PWMDTY4 = ATD0DR0L;    // Duty = ADC reading from pot ($00C0)
+        PTH = ATD0DR0L;        // Debug: show duty on LEDs
+
+        PWME_PWME7 = 1;        // Enable PWM Ch7 (PP7)
+        PWMPOL_PPOL7 = 1;      // Start-high polarity
         PWMPRCLK = PWMPRCLK_PCKB1_MASK|PWMPRCLK_PCKB2_MASK;
-        PWMPER7 = 0xFA;
-        PWMDTY7 = ATD0DR0L;
+        PWMPER7 = 0xFA;        // Period = 250 ($00BB)
+        PWMDTY7 = ATD0DR0L;    // Duty = same ADC reading ($00C3)
         PTH = ATD0DR0L;
-        PTP_PTP4=1;
-        transCAN(0xFF,0x01);    // Echo back to controller
-        CAN=0;
+
+        PTP_PTP4 = 1;          // Set PP4 HIGH (direct GPIO alongside PWM)
+        transCAN(0xFF, 0x01);   // Echo 0x01 back → controller shows "Driver fan / speed"
+        CAN = 0;               // Reset for next command
         break;
 
-      case 0x02:                // Passenger fan speed
-        PWME_PWME4 = 1;
-        PWMPOL_PPOL4 = 1;
+      case 0x02:                // Command: Passenger fan speed
+        // Same PWM setup as cmd 0x01
+        PWME_PWME4 = 1;  PWMPOL_PPOL4 = 1;
         PWMPRCLK = PWMPRCLK_PCKB1_MASK|PWMPRCLK_PCKB2_MASK;
-        PWMPER4 = 0xFA;
-        PWMDTY4 = ATD0DR0L;
-        PTH = ATD0DR0L;
-        PWME_PWME7 = 1;
-        PWMPOL_PPOL7 = 1;
+        PWMPER4 = 0xFA;  PWMDTY4 = ATD0DR0L;  PTH = ATD0DR0L;
+        PWME_PWME7 = 1;  PWMPOL_PPOL7 = 1;
         PWMPRCLK = PWMPRCLK_PCKB1_MASK|PWMPRCLK_PCKB2_MASK;
-        PWMPER7 = 0xFA;
-        PWMDTY7 = ATD0DR0L;
-        PTH = ATD0DR0L;
-        PTP_PTP3=0;
-        transCAN(0xFF,0x02);
-        CAN=0;
+        PWMPER7 = 0xFA;  PWMDTY7 = ATD0DR0L;  PTH = ATD0DR0L;
+
+        PTP_PTP3 = 0;          // PP3 = MDIRA1 → set Motor A direction LOW
+        transCAN(0xFF, 0x02);   // Echo 0x02 → "Passenger fan / speed"
+        CAN = 0;
         break;
 
-      case 0x03:                // Driver fan direction
-        transCAN(0xFF,0x03);
-        CAN=0;
+      case 0x03:                // Command: Driver fan direction
+        // Source has commented-out motor stepping code here
+        // Currently just echoes back without motor action
+        transCAN(0xFF, 0x03);   // Echo 0x03 → "Driver fan / direction"
+        CAN = 0;
         break;
 
-      case 0x04:                // Passenger fan direction
-        if(x < ATD0DR0L) {
-          PTP_PTP5 = 1;
-          PTP_PTP6 = 1;
-          for(z=0; z<20; z++);
-          PTP_PTP6 = 0;
-          x++;
-        } else {
-          PTP_PTP5 = 0;
-          PTP_PTP6 = 1;
+      case 0x04:                // Command: Passenger fan direction
+        // Step motor toward pot target using L293D H-bridge
+        if(x < ATD0DR0L) {     // Position < target
+          PTP_PTP5 = 1;        // MDIRB1 → forward
+          PTP_PTP6 = 1;        // MENB1 → enable HIGH
+          for(z=0; z<20; z++); // Pulse delay
+          PTP_PTP6 = 0;        // MENB1 LOW → step
+          x++;                 // Track position
+        } else {               // Position >= target
+          PTP_PTP5 = 0;        // MDIRB1 → reverse
+          PTP_PTP6 = 1;        // MENB1 HIGH
           for(z=0; z<=20; z++);
-          PTP_PTP6 = 0;
+          PTP_PTP6 = 0;        // Step
           x--;
         }
-        transCAN(0xFF,0x04);
-        CAN=0;
+        transCAN(0xFF, 0x04);   // Echo 0x04 → "Passenger fan / direction"
+        CAN = 0;
         break;
 
-      case 0x05:                // Temperature request
-        transCAN(0xFF,ATD0DR0L); // Send raw ADC value
-        CAN=0;
+      case 0x05:                // Command: Request temperature
+        transCAN(0xFF, ATD0DR0L);
+        // Send raw ADC value (0–255) back to controller
+        // Controller's default case will display it as "Temp: XXC"
+        // after subtracting offset of 23
+        CAN = 0;
         break;
     }
   }
 }
 
-// ── CAN RX ISR ──
+// ═══════════════════════════════════════════════════════════
+// ISR — in CAN2_Rec_Template/Sources/main.c
+// Identical to controller board version (see Phase 5)
+// ═══════════════════════════════════════════════════════════
 interrupt 38 void CAN_isr (void) {
-  CAN = CAN0RXDSR0;
-  CAN0RFLG = CAN0RFLG_RXF_MASK;
-  PTH = CAN;
+  CAN = CAN0RXDSR0;              // Read command byte from controller
+  CAN0RFLG = CAN0RFLG_RXF_MASK; // Clear RX flag
+  PTH = CAN;                     // Debug: show on LED1 bargraph
 }
 
-// ── ADC_Init — see Phase 1 for full annotated version ──
+// ═══════════════════════════════════════════════════════════
+// ADC_Init — full annotated version in Phase 1
+// SOURCE: CAN2_Rec_Template/Sources/main.c → ADC_Init()
+// ═══════════════════════════════════════════════════════════
 void ADC_Init (void) {
-  ATD0CTL2 = 0x80;              // Power on ATD
-  ATD0CTL3 = 0x20;              // 4 conversions
-  ATD0CTL4 = 0x85;              // 10-bit, prescaler 5
-  ATD0CTL5 = 0xA5;              // AN5, right-justified, continuous, multi-ch
+  ATD0CTL2 = 0x80;   // $0082: Power on ATD (ADPU=1)
+  ATD0CTL3 = 0x20;   // $0083: 4 conversions per sequence (S4C=1)
+  ATD0CTL4 = 0x85;   // $0084: 8-bit resolution, prescaler ÷12
+  ATD0CTL5 = 0xA5;   // $0085: AN5, right-justified, continuous, starts conversion
 }
 
-// ── PWM_Init — see Phase 2 for full annotated version ──
+// ═══════════════════════════════════════════════════════════
+// PWM_Init — full annotated version in Phase 2
+// SOURCE: CAN2_Rec_Template/Sources/main.c → PWM_Init()
+// ═══════════════════════════════════════════════════════════
 void PWM_Init (void) {
-  PWME_PWME4 = 0x10;
-  PWMPOL_PPOL4 = 0x10;
-  PWMPRCLK = 0x06|0x04;
-  PWMPER4 = 0xFA;
+  PWME_PWME4 = 0x10;   // $00A0 bit 4: Enable PWM Ch4 on PP4
+  PWMPOL_PPOL4 = 0x10; // $00A1 bit 4: Start-high polarity
+  PWMPRCLK = 0x06|0x04; // $00A3: Clock B prescaler ÷64
+  PWMPER4 = 0xFA;       // $00B8: Period = 250 counts
 }`,
     wiring: [
       'EVALH1 POT1 already wired to AN5 (PAD05) — no external wiring needed',
