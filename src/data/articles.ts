@@ -11,6 +11,111 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "the-head-of-a-marketer-engineer-and-app-developer",
+    title: "The Head of a Marketer, Engineer, and App Developer",
+    excerpt:
+      "I\u2019m not great at all three. I\u2019m a marketer who studied engineering and fumbled his way into building software. But having all three perspectives in one head \u2014 even imperfectly \u2014 changed how I think about everything. Here\u2019s why being willing to be bad at something might be the most underrated skill a founder can have.",
+    content: `
+I need to get something out of the way before this article goes any further.
+
+I am not a good developer.
+
+I\u2019m serious. A real developer would look at my code and wince. My folder structures are questionable. I Google things that probably should be obvious. I\u2019ve spent entire nights debugging problems that turned out to be a missing comma. I am not writing this article from the perspective of someone who\u2019s mastered three disciplines. I\u2019m writing it from the perspective of someone who\u2019s mediocre at two of them and pretty good at one.
+
+But here\u2019s the thing I\u2019ve learned \u2014 and this is really the only point of this entire article: **you don\u2019t need to be great at everything. You just need to be willing to be bad at the things you\u2019re not great at.**
+
+That willingness changed everything for me. And I think it might be the most underrated skill a founder can develop.
+
+## The Three Heads
+
+Here\u2019s how my brain works on any given day.
+
+**The marketer** is the one I trust. I\u2019ve been [doing this since I was 10](/articles/ive-been-in-marketing-since-i-was-10), even before I had the vocabulary for it. This is where my instincts live. Who\u2019s the audience? What do they care about? What\u2019s the first thing they\u2019ll see, and will it make them stay or leave? The marketer is always asking: *does this land?*
+
+**The engineer** is the one I was trained in. I study Automotive Engineering at McMaster. It didn\u2019t teach me to code, but it taught me something more foundational: [how to think in systems](/articles/from-engineering-to-marketing-why-systems-thinking-matters). Inputs, outputs, dependencies, feedback loops. The engineer is always asking: *does this hold?*
+
+**The developer** is the one I\u2019m still figuring out. I [taught myself to build software](/articles/the-brain-of-a-marketer-who-built-an-app) because the problem demanded it, not because I had any natural ability. The developer asks the simplest question: *does this ship?*
+
+Three voices. One of them confident, one of them trained, one of them faking it half the time. And somehow, that combination works better than I expected.
+
+## Why \u201cBad At It\u201d Still Matters
+
+Let me tell you a story that explains this.
+
+When I was building [Vantage](https://olunix.com), there was a moment where I needed the results from Module 2 to carry into Module 4. The marketer brain knew exactly why this mattered \u2014 if a founder defines their audience in one step and then the competitive analysis doesn\u2019t reference that audience, the whole experience feels disconnected. The engineering brain understood it as a data flow problem \u2014 state needs to persist across modules.
+
+But the developer brain? The developer brain had no idea how to actually do that.
+
+So I fumbled through it. I tried three approaches that didn\u2019t work. I read documentation I barely understood. I asked for help. I wrote ugly code that eventually did what it needed to do. A real developer would have solved it in an hour. It took me most of a weekend.
+
+But here\u2019s what a real developer probably wouldn\u2019t have done: they wouldn\u2019t have known *why* the data needed to flow that way. They wouldn\u2019t have felt, in their gut, that a disconnected experience would make a founder feel like the tool didn\u2019t understand them. They would have built a technically cleaner solution to a problem they didn\u2019t fully feel.
+
+> The worst version of something built by someone who understands the problem deeply is often better than the best version built by someone who doesn\u2019t.
+
+That\u2019s not me defending bad code. My code is sometimes bad and I\u2019m working on it. But it\u2019s me saying that understanding the problem is the part that matters most, and the execution catches up over time.
+
+## The Real Advantage Isn\u2019t Talent. It\u2019s Translation.
+
+When I started Olunix, I had a specific vision for how the [positioning roaster](/roast) should work. Not just what it should do \u2014 how it should feel. I wanted a founder to paste their URL, get a score and a brutally honest roast, and have the result be something they\u2019d actually screenshot and send to their co-founder.
+
+If I\u2019d hired a developer to build that, I would have written a spec. The spec would have described the scoring, the output format, the share flow. And the developer would have built exactly what I described. But they wouldn\u2019t have known that the roast line needs to sting just enough to be funny but not so much that it feels mean. They wouldn\u2019t have known that the score breakdown needs to be visual enough to screenshot. They wouldn\u2019t have known that the fix suggestions need to be specific enough that a founder could actually rewrite their headline in five minutes.
+
+Those aren\u2019t technical requirements. They\u2019re marketing instincts that need to be expressed in code. And the only way to express them in code is to write the code yourself \u2014 even if you write it badly.
+
+**The real advantage of having multiple perspectives in one head isn\u2019t that you\u2019re good at everything. It\u2019s that you don\u2019t need a translator.** The gap between what you mean and what gets built shrinks to zero, because you\u2019re the one building it. The trade-off is that the build quality is lower than a specialist\u2019s. But the intent fidelity is higher. And for early-stage products, intent fidelity matters more.
+
+## What I Actually Think About All Day
+
+People ask what my day looks like. Here\u2019s the honest version.
+
+I wake up thinking about marketing. What\u2019s the next article about? What\u2019s the positioning angle for the thing we\u2019re launching next? Is the homepage copy still working or has it gone stale?
+
+By mid-morning I\u2019m in code. Fixing something that broke. Adding a feature. Staring at an error message I don\u2019t understand, pasting it into a search bar, reading three Stack Overflow answers, understanding one of them, and trying it. Sometimes it works. Sometimes I break something else.
+
+By afternoon the engineer brain kicks in. I step back from the code and the copy and ask: does any of this connect? Is the system coherent? If a founder starts with the audit and works through to the playbook, does the experience feel like one continuous thing, or does it feel like seven disconnected tools duct-taped together?
+
+And then at night I\u2019m back to marketing. Writing. Planning. Thinking about the next move.
+
+None of this is graceful. There\u2019s no smooth handoff between modes. Some days the marketer brain refuses to turn off and I can\u2019t focus on code. Some days I\u2019m deep in a technical problem and the marketing falls behind. Some days I feel like I\u2019m bad at all three simultaneously.
+
+But here\u2019s the thing \u2014 **bad at all three is still more useful than great at one when you\u2019re building alone.**
+
+## The Lesson Nobody Taught Me
+
+School doesn\u2019t prepare you for this. Engineering school taught me to solve defined problems with defined tools. Marketing taught itself to me over years of doing it. And software development? I learned that the way everyone learns things they weren\u2019t supposed to learn \u2014 by needing to, and refusing to let the gap in my ability be the reason the thing didn\u2019t get built.
+
+If there\u2019s a takeaway here, especially for other founders who are [building something as a student](/articles/building-a-business-in-toronto-as-a-student) or doing it solo or doing it with no budget, it\u2019s this:
+
+**You don\u2019t need permission to be bad at the thing your project needs.**
+
+Your startup needs a website and you\u2019re not a designer? Design it anyway. It\u2019ll be ugly. That\u2019s fine. Your product needs code and you\u2019re not a developer? Write it anyway. It\u2019ll be messy. That\u2019s fine. Your launch needs marketing and you\u2019re not a marketer? Market it anyway. It\u2019ll be awkward. That\u2019s fine.
+
+The gap between zero and one isn\u2019t talent. [I\u2019ve written about this before.](/articles/the-brain-of-a-marketer-who-built-an-app) It\u2019s the willingness to be bad at something important for long enough that you start getting less bad. That\u2019s the whole secret.
+
+## What I\u2019d Do Differently
+
+If I\u2019m being honest, I\u2019d tell my past self to worry less about which hat he\u2019s wearing and more about whether the thing he\u2019s building actually helps someone.
+
+I spent too long early on trying to figure out my identity. Am I a marketer who codes? An engineer who does marketing? A founder? A consultant? A developer? What\u2019s my title? What\u2019s my lane?
+
+The answer, it turns out, is that the lane doesn\u2019t matter. The problem matters. And if the problem requires you to think like a marketer in the morning, an engineer in the afternoon, and a developer at night \u2014 then that\u2019s what you do. You don\u2019t need a title for it. You don\u2019t need to be great at all of it. You just need to care enough about the problem to keep showing up, even in the modes where you feel like a fraud.
+
+I still feel like a fraud when I\u2019m writing code. Probably always will. But the thing got built. And it works. And founders use it. And that matters more than whether the code is pretty.
+
+> Care about the problem more than your identity. The skills follow the obsession.
+
+If you\u2019re juggling multiple hats right now and feeling like you\u2019re not good enough at any of them \u2014 that\u2019s not a sign that you\u2019re failing. That\u2019s a sign that you\u2019re building something real. The people who feel comfortable are the ones who stayed in their lane. The ones who feel stretched are the ones who are actually growing.
+
+Keep going. Get less bad. Ship the thing.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-16",
+    updatedAt: "2026-03-16",
+    readingTime: "9 min read",
+    tags: ["Personal", "Engineering", "Marketing", "Building"],
+  },
+  {
     slug: "olunix-vantage-is-live",
     title: "Olunix Vantage Is Live. Here's What It Means for Founders.",
     excerpt:
