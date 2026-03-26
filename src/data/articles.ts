@@ -11,6 +11,95 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "marketing-cant-be-quick-dopamine",
+    title: "Marketing Can't Be Quick Dopamine",
+    excerpt:
+      "There's a version of marketing that feels productive but isn't. Announcement after announcement, update after update. It looks like momentum, but it's actually costing you your brand and your best work. Here's what I learned the hard way.",
+    content: `
+There's a feeling you get when you ship something and tell people about it.
+
+It's fast. It's satisfying. You post an update, you push a tweet, you announce a feature. And for about thirty seconds, it feels like progress. Like you're building momentum. Like the world is watching you move.
+
+And then the feeling fades. So you do it again. And again. And eventually you're not marketing anymore. You're chasing a hit.
+
+I've been guilty of this. Over the last couple of months, I've caught myself wanting to push out announcement after announcement about what I'm building. New feature. New module. New update. New post. Every small win turned into a public moment. Every commit turned into content.
+
+It felt productive. It wasn't.
+
+## The Trap Looks Like Momentum
+
+Here's the thing about constant updates. They look like consistency from the inside. And consistency is what every marketing playbook tells you matters. Post regularly. Show up every day. Stay top of mind. Be omnipresent.
+
+So when you're shipping announcements back to back, it feels like you're following the playbook. You're being consistent. You're showing up. You're doing the thing.
+
+But there's a difference between consistency and compulsion. Consistency is a rhythm you design. Compulsion is a reaction you can't stop. One is strategic. The other is just noise with your name on it.
+
+> Consistency is a rhythm. Compulsion is a reaction. One builds brands. The other burns them out.
+
+And the worst part is that the people watching can tell the difference even when you can't. When every week brings a new announcement, the audience stops treating any of them as significant. You've trained them to scroll past you. The volume didn't build trust. It diluted it.
+
+## What "Good Marketing" Actually Means
+
+I used to think good marketing meant frequent marketing. That the founder who posts the most, ships the most updates, and makes the most noise is the one who wins.
+
+That's not what good marketing is.
+
+Good marketing is knowing when something is worth saying. It's having enough restraint to let your work accumulate before you talk about it. It's the discipline to sit with something unannounced while you make it undeniable. And only then tell people.
+
+Think about the brands you actually respect. The ones you pay attention to. They don't post every day. They don't announce every commit. When they say something, you listen. **Because they've earned that attention by not wasting it.**
+
+The companies that announce everything are the ones you stop taking seriously. The ones that announce selectively are the ones that make you lean in when they do.
+
+## It Hurts the Work Too
+
+This is the part I didn't expect.
+
+Constant marketing doesn't just hurt your brand. It actively damages the quality of your work. Because every hour you spend turning a small update into a public moment is an hour you didn't spend making the thing better.
+
+I noticed this pattern in myself. I'd finish a feature and immediately start thinking about how to frame the announcement. What screenshot to use. What caption would land. What angle would get engagement. And before I knew it, I'd spent more time marketing the feature than I spent building the next one.
+
+The marketing became a distraction disguised as productivity. I was optimizing for the appearance of progress instead of actual progress. And over time, the gap between what I was announcing and what I was actually building started to widen.
+
+That's the real cost. **When you market every small thing, you start building for announcements instead of building for quality.** The dopamine of the post becomes the goal, and the work becomes the vehicle to get there. The incentives flip. And once they flip, the product suffers.
+
+## The Discipline of Silence
+
+The hardest marketing skill I've had to develop isn't copywriting or positioning or audience strategy. It's silence.
+
+It's the ability to build something for two weeks without saying a word about it. To resist the urge to tweet a screenshot of the progress. To let the work exist in private long enough that when it finally goes public, it actually means something.
+
+Silence isn't absence. It's compression. You're not doing nothing. You're accumulating. You're stacking up weeks of real work, real improvements, real substance. And when you finally break the silence, the announcement carries the weight of everything you didn't say.
+
+That's how you build a brand people respect. Not by being loud all the time, but by being quiet long enough that your words matter when they come.
+
+## So Is Good Marketing Consistent Marketing?
+
+Maybe. But consistency doesn't mean frequency. It means showing up with intention at a pace that matches the weight of what you're saying.
+
+Posting every day with thin updates isn't consistent. It's desperate. Posting once a month with something genuinely worth reading isn't inconsistent. It's deliberate. The rhythm should match the substance. And if the substance isn't there yet, the right move is to keep building, not to keep posting.
+
+I'm still learning this. I still feel the pull. Every time I ship something, there's a voice that says *announce it, share it, make it a moment.* And sometimes that voice is right. Some things deserve to be announced. But most things deserve to be folded into something bigger, something more complete, something that earns the audience's attention instead of begging for it.
+
+> The best marketing doesn't ask for attention. It earns it by being worth the wait.
+
+## What I'm Doing Differently
+
+I'm slowing down the marketing. Not stopping it. Slowing it. Fewer announcements, more substance per announcement. Longer gaps between posts, more depth when I do post. Building in private more, performing in public less.
+
+The goal isn't to disappear. It's to make every time I show up actually count. To never train my audience to scroll past me because they've seen too many mid-tier updates. To protect the weight of my own words by not spending them on things that don't deserve them.
+
+If you're a founder reading this and you feel the same pull, the itch to announce, the need to show progress, the dopamine of the post, just know that it's a trap dressed up as strategy. The best thing you can build for your brand right now might be the discipline to shut up and keep working.
+
+The announcements that matter most are the ones that were worth waiting for.
+
+*- MM*
+    `,
+    publishedAt: "2026-03-26",
+    updatedAt: "2026-03-26",
+    readingTime: "7 min read",
+    tags: ["Marketing", "Building", "Personal", "Strategy"],
+  },
+  {
     slug: "the-head-of-a-marketer-engineer-and-app-developer",
     title: "The Head of a Marketer, Engineer, and App Developer",
     excerpt:
