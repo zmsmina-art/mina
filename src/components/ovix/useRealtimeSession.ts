@@ -267,12 +267,9 @@ export function useRealtimeSession() {
       const audioCtx = new AudioContext({ sampleRate: SAMPLE_RATE });
       audioContextRef.current = audioCtx;
 
-      // 5. Connect WebSocket
-      const ws = new WebSocket(wssUrl, [
-        'realtime',
-        `openai-insecure-api-key.${token}`,
-        'openai-beta.realtime-v1',
-      ]);
+      // 5. Connect WebSocket — Azure uses api-key as query param
+      const wsUrlWithKey = `${wssUrl}&api-key=${encodeURIComponent(token)}`;
+      const ws = new WebSocket(wsUrlWithKey);
       wsRef.current = ws;
 
       ws.onopen = () => {
