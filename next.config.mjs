@@ -17,7 +17,7 @@ const cspDirectives = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https:",
-  `connect-src 'self' https:${isDev ? ' http: ws: wss:' : ''}`,
+  `connect-src 'self' https: wss:${isDev ? ' http: ws:' : ''}`,
   "media-src 'self' data: blob:",
   "worker-src 'self' blob:",
   'upgrade-insecure-requests',
@@ -90,6 +90,14 @@ const nextConfig = {
             value: 'cross-origin',
           },
         ],
+      },
+      {
+        source: '/brief/ovix',
+        headers: securityHeaders.map((h) =>
+          h.key === 'Permissions-Policy'
+            ? { ...h, value: 'camera=(), microphone=(self), geolocation=()' }
+            : h
+        ),
       },
       {
         source: '/(.*)',

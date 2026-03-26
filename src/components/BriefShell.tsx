@@ -9,6 +9,7 @@ import {
   Dumbbell,
   Lightbulb,
   Cpu,
+  Mic,
   Settings,
 } from 'lucide-react';
 
@@ -24,11 +25,12 @@ const T = {
 
 const NAV_ITEMS = [
   { href: '/brief', label: 'Daily Briefing', icon: FileText, mobileLabel: 'Briefing' },
-  { href: '/brief/schedule', label: 'Operations', icon: Calendar, mobileLabel: 'Ops' },
-  { href: '/brief/health', label: 'Surveillance', icon: Shield, mobileLabel: 'Recon' },
-  { href: '/brief/fitness', label: 'Field Readiness', icon: Dumbbell, mobileLabel: 'Field' },
-  { href: '/brief/ideas', label: 'Intelligence', icon: Lightbulb, mobileLabel: 'Intel' },
-  { href: '/brief/fan-controller', label: 'Lab Ops', icon: Cpu, mobileLabel: 'Lab' },
+  { href: '/brief/schedule', label: 'Schedule', icon: Calendar, mobileLabel: 'Schedule' },
+  { href: '/brief/health', label: 'Health', icon: Shield, mobileLabel: 'Health' },
+  { href: '/brief/fitness', label: 'Fitness', icon: Dumbbell, mobileLabel: 'Fitness' },
+  { href: '/brief/ideas', label: 'Ideas', icon: Lightbulb, mobileLabel: 'Ideas' },
+  { href: '/brief/fan-controller', label: 'Lab', icon: Cpu, mobileLabel: 'Lab' },
+  { href: '/brief/ovix', label: 'Ovix', icon: Mic, mobileLabel: 'Ovix' },
   { href: '/brief/settings', label: 'Settings', icon: Settings, mobileLabel: 'Settings' },
 ];
 
@@ -94,7 +96,7 @@ export default function BriefShell({ children }: { children: React.ReactNode }) 
               marginBottom: '4px',
             }}
           >
-            Classified
+            Dashboard
           </div>
           <h1
             style={{
@@ -164,7 +166,7 @@ export default function BriefShell({ children }: { children: React.ReactNode }) 
               color: T.textMuted,
             }}
           >
-            Agent: Mr. Mankarious
+            Mina Mankarious
           </p>
         </div>
       </aside>
