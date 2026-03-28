@@ -25,154 +25,67 @@
 
 .etheral-layer-primary {
   background:
-    radial-gradient(ellipse 120% 28% at 30% 35%, rgba(122, 64, 242, 0.34), transparent 65%),
-    radial-gradient(ellipse 100% 22% at 70% 65%, rgba(18, 18, 18, 0.56), transparent 60%),
-    radial-gradient(ellipse 140% 16% at 55% 50%, rgba(176, 118, 255, 0.24), transparent 55%),
-    radial-gradient(ellipse 90% 35% at 45% 80%, rgba(13, 13, 13, 0.38), transparent 70%);
+    radial-gradient(ellipse 120% 40% at 30% 30%, rgba(122, 64, 242, 0.22), transparent 60%),
+    radial-gradient(ellipse 100% 35% at 75% 70%, rgba(76, 29, 149, 0.16), transparent 55%),
+    radial-gradient(ellipse 140% 25% at 55% 50%, rgba(176, 118, 255, 0.12), transparent 55%);
   animation: satin-drift-1 40s ease-in-out infinite;
   will-change: transform;
 }
 
 .etheral-layer-gold {
   mix-blend-mode: screen;
-  opacity: 0.5;
+  opacity: 0.65;
   background:
-    radial-gradient(ellipse 130% 18% at 40% 30%, rgba(255, 255, 255, 0.26), transparent 58%),
-    radial-gradient(ellipse 100% 24% at 65% 70%, rgba(255, 255, 255, 0.18), transparent 55%),
-    radial-gradient(ellipse 80% 40% at 50% 50%, rgba(255, 255, 255, 0.08), transparent 65%);
+    radial-gradient(ellipse 130% 25% at 40% 25%, rgba(255, 255, 255, 0.15), transparent 55%),
+    radial-gradient(ellipse 100% 30% at 65% 75%, rgba(183, 148, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 80% 40% at 50% 50%, rgba(255, 255, 255, 0.06), transparent 60%);
   animation: satin-drift-2 32s ease-in-out infinite;
   will-change: transform;
 }
 
 .etheral-layer-cream {
   mix-blend-mode: soft-light;
-  opacity: 0.4;
+  opacity: 0.5;
   background:
-    radial-gradient(ellipse 110% 20% at 35% 25%, rgba(246, 246, 246, 0.2), transparent 60%),
-    radial-gradient(ellipse 90% 30% at 60% 75%, rgba(246, 246, 246, 0.1), transparent 55%);
+    radial-gradient(ellipse 110% 28% at 35% 20%, rgba(255, 255, 255, 0.12), transparent 55%),
+    radial-gradient(ellipse 90% 35% at 60% 80%, rgba(183, 148, 255, 0.08), transparent 50%);
   animation: satin-drift-3 36s ease-in-out infinite;
   will-change: transform;
 }
 
 /* ── Data-motion reveal system ── */
 
-[data-motion] {
-  opacity: 0;
-  transform: translate3d(0, var(--motion-shift-md), 0);
-  transition:
-    opacity var(--motion-md) var(--ease-cinematic),
-    transform var(--motion-md) var(--ease-out-expo);
-  transition-delay: var(--motion-delay, 0ms);
-  will-change: transform, opacity;
-}
-
-/* CSS-only hero reveal: paints hero content at FCP without waiting for JS hydration.
-   This makes the large hero heading the LCP element instead of the tiny nav brand mark. */
-.section-hero [data-motion] {
-  animation: hero-auto-reveal var(--motion-md, 0.65s) var(--ease-cinematic, ease) forwards;
-  animation-delay: var(--motion-delay, 0ms);
-}
-
-.section-hero .hero-line span {
-  animation: hero-text-slide var(--motion-md, 0.65s) var(--ease-out-expo, ease) forwards;
-  animation-delay: var(--motion-delay, 0ms);
-}
-
-@keyframes hero-auto-reveal {
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes hero-text-slide {
-  to {
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section-hero [data-motion] {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .section-hero .hero-line span {
-    animation: none;
-    transform: none;
-  }
-}
-
-/* Private interactive pages should not rely on motion runtime to reveal content. */
-main[data-static-motion='true'] [data-motion] {
+/* All scroll/reveal animations disabled — content visible immediately */
+[data-motion],
+[data-motion].is-visible,
+[data-motion='fade'],
+[data-motion='sweep-left'],
+[data-motion='sweep-right'],
+[data-motion='h-sweep'],
+[data-motion='timeline-card'],
+[data-motion='spotlight'],
+[data-motion='crest'],
+[data-motion='flip'],
+[data-motion='crescendo'],
+[data-motion='footer-rise'] {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
+  animation: none !important;
   filter: none !important;
+  will-change: auto;
 }
 
-[data-motion].is-visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-[data-motion='fade'] {
-  transform: none;
-  filter: none;
-}
-
-[data-motion='sweep-left'] {
-  transform: translate3d(calc(var(--motion-shift-lg) * -1), 0, 0);
-}
-
-[data-motion='sweep-right'] {
-  transform: translate3d(var(--motion-shift-lg), 0, 0);
-}
-
-[data-motion='h-sweep']:not(.is-visible) {
-  transform: translate3d(calc(var(--motion-shift-xl) * -1), 0, 0);
-}
-
-.service-card-v2[data-motion='h-sweep']:nth-child(even):not(.is-visible) {
-  transform: translate3d(var(--motion-shift-xl), 0, 0);
-}
-
-[data-motion='timeline-card'] {
-  transform: translate3d(var(--motion-shift-md), 0, 0);
-}
-
-[data-motion='spotlight'] {
-  transform: translate3d(0, var(--motion-shift-lg), 0) scale(0.985);
-}
-
-[data-motion='spotlight'].is-visible {
-  box-shadow:
-    0 24px 54px rgba(5, 5, 5, 0.38),
-    0 0 0 1px rgba(255, 255, 255, 0.22),
-    inset 0 1px 0 rgba(246, 246, 246, 0.08);
-}
-
-[data-motion='crest'] {
-  transform: translate3d(0, var(--motion-shift-md), 0) scale(0.9);
-  transform-origin: center;
-}
-
-[data-motion='flip'] {
-  transform: perspective(1100px) rotateX(14deg) translate3d(0, var(--motion-shift-md), 0);
-  transform-origin: 50% 0%;
-}
-
-[data-motion='crescendo'] {
-  transform: translate3d(0, var(--motion-shift-lg), 0) scale(0.985);
-}
-
-[data-motion='footer-rise'] {
-  transform: translate3d(0, var(--motion-shift-lg), 0);
+.section-hero [data-motion],
+.section-hero .hero-line span,
+main[data-static-motion='true'] [data-motion] {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
 }
 
 .hero-line {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero-line[data-motion] {

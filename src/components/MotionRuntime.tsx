@@ -68,97 +68,11 @@ export default function MotionRuntime() {
     setSectionTheme(defaultTheme);
     html.setAttribute('data-page-path', pathname);
 
+    // All elements visible immediately — no scroll reveals
     const motionNodes = Array.from(document.querySelectorAll<HTMLElement>(MOTION_SELECTOR));
+    motionNodes.forEach((node) => node.classList.add('is-visible'));
 
-    if (reducedMotion) {
-      motionNodes.forEach((node) => node.classList.add('is-visible'));
-      return;
-    }
-
-    // Skip hero elements — they are handled by the hero GSAP timeline
-    const isHomePage = pathname === '/';
-    const nonHeroNodes = isHomePage
-      ? motionNodes.filter((node) => !node.closest('.section-hero'))
-      : motionNodes;
-
-    // If GSAP is ready, use ScrollTrigger batch for non-hero elements
-    if (ready && gsap && ScrollTrigger) {
-      nonHeroNodes.forEach((node) => node.classList.remove('is-visible'));
-
-      const ctx = gsap.context(() => {
-        // Group elements by their parent section for coordinated reveals
-        ScrollTrigger.batch(nonHeroNodes, {
-          start: 'top 88%',
-          onEnter: (batch) => {
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              x: 0,
-              scale: 1,
-              rotateX: 0,
-              rotateY: 0,
-              duration: 0.3,
-              ease: 'power3.out',
-              stagger: 0.03,
-              overwrite: 'auto',
-              onComplete: function () {
-                // Add is-visible so CSS :has() selectors still work (e.g., footer line-draw)
-                batch.forEach((el) => el.classList.add('is-visible'));
-              },
-            });
-          },
-          once: true,
-        });
-      });
-
-      // Section theme observer (keep as IntersectionObserver — lightweight, no animation needed)
-      const themedSections = Array.from(document.querySelectorAll<HTMLElement>(SECTION_THEME_SELECTOR));
-      let themeObserver: IntersectionObserver | null = null;
-
-      if (themedSections.length > 0) {
-        themeObserver = new IntersectionObserver(
-          (entries) => {
-            const visibleEntries = entries
-              .filter((entry) => entry.isIntersecting)
-              .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-            if (visibleEntries.length === 0) return;
-            const winner = visibleEntries[0].target as HTMLElement;
-            const nextTheme = winner.dataset.sectionTheme;
-            if (!nextTheme) return;
-            setSectionTheme(nextTheme);
-          },
-          {
-            threshold: [0.16, 0.32, 0.48, 0.66],
-            rootMargin: '-34% 0px -40% 0px',
-          },
-        );
-
-        themedSections.forEach((section) => themeObserver?.observe(section));
-      }
-
-      return () => {
-        ctx.revert();
-        themeObserver?.disconnect();
-      };
-    }
-
-    // Fallback: IntersectionObserver when GSAP hasn't loaded yet
-    nonHeroNodes.forEach((node) => node.classList.remove('is-visible'));
-
-    const motionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          motionObserver.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -6% 0px' },
-    );
-
-    nonHeroNodes.forEach((node) => motionObserver.observe(node));
-
+    // Section theme observer (lightweight, keeps ambient theming working)
     const themedSections = Array.from(document.querySelectorAll<HTMLElement>(SECTION_THEME_SELECTOR));
     let themeObserver: IntersectionObserver | null = null;
 
@@ -185,7 +99,6 @@ export default function MotionRuntime() {
     }
 
     return () => {
-      motionObserver.disconnect();
       themeObserver?.disconnect();
     };
   }, [pathname, ready, gsap, ScrollTrigger]);

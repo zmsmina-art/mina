@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { User, Briefcase, Flame, Mail } from 'lucide-react';
+import { User, Briefcase, BookOpen, Mail } from 'lucide-react';
 
 type NavItem = {
   label: string;
@@ -15,7 +15,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { label: 'About', href: '/about', icon: User },
   { label: 'Work', href: '/work', icon: Briefcase },
-  { label: 'Roast', href: '/roast', icon: Flame },
+  { label: 'Articles', href: '/articles', icon: BookOpen },
   { label: 'Newsletter', href: '/newsletter', icon: Mail },
 ];
 
@@ -29,8 +29,6 @@ export default function SiteNav() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(pathname !== '/');
   const activeIndex = getActiveIndex(pathname);
-  // Switch to 'command-nav--desktop-editorial' for the stronger tab treatment.
-  const desktopVariantClass = 'command-nav--desktop-minimal';
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -46,73 +44,45 @@ export default function SiteNav() {
 
   return (
     <>
-      {/* ── Desktop + mobile top bar ── */}
+      {/* ── Desktop nav ── */}
       <nav
-        className={`command-nav ${desktopVariantClass} ${isScrolled ? 'command-nav--scrolled' : ''}`}
+        className={`site-nav ${isScrolled ? 'site-nav--scrolled' : ''}`}
         aria-label="Main navigation"
       >
-        <div className="page-gutter mx-auto flex h-20 w-full max-w-7xl items-center justify-between">
-          <Link
-            href="/"
-            aria-label="mm. Mina Mankarious — Home"
-            className="command-brand brand-mark"
-          >
+        <div className="site-nav-inner page-gutter">
+          <Link href="/" aria-label="Mina Mankarious — Home" className="site-nav-brand">
             mm.
           </Link>
 
-          {/* Desktop tubelight pill */}
-          <div className="tubelight-pill hidden md:flex" aria-label="Site sections">
-            {activeIndex >= 0 && (
-              <span
-                className="tubelight-indicator"
-                aria-hidden="true"
-                style={{
-                  '--tubelight-index': activeIndex,
-                  '--tubelight-count': navItems.length,
-                } as React.CSSProperties}
-              />
-            )}
+          <div className="site-nav-links hidden md:flex">
             {navItems.map((item, i) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`tubelight-item ${i === activeIndex ? 'tubelight-item--active' : ''}`}
+                className={`site-nav-link ${i === activeIndex ? 'site-nav-link--active' : ''}`}
                 aria-current={i === activeIndex ? 'page' : undefined}
               >
-                <span className="tubelight-label">{item.label}</span>
+                {item.label}
               </Link>
             ))}
           </div>
         </div>
       </nav>
 
-      {/* ── Mobile bottom pill ── */}
-      <div
-        className="tubelight-mobile-dock md:hidden"
-        aria-label="Site sections"
-      >
-        <div className="tubelight-pill tubelight-pill--mobile">
-          {activeIndex >= 0 && (
-            <span
-              className="tubelight-indicator"
-              aria-hidden="true"
-              style={{
-                '--tubelight-index': activeIndex,
-                '--tubelight-count': navItems.length,
-              } as React.CSSProperties}
-            />
-          )}
+      {/* ── Mobile bottom dock ── */}
+      <div className="site-mobile-dock md:hidden" aria-label="Site sections">
+        <div className="site-mobile-pill">
           {navItems.map((item, i) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`tubelight-item tubelight-item--icon ${i === activeIndex ? 'tubelight-item--active' : ''}`}
-                aria-label={item.label}
+                className={`site-mobile-item ${i === activeIndex ? 'site-mobile-item--active' : ''}`}
                 aria-current={i === activeIndex ? 'page' : undefined}
               >
-                <Icon size={18} />
+                <Icon size={20} />
+                <span className="site-mobile-label">{item.label}</span>
               </Link>
             );
           })}

@@ -54,7 +54,7 @@ export default function AuthoritySection() {
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-9 md:grid-cols-12 md:gap-8 lg:gap-12">
         <div className="md:col-span-5 lg:col-span-4">
           <p className="command-label" data-motion="sweep-left">
-            Authority
+            Experience
           </p>
           <h2
             className="home-heading-xl mt-4 max-w-xl text-[clamp(2.1rem,7vw,3.1rem)] leading-[1.05] text-[var(--text-primary)]"

@@ -56,8 +56,8 @@
   --page-gutter-mobile: 1.2rem;
   --page-gutter-tablet: 1.6rem;
   --page-gutter-desktop: 3rem;
-  --section-y-mobile: 4.8rem;
-  --section-y-desktop: 8rem;
+  --section-y-mobile: 3rem;
+  --section-y-desktop: 4.5rem;
 
   --article-motion-duration-desktop: 0.42s;
   --article-motion-duration-mobile: 0.24s;
@@ -129,8 +129,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--text-primary);
-  background-color: #080808;
-  background-image: none;
+  background-color: #050505;
   font-family: 'Switzer', sans-serif;
   font-size: 1.04rem;
   line-height: 1.7;

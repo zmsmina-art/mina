@@ -23,7 +23,7 @@ export default function ServiceSection() {
     <section id="work-with-me" data-section-theme="services" className="command-section page-gutter section-block">
       <div className="mx-auto w-full max-w-7xl">
         <p className="command-label" data-motion="sweep-left">
-          Operating Model
+          Services
         </p>
         <h2
           className="home-heading-xl mt-4 max-w-3xl text-[clamp(2rem,7vw,2.9rem)] leading-[1.05] text-[var(--text-primary)]"

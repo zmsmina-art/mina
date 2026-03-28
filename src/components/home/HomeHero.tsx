@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowDown, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
 import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
@@ -18,10 +18,10 @@ export default function HomeHero() {
       <HeroTimeline />
       <div className="command-grid" aria-hidden="true" />
 
-      <div className="mx-auto grid min-h-[calc(100vh-86px)] w-full max-w-7xl grid-cols-1 gap-10 py-14 md:grid-cols-12 md:items-center md:gap-8 md:py-16 lg:gap-12">
+      <div className="mx-auto grid min-h-[calc(100vh-160px)] w-full max-w-7xl grid-cols-1 gap-10 py-10 md:grid-cols-12 md:items-center md:gap-8 md:py-12 lg:gap-12">
         <div className="relative z-[2] md:col-span-7 lg:col-span-8">
           <p className="command-kicker" data-motion="rise" style={motionDelay(70)}>
-            Founder Dossier / Strategic Operator
+            Founder &amp; Builder
           </p>
 
           <h1 className="hero-wordmark-stack mt-5">
@@ -96,7 +96,7 @@ export default function HomeHero() {
           </div>
 
           <div className="mt-5 space-y-4">
-            <p className="text-site-kicker lowercase tracking-[0.18em] text-[var(--text-dim)]">Command Snapshot</p>
+            <p className="text-site-kicker lowercase tracking-[0.18em] text-[var(--text-dim)]">Quick bio</p>
             <p className="text-sm leading-relaxed text-[var(--text-primary)]">
               Engineering-trained operator translating technical depth into positioning clarity and market traction for AI startups.
             </p>
@@ -121,16 +121,6 @@ export default function HomeHero() {
         </aside>
       </div>
 
-      <div
-        className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-[var(--text-dim)] sm:block"
-        data-motion="fade"
-        style={motionDelay(850)}
-      >
-        <div className="scroll-indicator flex flex-col items-center gap-1 text-[10px] lowercase tracking-[0.18em]">
-          <span>Scroll</span>
-          <ArrowDown size={13} />
-        </div>
-      </div>
     </section>
   );
 }

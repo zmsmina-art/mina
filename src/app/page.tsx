@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="relative z-[3]">
 
-      <main id="main-content" className="page-enter marketing-main site-theme pt-20">
+      <main id="main-content" className="page-enter marketing-main site-theme pt-16">
         <SectionChoreography />
         <HomeHero />
         <AuthoritySection />

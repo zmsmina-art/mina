@@ -5,6 +5,7 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import LayoutRuntime from '@/components/LayoutRuntime';
 import BriefGuard from '@/components/BriefGuard';
+import SmokeBackground from '@/components/SmokeBackground';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -447,7 +448,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <LayoutRuntime />
-        <div className="grain-overlay" aria-hidden="true" />
+        <SmokeBackground color="#7a40f2" />
         <BriefGuard><SiteNav /></BriefGuard>
         <script
           type="application/ld+json"

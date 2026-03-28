@@ -244,35 +244,35 @@
   }
 
   .site-theme p {
-    font-size: 1.05rem;
-    line-height: 1.58;
+    font-size: 0.9rem;
+    line-height: 1.55;
   }
 
   .site-theme .home-heading-xl {
-    font-size: clamp(2.05rem, 10vw, 2.65rem);
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
     line-height: 1.1;
-    letter-spacing: 0.022em;
+    letter-spacing: -0.01em;
   }
 
   .site-theme .hero-lead {
-    font-size: clamp(1.2rem, 5.3vw, 1.42rem);
+    font-size: 1rem;
     line-height: 1.5;
   }
 
   .site-theme .command-label {
-    font-size: 0.94rem;
-    letter-spacing: 0.06em;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
   }
 
   .site-theme .command-kicker {
-    font-size: 0.94rem;
-    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
   }
 
   .site-theme .accent-btn,
   .site-theme .ghost-btn,
   .site-theme .mini-fan-open {
-    font-size: 0.96rem;
+    font-size: 0.85rem;
   }
 
   .site-theme .hero-wordmark-row .masthead {
@@ -281,11 +281,7 @@
   }
 
   body.has-site-theme {
-    background-image:
-      radial-gradient(64% 54% at 10% 6%, rgba(255, 255, 255, 0.2), transparent 74%),
-      radial-gradient(62% 54% at 92% 10%, rgba(183, 148, 255, 0.3), transparent 72%),
-      radial-gradient(72% 70% at 50% 100%, rgba(14, 14, 14, 0.78), transparent 82%),
-      linear-gradient(160deg, #060606 0%, #111111 48%, #1a1028 100%);
+    background-color: #050505;
   }
 
   .article-motion-shell {
