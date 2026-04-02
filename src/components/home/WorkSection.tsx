@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ArrowUpRight, Fan, Layers, Terminal } from 'lucide-react';
+import { ArrowUpRight, Layers, Terminal } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
 
@@ -85,41 +85,8 @@ export default function WorkSection() {
             </div>
           </article>
 
-          {/* ── Fan Controller: secondary ── */}
-          <article className="feature-card relative overflow-hidden" data-motion="spotlight" style={motionDelay(280)}>
-            <CardGlow />
-            <div className="relative z-[1]">
-              <div className="feature-header">
-                <div className="feature-icon" aria-hidden="true">
-                  <Fan size={18} />
-                </div>
-                <div>
-                  <h2 className="text-[clamp(1.2rem,3vw,1.6rem)] leading-tight text-[var(--text-primary)]">
-                    Engine Cooling Fan Controller
-                  </h2>
-                  <p className="mt-1.5 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Embedded Systems / Simulator</p>
-                </div>
-              </div>
-              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
-                Hardware + web simulator &middot; Real-time CAN bus
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
-                Physical HCS12 controller turned interactive web simulator. CAN communication, PWM motor control, ADC sensing, and safety override logic.
-              </p>
-              <div className="mt-4">
-                <a
-                  href="/fan-controller/index.html"
-                  className="inline-flex items-center gap-2 text-sm lowercase tracking-[0.12em] text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)]"
-                >
-                  Open simulator
-                  <ArrowUpRight size={14} />
-                </a>
-              </div>
-            </div>
-          </article>
-
           {/* ── Habits Together: compact ── */}
-          <article className="feature-card relative overflow-hidden md:col-span-2" data-motion="spotlight" style={motionDelay(340)}>
+          <article className="feature-card relative overflow-hidden md:col-span-2" data-motion="spotlight" style={motionDelay(280)}>
             <CardGlow />
             <div className="relative z-[1]">
               <a

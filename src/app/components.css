@@ -1,4 +1,4 @@
-/* ── Components: Nav, cards, timeline, footer, forms, article prose, fan controller, loader, about ── */
+/* ── Components: Nav, cards, timeline, footer, forms, article prose, loader, about ── */
 
 .command-brand,
 .footer-heading,
@@ -83,8 +83,6 @@
 .ghost-btn,
 .loader-kicker,
 .loader-subtitle,
-.mini-fan-open,
-.mini-fan-top label,
 .scroll-indicator {
   text-transform: lowercase;
 }
@@ -1104,225 +1102,6 @@ a {
   font-size: 0.78rem;
 }
 
-/* ── Fan controller mini ── */
-
-.mini-fan-sim {
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid var(--fan-border);
-  background: var(--fan-bg);
-}
-
-.mini-fan-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.mini-fan-top label {
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-.mini-fan-top span {
-  font-size: 0.85rem;
-  color: var(--color-cream);
-  font-weight: 500;
-}
-
-.mini-fan-slider {
-  width: 100%;
-  height: 8px;
-  border-radius: 9999px;
-  border: 1px solid var(--fan-border);
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.mini-fan-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 17px;
-  height: 17px;
-  border-radius: 9999px;
-  background: var(--fan-accent-soft);
-  border: 2px solid var(--text-primary);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.28);
-}
-
-.mini-fan-slider::-moz-range-thumb {
-  width: 17px;
-  height: 17px;
-  border-radius: 9999px;
-  background: var(--fan-accent-soft);
-  border: 2px solid var(--text-primary);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.28);
-}
-
-.mini-fan-slider::-moz-range-track {
-  height: 8px;
-  border-radius: 9999px;
-  background: transparent;
-}
-
-.mini-fan-stats {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 0.71rem;
-  color: var(--text-muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-}
-
-.mini-fan-stats span {
-  white-space: nowrap;
-}
-
-.mini-fan-stage {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.mini-fan-disc-wrap {
-  display: grid;
-  place-items: center;
-}
-
-.mini-fan-disc {
-  position: relative;
-  width: 96px;
-  height: 96px;
-  border-radius: 9999px;
-  border: 1px solid var(--fan-border);
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18) 0%, rgba(6, 6, 6, 0.95) 66%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.2);
-}
-
-.mini-fan-speed-disc {
-  width: min(100%, 290px);
-  min-height: 118px;
-  height: auto;
-  border-radius: 14px;
-  padding: 12px 14px;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: 7px;
-  background:
-    radial-gradient(110% 86% at 14% 0%, rgba(255, 255, 255, 0.24), transparent 58%),
-    linear-gradient(160deg, rgba(8, 8, 8, 0.95), rgba(11, 11, 11, 0.9));
-}
-
-.mini-fan-speed-kicker {
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.mini-fan-speed-value {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
-  margin: 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  font-size: clamp(1.35rem, 5vw, 1.75rem);
-  line-height: 1;
-  color: var(--text-primary);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
-
-.mini-fan-speed-value span {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  color: var(--text-muted);
-}
-
-.mini-fan-speed-track {
-  width: 100%;
-  height: 7px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.mini-fan-speed-fill {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.66), rgba(183, 148, 255, 0.92));
-  box-shadow: 0 0 10px rgba(183, 148, 255, 0.22);
-  transition: width 180ms ease, filter 180ms ease;
-}
-
-.mini-fan-speed-state {
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.mini-fan-disc--safety {
-  border-color: rgba(183, 148, 255, 0.5);
-  box-shadow: inset 0 0 16px rgba(183, 148, 255, 0.2), 0 0 18px rgba(183, 148, 255, 0.24);
-}
-
-.mini-fan-disc--stopped .mini-fan-speed-fill {
-  opacity: 0.45;
-  filter: saturate(0.75);
-}
-
-.mini-fan-disc--safety .mini-fan-speed-value {
-  text-shadow: 0 0 14px rgba(183, 148, 255, 0.36), 0 0 24px rgba(183, 148, 255, 0.24);
-}
-
-.mini-fan-disc--safety .mini-fan-speed-fill {
-  background: linear-gradient(90deg, rgba(183, 148, 255, 0.84), rgba(255, 255, 255, 0.98));
-  box-shadow: 0 0 14px rgba(183, 148, 255, 0.36);
-}
-
-.mini-fan-disc--safety .mini-fan-speed-state {
-  color: rgba(234, 224, 255, 0.95);
-}
-
-.mini-fan-open {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0 12px;
-  border-radius: 8px;
-  border: 1px solid var(--fan-border);
-  background: linear-gradient(142deg, rgba(255, 255, 255, 0.16), rgba(183, 148, 255, 0.08));
-  color: var(--text-primary);
-  font-size: 0.74rem;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-}
-
-.mini-fan-open:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.72);
-  background: linear-gradient(142deg, rgba(255, 255, 255, 0.26), rgba(183, 148, 255, 0.18));
-}
-
 /* ── Loader ── */
 
 .loader-screen {
@@ -1801,20 +1580,22 @@ a {
 }
 
 .proof-card {
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid var(--stroke-soft);
-  background: var(--bg-panel);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 1.75rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(160deg, rgba(18, 18, 22, 0.9), rgba(10, 10, 12, 0.95));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .proof-metric {
   font-family: var(--royal-display, 'Cormorant Garamond', Georgia, serif);
-  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-size: clamp(2.2rem, 5vw, 3rem);
   font-weight: 600;
   line-height: 1;
-  color: var(--text-primary);
+  color: #fff;
+  text-shadow: 0 0 20px rgba(183, 148, 255, 0.2);
 }
 
 .proof-label {

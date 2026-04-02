@@ -1,29 +1,6 @@
 /* ── Motion: @keyframes, data-motion reveals, route transitions, ambient layers, etheral layers ── */
 
-/* ── Hero masthead blur-reveal ── */
-@keyframes blur-reveal {
-  0%   { opacity: 0; filter: blur(18px); transform: translateY(8px); }
-  60%  { opacity: 1; filter: blur(4px); transform: translateY(0); }
-  100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
-}
-
-.masthead {
-  animation: blur-reveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.hero-wordmark-row--top .masthead {
-  animation-delay: 0.1s;
-}
-
-.hero-wordmark-row--bottom .masthead {
-  animation-delay: 0.28s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .masthead {
-    animation: none;
-  }
-}
+/* ── Hero masthead (no animation — renders immediately) ── */
 
 /* ── Royal satin ambient layers (GPU-composited transform animations only) ── */
 
@@ -119,13 +96,6 @@ main[data-static-motion='true'] [data-motion] {
 
 .hero-line span {
   display: block;
-  transform: translateY(112%);
-  transition: transform var(--motion-md) var(--ease-out-expo);
-  transition-delay: var(--motion-delay, 0ms);
-}
-
-.hero-line.is-visible span {
-  transform: translateY(0);
 }
 
 /* ── Route transitions ── */

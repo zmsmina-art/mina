@@ -57,8 +57,8 @@ export default function HealthClient({ stripe, posthog, github, vercel, gsc, sum
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
-        <div style={sectionLabel}>Surveillance</div>
-        <h2 style={heading}>Asset Status</h2>
+        <div style={sectionLabel}>Health</div>
+        <h2 style={heading}>Service Status</h2>
       </div>
 
       {services.length > 0 && (
@@ -75,7 +75,7 @@ export default function HealthClient({ stripe, posthog, github, vercel, gsc, sum
       {summary && (
         <div style={{ ...glassCard, position: 'relative' }}>
           <div style={{ position: 'absolute', top: 0, left: 12, right: 12, height: 1, background: `linear-gradient(90deg, transparent, ${T.goldDim}, transparent)` }} />
-          <h3 style={{ ...sectionLabel, marginBottom: '8px' }}>Field Report</h3>
+          <h3 style={{ ...sectionLabel, marginBottom: '8px' }}>Summary</h3>
           <p style={{ fontSize: '14px', color: T.textSecondary, lineHeight: 1.7, whiteSpace: 'pre-line', fontStyle: 'italic' }}>{summary.content}</p>
         </div>
       )}
@@ -83,9 +83,9 @@ export default function HealthClient({ stripe, posthog, github, vercel, gsc, sum
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
         {stripe && (
           <ServiceCard title="Revenue (Stripe)" status={stripe.failedCharges24h > 0 ? 'red' : 'green'}>
-            <LV label="Active agents" value={stripe.activeSubscribers} />
-            {stripe.newSubs24h > 0 && <LV label="Recruited" value={`+${stripe.newSubs24h}`} color={T.statusGreen} />}
-            {stripe.churned24h > 0 && <LV label="Defected" value={stripe.churned24h} color={T.statusRed} />}
+            <LV label="Active subs" value={stripe.activeSubscribers} />
+            {stripe.newSubs24h > 0 && <LV label="New" value={`+${stripe.newSubs24h}`} color={T.statusGreen} />}
+            {stripe.churned24h > 0 && <LV label="Churned" value={stripe.churned24h} color={T.statusRed} />}
             {stripe.failedCharges24h > 0 && <LV label="Failed txns" value={stripe.failedCharges24h} color={T.statusRed} />}
           </ServiceCard>
         )}
@@ -134,7 +134,7 @@ export default function HealthClient({ stripe, posthog, github, vercel, gsc, sum
       {!stripe && !vercel && !posthog && !github && !gsc && (
         <div style={glassCard}>
           <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
-            No intelligence gathered yet, sir. The surveillance operatives have not reported in.
+            No data available yet. Run a sync from Settings to populate.
           </p>
         </div>
       )}

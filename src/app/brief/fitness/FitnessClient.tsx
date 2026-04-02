@@ -59,15 +59,15 @@ export default function FitnessClient({ splits, weekLogs, streak }: { splits: Fi
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
-        <div style={sectionLabel}>Field Readiness</div>
-        <h2 style={heading}>Physical Programme</h2>
+        <div style={sectionLabel}>Fitness</div>
+        <h2 style={heading}>Weekly Training</h2>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
         <ProgressRing completed={completed} total={splits.length} />
         <div>
           <p style={{ fontSize: '14px', color: T.textSecondary }}>
-            {completed} of {splits.length} protocols completed this week
+            {completed} of {splits.length} sessions completed this week
           </p>
           {streak > 0 && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
@@ -114,7 +114,7 @@ export default function FitnessClient({ splits, weekLogs, streak }: { splits: Fi
         {splits.length === 0 && (
           <div style={glassCard}>
             <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
-              No training protocols configured, sir.
+              No training splits configured yet.
             </p>
           </div>
         )}

@@ -44,7 +44,7 @@ export default async function BriefLoginPage() {
             marginBottom: '12px',
           }}
         >
-          Classified
+          Dashboard
         </p>
         <h1
           style={{
@@ -57,7 +57,7 @@ export default async function BriefLoginPage() {
           Daily Briefing
         </h1>
         <p style={{ fontSize: '14px', color: 'rgba(232,228,220,0.3)', marginBottom: '32px' }}>
-          Authenticate to proceed, sir.
+          Sign in to continue.
         </p>
         <form
           action={async () => {

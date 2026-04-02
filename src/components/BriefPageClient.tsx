@@ -19,7 +19,7 @@ import type {
   WeatherData,
 } from '@/lib/school-events';
 
-/* ── MI6 Theme Tokens ─────────────────────────────────────────────── */
+/* ── Theme Tokens ─────────────────────────────────────────────────── */
 const T = {
   bg: '#0A0A0C',
   elevated: 'rgba(255,255,255,0.025)',
@@ -189,7 +189,7 @@ export default function BriefPageClient({
               marginTop: '8px',
             }}
           >
-            {getGreeting()}, Mr. Mankarious
+            {getGreeting()}, Mina
           </h1>
           {weather && (
             <div
@@ -214,7 +214,7 @@ export default function BriefPageClient({
         {/* ── Divider ───────────────────────────────────────────── */}
         <div style={{ height: '1px', background: T.borderGold }} />
 
-        {/* ── Intelligence Report ───────────────────────────────── */}
+        {/* ── Daily Summary ────────────────────────────────────── */}
         <div
           style={{
             ...glassCard,
@@ -234,27 +234,48 @@ export default function BriefPageClient({
               pointerEvents: 'none',
             }}
           />
-          <h2 style={sectionLabel}>Intelligence Report</h2>
+          <h2 style={sectionLabel}>Daily Summary</h2>
           {briefing?.content ? (
-            <p
-              style={{
-                fontSize: '14px',
-                lineHeight: 1.7,
-                color: T.textSecondary,
-                whiteSpace: 'pre-line',
-                fontStyle: 'italic',
-              }}
-            >
-              {briefing.content}
-            </p>
+            <>
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: 1.7,
+                  color: T.textSecondary,
+                  whiteSpace: 'pre-line',
+                  fontStyle: 'italic',
+                }}
+              >
+                {briefing.content}
+              </p>
+              {briefing.createdAt && (
+                <p
+                  style={{
+                    ...mono,
+                    fontSize: '11px',
+                    color: T.textMuted,
+                    marginTop: '12px',
+                  }}
+                >
+                  Last sync: {(() => {
+                    const diff = Date.now() - new Date(briefing.createdAt).getTime();
+                    const hours = Math.floor(diff / 3600000);
+                    const minutes = Math.floor((diff % 3600000) / 60000);
+                    if (hours > 24) return `${Math.floor(hours / 24)}d ago`;
+                    if (hours > 0) return `${hours}h ago`;
+                    return `${minutes}m ago`;
+                  })()}
+                </p>
+              )}
+            </>
           ) : (
             <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
-              Awaiting intelligence, sir. The synthesis operatives have not yet reported.
+              No briefing available yet. Data will appear after the next sync.
             </p>
           )}
         </div>
 
-        {/* ── Imminent + Standing Orders ─────────────────────────── */}
+        {/* ── Upcoming + Priorities ────────────────────────────── */}
         <div
           style={{
             display: 'grid',
@@ -268,7 +289,7 @@ export default function BriefPageClient({
             <h2 style={sectionLabel}>Imminent</h2>
             {upcoming.length === 0 ? (
               <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
-                Your schedule is clear, sir.
+                No upcoming events.
               </p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -322,10 +343,10 @@ export default function BriefPageClient({
             )}
           </div>
 
-          {/* Standing Orders */}
+          {/* Priorities */}
           {priorityLines.length > 0 && (
             <div style={glassCard}>
-              <h2 style={sectionLabel}>Standing Orders</h2>
+              <h2 style={sectionLabel}>Priorities</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {priorityLines.map((line, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
@@ -352,7 +373,7 @@ export default function BriefPageClient({
 
           {dateKeys.length === 0 ? (
             <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
-              No school commitments in the next 2 weeks, sir.
+              No school commitments in the next 2 weeks.
             </p>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -472,7 +493,7 @@ export default function BriefPageClient({
             }}
           >
             <Lightbulb size={16} />
-            File Intel
+            Save Idea
           </button>
         </div>
       </div>

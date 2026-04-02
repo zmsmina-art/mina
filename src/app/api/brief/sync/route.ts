@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
+import { auth } from '@/lib/auth-brief';
 import { sql } from '@/lib/neon';
-
-const CRON_SECRET = process.env.CRON_SECRET;
 
 // ── Category Keywords ─────────────────────────────────────────────
 
@@ -22,6 +21,32 @@ function categorizeEvent(title: string): 'school' | 'business' | 'fitness' | 'pe
   return 'personal';
 }
 
+// ── Staleness Check ───────────────────────────────────────────────
+
+const STALE_MS = 60 * 60 * 1000; // 1 hour
+
+async function isDataStale(): Promise<{ stale: boolean; lastSync: Date | null }> {
+  const db = sql();
+  const tables = ['weather_cache', 'posthog_snapshots', 'github_snapshots', 'vercel_snapshots', 'agent_reports'];
+  const results = await Promise.all(
+    tables.map((table) =>
+      db(`SELECT created_at FROM ${table} ORDER BY created_at DESC LIMIT 1`).catch(() => [])
+    )
+  );
+
+  const timestamps = results
+    .map((rows) => (rows as Record<string, unknown>[])[0]?.created_at)
+    .filter(Boolean)
+    .map((ts) => new Date(ts as string).getTime());
+
+  if (timestamps.length === 0) {
+    return { stale: true, lastSync: null };
+  }
+
+  const mostRecent = Math.max(...timestamps);
+  return { stale: Date.now() - mostRecent > STALE_MS, lastSync: new Date(mostRecent) };
+}
+
 // ── Data Fetchers ─────────────────────────────────────────────────
 
 async function fetchWeather() {
@@ -34,15 +59,14 @@ async function fetchWeather() {
     if (!data.current_condition?.length) return { error: 'Empty weather response' };
     const current = data.current_condition[0];
     const today = data.weather?.[0];
-    return {
-      city: 'Toronto',
-      temp_c: current?.temp_C,
-      feels_like_c: current?.FeelsLikeC,
-      summary: current?.weatherDesc?.[0]?.value,
-      high_c: today?.maxtempC,
-      low_c: today?.mintempC,
-      humidity: current?.humidity,
-    };
+
+    const db = sql();
+    await db`
+      INSERT INTO weather_cache (id, city, temp_c, feels_like_c, description, high_c, low_c, humidity, created_at)
+      VALUES (${crypto.randomUUID()}, 'Toronto', ${current?.temp_C}, ${current?.FeelsLikeC},
+              ${current?.weatherDesc?.[0]?.value}, ${today?.maxtempC}, ${today?.mintempC}, ${current?.humidity}, NOW())
+    `;
+    return { status: 'ok' };
   } catch (e) {
     return { error: String(e) };
   }
@@ -53,7 +77,6 @@ async function fetchVercel() {
   if (!token) return { error: 'VERCEL_TOKEN not set' };
   try {
     const projects: Record<string, unknown> = {};
-    const alerts: string[] = [];
     const projectMap: Record<string, string> = {
       'Portfolio': 'mina',
       'Solnix': 'solnix',
@@ -72,12 +95,15 @@ async function fetchVercel() {
       if (dep) {
         const ageHours = Math.round((Date.now() - dep.created) / 3600000);
         projects[display] = { state: dep.state || dep.readyState, age_hours: ageHours };
-        if (dep.state === 'ERROR' || dep.readyState === 'ERROR') {
-          alerts.push(`${display} deployment is in ERROR state`);
-        }
       }
     }
-    return { projects, alerts };
+
+    const db = sql();
+    await db`
+      INSERT INTO vercel_snapshots (id, projects, created_at)
+      VALUES (${crypto.randomUUID()}, ${JSON.stringify(projects)}, NOW())
+    `;
+    return { status: 'ok' };
   } catch (e) {
     return { error: String(e) };
   }
@@ -99,19 +125,24 @@ async function fetchPostHog() {
     const pvRes = await query(
       "SELECT count() as pageviews, count(distinct distinct_id) as visitors FROM events WHERE event = '$pageview' AND timestamp >= now() - interval 1 day"
     );
-    const topRes = await query(
-      "SELECT properties.$current_url as page, count() as views FROM events WHERE event = '$pageview' AND timestamp >= now() - interval 1 day GROUP BY page ORDER BY views DESC LIMIT 5"
+    const errRes = await query(
+      "SELECT properties.$exception_message as msg, count() as cnt FROM events WHERE event = '$exception' AND timestamp >= now() - interval 1 day GROUP BY msg ORDER BY cnt DESC LIMIT 5"
     );
 
     const pvRow = pvRes?.results?.[0];
-    return {
-      pageviews: pvRow?.[0] ?? 0,
-      unique_visitors: pvRow?.[1] ?? 0,
-      top_pages: (topRes?.results ?? []).map((r: unknown[]) => ({
-        page: String(r[0]).replace(/https?:\/\/[^/]+/, ''),
-        views: r[1],
-      })),
-    };
+    const pageviews = pvRow?.[0] ?? 0;
+    const uniqueVisitors = pvRow?.[1] ?? 0;
+    const errors = (errRes?.results ?? []).map((r: unknown[]) => ({
+      message: String(r[0]),
+      count: r[1] as number,
+    }));
+
+    const db = sql();
+    await db`
+      INSERT INTO posthog_snapshots (id, pageviews, unique_visitors, errors, created_at)
+      VALUES (${crypto.randomUUID()}, ${pageviews}, ${uniqueVisitors}, ${JSON.stringify(errors)}, NOW())
+    `;
+    return { status: 'ok' };
   } catch (e) {
     return { error: String(e) };
   }
@@ -136,7 +167,6 @@ async function fetchCalendar() {
       })
     );
 
-    // Import the private key and sign
     const pemBody = key.replace(/-----BEGIN PRIVATE KEY-----/g, '')
       .replace(/-----END PRIVATE KEY-----/g, '')
       .replace(/\\n/g, '')
@@ -154,7 +184,6 @@ async function fetchCalendar() {
       .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
     const jwt = `${header}.${claims}.${signature}`;
 
-    // Exchange JWT for access token
     const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -164,37 +193,53 @@ async function fetchCalendar() {
     const accessToken = tokenData.access_token;
     if (!accessToken) return { error: 'Failed to get access token' };
 
-    // Fetch today's events
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayEnd = new Date();
-    todayEnd.setHours(23, 59, 59, 999);
+    // Fetch this week's events (Mon-Sun)
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
+    monday.setHours(0, 0, 0, 0);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 7);
+    sunday.setHours(0, 0, 0, 0);
 
     const calRes = await fetch(
       `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?` +
-      `timeMin=${todayStart.toISOString()}&timeMax=${todayEnd.toISOString()}&singleEvents=true&orderBy=startTime`,
+      `timeMin=${monday.toISOString()}&timeMax=${sunday.toISOString()}&singleEvents=true&orderBy=startTime&maxResults=100`,
       { headers: { Authorization: `Bearer ${accessToken}` } }
     );
     const calData = await calRes.json();
-    const events = (calData.items ?? []).map((e: Record<string, unknown>) => {
-      const start = (e.start as Record<string, string>)?.dateTime || (e.start as Record<string, string>)?.date;
-      const isAllDay = !!(e.start as Record<string, string>)?.date;
-      let time = 'All day';
-      let localStart = '';
-      if (start && !isAllDay) {
-        const d = new Date(start as string);
-        time = d.toLocaleTimeString('en-US', {
-          hour: 'numeric', minute: '2-digit', timeZone: 'America/Toronto',
-        });
-        localStart = d.toLocaleString('en-US', {
-          weekday: 'short', month: 'short', day: 'numeric',
-          hour: 'numeric', minute: '2-digit', timeZone: 'America/Toronto',
-        });
+    const items = calData.items ?? [];
+
+    const db = sql();
+    for (const event of items) {
+      const googleEventId = event.id as string;
+      const title = (event.summary as string) ?? 'No title';
+      const isAllDay = !!event.start?.date;
+      const startTime = new Date(event.start?.dateTime ?? event.start?.date ?? '');
+      const endTime = new Date(event.end?.dateTime ?? event.end?.date ?? '');
+      const category = categorizeEvent(title);
+
+      // Upsert by google event ID
+      const existing = await db`
+        SELECT id FROM calendar_events WHERE google_event_id = ${googleEventId}
+      ` as Record<string, unknown>[];
+
+      if (existing.length > 0) {
+        await db`
+          UPDATE calendar_events
+          SET title = ${title}, start_time = ${startTime.toISOString()}, end_time = ${endTime.toISOString()},
+              is_all_day = ${isAllDay}, category = ${category}
+          WHERE google_event_id = ${googleEventId}
+        `;
+      } else {
+        await db`
+          INSERT INTO calendar_events (id, google_event_id, title, start_time, end_time, is_all_day, category)
+          VALUES (${crypto.randomUUID()}, ${googleEventId}, ${title}, ${startTime.toISOString()}, ${endTime.toISOString()}, ${isAllDay}, ${category})
+        `;
       }
-      const title = (e.summary as string) ?? 'No title';
-      return { time, localStart, title, category: categorizeEvent(title) };
-    });
-    return { events };
+    }
+    return { status: 'ok', synced: items.length };
   } catch (e) {
     return { error: String(e) };
   }
@@ -209,27 +254,18 @@ async function fetchStripe() {
         headers: { Authorization: `Basic ${btoa(key + ':')}` },
       }).then((r) => r.json());
 
-    const [balance, subs] = await Promise.all([
-      stripeGet('/balance'),
+    const [subs] = await Promise.all([
       stripeGet('/subscriptions?status=active&limit=100'),
     ]);
 
     const activeSubs = subs.data?.length ?? 0;
-    const mrr = (subs.data ?? []).reduce(
-      (sum: number, s: Record<string, unknown>) => {
-        const item = (s.items as Record<string, unknown>)?.data as Record<string, unknown>[] | undefined;
-        const price = item?.[0]?.price as Record<string, unknown> | undefined;
-        const amount = (price?.unit_amount as number) ?? 0;
-        return sum + amount / 100;
-      },
-      0
-    );
 
-    return {
-      active_subscribers: activeSubs,
-      mrr: mrr.toFixed(2),
-      available_balance: ((balance.available?.[0]?.amount ?? 0) / 100).toFixed(2),
-    };
+    const db = sql();
+    await db`
+      INSERT INTO stripe_snapshots (id, active_subscribers, new_subs_24h, churned_24h, failed_charges_24h, created_at)
+      VALUES (${crypto.randomUUID()}, ${activeSubs}, 0, 0, 0, NOW())
+    `;
+    return { status: 'ok' };
   } catch (e) {
     return { error: String(e) };
   }
@@ -264,7 +300,6 @@ async function synthesize(rawData: Record<string, unknown>): Promise<string | nu
   const groqKey = process.env.GROQ_API_KEY;
   if (!groqKey) return null;
   try {
-    // Filter out errored sources
     const clean: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(rawData)) {
       if (typeof v === 'object' && v && 'error' in v) continue;
@@ -280,7 +315,7 @@ async function synthesize(rawData: Record<string, unknown>): Promise<string | nu
         model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: `Generate my morning briefing from this data:\n\n${JSON.stringify(clean, null, 2)}` },
+          { role: 'user', content: `Generate my daily briefing from this data:\n\n${JSON.stringify(clean, null, 2)}` },
         ],
         temperature: 0.3,
         max_tokens: 1500,
@@ -289,105 +324,98 @@ async function synthesize(rawData: Record<string, unknown>): Promise<string | nu
     const data = await res.json();
     return data.choices?.[0]?.message?.content ?? null;
   } catch (e) {
-    console.error('[briefing] Synthesis error:', e);
+    console.error('[sync] Synthesis error:', e);
     return null;
   }
 }
 
-// ── Template fallback ─────────────────────────────────────────────
-
-function templateBriefing(data: Record<string, unknown>): string {
-  const w = data.weather as Record<string, string> | undefined;
-  const cal = data.calendar as { events?: { time: string; title: string }[] } | undefined;
-  const ph = data.posthog as Record<string, unknown> | undefined;
-
-  const lines: string[] = [];
-  const now = new Date();
-  const hour = now.getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-  const day = now.toLocaleDateString('en-US', { weekday: 'long', timeZone: 'America/Toronto' });
-
-  if (w && !('error' in w)) {
-    lines.push(`${greeting}, Mina. It's ${day} with ${w.summary?.toLowerCase() || 'unknown conditions'} and ${w.temp_c}C (feels ${w.feels_like_c}C).`);
-  } else {
-    lines.push(`${greeting}, Mina. It's ${day}.`);
-  }
-
-  if (ph && !('error' in ph)) {
-    lines.push(`Traffic: ${ph.pageviews} pageviews, ${ph.unique_visitors} unique visitors.`);
-  }
-
-  if (cal?.events?.length) {
-    const evtStr = cal.events.map((e) => `${e.title} at ${e.time}`).join(', ');
-    lines.push(`Today's schedule: ${evtStr}.`);
-  }
-
-  lines.push('Your priorities for the day are to review the dashboard and address any outstanding items.');
-  return lines.join('\n');
-}
-
 // ── Main Handler ──────────────────────────────────────────────────
 
-export async function GET(request: Request) {
-  if (!CRON_SECRET) {
-    return NextResponse.json({ error: 'CRON_SECRET not configured' }, { status: 503 });
-  }
-
-  const authHeader = request.headers.get('authorization') ?? '';
-  if (authHeader !== `Bearer ${CRON_SECRET}`) {
+export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  try {
-    console.log('[briefing] Starting daily briefing generation...');
+  const { searchParams } = new URL(request.url);
+  const force = searchParams.get('force') === '1';
 
-    // Fetch all data sources in parallel
-    const [weather, vercel, posthog, calendar, stripe] = await Promise.all([
-      fetchWeather(),
-      fetchVercel(),
-      fetchPostHog(),
-      fetchCalendar(),
-      fetchStripe(),
+  if (!force) {
+    const { stale } = await isDataStale();
+    if (!stale) {
+      return NextResponse.json({ skipped: true, reason: 'Data is fresh' });
+    }
+  }
+
+  // Run all fetchers in parallel
+  const fetchers = [
+    { name: 'weather', fn: fetchWeather },
+    { name: 'vercel', fn: fetchVercel },
+    { name: 'posthog', fn: fetchPostHog },
+    { name: 'calendar', fn: fetchCalendar },
+    { name: 'stripe', fn: fetchStripe },
+  ];
+
+  const results = await Promise.allSettled(fetchers.map((f) => f.fn()));
+
+  const summary: Record<string, { status: 'ok' | 'failed'; error?: string }> = {};
+  results.forEach((result, i) => {
+    if (result.status === 'fulfilled') {
+      const val = result.value as Record<string, unknown>;
+      if (val.error) {
+        summary[fetchers[i].name] = { status: 'failed', error: val.error as string };
+      } else {
+        summary[fetchers[i].name] = { status: 'ok' };
+      }
+    } else {
+      summary[fetchers[i].name] = { status: 'failed', error: String(result.reason) };
+    }
+  });
+
+  // Run AI synthesis
+  let synthesisStatus: 'ok' | 'failed' = 'ok';
+  let synthesisError: string | undefined;
+
+  try {
+    const db = sql();
+
+    // Gather latest snapshots for synthesis
+    const [weatherRows, vercelRows, posthogRows, calendarRows] = await Promise.all([
+      db`SELECT city, temp_c, feels_like_c, description, high_c, low_c FROM weather_cache ORDER BY created_at DESC LIMIT 1` as Promise<Record<string, unknown>[]>,
+      db`SELECT projects FROM vercel_snapshots ORDER BY created_at DESC LIMIT 1` as Promise<Record<string, unknown>[]>,
+      db`SELECT pageviews, unique_visitors, errors FROM posthog_snapshots ORDER BY created_at DESC LIMIT 1` as Promise<Record<string, unknown>[]>,
+      db`SELECT title, start_time, end_time, category FROM calendar_events WHERE start_time >= ${new Date().toISOString()} ORDER BY start_time ASC LIMIT 20` as Promise<Record<string, unknown>[]>,
     ]);
 
-    console.log('[briefing] Data fetched:', JSON.stringify({
-      weather: 'error' in (weather as Record<string, unknown>) ? 'error' : 'ok',
-      vercel: 'error' in (vercel as Record<string, unknown>) ? 'error' : 'ok',
-      posthog: 'error' in (posthog as Record<string, unknown>) ? 'error' : 'ok',
-      calendar: 'error' in (calendar as Record<string, unknown>) ? 'error' : 'ok',
-      stripe: 'error' in (stripe as Record<string, unknown>) ? 'error' : 'ok',
-    }));
+    const rawData = {
+      weather: weatherRows[0] ?? null,
+      vercel: vercelRows[0] ?? null,
+      posthog: posthogRows[0] ?? null,
+      calendar: {
+        events: calendarRows.map((r) => ({
+          title: r.title,
+          time: new Date(r.start_time as string).toLocaleTimeString('en-US', {
+            hour: 'numeric', minute: '2-digit', timeZone: 'America/Toronto',
+          }),
+          category: r.category,
+        })),
+      },
+    };
 
-    const rawData = { weather, vercel, posthog, calendar, stripe };
-
-    // Synthesize with AI, fall back to template
-    let briefingText = await synthesize(rawData);
-    if (!briefingText) {
-      console.log('[briefing] AI synthesis unavailable, using template');
-      briefingText = templateBriefing(rawData);
+    const briefingText = await synthesize(rawData);
+    if (briefingText) {
+      await db`
+        INSERT INTO agent_reports (id, report_type, content, created_at)
+        VALUES (${crypto.randomUUID()}, 'briefing', ${briefingText}, NOW())
+      `;
     }
-
-    console.log('[briefing] Briefing text length:', briefingText.length);
-
-    // Write to database
-    const db = sql();
-    const id = crypto.randomUUID();
-    await db`
-      INSERT INTO agent_reports (id, report_type, content, created_at)
-      VALUES (${id}, 'briefing', ${briefingText}, NOW())
-    `;
-
-    console.log('[briefing] Briefing saved to database');
-
-    return NextResponse.json({
-      message: 'Briefing generated and saved',
-      preview: briefingText.slice(0, 200) + '...',
-    });
   } catch (e) {
-    console.error('[briefing] Fatal error:', e);
-    return NextResponse.json(
-      { error: 'Briefing generation failed', detail: String(e) },
-      { status: 500 }
-    );
+    synthesisStatus = 'failed';
+    synthesisError = String(e);
   }
+
+  return NextResponse.json({
+    fetchers: summary,
+    synthesis: { status: synthesisStatus, ...(synthesisError && { error: synthesisError }) },
+  });
 }

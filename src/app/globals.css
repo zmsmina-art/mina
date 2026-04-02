@@ -74,11 +74,6 @@
   --route-transition-enter-offset: 7%;
   --route-transition-exit-opacity: 0.78;
 
-  --fan-accent: var(--accent-gold);
-  --fan-accent-soft: var(--accent-gold-soft);
-  --fan-border: rgba(255, 255, 255, 0.32);
-  --fan-bg: rgba(7, 7, 7, 0.84);
-
   /* Legacy token map for article surfaces */
   --color-ink: var(--bg-canvas);
   --color-surface: var(--bg-elev-1);

@@ -22,14 +22,14 @@ export default function IdeasClient({ ideas }: { ideas: Idea[] }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
-        <div style={sectionLabel}>Intelligence</div>
-        <h2 style={heading}>Dossier Vault</h2>
+        <div style={sectionLabel}>Ideas</div>
+        <h2 style={heading}>Idea Vault</h2>
       </div>
 
       {ideas.length === 0 ? (
         <div style={{ ...glassCard, textAlign: 'center' }}>
           <p style={{ fontSize: '14px', color: T.textMuted, fontStyle: 'italic' }}>
-            The vault is empty, sir. File your first piece of intelligence above.
+            No ideas saved yet. Add your first one above.
           </p>
         </div>
       ) : (

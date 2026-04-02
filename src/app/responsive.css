@@ -101,137 +101,6 @@
   }
 }
 
-/* ── Desktop fan controller refinements ── */
-@media (min-width: 768px) {
-  .mini-fan-sim {
-    padding: 20px 24px;
-    border-radius: 14px;
-    border-color: rgba(255, 255, 255, 0.12);
-    background: rgba(10, 10, 10, 0.5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .mini-fan-top {
-    margin-bottom: 12px;
-  }
-
-  .mini-fan-top label {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: lowercase;
-    color: var(--text-dim);
-  }
-
-  .mini-fan-top span {
-    font-size: 0.78rem;
-    font-weight: 400;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-muted);
-  }
-
-  .mini-fan-slider {
-    height: 5px;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .mini-fan-slider::-webkit-slider-thumb {
-    width: 14px;
-    height: 14px;
-    background: var(--accent-purple);
-    border: 2px solid rgba(255, 255, 255, 0.88);
-    box-shadow: 0 0 0 3px rgba(122, 64, 242, 0.22);
-    transition: box-shadow 0.2s ease;
-  }
-
-  .mini-fan-slider::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 0 5px rgba(122, 64, 242, 0.3);
-  }
-
-  .mini-fan-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    background: var(--accent-purple);
-    border: 2px solid rgba(255, 255, 255, 0.88);
-    box-shadow: 0 0 0 3px rgba(122, 64, 242, 0.22);
-  }
-
-  .mini-fan-stats {
-    margin-top: 12px;
-    font-family: 'Switzer', -apple-system, sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    color: var(--text-dim);
-    gap: 6px 16px;
-  }
-
-  .mini-fan-stage {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .mini-fan-disc-wrap {
-    width: 100%;
-  }
-
-  .mini-fan-disc {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: none;
-  }
-
-  .mini-fan-speed-disc {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 10px 16px;
-    min-height: auto;
-    gap: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .mini-fan-speed-kicker {
-    font-size: 0.58rem;
-    margin-right: 20px;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  .mini-fan-speed-value {
-    font-size: 1.1rem;
-    text-shadow: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .mini-fan-speed-track {
-    height: 4px;
-    border: none;
-    background: rgba(255, 255, 255, 0.06);
-    width: 80px;
-    flex-shrink: 0;
-    margin-left: 16px;
-  }
-
-  .mini-fan-speed-state {
-    font-size: 0.58rem;
-    margin-left: auto;
-    padding-left: 16px;
-    white-space: nowrap;
-  }
-
-  .mini-fan-disc--safety .mini-fan-disc {
-    border-color: rgba(183, 148, 255, 0.3);
-  }
-}
-
 @media (max-width: 767px) {
   :root {
     --route-transition-duration: 300ms;
@@ -270,8 +139,7 @@
   }
 
   .site-theme .accent-btn,
-  .site-theme .ghost-btn,
-  .site-theme .mini-fan-open {
+  .site-theme .ghost-btn {
     font-size: 0.85rem;
   }
 
@@ -312,29 +180,6 @@
     padding: 0.4rem 0.56rem;
   }
 
-  .mini-fan-stage {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .mini-fan-disc-wrap {
-    width: 100%;
-  }
-
-  .mini-fan-disc {
-    margin-inline: auto;
-  }
-
-  .mini-fan-stats {
-    justify-content: center;
-    gap: 6px 10px;
-  }
-
-  .mini-fan-open {
-    width: 100%;
-    max-width: 260px;
-  }
 }
 
 @media (max-width: 390px) {
@@ -373,11 +218,6 @@
     color: var(--text-muted);
   }
 
-  .mini-fan-open:hover {
-    color: var(--text-primary);
-    border-color: var(--fan-border);
-    background: linear-gradient(142deg, rgba(255, 255, 255, 0.16), rgba(183, 148, 255, 0.08));
-  }
 }
 
 @media (min-width: 768px) {

@@ -32,14 +32,14 @@ export default function ScheduleClient({ events, narrative }: { events: Calendar
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
-        <div style={sectionLabel}>Operations</div>
-        <h2 style={heading}>Weekly Theatre</h2>
+        <div style={sectionLabel}>Schedule</div>
+        <h2 style={heading}>This Week</h2>
       </div>
 
       {narrative && (
         <div style={{ ...glassCard, position: 'relative' }}>
           <div style={{ position: 'absolute', top: 0, left: 12, right: 12, height: 1, background: `linear-gradient(90deg, transparent, ${T.goldDim}, transparent)` }} />
-          <h3 style={{ ...sectionLabel, marginBottom: '8px' }}>Situation Report</h3>
+          <h3 style={{ ...sectionLabel, marginBottom: '8px' }}>Week Overview</h3>
           <p style={{ fontSize: '14px', color: T.textSecondary, lineHeight: 1.7, whiteSpace: 'pre-line', fontStyle: 'italic' }}>{narrative.content}</p>
         </div>
       )}

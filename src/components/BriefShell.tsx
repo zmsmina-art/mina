@@ -8,7 +8,6 @@ import {
   Shield,
   Dumbbell,
   Lightbulb,
-  Cpu,
   Mic,
   Settings,
 } from 'lucide-react';
@@ -29,7 +28,6 @@ const NAV_ITEMS = [
   { href: '/brief/health', label: 'Health', icon: Shield, mobileLabel: 'Health' },
   { href: '/brief/fitness', label: 'Fitness', icon: Dumbbell, mobileLabel: 'Fitness' },
   { href: '/brief/ideas', label: 'Ideas', icon: Lightbulb, mobileLabel: 'Ideas' },
-  { href: '/brief/fan-controller', label: 'Lab', icon: Cpu, mobileLabel: 'Lab' },
   { href: '/brief/ovix', label: 'Ovix', icon: Mic, mobileLabel: 'Ovix' },
   { href: '/brief/settings', label: 'Settings', icon: Settings, mobileLabel: 'Settings' },
 ];

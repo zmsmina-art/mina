@@ -16,10 +16,6 @@ const metrics = [
     value: '4',
     label: 'Products built and shipped end-to-end',
   },
-  {
-    value: '2 yrs',
-    label: 'Frontline ops at Toyota before founding',
-  },
 ];
 
 export default function ProofSection() {
