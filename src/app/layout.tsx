@@ -6,6 +6,9 @@ import SiteFooter from '@/components/SiteFooter';
 import LayoutRuntime from '@/components/LayoutRuntime';
 import BriefGuard from '@/components/BriefGuard';
 import SmokeBackground from '@/components/SmokeBackground';
+import MobileSmokeBackground from '@/components/MobileSmokeBackground';
+import LenisProvider from '@/components/LenisProvider';
+import FloatingCTA from '@/components/FloatingCTA';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -447,9 +450,12 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <LenisProvider />
         <LayoutRuntime />
-        <SmokeBackground color="#7a40f2" />
+        <div className="hidden md:block"><SmokeBackground color="#7a40f2" /></div>
+        <MobileSmokeBackground />
         <BriefGuard><SiteNav /></BriefGuard>
+        <FloatingCTA />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

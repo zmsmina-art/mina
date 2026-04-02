@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { User, Briefcase, BookOpen, Mail } from 'lucide-react';
+import { User, Briefcase, BookOpen, Mail, Calendar } from 'lucide-react';
 
 type NavItem = {
   label: string;
@@ -12,15 +12,22 @@ type NavItem = {
   icon: LucideIcon;
 };
 
-const navItems: NavItem[] = [
+const desktopNavItems: NavItem[] = [
   { label: 'About', href: '/about', icon: User },
   { label: 'Work', href: '/work', icon: Briefcase },
   { label: 'Articles', href: '/articles', icon: BookOpen },
   { label: 'Newsletter', href: '/newsletter', icon: Mail },
 ];
 
-function getActiveIndex(pathname: string): number {
-  return navItems.findIndex(
+const mobileNavItems: NavItem[] = [
+  { label: 'About', href: '/about', icon: User },
+  { label: 'Work', href: '/work', icon: Briefcase },
+  { label: 'Articles', href: '/articles', icon: BookOpen },
+  { label: 'Book', href: '/book', icon: Calendar },
+];
+
+function getActiveIndex(items: NavItem[], pathname: string): number {
+  return items.findIndex(
     (item) => pathname === item.href || pathname.startsWith(item.href + '/')
   );
 }
@@ -28,7 +35,8 @@ function getActiveIndex(pathname: string): number {
 export default function SiteNav() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(pathname !== '/');
-  const activeIndex = getActiveIndex(pathname);
+  const desktopActive = getActiveIndex(desktopNavItems, pathname);
+  const mobileActive = getActiveIndex(mobileNavItems, pathname);
 
   useEffect(() => {
     if (pathname !== '/') {
@@ -55,12 +63,12 @@ export default function SiteNav() {
           </Link>
 
           <div className="site-nav-links hidden md:flex">
-            {navItems.map((item, i) => (
+            {desktopNavItems.map((item, i) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`site-nav-link ${i === activeIndex ? 'site-nav-link--active' : ''}`}
-                aria-current={i === activeIndex ? 'page' : undefined}
+                className={`site-nav-link ${i === desktopActive ? 'site-nav-link--active' : ''}`}
+                aria-current={i === desktopActive ? 'page' : undefined}
               >
                 {item.label}
               </Link>
@@ -72,14 +80,14 @@ export default function SiteNav() {
       {/* ── Mobile bottom dock ── */}
       <div className="site-mobile-dock md:hidden" aria-label="Site sections">
         <div className="site-mobile-pill">
-          {navItems.map((item, i) => {
+          {mobileNavItems.map((item, i) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`site-mobile-item ${i === activeIndex ? 'site-mobile-item--active' : ''}`}
-                aria-current={i === activeIndex ? 'page' : undefined}
+                className={`site-mobile-item ${i === mobileActive ? 'site-mobile-item--active' : ''}`}
+                aria-current={i === mobileActive ? 'page' : undefined}
               >
                 <Icon size={20} />
                 <span className="site-mobile-label">{item.label}</span>

@@ -8,6 +8,7 @@ import ServiceSection from '@/components/home/ServiceSection';
 
 import WritingSection from '@/components/home/WritingSection';
 import ContactSection from '@/components/home/ContactSection';
+import ProofSection from '@/components/home/ProofSection';
 import SectionChoreography from '@/components/home/SectionChoreography';
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function Home() {
         <SectionChoreography />
         <HomeHero />
         <AuthoritySection />
+        <ProofSection />
         <WritingSection displayedArticles={displayedArticles} totalArticles={allArticles.length} />
         <WorkSection />
         <EducationSection />

@@ -28,6 +28,9 @@ export default function WorkSection() {
                   <p className="mt-2 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Positioning Lab / SaaS / AI Startups</p>
                 </div>
               </div>
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+                9 modules shipped &middot; 3-phase framework &middot; Stripe-integrated
+              </p>
               <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--text-muted)] sm:text-base">
                 A self-serve positioning lab for AI startups. 9 interactive modules across 3 phases: Discover, Define, and Deploy.
                 Founders work through guided exercises to build clear market narratives, ICPs, and competitive positioning without hiring a consultant.
@@ -67,6 +70,9 @@ export default function WorkSection() {
                   <p className="mt-1.5 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">AI Coding Agent</p>
                 </div>
               </div>
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+                Multi-model architecture &middot; Azure-deployed
+              </p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
                 Multi-model AI coding agent built on GPT-5.4 (reasoning) and GPT-5.3-codex (code generation).
                 CLI tool with dev and prod workflows, code review, and autonomous task execution.
@@ -94,6 +100,9 @@ export default function WorkSection() {
                   <p className="mt-1.5 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Embedded Systems / Simulator</p>
                 </div>
               </div>
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+                Hardware + web simulator &middot; Real-time CAN bus
+              </p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
                 Physical HCS12 controller turned interactive web simulator. CAN communication, PWM motor control, ADC sensing, and safety override logic.
               </p>

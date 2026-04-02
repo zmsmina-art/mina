@@ -13,6 +13,7 @@ import TableOfContents from '@/components/TableOfContents';
 import InlineNewsletterCTA from '@/components/InlineNewsletterCTA';
 import TweetableQuote from '@/components/TweetableQuote';
 import SilentViewTracker from '@/components/SilentViewTracker';
+import ArticleEndCTA from '@/components/ArticleEndCTA';
 import type { Article, ArticleSummary } from '@/data/articles';
 import { extractHeadings, splitContentAfterH2 } from '@/lib/article-headings';
 import { motionDelay } from '@/lib/utils';
@@ -226,6 +227,10 @@ export default function ArticlePageClient({
               </div>
             </div>
           </aside>
+
+          <div className="mt-10" data-motion="rise" style={motionDelay(250)}>
+            <ArticleEndCTA tags={article.tags} />
+          </div>
 
           {relatedArticles.length > 0 && (
             <section className="mt-16" data-motion="rise" style={motionDelay(260)}>
