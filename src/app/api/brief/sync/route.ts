@@ -27,12 +27,13 @@ const STALE_MS = 60 * 60 * 1000; // 1 hour
 
 async function isDataStale(): Promise<{ stale: boolean; lastSync: Date | null }> {
   const db = sql();
-  const tables = ['weather_cache', 'posthog_snapshots', 'github_snapshots', 'vercel_snapshots', 'agent_reports'];
-  const results = await Promise.all(
-    tables.map((table) =>
-      db(`SELECT created_at FROM ${table} ORDER BY created_at DESC LIMIT 1`).catch(() => [])
-    )
-  );
+  const results = await Promise.all([
+    db`SELECT created_at FROM weather_cache ORDER BY created_at DESC LIMIT 1`.catch(() => []),
+    db`SELECT created_at FROM posthog_snapshots ORDER BY created_at DESC LIMIT 1`.catch(() => []),
+    db`SELECT created_at FROM github_snapshots ORDER BY created_at DESC LIMIT 1`.catch(() => []),
+    db`SELECT created_at FROM vercel_snapshots ORDER BY created_at DESC LIMIT 1`.catch(() => []),
+    db`SELECT created_at FROM agent_reports ORDER BY created_at DESC LIMIT 1`.catch(() => []),
+  ]);
 
   const timestamps = results
     .map((rows) => (rows as Record<string, unknown>[])[0]?.created_at)
