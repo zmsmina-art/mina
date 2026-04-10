@@ -11,6 +11,109 @@ export interface Article {
 
 export const articles: Article[] = [
   {
+    slug: "grounded-before-you-reach",
+    title: "Grounded Before You Reach",
+    excerpt:
+      "There's a version of ambition that skips over what's already in front of you. I've been guilty of it. Here's what I've learned about looking at the life you actually have before reaching for the next thing.",
+    content: `
+I've been thinking about this a lot lately. Not in the abstract, philosophical way. In the very real, sitting-at-my-desk, staring-at-an-opportunity-that-could-change-things kind of way.
+
+When you're building something, there's a constant pull toward the next thing. The next milestone, the next partnership, the next version of your life that looks a little more like the one you've been imagining. And that pull isn't bad. Ambition is not the problem. But I've noticed something about the way I used to respond to it, and I think it's worth talking about.
+
+## The Trap of Forward-Only Thinking
+
+For a long time, I operated in a mode where every day was about closing the gap. The gap between where I was and where I wanted to be. That sounds productive. It sounds like drive. But there's a cost to it that nobody warns you about.
+
+**When you only look forward, you lose the ability to see clearly.**
+
+Not because the future is unknowable. But because when every thought is oriented toward what's next, you develop a kind of blindness to what's already here. You start treating your current life, your current relationships, your current opportunities, as stepping stones instead of solid ground. And when you do that, you never actually stand on anything. You're always mid-leap.
+
+I caught myself doing this a few months ago. I had just finished a stretch of building that should have felt significant. [Vantage was live](/articles/olunix-vantage-is-live). The articles were resonating. New clients were coming in. And instead of sitting in any of that, my first instinct was to open a new tab and start planning the next phase. Before I'd even processed what just happened.
+
+That's not ambition. That's avoidance dressed up as work ethic.
+
+## What Gratitude Actually Does
+
+I used to think gratitude was soft. A nice journal prompt. Something people do when they don't have real problems. I was wrong.
+
+Gratitude, the real kind, not the performative kind you post about, is one of the most clarifying forces I've ever experienced. And I don't mean "I'm blessed" on a sunset photo. I mean sitting with the specific, uncomfortable reality that you have been given things you did not earn and could not have manufactured on your own.
+
+The fact that I'm building a company at all. That I get to work with founders who are doing genuinely ambitious things. That I have people in my life who show up for me when I'm not impressive. That I'm healthy. That I woke up today.
+
+None of that was guaranteed. Most of it wasn't even likely.
+
+**When you actually sit in that, something shifts.** The frantic energy calms down. Not because you lose ambition, but because you stop operating from scarcity. You stop treating every opportunity like it might be the last one. You stop gripping so hard.
+
+And that's when the clarity comes.
+
+## Scarcity Makes You Reactive. Gratitude Makes You Strategic.
+
+Here's what I mean by clarity. When I was in forward-only mode, every opportunity felt urgent. A potential partnership. A new revenue stream. A bigger platform. They all felt like things I had to chase immediately, because what if this was the one? What if missing it meant falling behind?
+
+That urgency made me reactive. I said yes to things that didn't align. I stretched into directions that didn't make sense for where I was. I confused motion with progress. I've [written about this before](/articles/marketing-cant-be-quick-dopamine), and it applies to life just as much as it applies to marketing.
+
+When I started operating from a place of genuine thankfulness for what was already working, the decision-making changed completely. Not because I became passive or complacent. But because I could finally evaluate opportunities against something stable. Against a foundation I actually acknowledged instead of sprinting past.
+
+**You can't see clearly when you're running.** You have to stop, look around, and honestly assess what you're standing on. And most of the time, you're standing on something more solid than you realized.
+
+## The People You Already Have
+
+This one hit me hard. I spent so much energy thinking about the network I needed to build, the mentors I needed to find, the connections that could unlock the next level. And I neglected the people who were already there.
+
+The friends who believed in what I was building before it was anything. The family that put up with my obsessive work hours and still showed up. The early clients who took a chance on a young guy with more conviction than credentials.
+
+Those people are not placeholders. They're not the warm-up act before the "real" relationships start. They are the real relationships. And I've learned that the quality of your future opportunities is directly tied to how well you honor the people already in your corner.
+
+Not because of some karmic transaction. But because loyalty, real loyalty, is a skill. And if you can't practice it with the people who are already here, you won't suddenly develop it when someone more impressive shows up.
+
+## What This Looks Like in Practice
+
+I'm not going to pretend I've mastered this. I haven't. But here's what's changed in how I approach the future now.
+
+Before I evaluate a new opportunity, I ask myself one question: **Am I running toward something, or running from something?**
+
+If I'm running toward it because it genuinely builds on what I've already established, because it serves the people I'm already committed to, because it deepens the work instead of scattering it, then it's worth pursuing.
+
+If I'm running toward it because I'm bored, or restless, or because the thing I already have stopped feeling exciting, then I need to pause. Because that restlessness usually isn't a signal that I need something new. It's a signal that I haven't fully appreciated what I already have.
+
+That distinction has saved me from more bad decisions than any strategy framework ever has.
+
+## Ambition With Roots
+
+I think the version of ambition that actually lasts, the kind that builds things worth building, is the kind that grows from roots instead of anxiety.
+
+Rooted ambition says: I see what I've been given. I'm grateful for it. I'm going to steward it well. And from that place of stability, I'm going to reach for the next thing with open hands instead of desperate ones.
+
+Anxious ambition says: I need more. What I have isn't enough. If I don't move faster, I'll fall behind. It grips everything and holds nothing.
+
+I've lived both. The anxious version produced more noise. The rooted version produced better work. Every time.
+
+## A Note On Faith
+
+I've been [open about this before](/articles/the-pursuit-of-something-better). My faith is the deepest root I have. The conviction that I've been placed where I am for a reason, that what I've been given is not an accident, that gratitude is not just a feeling but a posture of the heart. That changes how I approach everything.
+
+I don't say that to convince you of anything. I say it because leaving it out would be dishonest. And this article is about honesty more than anything else.
+
+## Before You Reach
+
+If you're sitting where I was, staring at the next opportunity, already mapping out how it changes everything, I'd ask you to do something first.
+
+Look around. Not at what's missing. At what's here.
+
+The people. The progress. The fact that you're in a position to even consider what's next, because that alone means something went right that you might be taking for granted.
+
+Let that land. Let it change the texture of your ambition from desperate to deliberate. And then, from that place, the place where you're standing on ground you're actually grateful for, make your next move.
+
+It'll be a better one. I promise.
+
+*- MM*
+    `,
+    publishedAt: "2026-04-10",
+    updatedAt: "2026-04-10",
+    readingTime: "7 min read",
+    tags: ["Personal", "Entrepreneurship", "Faith"],
+  },
+  {
     slug: "marketing-cant-be-quick-dopamine",
     title: "Marketing Can't Be Quick Dopamine",
     excerpt:

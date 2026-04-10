@@ -85,39 +85,46 @@ export default function WorkSection() {
             </div>
           </article>
 
-          {/* ── Habits Together: compact ── */}
-          <article className="feature-card relative overflow-hidden md:col-span-2" data-motion="spotlight" style={motionDelay(280)}>
+          {/* ── Habits Together ── */}
+          <article className="feature-card relative overflow-hidden" data-motion="spotlight" style={motionDelay(280)}>
             <CardGlow />
             <div className="relative z-[1]">
-              <a
-                href="https://habitstogether.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="logo-pill timeline-logo-shell">
-                    <Image
-                      src="/habits-together-logo.png"
-                      alt="Habits Together logo"
-                      width={56}
-                      height={56}
-                      loading="lazy"
-                      sizes="56px"
-                      className="timeline-logo h-10 w-10 object-contain md:h-11 md:w-11"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h2 className="text-xl text-[var(--text-primary)]">Product Collaborator</h2>
-                    <p className="mt-0.5 text-sm lowercase tracking-[0.12em] text-[var(--accent-oxide)]">Habits Together</p>
-                    <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Collaborative habit-tracking app focused on accountability loops and consistent team execution.</p>
-                  </div>
+              <div className="feature-header">
+                <div className="logo-pill timeline-logo-shell">
+                  <Image
+                    src="/habits-together-logo.png"
+                    alt="Habits Together logo"
+                    width={56}
+                    height={56}
+                    loading="lazy"
+                    sizes="56px"
+                    className="timeline-logo h-10 w-10 object-contain md:h-11 md:w-11"
+                  />
                 </div>
-                <div className="flex shrink-0 items-center gap-2 text-xs lowercase tracking-[0.14em] text-[var(--text-dim)]">
-                  <span>Summer 2024</span>
-                  <ArrowUpRight size={13} className="shrink-0 text-[var(--accent-gold-soft)]" />
+                <div>
+                  <h2 className="text-[clamp(1.2rem,3vw,1.6rem)] leading-tight text-[var(--text-primary)]">
+                    Product Collaborator
+                  </h2>
+                  <p className="mt-1.5 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Habits Together</p>
                 </div>
-              </a>
+              </div>
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+                Summer 2024
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
+                Collaborative habit-tracking app focused on accountability loops and consistent team execution.
+              </p>
+              <div className="mt-5">
+                <a
+                  href="https://habitstogether.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm lowercase tracking-[0.12em] text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)]"
+                >
+                  Visit app
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
             </div>
           </article>
         </div>
