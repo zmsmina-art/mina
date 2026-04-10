@@ -37,7 +37,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="md:col-span-3 lg:col-span-3" data-motion="footer-rise" style={motionDelay(120)}>
+        <nav className="md:col-span-3 lg:col-span-3" aria-label="Footer navigation" data-motion="footer-rise" style={motionDelay(120)}>
           <p className="footer-heading">Navigation</p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             {navigationLinks.map((link) => (
@@ -46,9 +46,9 @@ export default function SiteFooter() {
               </Link>
             ))}
           </div>
-        </div>
+        </nav>
 
-        <div className="md:col-span-4 lg:col-span-3" data-motion="footer-rise" style={motionDelay(200)}>
+        <nav className="md:col-span-4 lg:col-span-3" aria-label="Social links" data-motion="footer-rise" style={motionDelay(200)}>
           <p className="footer-heading">Networks</p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             {networkLinks.map((link) => (
@@ -57,7 +57,7 @@ export default function SiteFooter() {
               </a>
             ))}
           </div>
-        </div>
+        </nav>
       </div>
 
       <div

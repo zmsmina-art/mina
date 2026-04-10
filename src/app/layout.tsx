@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, EB_Garamond, Playfair_Display } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import LayoutRuntime from '@/components/LayoutRuntime';
@@ -312,15 +313,7 @@ export default function RootLayout({
     copyrightHolder: {
       '@id': 'https://minamankarious.com/#person',
     },
-    copyrightYear: 2024,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://minamankarious.com/articles?q={search_term_string}',
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    copyrightYear: new Date().getFullYear(),
   };
 
   const siteNavigationElements = [
@@ -387,7 +380,7 @@ export default function RootLayout({
     name: 'Vantage by Olunix',
     url: 'https://olunix.com/lab',
     description:
-      'AI-powered positioning platform for startup founders. Seven guided modules that replace what agencies charge thousands for — positioning audit, audience discovery, competitive analysis, headline testing, go-to-market strategy, brand identity, and messaging playbook.',
+      'AI-powered positioning platform for startup founders. Nine guided modules that replace what agencies charge thousands for — positioning audit, audience discovery, competitive analysis, headline testing, go-to-market strategy, brand identity, messaging playbook, content engine, and launch readiness.',
     creator: {
       '@id': 'https://minamankarious.com/#person',
     },
@@ -413,7 +406,7 @@ export default function RootLayout({
         priceCurrency: 'USD',
         billingIncrement: 'P1M',
         priceValidUntil: '2026-12-31',
-        description: 'All 7 modules: audit, audience discovery, competitive analysis, headline testing, GTM strategy, brand identity, and messaging playbook.',
+        description: 'All 9 modules: audit, audience discovery, competitive analysis, headline testing, GTM strategy, brand identity, messaging playbook, content engine, and launch readiness.',
         availability: 'https://schema.org/InStock',
       },
     ],
@@ -464,7 +457,7 @@ export default function RootLayout({
           {children}
           <BriefGuard><SiteFooter /></BriefGuard>
         </div>
-        {process.env.VERCEL && <Analytics />}
+        {process.env.VERCEL && <><Analytics /><SpeedInsights /></>}
       </body>
     </html>
   );

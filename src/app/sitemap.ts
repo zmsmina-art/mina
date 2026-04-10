@@ -24,13 +24,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://minamankarious.com/about",
-      lastModified: new Date("2026-02-19"),
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: "https://minamankarious.com/work",
-      lastModified: new Date("2026-02-10"),
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.85,
     },
@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: "https://minamankarious.com/newsletter",
-      lastModified: new Date("2026-02-05"),
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
@@ -73,13 +73,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: "https://minamankarious.com/book",
-      lastModified: new Date("2026-02-05"),
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: "https://minamankarious.com/privacy",
-      lastModified: new Date("2026-02-19"),
+      lastModified: siteLastModified,
       changeFrequency: "yearly",
       priority: 0.3,
     },

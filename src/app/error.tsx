@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Error({
   error,
@@ -14,18 +15,26 @@ export default function Error({
   }, [error]);
 
   return (
-    <main id="main-content" className="marketing-main site-theme page-gutter flex min-h-[60vh] flex-col items-center justify-center text-center">
-      <h1 className="text-2xl text-[var(--text-primary)]">Something went wrong</h1>
-      <p className="mt-3 text-sm text-[var(--text-muted)]">
-        An unexpected error occurred. Please try again.
-      </p>
-      <button
-        type="button"
-        onClick={reset}
-        className="mt-6 inline-flex items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.5)] bg-[rgba(255,255,255,0.12)] px-5 py-3 text-sm tracking-[0.04em] text-[var(--text-primary)] transition-all hover:border-[var(--accent-gold-soft)] hover:bg-[rgba(255,255,255,0.22)]"
-      >
-        Try again
-      </button>
+    <main id="main-content" data-section-theme="about" className="page-enter marketing-main site-theme page-gutter pb-20 pt-32 md:pb-24 md:pt-40">
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="mb-3 text-sm lowercase tracking-[0.2em] text-[var(--text-dim)]">
+          Error
+        </p>
+        <h1 className="mobile-tight-title mb-4 text-[clamp(2.4rem,12vw,3.6rem)] text-[var(--text-primary)] md:text-7xl">
+          Something went wrong.
+        </h1>
+        <p className="mb-10 text-[var(--text-muted)]">
+          An unexpected error occurred. You can try again or head back to safety.
+        </p>
+
+        <div className="mx-auto flex w-full max-w-sm flex-wrap justify-center gap-3">
+          <button onClick={reset} className="accent-btn w-full justify-center sm:w-auto">
+            Try again
+          </button>
+          <Link href="/" className="ghost-btn w-full justify-center sm:w-auto">Go home</Link>
+          <Link href="/articles" className="ghost-btn w-full justify-center sm:w-auto">Read articles</Link>
+        </div>
+      </div>
     </main>
   );
 }
