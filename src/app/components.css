@@ -894,6 +894,28 @@ a {
   transform-origin: left;
 }
 
+/* ── Article content backdrop ── */
+/* Darkens the area behind article text so the smoke background doesn't
+   compete with readability. Uses a soft radial vignette so the effect
+   blends naturally into the page edges. */
+
+.article-motion-shell {
+  position: relative;
+}
+.article-motion-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0 -10vw;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse 70% 100% at 50% 40%,
+    rgba(5, 5, 7, 0.92) 0%,
+    rgba(5, 5, 7, 0.78) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
 /* ── Article prose ── */
 
 .article-prose {
