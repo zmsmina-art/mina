@@ -433,6 +433,7 @@ export default function RootLayout({
         <link rel="me" href="https://minamankarious.substack.com" />
         <link rel="me" href="https://www.crunchbase.com/person/mina-mankarious" />
         <link rel="me" href="https://www.wikidata.org/wiki/Q138001904" />
+        <link rel="alternate" type="application/rss+xml" title="Mina Mankarious" href="/feed.xml" />
       </head>
       <body className="antialiased">
         <script

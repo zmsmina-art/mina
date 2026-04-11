@@ -12,7 +12,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const encoded = typeof params.r === 'string' ? params.r : undefined;
   const shared = encoded ? decodeResult(encoded) : null;
 
-  const baseTitle = 'Grade Your AI Startup Positioning — Free Tool | Mina Mankarious';
+  const baseTitle = 'Grade Your AI Startup Positioning — Free Tool';
   const baseDescription =
     'Paste your startup headline and get an instant positioning score across clarity, specificity, differentiation, brevity, and value clarity. Free, no signup required.';
 

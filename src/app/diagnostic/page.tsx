@@ -11,7 +11,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const encoded = typeof params.r === 'string' ? params.r : undefined;
   const shared = encoded ? decodeDiagnosticShare(encoded) : null;
 
-  const baseTitle = 'AI Startup GTM Diagnostic — Mina Mankarious';
+  const baseTitle = 'AI Startup GTM Diagnostic';
   const baseDescription =
     'Run a 10-minute diagnostic for your AI startup go-to-market system. Get a scored assessment, bottleneck analysis, and a 90-day GTM alignment brief.';
 
