@@ -17,16 +17,6 @@ const authorityTimeline = [
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
   {
-    title: 'Founder',
-    org: 'Olunix',
-    period: 'Sep 2024 - Present',
-    detail: 'Marketing and consulting for AI startups with an execution-first operating model.',
-    logo: '/olunix.svg',
-    logoAlt: 'Olunix logo',
-    href: 'https://olunix.com',
-    logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
-  },
-  {
     title: 'Deal Partner',
     org: 'Boardy',
     period: 'Jan 2026 - May 2026',
@@ -34,6 +24,16 @@ const authorityTimeline = [
     logo: '/boardy-logo.png',
     logoAlt: 'Boardy logo',
     href: 'https://boardy.ai',
+    logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
+  },
+  {
+    title: 'Founder',
+    org: 'Olunix',
+    period: 'Sep 2024 - Present',
+    detail: 'Marketing and consulting for AI startups with an execution-first operating model.',
+    logo: '/olunix.svg',
+    logoAlt: 'Olunix logo',
+    href: 'https://olunix.com',
     logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
   },
   {
