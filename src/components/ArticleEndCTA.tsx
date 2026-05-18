@@ -11,14 +11,14 @@ const tagToCTA: Record<string, { heading: string; text: string; href: string; la
   marketing: {
     heading: 'Need a strategic growth partner?',
     text: 'If you are building an AI product and need help with positioning, narrative, or go-to-market, let\'s talk.',
-    href: '/book',
-    label: 'Book a call',
+    href: 'mailto:mina@olunix.com?subject=Growth%20Inquiry',
+    label: 'Get in touch',
   },
   growth: {
     heading: 'Need a strategic growth partner?',
     text: 'If you are building an AI product and need help with positioning, narrative, or go-to-market, let\'s talk.',
-    href: '/book',
-    label: 'Book a call',
+    href: 'mailto:mina@olunix.com?subject=Growth%20Inquiry',
+    label: 'Get in touch',
   },
   startups: {
     heading: 'Building something and need traction?',
@@ -31,8 +31,8 @@ const tagToCTA: Record<string, { heading: string; text: string; href: string; la
 const defaultCTA = {
   heading: 'Want to work through this together?',
   text: 'I help AI startups with positioning, growth systems, and founder-led marketing.',
-  href: '/book',
-  label: 'Book a call',
+  href: 'mailto:mina@olunix.com?subject=Collaboration%20Inquiry',
+  label: 'Get in touch',
 };
 
 export default function ArticleEndCTA({ tags }: { tags: string[] }) {

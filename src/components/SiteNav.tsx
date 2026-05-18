@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { User, Briefcase, BookOpen, Mail, Calendar } from 'lucide-react';
+import { User, Briefcase, BookOpen, Mail } from 'lucide-react';
 
 type NavItem = {
   label: string;
@@ -23,7 +23,7 @@ const mobileNavItems: NavItem[] = [
   { label: 'About', href: '/about', icon: User },
   { label: 'Work', href: '/work', icon: Briefcase },
   { label: 'Articles', href: '/articles', icon: BookOpen },
-  { label: 'Book', href: '/book', icon: Calendar },
+  { label: 'Newsletter', href: '/newsletter', icon: Mail },
 ];
 
 function getActiveIndex(items: NavItem[], pathname: string): number {

@@ -10,7 +10,7 @@ const navigationLinks = [
   { label: 'Articles', href: '/articles' },
   { label: 'Positioning Grader', href: '/positioning-grader' },
   { label: 'Newsletter', href: '/newsletter' },
-  { label: 'Book a Call', href: '/book' },
+
   { label: 'Contact', href: '/#contact' },
 ];
 

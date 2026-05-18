@@ -453,9 +453,7 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
     });
   }, [result, competitorName, competitorHeadline]);
 
-  const bookHref = result
-    ? `/book?source=positioning-grader&score=${result.overallScore}&grade=${encodeURIComponent(result.grade.letter)}`
-    : '/book?source=positioning-grader';
+  const bookHref = 'mailto:mina@olunix.com?subject=Positioning%20Grader%20Follow-up';
 
   // ── Shared View ────────────────────────────────────────────────────
 
@@ -909,13 +907,13 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
                           {copied ? 'Unique link copied' : 'Copy unique result link'}
                         </button>
                         <Link href={bookHref} className="ghost-btn px-4 py-2 text-sm" onClick={() => safeTrack('positioning_grader_book_click', { grade: result.grade.letter, score: result.overallScore })}>
-                          Book a call
+                          Get in touch
                           <ArrowUpRight size={15} />
                         </Link>
                       </>
                     ) : (
                       <Link href={bookHref} className="accent-btn inline-flex" onClick={() => safeTrack('positioning_grader_book_click', { grade: result.grade.letter, score: result.overallScore })}>
-                        Book a positioning call
+                        Get in touch
                         <ArrowUpRight size={15} />
                       </Link>
                     )}

@@ -8,7 +8,7 @@ import LayoutRuntime from '@/components/LayoutRuntime';
 import SmokeBackground from '@/components/SmokeBackground';
 import MobileSmokeBackground from '@/components/MobileSmokeBackground';
 import LenisProvider from '@/components/LenisProvider';
-import FloatingCTA from '@/components/FloatingCTA';
+
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -321,7 +321,7 @@ export default function RootLayout({
     { name: 'Articles', url: 'https://minamankarious.com/articles', description: 'Essays on AI startup marketing, entrepreneurship, and growth strategy' },
     { name: 'Positioning Grader', url: 'https://minamankarious.com/positioning-grader', description: 'Grade your AI startup positioning — free tool' },
     { name: 'Newsletter', url: 'https://minamankarious.com/newsletter', description: 'Subscribe to essays on entrepreneurship, marketing, and growth' },
-    { name: 'Book a Call', url: 'https://minamankarious.com/book', description: 'Schedule a free strategy call with Mina Mankarious' },
+
   ].map((item, i) => ({
     '@type': 'SiteNavigationElement',
     position: i + 1,
@@ -448,8 +448,7 @@ export default function RootLayout({
         <div className="hidden md:block"><SmokeBackground color="#7a40f2" /></div>
         <MobileSmokeBackground />
         <SiteNav />
-        <FloatingCTA />
-        <script
+<script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

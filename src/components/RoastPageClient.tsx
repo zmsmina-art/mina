@@ -168,11 +168,10 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
 
   const smartCta = useMemo(() => {
     if (!result) return null;
-    const bookHref = `/book?source=roast&score=${result.score}&verdict=${encodeURIComponent(result.verdict)}`;
     if (result.score < 65) {
       return {
-        href: bookHref,
-        label: 'Book a positioning call',
+        href: 'mailto:mina@olunix.com?subject=Positioning%20Help',
+        label: 'Get positioning help',
         helper: 'Your messaging is leaking trust. Rebuild the angle before your next pitch.',
         secondaryHref: '/positioning-grader?source=roast',
         secondaryLabel: 'Run the headline grader',
@@ -180,8 +179,8 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
     }
 
     return {
-      href: bookHref,
-      label: 'Book a positioning call',
+      href: 'mailto:mina@olunix.com?subject=Positioning%20Help',
+      label: 'Get in touch',
       helper: 'You survived the roast. Want to go from good to category-defining?',
       secondaryHref: '/positioning-grader?source=roast',
       secondaryLabel: 'Run the headline grader',

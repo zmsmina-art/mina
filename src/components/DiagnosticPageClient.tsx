@@ -301,9 +301,7 @@ export default function DiagnosticPageClient({ sharedParam }: { sharedParam: str
     safeTrack('diagnostic_reset');
   }, []);
 
-  const bookHref = result
-    ? `/book?source=diagnostic&score=${result.overallScore}&tier=${encodeURIComponent(result.tier.id)}`
-    : '/book?source=diagnostic';
+  const bookHref = 'mailto:mina@olunix.com?subject=GTM%20Diagnostic%20Follow-up';
 
   if (sharedResult && !result) {
     return (

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
-import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
+
 import HeroTimeline from '@/components/home/HeroTimeline';
 
 const heroStats = [
@@ -42,8 +42,6 @@ export default function HomeHero() {
           </p>
 
           <div className="mt-7 flex w-full max-w-sm flex-wrap items-center gap-3 sm:max-w-none" data-motion="rise" style={motionDelay(510)}>
-            <HeroBookingTrigger />
-
             <a
               href="https://www.linkedin.com/in/mina-mankarious"
               target="_blank"
