@@ -5,7 +5,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import LayoutRuntime from '@/components/LayoutRuntime';
-import BriefGuard from '@/components/BriefGuard';
 import SmokeBackground from '@/components/SmokeBackground';
 import MobileSmokeBackground from '@/components/MobileSmokeBackground';
 import LenisProvider from '@/components/LenisProvider';
@@ -51,12 +50,12 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   title: {
-    default: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth, Toronto',
+    default: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix, Toronto',
     template: '%s | Mina Mankarious',
   },
   applicationName: 'Mina Mankarious',
   description:
-    'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
+    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
   keywords: [
     'Mina Mankarious',
     'Olunix',
@@ -73,9 +72,9 @@ export const metadata: Metadata = {
   classification: 'Portfolio',
   referrer: 'strict-origin-when-cross-origin',
   openGraph: {
-    title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth, Toronto',
+    title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix, Toronto',
     description:
-      'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
     url: 'https://minamankarious.com',
     siteName: 'Mina Mankarious',
     locale: 'en_US',
@@ -85,21 +84,21 @@ export const metadata: Metadata = {
         url: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
-        alt: 'Mina Mankarious - Founder and CEO of Olunix',
+        alt: 'Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth',
+    title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix',
     description:
-      'Mina Mankarious is the Founder and CEO of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
     site: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
-        alt: 'Mina Mankarious - Founder and CEO of Olunix',
+        alt: 'Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix',
       },
     ],
     creator: '@olmnix',
@@ -183,7 +182,7 @@ export default function RootLayout({
         contentUrl: 'https://minamankarious.com/headshot.webp',
         width: 800,
         height: 800,
-        caption: 'Mina Mankarious - Founder and CEO of Olunix',
+        caption: 'Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix',
       },
       {
         '@type': 'ImageObject',
@@ -191,12 +190,12 @@ export default function RootLayout({
         contentUrl: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
-        caption: 'Mina Mankarious - Founder and CEO of Olunix',
+        caption: 'Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix',
       },
     ],
-    jobTitle: 'Founder & CEO',
+    jobTitle: 'Deal Partner Program Manager',
     description:
-      'Mina Mankarious is the Founder and CEO of Olunix, a Toronto-based marketing and consulting firm helping AI startups with positioning, growth systems, and founder-led marketing.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto.',
     nationality: {
       '@type': 'Country',
       name: 'Canada',
@@ -244,9 +243,9 @@ export default function RootLayout({
     hasOccupation: [
       {
         '@type': 'Occupation',
-        name: 'Chief Executive Officer',
-        occupationalCategory: 'Management',
-        description: 'Founder and CEO leading AI startup growth strategy and marketing consulting',
+        name: 'Deal Partner Program Manager',
+        occupationalCategory: 'Business Development',
+        description: 'Running onboarding, relationships, and activation across the partner network at Boardy',
       },
       {
         '@type': 'Occupation',
@@ -305,7 +304,7 @@ export default function RootLayout({
     url: 'https://minamankarious.com',
     name: 'Mina Mankarious',
     alternateName: ['Mina Mankarious Portfolio', 'minamankarious.com'],
-    description: 'Official website of Mina Mankarious, Founder and CEO of Olunix.',
+    description: 'Official website of Mina Mankarious, Deal Partner Program Manager at Boardy and Founder of Olunix.',
     publisher: {
       '@id': 'https://minamankarious.com/#person',
     },
@@ -317,7 +316,7 @@ export default function RootLayout({
   };
 
   const siteNavigationElements = [
-    { name: 'About', url: 'https://minamankarious.com/about', description: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix' },
+    { name: 'About', url: 'https://minamankarious.com/about', description: 'About Mina Mankarious — Deal Partner PM at Boardy, Founder of Olunix' },
     { name: 'Work', url: 'https://minamankarious.com/work', description: 'Case studies by Mina Mankarious & Olunix' },
     { name: 'Articles', url: 'https://minamankarious.com/articles', description: 'Essays on AI startup marketing, entrepreneurship, and growth strategy' },
     { name: 'Positioning Grader', url: 'https://minamankarious.com/positioning-grader', description: 'Grade your AI startup positioning — free tool' },
@@ -448,7 +447,7 @@ export default function RootLayout({
         <LayoutRuntime />
         <div className="hidden md:block"><SmokeBackground color="#7a40f2" /></div>
         <MobileSmokeBackground />
-        <BriefGuard><SiteNav /></BriefGuard>
+        <SiteNav />
         <FloatingCTA />
         <script
           type="application/ld+json"
@@ -456,7 +455,7 @@ export default function RootLayout({
         />
         <div className="page-shell">
           {children}
-          <BriefGuard><SiteFooter /></BriefGuard>
+          <SiteFooter />
         </div>
         {process.env.VERCEL && <><Analytics /><SpeedInsights /></>}
       </body>

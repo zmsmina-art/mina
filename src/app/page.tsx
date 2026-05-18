@@ -12,9 +12,9 @@ import ProofSection from '@/components/home/ProofSection';
 import SectionChoreography from '@/components/home/SectionChoreography';
 
 export const metadata: Metadata = {
-  title: 'Mina Mankarious — Founder & CEO of Olunix | AI Startup Growth, Toronto',
+  title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix, Toronto',
   description:
-    'Mina Mankarious is the Founder and CEO of Olunix, a Toronto-based firm helping AI startups with positioning, growth systems, and founder-led marketing. Explore his work, writing, and case studies.',
+    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
   alternates: {
     canonical: 'https://minamankarious.com',
   },

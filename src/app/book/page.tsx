@@ -4,14 +4,14 @@ import BookingPageClient from '@/components/BookingPageClient';
 export const metadata: Metadata = {
   title: 'Book a Call with Mina Mankarious — AI Startup Strategy',
   description:
-    'Schedule a 30-minute strategy call with Mina Mankarious, Founder & CEO of Olunix. Discuss positioning, marketing, or growth for your AI startup.',
+    'Schedule a 30-minute strategy call with Mina Mankarious, Deal Partner Program Manager at Boardy and Founder of Olunix. Discuss positioning, growth, or business development.',
   alternates: {
     canonical: 'https://minamankarious.com/book',
   },
   openGraph: {
     title: 'Book a Call with Mina Mankarious — AI Startup Strategy',
     description:
-      'Schedule a 30-minute strategy call with Mina Mankarious, Founder & CEO of Olunix. Discuss positioning, marketing, or growth for your AI startup.',
+      'Schedule a 30-minute strategy call with Mina Mankarious, Deal Partner Program Manager at Boardy and Founder of Olunix. Discuss positioning, growth, or business development.',
     url: 'https://minamankarious.com/book',
     siteName: 'Mina Mankarious',
     locale: 'en_US',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Book a Call with Mina Mankarious — AI Startup Strategy',
     description:
-      'Schedule a 30-minute strategy call with Mina Mankarious, Founder & CEO of Olunix. Discuss positioning, marketing, or growth for your AI startup.',
+      'Schedule a 30-minute strategy call with Mina Mankarious, Deal Partner Program Manager at Boardy and Founder of Olunix. Discuss positioning, growth, or business development.',
     images: [
       {
         url: 'https://minamankarious.com/api/og',

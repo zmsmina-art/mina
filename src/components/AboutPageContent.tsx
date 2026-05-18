@@ -20,7 +20,7 @@ const milestones = [
   { year: '2022', text: 'Joined Toyota, two years in frontline operations' },
   { year: '2024', text: 'Founded Olunix (originally GrowByte Media)' },
   { year: '2025', text: 'Ministry intern at Hope Bible Church' },
-  { year: '2026', text: 'Deal Partner at Boardy, final year at McMaster' },
+  { year: '2026', text: 'Deal Partner Program Manager at Boardy, final year at McMaster' },
 ];
 
 export default function AboutPageContent() {
@@ -80,7 +80,16 @@ export default function AboutPageContent() {
                 data-motion="rise"
                 style={motionDelay(300)}
               >
-                Founder &amp; CEO of{' '}
+                Deal Partner PM at{' '}
+                <a
+                  href="https://boardy.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-[var(--stroke-soft)] underline-offset-4 transition-colors hover:text-[var(--text-primary)] hover:decoration-[var(--text-primary)]"
+                >
+                  Boardy
+                </a>
+                {' '}&amp; Founder of{' '}
                 <a
                   href="https://olunix.com"
                   target="_blank"
@@ -95,8 +104,7 @@ export default function AboutPageContent() {
                 data-motion="rise"
                 style={motionDelay(360)}
               >
-                Born in Egypt. Raised in Canada. Building at the intersection of engineering and marketing,
-                helping AI startups turn technical depth into real market traction.
+                Born in Egypt. Raised in Canada. Running partner programs at Boardy and building Vantage — a positioning OS for technical founders.
               </p>
 
               <div

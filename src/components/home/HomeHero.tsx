@@ -6,7 +6,7 @@ import HeroBookingTrigger from '@/components/home/HeroBookingTrigger';
 import HeroTimeline from '@/components/home/HeroTimeline';
 
 const heroStats = [
-  { label: 'Current Firm', value: 'Olunix' },
+  { label: 'Current Firm', value: 'Boardy' },
   { label: 'Primary Lens', value: 'Systems + Story' },
   { label: 'Client Stage', value: 'Seed to Growth' },
 ];
@@ -34,11 +34,11 @@ export default function HomeHero() {
           </h1>
 
           <p className="hero-role mt-6 text-xs lowercase tracking-[0.2em] text-[var(--text-muted)] md:mt-8 md:text-sm" data-motion="rise" style={motionDelay(320)}>
-            Founder &amp; CEO, Olunix
+            Deal Partner PM, Boardy &nbsp;&middot;&nbsp; Founder, Olunix
           </p>
 
           <p className="hero-lead mt-4 max-w-3xl text-lg leading-relaxed text-[var(--text-primary)] md:text-2xl" data-motion="rise" style={motionDelay(420)}>
-            Helping AI startups turn technical products into clear market narratives, founder-led demand, and operating systems that compound.
+            Running the Deal Partner program at Boardy while building Vantage — a positioning OS for technical founders who need commercial traction.
           </p>
 
           <div className="mt-7 flex w-full max-w-sm flex-wrap items-center gap-3 sm:max-w-none" data-motion="rise" style={motionDelay(510)}>
@@ -98,12 +98,12 @@ export default function HomeHero() {
           <div className="mt-5 space-y-4">
             <p className="text-site-kicker lowercase tracking-[0.18em] text-[var(--text-dim)]">Quick bio</p>
             <p className="text-sm leading-relaxed text-[var(--text-primary)]">
-              Engineering-trained operator translating technical depth into positioning clarity and market traction for AI startups.
+              Engineering-trained operator running partner programs at Boardy and building Vantage, an AI positioning OS for technical founders.
             </p>
             <div className="space-y-2 border-t border-[var(--stroke-soft)] pt-4 text-xs text-[var(--text-muted)]">
               <p className="flex items-center justify-between gap-4">
                 <span>Role</span>
-                <span className="text-[var(--text-primary)]">Founder / CEO</span>
+                <span className="text-[var(--text-primary)]">Deal Partner PM · Founder</span>
               </p>
               <p className="flex items-center justify-between gap-4">
                 <span>Coverage</span>

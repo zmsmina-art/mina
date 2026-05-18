@@ -3,9 +3,9 @@ import AboutPageContent from '@/components/AboutPageContent';
 import AboutChoreography from '@/components/AboutChoreography';
 
 export const metadata: Metadata = {
-  title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
+  title: 'About Mina Mankarious — Entrepreneur, Deal Partner PM at Boardy | Founder of Olunix',
   description:
-    'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
+    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix. McMaster engineering student and builder at the intersection of engineering and marketing, based in Toronto.',
   alternates: {
     canonical: 'https://minamankarious.com/about',
     languages: {
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
+    title: 'About Mina Mankarious — Entrepreneur, Deal Partner PM at Boardy | Founder of Olunix',
     description:
-      'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix. McMaster engineering student and builder at the intersection of engineering and marketing, based in Toronto.',
     url: 'https://minamankarious.com/about',
     siteName: 'Mina Mankarious',
     type: 'profile',
@@ -28,21 +28,21 @@ export const metadata: Metadata = {
         url: 'https://minamankarious.com/api/og',
         width: 1200,
         height: 630,
-        alt: 'Mina Mankarious - Founder & CEO of Olunix | Toronto Entrepreneur',
+        alt: 'Mina Mankarious - Deal Partner PM at Boardy | Founder of Olunix | Toronto Entrepreneur',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
+    title: 'About Mina Mankarious — Entrepreneur, Deal Partner PM at Boardy | Founder of Olunix',
     description:
-      'Canadian entrepreneur and Founder & CEO of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
+      'Canadian entrepreneur and Deal Partner PM at Boardy | Founder of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
     site: '@olmnix',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
-        alt: 'Mina Mankarious - Founder & CEO of Olunix | Toronto Entrepreneur',
+        alt: 'Mina Mankarious - Deal Partner PM at Boardy | Founder of Olunix | Toronto Entrepreneur',
       },
     ],
     creator: '@olmnix',
@@ -58,7 +58,7 @@ export default function AboutPage() {
         '@id': 'https://minamankarious.com/about#profilepage',
         url: 'https://minamankarious.com/about',
         name: 'About Mina Mankarious',
-        description: 'Professional profile of Mina Mankarious, Founder & CEO of Olunix.',
+        description: 'Professional profile of Mina Mankarious, Deal Partner PM at Boardy | Founder of Olunix.',
         mainEntity: {
           '@id': 'https://minamankarious.com/#person',
         },
@@ -72,9 +72,9 @@ export default function AboutPage() {
         '@type': 'AboutPage',
         '@id': 'https://minamankarious.com/about#aboutpage',
         url: 'https://minamankarious.com/about',
-        name: 'About Mina Mankarious — Entrepreneur, Founder & CEO of Olunix',
+        name: 'About Mina Mankarious — Entrepreneur, Deal Partner PM at Boardy | Founder of Olunix',
         description:
-          'Mina Mankarious is a Canadian entrepreneur and Founder & CEO of Olunix, a marketing and consulting firm based in Toronto, Ontario.',
+          'Mina Mankarious is a Canadian entrepreneur and Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Ontario.',
         inLanguage: 'en-US',
         primaryImageOfPage: {
           '@type': 'ImageObject',
@@ -115,7 +115,7 @@ export default function AboutPage() {
             name: 'Who is Mina Mankarious?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Mina Mankarious is a Canadian entrepreneur and the Founder & CEO of Olunix, a marketing and consulting firm based in Toronto that helps AI startups with positioning, growth systems, and founder-led marketing.',
+              text: 'Mina Mankarious is the Deal Partner Program Manager at Boardy, running onboarding, relationships, and activation across the partner network. He also founded Olunix and built Vantage — a positioning OS for technical founders.',
             },
           },
           {

@@ -5,7 +5,7 @@ import { getArticleSummaries } from '@/data/articles';
 export const metadata: Metadata = {
   title: 'Articles — Mina Mankarious on AI Startups, Marketing & Growth',
   description:
-    'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy. Written by Mina Mankarious, Founder & CEO of Olunix.',
+    'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy. Written by Mina Mankarious, Deal Partner PM at Boardy and Founder of Olunix.',
   alternates: {
     canonical: 'https://minamankarious.com/articles',
   },
@@ -70,7 +70,7 @@ export default function ArticlesPage() {
     '@id': 'https://minamankarious.com/articles/#blog',
     name: 'Articles by Mina Mankarious',
     description:
-      'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy by Mina Mankarious, Founder & CEO of Olunix.',
+      'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy by Mina Mankarious, Deal Partner PM at Boardy and Founder of Olunix.',
     url: 'https://minamankarious.com/articles',
     publisher: {
       '@type': 'Person',

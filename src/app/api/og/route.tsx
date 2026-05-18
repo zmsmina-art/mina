@@ -967,7 +967,7 @@ export async function GET(request: NextRequest) {
                   textTransform: 'uppercase',
                 }}
               >
-                Founder & CEO of Olunix
+                Deal Partner PM, Boardy · Founder, Olunix
               </div>
             </div>
 

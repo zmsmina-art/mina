@@ -3,7 +3,7 @@ import { getAllArticlesSorted } from "@/data/articles";
 const baseUrl = "https://minamankarious.com";
 
 const homepageImages: { path: string; caption: string }[] = [
-  { path: "/headshot.webp", caption: "Mina Mankarious - Founder and CEO of Olunix" },
+  { path: "/headshot.webp", caption: "Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix" },
   { path: "/olunix.svg", caption: "Olunix logo - marketing consulting agency in Toronto" },
   { path: "/boardy-logo.png", caption: "Boardy AI logo - AI networking platform" },
   { path: "/habits-together-logo.png", caption: "Habits Together logo - collaborative habit tracking app" },
@@ -27,8 +27,8 @@ ${homepageImages
 
   const aboutEntry = `  <url>
     <loc>${baseUrl}/about</loc>
-    <image:image><image:loc>${baseUrl}/headshot.webp</image:loc><image:caption>Mina Mankarious - Founder and CEO of Olunix, Toronto entrepreneur</image:caption></image:image>
-    <image:image><image:loc>${baseUrl}/mina-mankarious-headshot.webp</image:loc><image:caption>Mina Mankarious - Entrepreneur and CEO</image:caption></image:image>
+    <image:image><image:loc>${baseUrl}/headshot.webp</image:loc><image:caption>Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix, Toronto entrepreneur</image:caption></image:image>
+    <image:image><image:loc>${baseUrl}/mina-mankarious-headshot.webp</image:loc><image:caption>Mina Mankarious - Entrepreneur and Builder</image:caption></image:image>
   </url>`;
 
   // Map article slugs to their inline images for the image sitemap

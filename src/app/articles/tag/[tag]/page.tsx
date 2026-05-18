@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   const articles = getArticlesByTag(tag);
   const title = `${tag} Articles — Mina Mankarious`;
-  const description = `${articles.length} article${articles.length !== 1 ? 's' : ''} on ${tag.toLowerCase()} by Mina Mankarious, Founder & CEO of Olunix.`;
+  const description = `${articles.length} article${articles.length !== 1 ? 's' : ''} on ${tag.toLowerCase()} by Mina Mankarious, Deal Partner PM at Boardy and Founder of Olunix.`;
 
   return {
     title,

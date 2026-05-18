@@ -7,10 +7,20 @@ import { motionDelay } from '@/lib/utils';
 
 const authorityTimeline = [
   {
-    title: 'Founder & CEO',
+    title: 'Deal Partner Program Manager',
+    org: 'Boardy',
+    period: 'May 2026 - Present',
+    detail: 'Running onboarding, relationships, and activation across the partner network.',
+    logo: '/boardy-logo.png',
+    logoAlt: 'Boardy logo',
+    href: 'https://boardy.ai',
+    logoClassName: 'timeline-logo h-10 w-10 object-contain md:h-11 md:w-11',
+  },
+  {
+    title: 'Founder',
     org: 'Olunix',
     period: 'Sep 2024 - Present',
-    detail: 'Marketing and consulting for AI startups with an execution-first operating model.',
+    detail: 'Built Vantage — a $30/mo positioning OS for AI and SaaS founders.',
     logo: '/olunix.svg',
     logoAlt: 'Olunix logo',
     href: 'https://olunix.com',
@@ -19,7 +29,7 @@ const authorityTimeline = [
   {
     title: 'Deal Partner',
     org: 'Boardy',
-    period: 'Jan 2026 - Present',
+    period: 'Jan 2026 - May 2026',
     detail: 'Building high-leverage founder connections and business development pathways.',
     logo: '/boardy-logo.png',
     logoAlt: 'Boardy logo',
@@ -68,10 +78,10 @@ export default function AuthoritySection() {
             <CardGlow />
             <div className="relative z-[1] grid gap-4">
               <p>
-                I&apos;m the Founder and CEO of <span className="text-[var(--text-primary)]">Olunix</span>, where I help AI startups create traction through strategic clarity and disciplined execution.
+                I&apos;m the Deal Partner Program Manager at <span className="text-[var(--text-primary)]">Boardy</span>, running onboarding, relationships, and activation across the partner network. I also founded <span className="text-[var(--text-primary)]">Olunix</span> and built Vantage — a positioning OS for technical founders.
               </p>
               <p>
-                My operating style blends technical systems thinking with narrative design, shaped by real-world execution at <span className="text-[var(--text-primary)]">Toyota</span>, founder work at <span className="text-[var(--text-primary)]">Olunix</span>, and ecosystem collaboration through <span className="text-[var(--text-primary)]">Boardy</span>.
+                My operating style blends technical systems thinking with narrative design, shaped by real-world execution at <span className="text-[var(--text-primary)]">Toyota</span>, founder work at <span className="text-[var(--text-primary)]">Olunix</span>, and ecosystem building through <span className="text-[var(--text-primary)]">Boardy</span>.
               </p>
               <p className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
                 <MapPin size={14} />

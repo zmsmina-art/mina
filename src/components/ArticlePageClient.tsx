@@ -221,8 +221,7 @@ export default function ArticlePageClient({
                   Mina Mankarious
                 </Link>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  Founder &amp; CEO of Olunix. Helping AI startups with positioning, growth
-                  systems, and founder-led marketing from Toronto.
+                  Deal Partner Program Manager at Boardy. Founder of Olunix and builder of Vantage — a positioning OS for technical founders.
                 </p>
               </div>
             </div>
