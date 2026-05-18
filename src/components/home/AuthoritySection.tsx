@@ -20,7 +20,7 @@ const authorityTimeline = [
     title: 'Founder',
     org: 'Olunix',
     period: 'Sep 2024 - Present',
-    detail: 'Built Vantage — a $30/mo positioning OS for AI and SaaS founders.',
+    detail: 'Marketing and consulting for AI startups with an execution-first operating model.',
     logo: '/olunix.svg',
     logoAlt: 'Olunix logo',
     href: 'https://olunix.com',
@@ -78,7 +78,7 @@ export default function AuthoritySection() {
             <CardGlow />
             <div className="relative z-[1] grid gap-4">
               <p>
-                I&apos;m the Deal Partner Program Manager at <span className="text-[var(--text-primary)]">Boardy</span>, running onboarding, relationships, and activation across the partner network. I also founded <span className="text-[var(--text-primary)]">Olunix</span> and built Vantage — a positioning OS for technical founders.
+                I&apos;m the Deal Partner Program Manager at <span className="text-[var(--text-primary)]">Boardy</span>, running onboarding, relationships, and activation across the partner network. I&apos;m also the Founder of <span className="text-[var(--text-primary)]">Olunix</span>, working with AI startups on strategic clarity and execution.
               </p>
               <p>
                 My operating style blends technical systems thinking with narrative design, shaped by real-world execution at <span className="text-[var(--text-primary)]">Toyota</span>, founder work at <span className="text-[var(--text-primary)]">Olunix</span>, and ecosystem building through <span className="text-[var(--text-primary)]">Boardy</span>.

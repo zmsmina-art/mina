@@ -38,7 +38,7 @@ export default function HomeHero() {
           </p>
 
           <p className="hero-lead mt-4 max-w-3xl text-lg leading-relaxed text-[var(--text-primary)] md:text-2xl" data-motion="rise" style={motionDelay(420)}>
-            Running the Deal Partner program at Boardy while building Vantage — a positioning OS for technical founders who need commercial traction.
+            Running the Deal Partner program at Boardy. Founder of Olunix, helping technical founders find commercial traction.
           </p>
 
           <div className="mt-7 flex w-full max-w-sm flex-wrap items-center gap-3 sm:max-w-none" data-motion="rise" style={motionDelay(510)}>
@@ -51,18 +51,19 @@ export default function HomeHero() {
               LinkedIn
             </a>
             <a
+              href="https://boardy.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ghost-btn w-full justify-center sm:w-auto"
+            >
+              Boardy
+            </a>
+            <a
               href="https://olunix.com"
               target="_blank"
               rel="noopener noreferrer"
               className="ghost-btn w-full justify-center sm:w-auto"
             >
-              <Image
-                src="/olunix.svg"
-                alt="Olunix logo"
-                width={14}
-                height={14}
-                className="h-[14px] w-[14px] object-contain"
-              />
               Olunix
             </a>
           </div>
@@ -96,7 +97,7 @@ export default function HomeHero() {
           <div className="mt-5 space-y-4">
             <p className="text-site-kicker lowercase tracking-[0.18em] text-[var(--text-dim)]">Quick bio</p>
             <p className="text-sm leading-relaxed text-[var(--text-primary)]">
-              Engineering-trained operator running partner programs at Boardy and building Vantage, an AI positioning OS for technical founders.
+              Engineering-trained operator running partner programs at Boardy. Founder of Olunix, working with technical founders on positioning and growth.
             </p>
             <div className="space-y-2 border-t border-[var(--stroke-soft)] pt-4 text-xs text-[var(--text-muted)]">
               <p className="flex items-center justify-between gap-4">

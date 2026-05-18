@@ -14,7 +14,7 @@ import SectionChoreography from '@/components/home/SectionChoreography';
 export const metadata: Metadata = {
   title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix, Toronto',
   description:
-    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
+    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
   alternates: {
     canonical: 'https://minamankarious.com',
   },

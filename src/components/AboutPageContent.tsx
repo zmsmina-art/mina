@@ -104,7 +104,7 @@ export default function AboutPageContent() {
                 data-motion="rise"
                 style={motionDelay(360)}
               >
-                Born in Egypt. Raised in Canada. Running partner programs at Boardy and building Vantage — a positioning OS for technical founders.
+                Born in Egypt. Raised in Canada. Running partner programs at Boardy and helping AI startups grow through Olunix.
               </p>
 
               <div

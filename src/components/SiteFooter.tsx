@@ -30,7 +30,7 @@ export default function SiteFooter() {
         <div className="md:col-span-5 lg:col-span-6" data-motion="footer-rise" style={motionDelay(40)}>
           <p className="brand-mark brand-mark--footer">mm.</p>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--text-muted)]">
-            Mina Mankarious is the Deal Partner Program Manager at <a href="https://boardy.ai" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]">Boardy</a> and Founder of <a href="https://olunix.com" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]">Olunix</a>, building Vantage — a positioning OS for technical founders. Based in Toronto.
+            Mina Mankarious is the Deal Partner Program Manager at <a href="https://boardy.ai" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]">Boardy</a> and Founder of <a href="https://olunix.com" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] transition-colors hover:text-[var(--accent-gold-soft)]">Olunix</a>, helping AI startups with positioning, growth systems, and founder-led marketing from Toronto.
           </p>
           <div className="mt-5">
             <NewsletterCTA />

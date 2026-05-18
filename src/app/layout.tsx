@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
   applicationName: 'Mina Mankarious',
   description:
-    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
+    'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
   keywords: [
     'Mina Mankarious',
     'Olunix',
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix, Toronto',
     description:
-      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
     url: 'https://minamankarious.com',
     siteName: 'Mina Mankarious',
     locale: 'en_US',
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix',
     description:
-      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto, Canada.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
     site: '@olmnix',
     images: [
       {
@@ -195,7 +195,7 @@ export default function RootLayout({
     ],
     jobTitle: 'Deal Partner Program Manager',
     description:
-      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, building Vantage — a positioning OS for technical founders. Based in Toronto.',
+      'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, helping AI startups with positioning and growth. Based in Toronto.',
     nationality: {
       '@type': 'Country',
       name: 'Canada',

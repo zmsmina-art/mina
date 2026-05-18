@@ -221,7 +221,7 @@ export default function ArticlePageClient({
                   Mina Mankarious
                 </Link>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  Deal Partner Program Manager at Boardy. Founder of Olunix and builder of Vantage — a positioning OS for technical founders.
+                  Deal Partner Program Manager at Boardy. Founder of Olunix, helping AI startups with positioning and growth from Toronto.
                 </p>
               </div>
             </div>
