@@ -94,14 +94,14 @@ export const metadata: Metadata = {
     title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix',
     description:
       'Mina Mankarious is the Deal Partner Program Manager at Boardy and Founder of Olunix, helping AI startups with positioning, growth systems, and founder-led marketing. Based in Toronto, Canada.',
-    site: '@olmnix',
+    site: '@minamankarious',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix',
       },
     ],
-    creator: '@olmnix',
+    creator: '@minamankarious',
   },
   robots: {
     index: true,
@@ -180,8 +180,8 @@ export default function RootLayout({
         '@id': 'https://minamankarious.com/#primaryimage',
         url: 'https://minamankarious.com/headshot.webp',
         contentUrl: 'https://minamankarious.com/headshot.webp',
-        width: 800,
-        height: 800,
+        width: 900,
+        height: 1200,
         caption: 'Mina Mankarious - Deal Partner PM at Boardy and Founder of Olunix',
       },
       {
@@ -286,7 +286,7 @@ export default function RootLayout({
     gender: 'Male',
     sameAs: [
       'https://www.linkedin.com/in/mina-mankarious',
-      'https://x.com/olmnix',
+      'https://x.com/minamankarious',
       'https://olunix.com',
       'https://olunix.com/founder',
       'https://github.com/zmsmina-art',
@@ -425,7 +425,7 @@ export default function RootLayout({
       <head>
         <link rel="preload" href="/fonts/switzer-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="me" href="https://www.linkedin.com/in/mina-mankarious" />
-        <link rel="me" href="https://x.com/olmnix" />
+        <link rel="me" href="https://x.com/minamankarious" />
         <link rel="me" href="https://github.com/zmsmina-art" />
         <link rel="me" href="https://www.youtube.com/@Mankariouss" />
         <link rel="me" href="https://mankarious.medium.com" />

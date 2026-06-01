@@ -38,14 +38,14 @@ export const metadata: Metadata = {
     title: 'Work — Case Studies by Mina Mankarious & Olunix',
     description:
       'Real case studies showing branding, growth marketing, and content strategy for AI startups.',
-    site: '@olmnix',
+    site: '@minamankarious',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
         alt: 'Work - Case Studies by Mina Mankarious & Olunix',
       },
     ],
-    creator: '@olmnix',
+    creator: '@minamankarious',
   },
 };
 

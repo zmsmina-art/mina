@@ -58,8 +58,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       card: 'summary_large_image',
       title,
       description,
-      creator: '@olmnix',
-      site: '@olmnix',
+      creator: '@minamankarious',
+      site: '@minamankarious',
       images: [{ url: ogUrl, alt: `${persona.displayName} Positioning Grader` }],
     },
   };

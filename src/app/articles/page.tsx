@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     title: 'Articles — Mina Mankarious on AI Startups, Marketing & Growth',
     description:
       'Essays and insights on AI startup marketing, entrepreneurship, and growth strategy by Mina Mankarious.',
-    site: '@olmnix',
-    creator: '@olmnix',
+    site: '@minamankarious',
+    creator: '@minamankarious',
     images: [
       {
         url: 'https://minamankarious.com/api/og',

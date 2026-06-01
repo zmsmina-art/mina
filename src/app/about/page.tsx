@@ -38,14 +38,14 @@ export const metadata: Metadata = {
     title: 'About Mina Mankarious — Entrepreneur, Deal Partner PM at Boardy | Founder of Olunix',
     description:
       'Canadian entrepreneur and Deal Partner PM at Boardy | Founder of Olunix. McMaster engineering student turned startup operator, helping AI companies grow from Toronto.',
-    site: '@olmnix',
+    site: '@minamankarious',
     images: [
       {
         url: 'https://minamankarious.com/api/og',
         alt: 'Mina Mankarious - Deal Partner PM at Boardy | Founder of Olunix | Toronto Entrepreneur',
       },
     ],
-    creator: '@olmnix',
+    creator: '@minamankarious',
   },
 };
 

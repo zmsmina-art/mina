@@ -47,8 +47,8 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title,
       description,
-      site: '@olmnix',
-      creator: '@olmnix',
+      site: '@minamankarious',
+      creator: '@minamankarious',
     },
   };
 }

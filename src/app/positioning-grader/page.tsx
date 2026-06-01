@@ -57,8 +57,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       card: 'summary_large_image',
       title,
       description,
-      creator: '@olmnix',
-      site: '@olmnix',
+      creator: '@minamankarious',
+      site: '@minamankarious',
       images: [{ url: ogUrl, alt: 'AI Startup Positioning Grader' }],
     },
   };
