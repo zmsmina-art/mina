@@ -67,7 +67,7 @@
     border-radius: 999px;
     border: 2px solid var(--accent-gold-soft);
     background: var(--bg-canvas);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18), 0 0 8px rgba(122, 64, 242, 0.15);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18), 0 0 8px rgba(255, 255, 255, 0.15);
   }
 
   .timeline-period {

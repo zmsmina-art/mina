@@ -21,10 +21,10 @@
 
   --accent-gold: #ffffff;
   --accent-gold-soft: #f5f5f5;
-  --accent-purple: #7a40f2;
-  --accent-purple-soft: #b089ff;
-  --accent-purple-deep: #3a1a75;
-  --accent-purple-glow: rgba(122, 64, 242, 0.35);
+  --accent-purple: #ffffff;
+  --accent-purple-soft: #f0f0f0;
+  --accent-purple-deep: #2a2a2a;
+  --accent-purple-glow: rgba(255, 255, 255, 0.35);
 
   /* Legacy aliases so var(--accent-brass) etc. still resolve */
   --accent-brass: var(--accent-gold);
@@ -50,7 +50,7 @@
   --motion-shift-xl: 24px;
 
   --ambient-primary: rgba(255, 255, 255, 0.12);
-  --ambient-secondary: rgba(122, 64, 242, 0.16);
+  --ambient-secondary: rgba(255, 255, 255, 0.16);
   --ambient-tertiary: rgba(255, 255, 255, 0.08);
   --ambient-blend-opacity: 0.78;
 
@@ -191,21 +191,21 @@ body::after {
 
 .mobile-smoke-a {
   background:
-    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(122, 64, 242, 0.28), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 75% 60%, rgba(122, 64, 242, 0.18), transparent 65%);
+    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(255, 255, 255, 0.28), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 75% 60%, rgba(255, 255, 255, 0.18), transparent 65%);
   animation: smoke-drift-a 28s ease-in-out infinite;
 }
 
 .mobile-smoke-b {
   background:
-    radial-gradient(ellipse 55% 45% at 55% 20%, rgba(176, 118, 255, 0.16), transparent 65%),
-    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(122, 64, 242, 0.14), transparent 60%);
+    radial-gradient(ellipse 55% 45% at 55% 20%, rgba(255, 255, 255, 0.16), transparent 65%),
+    radial-gradient(ellipse 50% 50% at 30% 70%, rgba(255, 255, 255, 0.14), transparent 60%);
   animation: smoke-drift-b 34s ease-in-out infinite;
 }
 
 .mobile-smoke-c {
   background:
-    radial-gradient(ellipse 65% 55% at 45% 50%, rgba(90, 40, 200, 0.12), transparent 70%),
+    radial-gradient(ellipse 65% 55% at 45% 50%, rgba(255, 255, 255, 0.12), transparent 70%),
     radial-gradient(ellipse 40% 35% at 80% 25%, rgba(255, 255, 255, 0.06), transparent 55%);
   animation: smoke-drift-c 40s ease-in-out infinite;
 }

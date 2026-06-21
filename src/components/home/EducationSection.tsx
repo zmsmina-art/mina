@@ -2,15 +2,14 @@ import Image from 'next/image';
 import { ArrowUpRight, GraduationCap } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
+import SectionHeading from '@/components/home/SectionHeading';
 
 
 export default function EducationSection() {
   return (
     <section id="education" data-section-theme="education" className="command-section page-gutter section-block">
       <div className="mx-auto w-full max-w-7xl">
-        <p className="command-label" data-motion="sweep-left">
-          Education
-        </p>
+        <SectionHeading index="05" label="Education" />
 
         <article className="support-card relative mt-6 overflow-hidden" data-motion="rise" style={motionDelay(120)}>
           <CardGlow spread={16} proximity={48} />

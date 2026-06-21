@@ -126,7 +126,7 @@ export function NewsletterModal({
             ref={modalRef}
             className="relative w-full max-w-md overflow-hidden rounded-2xl border border-[var(--stroke-soft)] shadow-[0_28px_70px_rgba(0,0,0,0.56)]"
             style={{
-              background: 'linear-gradient(160deg, rgba(11, 11, 11, 0.92), rgba(32, 18, 52, 0.88))',
+              background: 'linear-gradient(160deg, rgba(11, 11, 11, 0.92), rgba(22, 22, 22, 0.88))',
               backdropFilter: 'blur(24px)',
             }}
             initial={{ opacity: 0, scale: 0.96, y: enterY }}
@@ -143,7 +143,7 @@ export function NewsletterModal({
               className="absolute left-0 right-0 top-0 h-px"
               style={{
                 background:
-                  'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(122,64,242,0.4) 60%, transparent 90%)',
+                  'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(255, 255, 255,0.4) 60%, transparent 90%)',
               }}
             />
 

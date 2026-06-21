@@ -326,7 +326,7 @@ export function BookingModal({
             ref={modalRef}
             className="relative flex w-full flex-col border-[var(--stroke-soft)] shadow-[0_28px_70px_rgba(0,0,0,0.7)] max-sm:h-[100dvh] max-sm:max-h-[100dvh] max-sm:rounded-none max-sm:border-0 sm:max-w-lg sm:rounded-2xl sm:border"
             style={{
-              background: 'linear-gradient(160deg, rgb(11, 11, 11), rgb(24, 14, 40))',
+              background: 'linear-gradient(160deg, rgb(11, 11, 11), rgb(22, 22, 22))',
               maxHeight: 'min(100dvh, 760px)',
             }}
             initial={{ opacity: 0, y: motionProfile.reduced ? 0 : 40 }}
@@ -343,7 +343,7 @@ export function BookingModal({
               className="absolute left-0 right-0 top-0 hidden h-px sm:block"
               style={{
                 background:
-                  'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(122,64,242,0.4) 60%, transparent 90%)',
+                  'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.5) 40%, rgba(255, 255, 255,0.4) 60%, transparent 90%)',
               }}
             />
 

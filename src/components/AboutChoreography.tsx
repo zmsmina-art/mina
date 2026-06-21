@@ -40,9 +40,9 @@ export default function AboutChoreography() {
       const frame = document.querySelector('.about-photo-frame') as HTMLElement;
       if (frame) {
         gsap.fromTo(frame, {
-          boxShadow: '0 0 0 rgba(255,255,255,0), 0 0 0 rgba(183,148,255,0)',
+          boxShadow: '0 0 0 rgba(255,255,255,0), 0 0 0 rgba(255, 255, 255,0)',
         }, {
-          boxShadow: '0 0 22px rgba(255,255,255,0.28), 0 0 44px rgba(183,148,255,0.18)',
+          boxShadow: '0 0 22px rgba(255,255,255,0.28), 0 0 44px rgba(255, 255, 255,0.18)',
           duration: 0.6 * d,
           delay: 0.2,
           ease: 'power2.out',

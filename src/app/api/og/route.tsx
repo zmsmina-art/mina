@@ -56,7 +56,7 @@ function DarkShell({
           display: 'flex',
           background:
             'radial-gradient(ellipse 130% 80% at 10% 15%, rgba(255,255,255,0.09), transparent 60%), ' +
-            'radial-gradient(ellipse 120% 70% at 92% 10%, rgba(122,64,242,0.18), transparent 55%), ' +
+            'radial-gradient(ellipse 120% 70% at 92% 10%, rgba(255, 255, 255,0.18), transparent 55%), ' +
             'radial-gradient(ellipse 100% 100% at 50% 110%, rgba(12,12,12,0.8), transparent 70%), ' +
             'linear-gradient(162deg, #050505 0%, #0a0a0a 40%, #110a1a 100%)',
         }}
@@ -234,7 +234,7 @@ export async function GET(request: NextRequest) {
               height: '4px',
               display: 'flex',
               background:
-                'linear-gradient(90deg, transparent 5%, rgba(122,64,242,0.7) 30%, rgba(212,175,55,0.6) 70%, transparent 95%)',
+                'linear-gradient(90deg, transparent 5%, rgba(255, 255, 255,0.7) 30%, rgba(212,175,55,0.6) 70%, transparent 95%)',
             }}
           />
 
@@ -248,7 +248,7 @@ export async function GET(request: NextRequest) {
               height: '3px',
               display: 'flex',
               background:
-                'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.4) 40%, rgba(122,64,242,0.5) 70%, transparent 90%)',
+                'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.4) 40%, rgba(255, 255, 255,0.5) 70%, transparent 90%)',
             }}
           />
 
@@ -469,14 +469,14 @@ export async function GET(request: NextRequest) {
 
     function barColor(s: number) {
       if (s >= 80) return '#22c55e';
-      if (s >= 60) return '#b089ff';
+      if (s >= 60) return '#f0f0f0';
       if (s >= 40) return '#f59e0b';
       return '#ef4444';
     }
 
     function letterColor(g: string) {
       if (g.startsWith('A')) return '#22c55e';
-      if (g.startsWith('B')) return '#b089ff';
+      if (g.startsWith('B')) return '#f0f0f0';
       if (g.startsWith('C')) return '#f59e0b';
       return '#ef4444';
     }
@@ -517,7 +517,7 @@ export async function GET(request: NextRequest) {
                   fontSize: 16,
                   fontFamily: 'Cormorant',
                   fontWeight: 400,
-                  color: '#b089ff',
+                  color: '#f0f0f0',
                   letterSpacing: '0.06em',
                   marginTop: 8,
                   display: 'flex',
@@ -633,7 +633,7 @@ export async function GET(request: NextRequest) {
                   fontSize: 22,
                   fontFamily: 'Cormorant',
                   fontWeight: 400,
-                  color: '#b089ff',
+                  color: '#f0f0f0',
                   marginTop: 4,
                   display: 'flex',
                 }}
@@ -716,7 +716,7 @@ export async function GET(request: NextRequest) {
     const scoreColor = score >= 80
       ? '#22c55e'
       : score >= 60
-        ? '#b089ff'
+        ? '#f0f0f0'
         : score >= 40
           ? '#f59e0b'
           : '#ef4444';

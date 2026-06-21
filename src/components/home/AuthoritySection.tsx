@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
+import SectionHeading from '@/components/home/SectionHeading';
 
 
 const authorityTimeline = [
@@ -61,20 +62,20 @@ const authorityTimeline = [
 export default function AuthoritySection() {
   return (
     <section id="experience" data-section-theme="authority" className="command-section page-gutter section-block">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-9 md:grid-cols-12 md:gap-8 lg:gap-12">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 md:grid-cols-12 md:gap-8 lg:gap-12 md:items-start">
         <div className="md:col-span-5 lg:col-span-4">
-          <p className="command-label" data-motion="sweep-left">
-            Experience
-          </p>
-          <h2
-            className="home-heading-xl mt-4 max-w-xl text-[clamp(2.1rem,7vw,3.1rem)] leading-[1.05] text-[var(--text-primary)]"
-            data-motion="rise"
-            style={motionDelay(90)}
-          >
-            Engineering precision, market command.
-          </h2>
+          <div className="about-portrait" data-motion="rise" style={motionDelay(40)}>
+            <Image
+              src="/headshot.webp"
+              alt="Mina Mankarious — Deal Partner PM at Boardy and Founder of Olunix"
+              width={420}
+              height={520}
+              className="about-portrait-img"
+              sizes="(max-width: 768px) 90vw, 360px"
+            />
+          </div>
 
-          <article className="authority-intro-card relative mt-8 overflow-hidden" data-motion="rise" style={motionDelay(180)}>
+          <article className="authority-intro-card relative mt-5 overflow-hidden" data-motion="rise" style={motionDelay(180)}>
             <CardGlow />
             <div className="relative z-[1] grid gap-4">
               <p>
@@ -95,7 +96,17 @@ export default function AuthoritySection() {
           </article>
         </div>
 
-        <div className="relative md:col-span-7 lg:col-span-8">
+        <div className="md:col-span-7 lg:col-span-8">
+          <SectionHeading index="01" label="Experience" />
+          <h2
+            className="home-heading-xl mt-4 max-w-2xl text-[clamp(1.9rem,5.5vw,2.7rem)] leading-[1.06] text-[var(--text-primary)]"
+            data-motion="rise"
+            style={motionDelay(90)}
+          >
+            Engineering precision, market command.
+          </h2>
+
+          <div className="relative mt-8">
           <div className="timeline-guide hidden md:block" aria-hidden="true" data-motion="rail" />
           <ul className="timeline-stack" role="list">
             {authorityTimeline.map((item) => (
@@ -112,7 +123,6 @@ export default function AuthoritySection() {
                   rel="noopener noreferrer"
                   className="timeline-item-shell timeline-item-shell--link relative overflow-hidden"
                 >
-                  <CardGlow spread={16} proximity={48} />
                   <div className="relative z-[1] flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="timeline-content flex items-start gap-4">
                       <div className="logo-pill timeline-logo-shell">
@@ -141,7 +151,7 @@ export default function AuthoritySection() {
               </li>
             ))}
           </ul>
-
+          </div>
         </div>
       </div>
     </section>

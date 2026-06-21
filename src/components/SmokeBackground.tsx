@@ -143,7 +143,7 @@ function hexToRgb(hex: string): [number, number, number] {
     : [0.5, 0.5, 0.5];
 }
 
-export default function SmokeBackground({ color = '#7a40f2' }: { color?: string }) {
+export default function SmokeBackground({ color = '#ffffff' }: { color?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<Renderer | null>(null);
 

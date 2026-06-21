@@ -1,6 +1,6 @@
-import { ArrowUpRight } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
+import SectionHeading from '@/components/home/SectionHeading';
 
 
 const services = [
@@ -22,9 +22,7 @@ export default function ServiceSection() {
   return (
     <section id="work-with-me" data-section-theme="services" className="command-section page-gutter section-block">
       <div className="mx-auto w-full max-w-7xl">
-        <p className="command-label" data-motion="sweep-left">
-          Services
-        </p>
+        <SectionHeading index="06" label="Services" />
         <h2
           className="home-heading-xl mt-4 max-w-3xl text-[clamp(2rem,7vw,2.9rem)] leading-[1.05] text-[var(--text-primary)]"
           data-motion="rise"
@@ -55,20 +53,13 @@ export default function ServiceSection() {
         </div>
 
         <div
-          className="mt-9 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--stroke-soft)] pt-6"
+          className="mt-9 border-t border-[var(--stroke-soft)] pt-6"
           data-motion="rise"
           style={motionDelay(520)}
         >
-          <p className="text-sm text-[var(--text-muted)]">
-            Best fit: early-stage to growth-stage AI startups and founder teams that value disciplined execution.
+          <p className="max-w-2xl text-sm text-[var(--text-muted)]">
+            Most of this work happens through Olunix, usually with early-stage to growth-stage AI startups and founder teams that value disciplined execution.
           </p>
-          <a
-            href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-            className="accent-btn"
-          >
-            Start a conversation
-            <ArrowUpRight size={15} />
-          </a>
         </div>
       </div>
     </section>

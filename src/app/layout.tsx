@@ -5,8 +5,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import LayoutRuntime from '@/components/LayoutRuntime';
-import SmokeBackground from '@/components/SmokeBackground';
-import MobileSmokeBackground from '@/components/MobileSmokeBackground';
+import SiteLoader from '@/components/SiteLoader';
+import InkCursor from '@/components/InkCursor';
+import ScrollProgress from '@/components/ScrollProgress';
 import LenisProvider from '@/components/LenisProvider';
 
 import './globals.css';
@@ -443,10 +444,12 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <SiteLoader />
+        <ScrollProgress />
+        <InkCursor />
+        <div className="paper-fx" aria-hidden="true" />
         <LenisProvider />
         <LayoutRuntime />
-        <div className="hidden md:block"><SmokeBackground color="#7a40f2" /></div>
-        <MobileSmokeBackground />
         <SiteNav />
 <script
           type="application/ld+json"

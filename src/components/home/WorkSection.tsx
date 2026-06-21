@@ -2,15 +2,14 @@ import Image from 'next/image';
 import { ArrowUpRight, Layers, Terminal } from 'lucide-react';
 import CardGlow from '@/components/ui/card-glow';
 import { motionDelay } from '@/lib/utils';
+import SectionHeading from '@/components/home/SectionHeading';
 
 
 export default function WorkSection() {
   return (
-    <section data-section-theme="work" className="command-section page-gutter section-block section-band">
+    <section id="projects" data-section-theme="work" className="command-section page-gutter section-block section-band">
       <div className="mx-auto w-full max-w-7xl">
-        <p className="command-label" data-motion="sweep-left">
-          Projects
-        </p>
+        <SectionHeading index="04" label="Projects" />
 
         <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
           {/* ── Vantage: hero project ── */}
@@ -28,7 +27,7 @@ export default function WorkSection() {
                   <p className="mt-2 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Positioning Lab / SaaS / AI Startups</p>
                 </div>
               </div>
-              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(255, 255, 255,0.25)] bg-[rgba(255, 255, 255,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
                 9 modules shipped &middot; 3-phase framework &middot; Stripe-integrated
               </p>
               <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--text-muted)] sm:text-base">
@@ -70,7 +69,7 @@ export default function WorkSection() {
                   <p className="mt-1.5 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">AI Coding Agent</p>
                 </div>
               </div>
-              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(255, 255, 255,0.25)] bg-[rgba(255, 255, 255,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
                 Multi-model architecture &middot; Azure-deployed
               </p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">
@@ -108,7 +107,7 @@ export default function WorkSection() {
                   <p className="mt-1.5 text-sm lowercase tracking-[0.14em] text-[var(--accent-oxide)]">Habits Together</p>
                 </div>
               </div>
-              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(122,64,242,0.25)] bg-[rgba(122,64,242,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
+              <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-[rgba(255, 255, 255,0.25)] bg-[rgba(255, 255, 255,0.08)] px-3 py-1 text-xs tracking-wide text-[var(--accent-purple-soft)]">
                 Summer 2024
               </p>
               <p className="mt-4 text-sm leading-relaxed text-[var(--text-muted)]">

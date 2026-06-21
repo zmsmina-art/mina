@@ -27,9 +27,9 @@
 
 .etheral-layer-primary {
   background:
-    radial-gradient(ellipse 120% 40% at 30% 30%, rgba(122, 64, 242, 0.22), transparent 60%),
-    radial-gradient(ellipse 100% 35% at 75% 70%, rgba(76, 29, 149, 0.16), transparent 55%),
-    radial-gradient(ellipse 140% 25% at 55% 50%, rgba(176, 118, 255, 0.12), transparent 55%);
+    radial-gradient(ellipse 120% 40% at 30% 30%, rgba(255, 255, 255, 0.22), transparent 60%),
+    radial-gradient(ellipse 100% 35% at 75% 70%, rgba(42, 42, 42, 0.16), transparent 55%),
+    radial-gradient(ellipse 140% 25% at 55% 50%, rgba(255, 255, 255, 0.12), transparent 55%);
   animation: satin-drift-1 40s ease-in-out infinite;
   will-change: transform;
 }
@@ -39,7 +39,7 @@
   opacity: 0.65;
   background:
     radial-gradient(ellipse 130% 25% at 40% 25%, rgba(255, 255, 255, 0.15), transparent 55%),
-    radial-gradient(ellipse 100% 30% at 65% 75%, rgba(183, 148, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 100% 30% at 65% 75%, rgba(255, 255, 255, 0.12), transparent 50%),
     radial-gradient(ellipse 80% 40% at 50% 50%, rgba(255, 255, 255, 0.06), transparent 60%);
   animation: satin-drift-2 32s ease-in-out infinite;
   will-change: transform;
@@ -50,7 +50,7 @@
   opacity: 0.5;
   background:
     radial-gradient(ellipse 110% 28% at 35% 20%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(ellipse 90% 35% at 60% 80%, rgba(183, 148, 255, 0.08), transparent 50%);
+    radial-gradient(ellipse 90% 35% at 60% 80%, rgba(255, 255, 255, 0.08), transparent 50%);
   animation: satin-drift-3 36s ease-in-out infinite;
   will-change: transform;
 }
@@ -369,8 +369,8 @@ main[data-static-motion='true'] [data-motion] {
   height: 60px;
   top: -30px;
   left: -30px;
-  border-color: rgba(183, 148, 255, 0.5);
-  background: rgba(183, 148, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* Link hover: squished to oval */
@@ -397,7 +397,7 @@ main[data-static-motion='true'] [data-motion] {
 /* Pressed state */
 .cursor-ring--pressed {
   transform: scale(0.88) !important;
-  border-color: rgba(183, 148, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 /* ── GSAP split text helpers ── */
@@ -416,7 +416,7 @@ main[data-static-motion='true'] [data-motion] {
     box-shadow: 0 0 0 rgba(255, 255, 255, 0);
   }
   100% {
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.12), 0 0 60px rgba(183, 148, 255, 0.08);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.12), 0 0 60px rgba(255, 255, 255, 0.08);
   }
 }
 

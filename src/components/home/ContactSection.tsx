@@ -1,36 +1,48 @@
-import CardGlow from '@/components/ui/card-glow';
+import SectionHeading from '@/components/home/SectionHeading';
 
-import { motionDelay } from '@/lib/utils';
-
+const socials = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mina-mankarious' },
+  { label: 'X', href: 'https://x.com/minamankarious' },
+  { label: 'GitHub', href: 'https://github.com/zmsmina-art' },
+  { label: 'Olunix', href: 'https://olunix.com' },
+];
 
 export default function ContactSection() {
   return (
     <section id="contact" data-section-theme="contact" className="command-section page-gutter section-block pb-20 md:pb-28">
       <div className="mx-auto w-full max-w-7xl">
-        <p className="command-label" data-motion="sweep-left">
-          Contact
-        </p>
+        <SectionHeading index="07" label="Contact" />
 
-        <article className="contact-panel relative mt-6 overflow-hidden" data-motion="crescendo" style={motionDelay(120)}>
-          <CardGlow />
-          <div className="relative z-[1]">
-            <p className="text-xs lowercase tracking-[0.16em] text-[var(--text-dim)]">Founder Collaboration</p>
-            <h2 className="home-heading-xl mt-4 max-w-3xl text-[clamp(2.1rem,7.8vw,3.4rem)] leading-[1.02] text-[var(--text-primary)]">
-              Looking for a strategic growth partner for your AI startup?
-            </h2>
-            <p className="mt-5 max-w-2xl text-[var(--text-muted)]">
-              Share context on your company, stage, and what you need solved. I focus on clarity, leverage, and execution quality.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4" data-motion="rise" style={motionDelay(230)}>
-              <a
-                href="mailto:mina@olunix.com?subject=Project%20Inquiry%20for%20Mina%20Mankarious"
-                className="link-underline inline-flex text-xl text-[var(--accent-brass)] transition-colors hover:text-[var(--accent-brass-soft)] sm:text-2xl md:text-3xl"
-              >
-                mina@olunix.com
-              </a>
-            </div>
-          </div>
-        </article>
+        <div className="contact-closer mt-8">
+          <h2
+            className="home-heading-xl max-w-3xl text-[clamp(2.1rem,7vw,3.2rem)] leading-[1.04] text-[var(--text-primary)]"
+            data-motion="rise"
+          >
+            Let&apos;s connect.
+          </h2>
+          <p className="mt-5 max-w-xl text-[var(--text-muted)]" data-motion="rise">
+            Always happy to talk shop — positioning, growth, building, or anything in
+            between. The fastest way to reach me is email.
+          </p>
+
+          <a
+            href="mailto:mina@olunix.com"
+            className="contact-email mt-7 inline-block"
+            data-motion="rise"
+          >
+            mina@olunix.com
+          </a>
+
+          <ul className="contact-socials mt-9" data-motion="rise">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="contact-social-link">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

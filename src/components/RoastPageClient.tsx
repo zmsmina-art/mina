@@ -539,7 +539,7 @@ export default function RoastPageClient({ sharedParam }: { sharedParam: string |
                   <li key={tip} className="flex gap-3">
                     <span
                       className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-xs"
-                      style={{ background: 'rgba(122, 64, 242, 0.15)', color: 'var(--accent-purple-soft)' }}
+                      style={{ background: 'rgba(255, 255, 255, 0.15)', color: 'var(--accent-purple-soft)' }}
                     >
                       {i + 1}
                     </span>

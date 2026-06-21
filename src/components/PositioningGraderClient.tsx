@@ -621,8 +621,8 @@ export default function PositioningGraderClient({ sharedParam, personaOverrides 
                 className="absolute inset-0 rounded-full border-2 border-[var(--accent-purple)]"
                 style={{ animation: 'pg-spin 1.2s cubic-bezier(0.22,1,0.36,1) infinite', borderTopColor: 'transparent', borderRightColor: 'transparent' }}
               />
-              <div className="absolute inset-3 rounded-full bg-[rgba(122,64,242,0.12)]" style={{ animation: 'pg-pulse 1.2s ease-in-out infinite' }} />
-              <div className="absolute inset-6 rounded-full bg-[rgba(122,64,242,0.22)]" style={{ animation: 'pg-pulse 1.2s ease-in-out infinite 0.2s' }} />
+              <div className="absolute inset-3 rounded-full bg-[rgba(255, 255, 255,0.12)]" style={{ animation: 'pg-pulse 1.2s ease-in-out infinite' }} />
+              <div className="absolute inset-6 rounded-full bg-[rgba(255, 255, 255,0.22)]" style={{ animation: 'pg-pulse 1.2s ease-in-out infinite 0.2s' }} />
             </div>
 
             <p className="text-sm uppercase tracking-[0.14em] text-[var(--accent-purple-soft)]" style={{ animation: 'pg-in 400ms ease forwards' }}>

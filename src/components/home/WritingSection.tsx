@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import ArticleCard from '@/components/ArticleCard';
 import type { ArticleSummary } from '@/data/articles';
 import { motionDelay } from '@/lib/utils';
+import SectionHeading from '@/components/home/SectionHeading';
 
 
 interface WritingSectionProps {
@@ -16,9 +17,7 @@ export default function WritingSection({ displayedArticles, totalArticles }: Wri
       <div className="mx-auto w-full max-w-7xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="command-label" data-motion="sweep-left">
-              Writing
-            </p>
+            <SectionHeading index="03" label="Writing" />
             <h2
               className="home-heading-xl mt-4 max-w-2xl text-[clamp(2rem,7vw,2.8rem)] leading-[1.06] text-[var(--text-primary)]"
               data-motion="rise"
