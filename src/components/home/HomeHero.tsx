@@ -72,6 +72,7 @@ export default function HomeHero() {
           </p>
 
           <div className="hero-mark" data-motion="rise" style={motionDelay(160)}>
+            <span className="hero-aura" aria-hidden="true" />
             <div className="hero-mark-inner">
               <MmSignature />
             </div>

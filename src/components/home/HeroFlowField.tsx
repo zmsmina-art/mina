@@ -46,6 +46,11 @@ void main(){
   float vig = smoothstep(1.15, 0.02, length(uv - vec2(0.0, 0.06)));
   g *= mix(0.25, 1.0, vig);
 
+  // On narrow portrait screens we only see a thin slice, so lift the whole
+  // field — keeps the liquid light dramatic on phones, neutral on desktop.
+  float aspect = resolution.x / max(resolution.y, 1.0);
+  g *= mix(2.1, 1.0, smoothstep(0.62, 0.92, aspect));
+
   vec3 col = vec3(clamp(g, 0.0, 1.0));
   col *= min(time*0.5, 1.0);                    // fade in on load
   O=vec4(col, 1.0);

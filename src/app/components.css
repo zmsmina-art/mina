@@ -2688,6 +2688,65 @@ body.is-loading { overflow: hidden; }
   display: inline-block;
   transform-origin: center top;
   will-change: transform, opacity;
+  position: relative;
+  z-index: 1;
+}
+
+/* Luminous aura behind the signature — the "mm." emerging from light inside
+   black glass. Subtle on desktop, a hero moment on phones. */
+.hero-aura {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -47%);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.05) 38%,
+    transparent 66%
+  );
+  filter: blur(26px);
+  opacity: 0.4;
+  animation: hero-aura-breathe 7.5s ease-in-out infinite;
+}
+
+@keyframes hero-aura-breathe {
+  0%, 100% { opacity: 0.34; transform: translate(-50%, -47%) scale(1); }
+  50% { opacity: 0.52; transform: translate(-50%, -47%) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aura { animation: none; }
+}
+
+/* Phone: make the signature a bolder centrepiece and the aura a real glow */
+@media (max-width: 767px) {
+  .hero-mark .mm-glyph {
+    font-size: clamp(6.8rem, 27vw, 9.5rem);
+  }
+  .hero-aura {
+    width: 165%;
+    filter: blur(30px);
+    opacity: 0.95;
+    background: radial-gradient(
+      circle at 50% 48%,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.16) 34%,
+      rgba(255, 255, 255, 0.04) 56%,
+      transparent 72%
+    );
+    animation-name: hero-aura-breathe-mobile;
+  }
+}
+
+@keyframes hero-aura-breathe-mobile {
+  0%, 100% { opacity: 0.82; transform: translate(-50%, -47%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -47%) scale(1.09); }
 }
 
 /* ════════ Mobile experience polish ════════ */
