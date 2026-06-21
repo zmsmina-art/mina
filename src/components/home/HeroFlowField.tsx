@@ -23,17 +23,17 @@ float noise(vec2 p){
 }
 float fbm(vec2 p){
   float s=0.0, a=0.5;
-  for(int i=0;i<5;i++){ s+=a*noise(p); p=p*2.02+vec2(1.3,-0.7); a*=0.5; }
+  for(int i=0;i<3;i++){ s+=a*noise(p); p=p*2.02+vec2(1.3,-0.7); a*=0.5; }
   return s;
 }
 void main(){
   vec2 uv=(gl_FragCoord.xy - 0.5*resolution)/resolution.y;
   float t=time*0.05;
 
-  // Inigo Quilez domain warp — flowing organic structure
+  // single domain warp — flowing organic structure (3 fbm calls, not 5)
   vec2 q=vec2(fbm(uv*1.5 + vec2(0.0,0.0) + t*0.10), fbm(uv*1.5 + vec2(5.2,1.3) - t*0.08));
-  vec2 r=vec2(fbm(uv*1.5 + 3.0*q + vec2(1.7,9.2) + t*0.13), fbm(uv*1.5 + 3.0*q + vec2(8.3,2.8) + t*0.11));
-  float f=fbm(uv*1.5 + 3.4*r);
+  vec2 r=q;
+  float f=fbm(uv*1.5 + 3.2*q + t*0.12);
   f=clamp(f,0.0,1.0);
 
   float base = 0.012;                          // near-black floor
@@ -73,7 +73,9 @@ export default function HeroFlowField() {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Internal render scale — soft field, so render small and let CSS upscale.
-    const renderScale = 0.6;
+    const renderScale = 0.45;
+    // Shader is live: drop the expensive CSS blur fallback it sits on top of.
+    document.documentElement.classList.add('has-hero-flow');
 
     const vs = gl.createShader(gl.VERTEX_SHADER)!;
     gl.shaderSource(vs, vertexShaderSource);
@@ -98,7 +100,7 @@ export default function HeroFlowField() {
     const timeLoc = gl.getUniformLocation(program, 'time');
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio, 1.5) * renderScale;
+      const dpr = Math.min(window.devicePixelRatio, 1) * renderScale;
       canvas.width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
       canvas.height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -115,9 +117,13 @@ export default function HeroFlowField() {
 
     let raf = 0;
     let visible = true;
+    let last = -1e9;
+    const frameInterval = 1000 / 30; // cap at ~30fps — the drift is slow
     const loop = (now: number) => {
-      draw(now);
       raf = requestAnimationFrame(loop);
+      if (now - last < frameInterval) return;
+      last = now;
+      draw(now);
     };
 
     if (reduced) {
@@ -148,6 +154,7 @@ export default function HeroFlowField() {
     return () => {
       window.removeEventListener('resize', resize);
       io.disconnect();
+      document.documentElement.classList.remove('has-hero-flow');
       if (raf) cancelAnimationFrame(raf);
       gl.deleteProgram(program);
       gl.deleteShader(vs);

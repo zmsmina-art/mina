@@ -2264,6 +2264,12 @@ body.is-loading { overflow: hidden; }
           mask-image: radial-gradient(118% 96% at 50% 44%, #000 30%, transparent 76%);
 }
 
+/* When the WebGL flow field is active it fully covers the CSS fallback, so
+   stop rendering the expensive blurred/rotating fallback layers entirely. */
+.has-hero-flow .hero-liquid {
+  display: none;
+}
+
 /* WebGL liquid-obsidian flow field — sits above the CSS fallback, melts into
    the black frame edges via a soft mask. */
 .hero-flow {
