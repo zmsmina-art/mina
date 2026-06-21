@@ -2724,29 +2724,70 @@ body.is-loading { overflow: hidden; }
   .hero-aura { animation: none; }
 }
 
-/* Phone: make the signature a bolder centrepiece and the aura a real glow */
+/* ── Phone hero: crisp CSS aurora (the WebGL shader is disabled on mobile) ──
+   Soft luminous blobs that drift via GPU transforms — resolution-independent
+   (sharp on retina), genuinely animated, and cheap (blur rasterised once,
+   only the transform animates on the compositor). */
 @media (max-width: 767px) {
+  .hero-flow { display: none; }
+
+  .hero-liquid { opacity: 1; }
+
+  .hero-liquid-satin {
+    background:
+      radial-gradient(42% 34% at 26% 28%, rgba(255, 255, 255, 0.16), transparent 72%),
+      radial-gradient(40% 32% at 76% 68%, rgba(255, 255, 255, 0.22), transparent 72%);
+    filter: blur(28px);
+    animation: hero-aurora-a 14s ease-in-out infinite alternate;
+  }
+
+  .hero-liquid-core {
+    background: radial-gradient(44% 36% at 54% 46%, rgba(255, 255, 255, 0.2), transparent 74%);
+    filter: blur(24px);
+    mix-blend-mode: screen;
+    animation: hero-aurora-b 11s ease-in-out infinite alternate;
+  }
+
   .hero-mark .mm-glyph {
     font-size: clamp(6.8rem, 27vw, 9.5rem);
   }
+
+  /* Reshaped glow — a soft elliptical halo hugging the signature, gently
+     breathing, instead of a hard circular blob. */
   .hero-aura {
-    width: 165%;
+    aspect-ratio: auto;
+    width: 156%;
+    height: 64%;
     filter: blur(30px);
-    opacity: 0.95;
+    opacity: 0.8;
     background: radial-gradient(
-      circle at 50% 48%,
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.16) 34%,
-      rgba(255, 255, 255, 0.04) 56%,
-      transparent 72%
+      ellipse 50% 50% at 50% 50%,
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0.06) 46%,
+      transparent 74%
     );
     animation-name: hero-aura-breathe-mobile;
   }
 }
 
 @keyframes hero-aura-breathe-mobile {
-  0%, 100% { opacity: 0.82; transform: translate(-50%, -47%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -47%) scale(1.09); }
+  0%, 100% { opacity: 0.62; transform: translate(-50%, -47%) scale(1); }
+  50% { opacity: 0.85; transform: translate(-50%, -47%) scale(1.06); }
+}
+
+@keyframes hero-aurora-a {
+  0% { transform: translate3d(-10%, -7%, 0) scale(1); }
+  100% { transform: translate3d(11%, 9%, 0) scale(1.24); }
+}
+
+@keyframes hero-aurora-b {
+  0% { transform: translate3d(9%, 8%, 0) scale(1.18); }
+  100% { transform: translate3d(-11%, -7%, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-liquid-satin,
+  .hero-liquid-core { animation: none; }
 }
 
 /* ════════ Mobile experience polish ════════ */

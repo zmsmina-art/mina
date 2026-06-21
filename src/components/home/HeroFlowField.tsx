@@ -69,6 +69,9 @@ export default function HeroFlowField() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // Phones get the crisp, resolution-independent CSS aurora instead — the
+    // low-res upscaled shader reads muddy on high-DPI screens. Desktop only.
+    if (window.matchMedia('(max-width: 767px)').matches) return;
     const gl = canvas.getContext('webgl2', {
       alpha: true,
       antialias: false,
