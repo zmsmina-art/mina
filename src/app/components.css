@@ -2250,6 +2250,83 @@ body.is-loading { overflow: hidden; }
 .hero-frame { z-index: 1; }
 .hero-center { position: relative; z-index: 1; }
 
+/* ── Hero "liquid light" backdrop — monochrome homage to flowing glass/satin.
+   Two soft, heavily-blurred white-on-black layers drifting behind the hero,
+   masked to dissolve into the black frame edges. Hero content sits at z-index 1. */
+.hero-liquid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.7;
+  -webkit-mask-image: radial-gradient(118% 96% at 50% 44%, #000 30%, transparent 76%);
+          mask-image: radial-gradient(118% 96% at 50% 44%, #000 30%, transparent 76%);
+}
+
+/* WebGL liquid-obsidian flow field — sits above the CSS fallback, melts into
+   the black frame edges via a soft mask. */
+.hero-flow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.95;
+  -webkit-mask-image: radial-gradient(125% 105% at 50% 42%, #000 42%, transparent 82%);
+          mask-image: radial-gradient(125% 105% at 50% 42%, #000 42%, transparent 82%);
+}
+
+.hero-liquid > span {
+  position: absolute;
+  inset: -35%;
+  display: block;
+  will-change: transform;
+}
+
+/* Flowing brushed-satin striations (slow rotation) */
+.hero-liquid-satin {
+  background: conic-gradient(
+    from 210deg at 50% 50%,
+    rgba(255, 255, 255, 0) 0deg,
+    rgba(255, 255, 255, 0.12) 36deg,
+    rgba(255, 255, 255, 0.02) 88deg,
+    rgba(255, 255, 255, 0.26) 150deg,
+    rgba(255, 255, 255, 0) 212deg,
+    rgba(255, 255, 255, 0.15) 300deg,
+    rgba(255, 255, 255, 0) 360deg
+  );
+  filter: blur(50px) contrast(1.1);
+  animation: hero-liquid-rotate 52s linear infinite;
+}
+
+/* Bright soft core + a diagonal light streak (the sakazuki "glass" sheen),
+   offset down-right so it frames rather than washes out the signature */
+.hero-liquid-core {
+  background:
+    radial-gradient(42% 54% at 68% 62%, rgba(255, 255, 255, 0.34), transparent 68%),
+    radial-gradient(60% 70% at 30% 30%, rgba(255, 255, 255, 0.1), transparent 66%),
+    linear-gradient(116deg, transparent 36%, rgba(255, 255, 255, 0.18) 50%, transparent 64%);
+  mix-blend-mode: screen;
+  filter: blur(40px);
+  animation: hero-liquid-drift 34s ease-in-out infinite alternate;
+}
+
+@keyframes hero-liquid-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hero-liquid-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1.06); }
+  to { transform: translate3d(4%, 3%, 0) scale(1.14); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-liquid-satin,
+  .hero-liquid-core { animation: none; }
+}
+
 .hero-ring {
   position: absolute;
   top: 50%;

@@ -2,6 +2,7 @@ import { motionDelay } from '@/lib/utils';
 import MmSignature from '@/components/MmSignature';
 import NowChip from '@/components/home/NowChip';
 import HeroMorph from '@/components/home/HeroMorph';
+import HeroFlowField from '@/components/home/HeroFlowField';
 
 const heroLinks: {
   label: string;
@@ -35,6 +36,11 @@ function HeroLogo({ variant }: { variant: 'linkedin' | 'boardy' | 'olunix' }) {
 export default function HomeHero() {
   return (
     <section id="hero" data-section-theme="hero" className="hero-stage page-gutter">
+      <div className="hero-liquid" aria-hidden="true">
+        <span className="hero-liquid-satin" />
+        <span className="hero-liquid-core" />
+      </div>
+      <HeroFlowField />
       <div className="hero-deco" aria-hidden="true">
         <span className="hero-ring hero-ring--1" />
         <span className="hero-ring hero-ring--2" />

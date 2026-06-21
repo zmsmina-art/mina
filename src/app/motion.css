@@ -104,6 +104,29 @@ main[data-static-motion='true'] [data-motion] {
   animation: none;
 }
 
+/* Article open: a reliable "pop into it" entrance that always plays on mount
+   (soft navigation or direct load). Replaces the native View Transition, which
+   did not animate dependably with App Router on React 18. */
+@media (prefers-reduced-motion: no-preference) {
+  .article-motion-shell {
+    /* gentle easeOutCubic — motion stays visible across the whole glide
+       instead of snapping in the first 150ms like ease-out-expo did */
+    animation: article-pop-in 0.62s cubic-bezier(0.33, 1, 0.68, 1) both;
+    transform-origin: 50% 0;
+  }
+}
+
+@keyframes article-pop-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
 @supports (view-transition-name: none) {
   html[data-route-transition]::view-transition-group(root),
   html[data-route-transition]::view-transition-old(root),
