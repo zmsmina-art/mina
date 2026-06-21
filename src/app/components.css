@@ -1873,8 +1873,172 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.7rem;
+  gap: clamp(0.7rem, 1.6vw, 1rem);
   margin-top: clamp(1.6rem, 3.5vw, 2.4rem);
+}
+
+/* --- Hero logo buttons --- */
+.hero-logo-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(96px, 22vw, 132px);
+  height: clamp(52px, 12vw, 64px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    border-color 0.4s ease,
+    background 0.4s ease,
+    box-shadow 0.5s var(--ease-out-expo);
+}
+
+.hero-logo-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Glow bloom behind the mark */
+.hero-logo-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    60% 70% at 50% 50%,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0) 72%
+  );
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.5s var(--ease-out-expo),
+    transform 0.6s var(--ease-out-expo);
+}
+
+.hero-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s var(--ease-out-expo);
+  will-change: transform;
+}
+
+.hero-logo-svg {
+  width: clamp(22px, 5vw, 26px);
+  height: clamp(22px, 5vw, 26px);
+  color: rgba(255, 255, 255, 0.78);
+  transition:
+    color 0.4s ease,
+    filter 0.5s var(--ease-out-expo);
+}
+
+.hero-logo-img {
+  display: block;
+  width: auto;
+  object-fit: contain;
+  transition:
+    filter 0.55s var(--ease-out-expo),
+    opacity 0.45s ease;
+}
+
+.hero-logo-img--boardy {
+  height: clamp(34px, 8vw, 42px);
+  /* monochrome at rest, blooms to color on hover */
+  filter: grayscale(1) brightness(1.55) contrast(0.95);
+  opacity: 0.82;
+}
+
+.hero-logo-img--olunix {
+  height: clamp(22px, 5vw, 27px);
+  opacity: 0.82;
+  filter: brightness(0.92);
+}
+
+/* Hover / focus — lift, glow, and float the mark */
+.hero-logo-btn:hover,
+.hero-logo-btn:focus-visible {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 40px -18px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 28px -4px rgba(255, 255, 255, 0.28);
+  outline: none;
+}
+
+.hero-logo-btn:hover .hero-logo-glow,
+.hero-logo-btn:focus-visible .hero-logo-glow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-logo-btn:hover .hero-logo-mark,
+.hero-logo-btn:focus-visible .hero-logo-mark {
+  animation: hero-logo-float 2.6s ease-in-out infinite;
+}
+
+.hero-logo-btn:hover .hero-logo-svg,
+.hero-logo-btn:focus-visible .hero-logo-svg {
+  color: #ffffff;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55));
+}
+
+.hero-logo-btn:hover .hero-logo-img--boardy,
+.hero-logo-btn:focus-visible .hero-logo-img--boardy {
+  filter: grayscale(0) brightness(1.04) contrast(1)
+    drop-shadow(0 0 9px rgba(255, 255, 255, 0.4));
+  opacity: 1;
+}
+
+.hero-logo-btn:hover .hero-logo-img--olunix,
+.hero-logo-btn:focus-visible .hero-logo-img--olunix {
+  opacity: 1;
+  filter: brightness(1.15) drop-shadow(0 0 9px rgba(255, 255, 255, 0.5));
+}
+
+.hero-logo-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 3px;
+}
+
+@keyframes hero-logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-btn {
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hero-logo-btn:hover,
+  .hero-logo-btn:focus-visible {
+    transform: none;
+  }
+  .hero-logo-btn:hover .hero-logo-mark,
+  .hero-logo-btn:focus-visible .hero-logo-mark {
+    animation: none;
+  }
 }
 
 .hero-scroll {
@@ -2217,9 +2381,16 @@ body.is-loading { overflow: hidden; }
     min-height: calc(100svh - 4.5rem);
     padding-bottom: 4.75rem;
     gap: 1rem;
+    /* Top label row + ticker are dropped below, so the centred block
+       (signature / name / lead / logos) absorbs the freed space. */
+    grid-template-rows: 1fr auto;
   }
-  .hero-ticker-group > span { -webkit-text-stroke-width: 0.75px; }
+  /* Declutter: remove the decorative framing bands that were crowding the
+     hero on small screens — keep the main visuals breathing instead. */
+  .hero-rule--top { display: none; }
+  .hero-ticker { display: none; }
   .hero-corner { display: none; }
+  .hero-kicker { letter-spacing: 0.2em; }
 }
 
 /* ── Contact close (portfolio, no sales CTA) ── */

@@ -127,6 +127,8 @@ body.has-site-theme .grain-overlay {
 /* Large display headings: stronger gradient with a hint of purple */
 .site-theme .home-heading-xl {
   font-size: clamp(2.35rem, 8vw, 3.45rem);
+  /* 600 is a loaded Cormorant weight; 500 was falling back to a thin 400 */
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.015em;
   padding-bottom: 0.1em;
