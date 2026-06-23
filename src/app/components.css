@@ -149,6 +149,7 @@ a {
 
 .command-section {
   position: relative;
+  scroll-margin-top: 4.75rem;
 }
 
 .section-band {
@@ -817,6 +818,16 @@ a {
   outline-offset: 2px;
   border-color: var(--accent-gold-soft);
   background: rgba(255, 255, 255, 0.22);
+}
+
+/* Magnetic controls: let GSAP own the transform (drop it from the CSS `all`
+   transition so the pull stays crisp instead of double-easing). */
+[data-magnetic] {
+  will-change: transform;
+}
+
+.accent-btn[data-magnetic] {
+  transition: border-color 0.3s var(--ease-out-expo), background 0.3s var(--ease-out-expo), color 0.3s var(--ease-out-expo);
 }
 
 .ghost-btn {
@@ -2557,12 +2568,15 @@ body.is-loading { overflow: hidden; }
 }
 
 .section-heading-index {
-  font-family: 'Switzer', sans-serif;
-  font-variant-numeric: tabular-nums;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--royal-name-script, 'Playfair Display'), var(--royal-display), Georgia, serif;
+  font-style: italic;
+  font-variant-numeric: lining-nums;
+  font-size: 1.18rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.18));
 }
 
 .section-heading-label {
@@ -2845,4 +2859,181 @@ body.is-loading { overflow: hidden; }
   .site-theme .proof-metric {
     font-size: clamp(3.4rem, 17vw, 4.6rem);
   }
+}
+
+/* ── Cursive accent word inside editorial headings ──
+   Opts out of the parent gradient text-clip so the script face reads as a
+   solid, faintly glowing white — a recurring flourish across section titles. */
+.site-theme .script-accent {
+  position: relative;
+  display: inline-block;
+  font-family: var(--royal-name-script, 'Playfair Display'), var(--royal-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.06em;
+  letter-spacing: 0.005em;
+  padding: 0 0.04em;
+  color: #ffffff;
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.3));
+}
+
+/* One-shot light sheen that sweeps the accent the first time its heading reveals. */
+.site-theme .script-accent::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  font: inherit;
+  font-style: italic;
+  letter-spacing: inherit;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%);
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  background-position: 180% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+}
+
+[data-motion].is-visible .script-accent::after {
+  animation: script-sheen 1.4s ease-out 0.55s 1 both;
+}
+
+@keyframes script-sheen {
+  from { background-position: 180% 0; }
+  to { background-position: -80% 0; }
+}
+
+/* ── Calligraphic section divider — a content-width rung on the spine ── */
+.script-divider {
+  display: block;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.script-divider-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 80rem;
+  min-height: 40px;
+  margin: 0 auto;
+}
+
+/* Full-width hairline that draws across from the spine side. */
+.script-divider-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0.16));
+  transition: transform 1.5s var(--ease-out-expo) 0.1s;
+}
+
+.script-divider.is-visible .script-divider-rule {
+  transform: scaleX(1);
+}
+
+.script-divider-svg {
+  position: relative;
+  z-index: 1;
+  width: min(220px, 52vw);
+  height: auto;
+  overflow: visible;
+  padding: 0 1.1rem;
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.16));
+}
+
+.script-divider-path {
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  transition: stroke-dashoffset 1.7s var(--ease-out-expo) 0.15s;
+}
+
+.script-divider.is-visible .script-divider-path {
+  stroke-dashoffset: 0;
+}
+
+.script-divider-dot {
+  opacity: 0;
+  transition: opacity 0.5s ease 1.5s;
+}
+
+.script-divider.is-visible .script-divider-dot {
+  opacity: 0.85;
+}
+
+/* ── Connective "ink thread" — one continuous spine that runs the full page at
+   the content column's left edge, with a glowing node at every section and a
+   short tick reaching into each section. Every horizontal rule (eyebrows,
+   dividers) branches off this single vertical line. Desktop only. ── */
+.ink-thread {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: max(1.5rem, calc(50vw - 40rem - 1.6rem));
+  width: 1px;
+  z-index: 5;
+  display: none;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 1024px) {
+  .ink-thread { display: block; }
+}
+
+.ink-thread-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: top center;
+  transform: scaleY(0);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.78)
+  );
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.34), 0 0 18px rgba(255, 255, 255, 0.18);
+}
+
+/* Section junctions on the spine + a tick reaching toward the section content. */
+.ink-node {
+  position: absolute;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.07), 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+.ink-node::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.6rem;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.42), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .script-divider-path { stroke-dashoffset: 0; transition: none; }
+  .script-divider-dot { opacity: 0.85; transition: none; }
+  .script-divider-rule { transform: scaleX(1); transition: none; }
+  .ink-thread { display: none; }
 }

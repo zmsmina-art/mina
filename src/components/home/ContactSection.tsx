@@ -18,7 +18,7 @@ export default function ContactSection() {
             className="home-heading-xl max-w-3xl text-[clamp(2.1rem,7vw,3.2rem)] leading-[1.04] text-[var(--text-primary)]"
             data-motion="rise"
           >
-            Let&apos;s connect.
+            Let&apos;s <em className="script-accent" data-text="connect.">connect.</em>
           </h2>
           <p className="mt-5 max-w-xl text-[var(--text-muted)]" data-motion="rise">
             Always happy to talk shop — positioning, growth, building, or anything in
@@ -29,6 +29,7 @@ export default function ContactSection() {
             href="mailto:mina@olunix.com"
             className="contact-email mt-7 inline-block"
             data-motion="rise"
+            data-magnetic
           >
             mina@olunix.com
           </a>

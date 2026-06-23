@@ -23,7 +23,7 @@ export default function WritingSection({ displayedArticles, totalArticles }: Wri
               data-motion="rise"
               style={motionDelay(110)}
             >
-              Public notes on AI startup growth, positioning, and execution.
+              Public <em className="script-accent" data-text="notes">notes</em> on AI startup growth, positioning, and execution.
             </h2>
           </div>
 
@@ -46,7 +46,7 @@ export default function WritingSection({ displayedArticles, totalArticles }: Wri
 
         {totalArticles > displayedArticles.length && (
           <div className="mt-8 text-center" data-motion="rise" style={motionDelay(360)}>
-            <Link href="/articles" className="accent-btn">
+            <Link href="/articles" className="accent-btn" data-magnetic>
               Explore all writing
               <ArrowUpRight size={15} />
             </Link>

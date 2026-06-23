@@ -68,9 +68,36 @@ export default function MotionRuntime() {
     setSectionTheme(defaultTheme);
     html.setAttribute('data-page-path', pathname);
 
-    // All elements visible immediately — no scroll reveals
+    // ── Scroll-reveal choreography ──
     const motionNodes = Array.from(document.querySelectorAll<HTMLElement>(MOTION_SELECTOR));
-    motionNodes.forEach((node) => node.classList.add('is-visible'));
+    const revealAll = () => motionNodes.forEach((node) => node.classList.add('is-visible'));
+
+    let killReveal: () => void = () => {};
+    let safetyTimer: number | null = null;
+
+    if (reducedMotion) {
+      // No-motion users: everything visible at once.
+      revealAll();
+    } else if (ready && gsap && ScrollTrigger) {
+      // Batch elements as they cross into view; per-element `--motion-delay`
+      // (inline style) sequences the stagger within each section.
+      try {
+        const batch = ScrollTrigger.batch(motionNodes, {
+          start: 'top 90%',
+          once: true,
+          onEnter: (els) => els.forEach((el) => el.classList.add('is-visible')),
+        });
+        // Make sure positions are correct once smooth-scroll/layout settle.
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+        killReveal = () => batch.forEach((trigger) => trigger.kill());
+      } catch {
+        revealAll();
+      }
+    } else {
+      // GSAP not ready yet — wait briefly, then reveal anyway so content can
+      // never get stranded hidden if the engine fails to load.
+      safetyTimer = window.setTimeout(revealAll, 1500);
+    }
 
     // Section theme observer (lightweight, keeps ambient theming working)
     const themedSections = Array.from(document.querySelectorAll<HTMLElement>(SECTION_THEME_SELECTOR));
@@ -100,6 +127,8 @@ export default function MotionRuntime() {
 
     return () => {
       themeObserver?.disconnect();
+      killReveal();
+      if (safetyTimer !== null) window.clearTimeout(safetyTimer);
     };
   }, [pathname, ready, gsap, ScrollTrigger]);
 

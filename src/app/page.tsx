@@ -11,6 +11,7 @@ import ContactSection from '@/components/home/ContactSection';
 import ProofSection from '@/components/home/ProofSection';
 import SectionChoreography from '@/components/home/SectionChoreography';
 import SectionRail from '@/components/home/SectionRail';
+import ScriptDivider from '@/components/home/ScriptDivider';
 
 export const metadata: Metadata = {
   title: 'Mina Mankarious — Deal Partner PM at Boardy | Founder of Olunix, Toronto',
@@ -34,10 +35,12 @@ export default function Home() {
         <HomeHero />
         <AuthoritySection />
         <ProofSection />
+        <ScriptDivider />
         <WritingSection displayedArticles={displayedArticles} totalArticles={allArticles.length} />
         <WorkSection />
         <EducationSection />
         <ServiceSection />
+        <ScriptDivider />
         <ContactSection />
       </main>
     </div>

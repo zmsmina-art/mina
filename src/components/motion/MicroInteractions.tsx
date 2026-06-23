@@ -75,6 +75,38 @@ export default function MicroInteractions() {
       });
     });
 
+    // ── Magnetic pull on tagged controls ──
+    const magneticEls = document.querySelectorAll<HTMLElement>('[data-magnetic]');
+    const magnetStrength = 0.34;
+
+    magneticEls.forEach((el) => {
+      const onMove = (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - (rect.left + rect.width / 2);
+        const y = e.clientY - (rect.top + rect.height / 2);
+        gsap.to(el, {
+          x: x * magnetStrength,
+          y: y * magnetStrength,
+          duration: 0.4,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        });
+      };
+
+      const onLeave = () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+      };
+
+      el.addEventListener('mousemove', onMove, { passive: true });
+      el.addEventListener('mouseleave', onLeave, { passive: true });
+
+      cleanups.push(() => {
+        el.removeEventListener('mousemove', onMove);
+        el.removeEventListener('mouseleave', onLeave);
+        gsap.set(el, { clearProps: 'x,y' });
+      });
+    });
+
     return () => {
       cleanups.forEach((fn) => fn());
     };

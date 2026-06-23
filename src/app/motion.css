@@ -57,45 +57,104 @@
 
 /* ── Data-motion reveal system ── */
 
-/* All scroll/reveal animations disabled — content visible immediately */
-[data-motion],
-[data-motion].is-visible,
-[data-motion='fade'],
-[data-motion='sweep-left'],
-[data-motion='sweep-right'],
-[data-motion='h-sweep'],
-[data-motion='timeline-card'],
-[data-motion='spotlight'],
-[data-motion='crest'],
-[data-motion='flip'],
-[data-motion='crescendo'],
-[data-motion='footer-rise'] {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-  animation: none !important;
-  filter: none !important;
-  will-change: auto;
+/* Scroll-reveal system. Elements start in a hidden/offset rest state and glide
+   to neutral when JS adds `.is-visible` (driven by ScrollTrigger in
+   MotionRuntime). Per-element sequencing comes from inline `--motion-delay`.
+   If JS never runs, the reduced-motion fallback below keeps everything legible. */
+[data-motion] {
+  opacity: 0;
+  transition:
+    opacity 0.72s var(--ease-out-expo),
+    transform 0.78s var(--ease-out-expo),
+    filter 0.78s var(--ease-out-expo),
+    clip-path 0.78s var(--ease-out-expo);
+  transition-delay: var(--motion-delay, 0ms);
+  will-change: opacity, transform;
 }
 
-.section-hero [data-motion],
-.section-hero .hero-line span:not(.masthead),
+[data-motion='rise'],
+[data-motion='crescendo'],
+[data-motion='footer-rise'] {
+  transform: translate3d(0, var(--motion-shift-xl), 0);
+}
+
+[data-motion='fade'] {
+  transform: none;
+}
+
+[data-motion='sweep-left'] {
+  transform: translate3d(calc(var(--motion-shift-xl) * -1), 0, 0);
+}
+
+[data-motion='sweep-right'] {
+  transform: translate3d(var(--motion-shift-xl), 0, 0);
+}
+
+[data-motion='h-sweep'] {
+  transform: translate3d(var(--motion-shift-lg), 0, 0);
+  clip-path: inset(0 0 0 8%);
+}
+
+[data-motion='timeline-card'] {
+  transform: translate3d(0, var(--motion-shift-lg), 0) scale(0.975);
+}
+
+[data-motion='spotlight'] {
+  transform: translate3d(0, var(--motion-shift-xl), 0) scale(0.985);
+  filter: blur(7px);
+}
+
+[data-motion='crest'] {
+  transform: scale(0.78) rotate(-9deg);
+}
+
+[data-motion='rail'] {
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+
+/* Revealed state — glide everything home. */
+[data-motion].is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  clip-path: none;
+}
+
+[data-motion='rail'].is-visible {
+  transform: scaleY(1);
+}
+
+/* Static contexts (hero on first paint, explicitly static pages) reveal at once. */
 main[data-static-motion='true'] [data-motion] {
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  clip-path: none;
+  transition: none;
 }
 
 .hero-line {
   overflow: visible;
 }
 
-.hero-line[data-motion] {
-  transform: translate3d(0, var(--motion-shift-md), 0);
-}
-
 .hero-line span {
   display: block;
+}
+
+/* No-motion users: hard-pin everything visible regardless of JS state. */
+@media (prefers-reduced-motion: reduce) {
+  [data-motion] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  [data-motion='rail'] {
+    transform: scaleY(1) !important;
+  }
 }
 
 /* ── Route transitions ── */

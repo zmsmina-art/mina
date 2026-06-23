@@ -103,7 +103,7 @@ export default function AuthoritySection() {
             data-motion="rise"
             style={motionDelay(90)}
           >
-            Engineering precision, market command.
+            Engineering precision, market <em className="script-accent" data-text="command.">command.</em>
           </h2>
 
           <div className="relative mt-8">

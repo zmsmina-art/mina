@@ -168,6 +168,41 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 26px rgba(5, 5, 5, 0.26), 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
+
+  /* ── Mobile reveals: crisp short rises only. Drop blur / scale / clip-path /
+     horizontal sweeps — they stutter on phone GPUs. One calm, consistent
+     vertical motion across every variant keeps scrolling smooth. ── */
+  [data-motion] {
+    transition:
+      opacity 0.5s ease,
+      transform 0.55s var(--ease-out-expo);
+    transition-delay: var(--motion-delay, 0ms);
+  }
+
+  [data-motion='rise'],
+  [data-motion='crescendo'],
+  [data-motion='footer-rise'],
+  [data-motion='spotlight'],
+  [data-motion='sweep-left'],
+  [data-motion='sweep-right'],
+  [data-motion='h-sweep'] {
+    transform: translate3d(0, var(--motion-shift-lg), 0);
+    filter: none;
+    clip-path: none;
+  }
+
+  [data-motion='timeline-card'] {
+    transform: translate3d(0, var(--motion-shift-md), 0);
+  }
+
+  [data-motion='crest'] {
+    transform: scale(0.9);
+  }
+
+  [data-motion].is-visible {
+    filter: none;
+    clip-path: none;
+  }
 }
 
 @media (max-width: 640px) {

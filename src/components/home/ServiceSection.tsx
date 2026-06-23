@@ -28,7 +28,7 @@ export default function ServiceSection() {
           data-motion="rise"
           style={motionDelay(100)}
         >
-          Structured strategy for technical founders who need commercial traction.
+          Structured <em className="script-accent" data-text="strategy">strategy</em> for technical founders who need commercial traction.
         </h2>
         <p className="mt-4 max-w-2xl text-[var(--text-muted)]" data-motion="rise" style={motionDelay(170)}>
           If you&apos;re building a technical product and need stronger market movement, I work directly at the strategy and execution layer.

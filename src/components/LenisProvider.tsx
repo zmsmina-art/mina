@@ -8,6 +8,9 @@ export default function LenisProvider() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Touch devices keep their native momentum scroll — it's smoother than any
+    // JS smoothing and free. Lenis is for the desktop wheel only.
+    if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const lenis = new Lenis({
       duration: 1.1,
